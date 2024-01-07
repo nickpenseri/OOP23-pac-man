@@ -9,10 +9,10 @@ public interface Model {
     */
     public List<GameObject> getObjects();
 
-    /** Get the command imput passed and do it 
-     * @param command the command we need do
+    /** Get the list of command imput passed and do it 
+     * @param commands the command we need do
     */
-    public void processInput(Command command);
+    public void processInput(List<Command> commands);
 
     /** Update the state of the objects in the model */
     public void updateState();
