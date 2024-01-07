@@ -1,4 +1,4 @@
-package it.unibo.model.api;
+package it.unibo.input.api;
 
 public interface Command {
 

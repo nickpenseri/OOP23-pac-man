@@ -1,5 +1,7 @@
 package it.unibo.model.api;
+
 import java.util.List;
+import it.unibo.input.api.Command;
 
 /** Is the container and executor of the GameObjects */
 public interface Model {
