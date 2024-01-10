@@ -11,15 +11,7 @@ public interface GameObject {
      * Get the position of the object.
      * @return Point 2D of the position.
      */
-
     Point2D.Double getPosition();
-
-    /**
-     * Set the position of the object in the scene.
-     * @param position a 2D point.
-     */
-
-    void setPosition(Point2D.Double position);
 
     /**
      * Get the image of the actual state of the game object.
@@ -31,6 +23,5 @@ public interface GameObject {
      * get the actual dimension of the object in the scene.
      * @return actual dimension.
      */
-
     Dimension2D getDimension();
 }
