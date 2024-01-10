@@ -8,16 +8,16 @@ import it.unibo.input.api.Command;
  * The View interface is used to obtain user commands and model object logic.
  * Once obtained, update the graphics and pass the command to the controller on request.
 */
-public interface View {
+    public interface View {
 
     /**
-     * Update the game graphics
+     * Update the game graphics.
      */
-    public void updateView();
+     void updateView();
 
     /**
      * 
-     * @return return a list commands user
+     * @return return a list commands user.
      */
-    public List<Command> getListCommands(); 
+     List<Command> getListCommands(); 
 }
