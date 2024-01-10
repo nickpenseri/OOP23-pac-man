@@ -11,31 +11,30 @@ import it.unibo.view.api.View;
  * The controller coordinates the work of model and view and gives them instructions.
  */
 public interface Controller {
-    
     /**
-     * Attachs a view to the controller
+     * Attachs a view to the controller.
      * @param view the view to be attached
      */
     void setView(View view);
 
     /**
-     * Attachs a model to the controller
+     * Attachs a model to the controller.
      * @param model the model to be attached
      */
     void setModel(Model model);
 
     /**
-     * Takes the commands from the view and gives them to the model 
+     * Takes the commands from the view and gives them to the model.
      */
     void processInput();
 
     /**
-     * Update the state of the model attached to the controller
+     * Update the state of the model attached to the controller.
      */
     void updateState();
 
     /**
-     * Update the view attached to the controller and displays it
+     * Update the view attached to the controller and displays it.
      */
     void updateView();
 }
