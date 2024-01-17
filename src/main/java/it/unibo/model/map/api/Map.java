@@ -30,5 +30,5 @@ public interface Map {
      * method to obtain the boxes on the map where the collectible objects are located.
      * @return returns a Point-type list representing all the boxes on the map where objects can be collected.
      */
-    List<Point> getCollectibleItems();
+    List<Point> getSpawnCollectibleItems();
 }
