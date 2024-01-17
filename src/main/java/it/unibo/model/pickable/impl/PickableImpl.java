@@ -1,0 +1,22 @@
+package it.unibo.model.pickable.impl;
+
+import it.unibo.model.pacman.api.PacMan;
+import it.unibo.model.pickable.api.Pickable;
+
+/**
+ * Is the implementation of the Pickable, in PickableImpl there is only the
+ * value points of the pickable.
+ */
+public class PickableImpl implements Pickable {
+    static final int POINTS = 10;
+
+    /**
+     * Add the points of the item.
+     * 
+     * @param pacman the pacman that eat the item.
+     */
+    @Override
+    public void addPointsPickable(final PacMan pacman) {
+        pacman.addPoints(POINTS);
+    }
+}
