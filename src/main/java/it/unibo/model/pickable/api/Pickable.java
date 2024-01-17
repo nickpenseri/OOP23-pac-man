@@ -1,10 +1,12 @@
 package it.unibo.model.pickable.api;
 
+import it.unibo.model.pacman.api.PacMan;
+
 /** Pickable item for get points. */
 public interface Pickable {
     /**
-     * Get the points of the item.
-     * @return the points of the item.
+     * Add the points of the item.
+     * @param pacman the pacman that eat the item
      */
-    int getPoints();
+    void addPointsPickable(PacMan pacman);
 }
