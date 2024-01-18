@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.List;
 import java.util.Map;
 
+import it.unibo.model.pacman.api.PacMan;
+
 /** Is the generator of pickable map and do the offect of this. */
 public interface PickableGenerator {
     /**
@@ -24,6 +26,7 @@ public interface PickableGenerator {
      * Is for take a Pickable and do the effect of this.
      * 
      * @param point is the point where the pickable is.
+     * @param pacman is the pacman that take the pickable.
      */
-    void takePickable(Point point);
+    void takePickable(Point point, PacMan pacman);
 }
