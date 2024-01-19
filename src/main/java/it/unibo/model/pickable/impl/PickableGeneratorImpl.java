@@ -94,4 +94,5 @@ public class PickableGeneratorImpl implements PickableGenerator {
     public boolean finishedPickable() {
         return pickableMap.isEmpty();
     }
+
 }
