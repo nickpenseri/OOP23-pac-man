@@ -23,4 +23,22 @@ public class PickableImpl implements Pickable {
     public void addPointsPickable(final PacMan pacman) {
         pacman.addPoints(POINTS);
     }
+
+    @Override
+    public Double getPosition() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
+    }
+
+    @Override
+    public Image getImage() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getImage'");
+    }
+
+    @Override
+    public Dimension2D getDimension() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDimension'");
+    }
 }
