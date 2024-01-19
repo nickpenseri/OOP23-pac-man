@@ -39,4 +39,19 @@ public class PickableImpl implements Pickable {
     public void addPointsPickable(final PacMan pacman) {
         pacman.addPoints(POINTS);
     }
+
+    @Override
+    public Point getPosition() {
+        return position;
+    }
+
+    @Override
+    public Image getImage() {
+        return image;
+    }
+
+    @Override
+    public Dimension2D getDimension() {
+        return dimension;
+    }
 }
