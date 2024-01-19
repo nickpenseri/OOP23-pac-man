@@ -3,7 +3,6 @@ package it.unibo.model.pickable.impl;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
-import java.awt.geom.Point2D.Double;
 
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pickable.api.Pickable;
@@ -13,21 +12,20 @@ import it.unibo.model.pickable.api.Pickable;
  * value points of the pickable.
  */
 public class PickableImpl implements Pickable {
-    final Point position;
-    final Image image = null;
-    final Dimension2D dimension;
+    private final Point position;
+    private final Dimension2D dimension;
+    static final Image IMAGE = null;
     static final int POINTS = 10;
 
     /**
      * Constructor of the PickableImpl.
      * 
      * @param position  the position of the pickable.
-     * @param image     the image of the pickable.
      * @param dimension the dimension of the pickable.
      */
     public PickableImpl(final Point position, final Dimension2D dimension) {
-        this.position = position;
-        this.dimension = dimension;
+        this.position = new Point(position);
+        this.dimension = (Dimension2D) dimension.clone();
     }
 
     /**
@@ -40,18 +38,33 @@ public class PickableImpl implements Pickable {
         pacman.addPoints(POINTS);
     }
 
+    /**
+     * Return the position of the pickable.
+     * 
+     * @return the position of the pickable.
+     */
     @Override
     public Point getPosition() {
-        return position;
+        return new Point(position);
     }
 
+    /**
+     * Return the image of the pickable.
+     * 
+     * @return the image of the pickable.
+     */
     @Override
     public Image getImage() {
-        return image;
+        return IMAGE;
     }
 
+    /**
+     * Return the dimension of the pickable.
+     * 
+     * @return the dimension of the pickable.
+     */
     @Override
     public Dimension2D getDimension() {
-        return dimension;
+        return (Dimension2D) dimension.clone();
     }
 }

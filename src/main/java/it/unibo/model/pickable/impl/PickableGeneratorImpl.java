@@ -90,6 +90,11 @@ public class PickableGeneratorImpl implements PickableGenerator {
         }
     }
 
+    /**
+     * Is for know if the Map of Pickable is empty.
+     * 
+     * @return true if the Map of Pickable is empty, false otherwise.
+     */
     @Override
     public boolean finishedPickable() {
         return pickableMap.isEmpty();
