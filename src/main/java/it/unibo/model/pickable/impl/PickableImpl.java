@@ -1,5 +1,9 @@
 package it.unibo.model.pickable.impl;
 
+import java.awt.Image;
+import java.awt.geom.Dimension2D;
+import java.awt.geom.Point2D.Double;
+
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pickable.api.Pickable;
 
