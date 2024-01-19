@@ -28,11 +28,11 @@ public class PickableGeneratorImpl implements PickableGenerator {
     public void generateMap(final List<Point> pickableSpawnPoints) {
         for (final Point point : pickableSpawnPoints) {
             final double doubleRandomNumberForTypeOfPickable = Math.random() * PERCENTAGE;
-            // converti il double in numero intero
+            // convert double to integer
             final int randomNumberForTypeOfPickable = (int) doubleRandomNumberForTypeOfPickable;
             if (randomNumberForTypeOfPickable > PERCENTAGE_NORMAL_PICKABLE) {
                 final double doubleRandomNumberForEffectChose = Math.random() * NUMBER_OF_ALL_EFFECT;
-                // converti il double in numero intero e poi in EffectChose
+                // convert double to integer and then into EffectChose
                 final EffectChose effect = EffectChose.values()[(int) doubleRandomNumberForEffectChose];
                 switch (effect) {
                     case BONUS_LIFE:
