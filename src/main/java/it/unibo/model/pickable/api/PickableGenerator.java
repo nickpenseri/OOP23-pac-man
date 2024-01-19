@@ -13,6 +13,7 @@ public interface PickableGenerator {
      * Generate a Map of Pickable.
      * 
      * @param pickableSpawnPoints is a list of Point where the pickable can spawn.
+     * @param dimension           is the dimension of the map.
      */
     void generateMap(List<Point> pickableSpawnPoints, Dimension2D dimension);
 
@@ -26,7 +27,7 @@ public interface PickableGenerator {
     /**
      * Is for take a Pickable and do the effect of this.
      * 
-     * @param point is the point where the pickable is.
+     * @param point  is the point where the pickable is.
      * @param pacman is the pacman that take the pickable.
      */
     void takePickable(Point point, PacMan pacman);
