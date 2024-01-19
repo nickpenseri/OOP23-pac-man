@@ -1,6 +1,7 @@
 package it.unibo.model.pickable.impl;
 
 import java.awt.Point;
+import java.awt.geom.Dimension2D;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,39 +26,39 @@ public class PickableGeneratorImpl implements PickableGenerator {
      * @param pickableSpawnPoints is a list of Point where the pickable can spawn.
      */
     @Override
-    public void generateMap(final List<Point> pickableSpawnPoints) {
+    public void generateMap(final List<Point> pickableSpawnPoints, final Dimension2D dimension) {
         for (final Point point : pickableSpawnPoints) {
             final double doubleRandomNumberForTypeOfPickable = Math.random() * PERCENTAGE;
             // convert double to integer
             final int randomNumberForTypeOfPickable = (int) doubleRandomNumberForTypeOfPickable;
-            if (randomNumberForTypeOfPickable > PERCENTAGE_NORMAL_PICKABLE) {
+            if (randomNumberForTypeOfPickable >= PERCENTAGE_NORMAL_PICKABLE) {
                 final double doubleRandomNumberForEffectChose = Math.random() * NUMBER_OF_ALL_EFFECT;
                 // convert double to integer and then into EffectChose
                 final EffectChose effect = EffectChose.values()[(int) doubleRandomNumberForEffectChose];
                 switch (effect) {
                     case BONUS_LIFE:
-                        pickableMap.put(point, new BonusLife());
+                        pickableMap.put(point, new BonusLife(point, dimension));
                         break;
                     case BONUS_POINTS:
-                        pickableMap.put(point, new BonusPoints());
+                        pickableMap.put(point, new BonusPoints(point, dimension));
                         break;
                     case BONUS_SPEED:
-                        pickableMap.put(point, new BonusSpeed());
+                        pickableMap.put(point, new BonusSpeed(point, dimension));
                         break;
                     case MALUS_LIFE:
-                        pickableMap.put(point, new MalusLife());
+                        pickableMap.put(point, new MalusLife(point, dimension));
                         break;
                     case MALUS_POINTS:
-                        pickableMap.put(point, new MalusPoints());
+                        pickableMap.put(point, new MalusPoints(point, dimension));
                         break;
                     case MALUS_SPEED:
-                        pickableMap.put(point, new MalusSpeed());
+                        pickableMap.put(point, new MalusSpeed(point, dimension));
                         break;
                     default:
                         break;
                 }
             } else {
-                pickableMap.put(point, new PickableImpl());
+                pickableMap.put(point, new PickableImpl(point, dimension));
             }
         }
     }
@@ -89,4 +90,8 @@ public class PickableGeneratorImpl implements PickableGenerator {
         }
     }
 
+    @Override
+    public boolean finishedPickable() {
+        return pickableMap.isEmpty();
+    }
 }
