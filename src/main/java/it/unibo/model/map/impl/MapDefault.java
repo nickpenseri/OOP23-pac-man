@@ -1,6 +1,7 @@
 package it.unibo.model.map.impl;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.model.map.api.Map;
@@ -36,6 +37,33 @@ public class MapDefault implements Map {
         {5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5},
         {5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5}
     };
+    private List<Point> fenceGhosts;
+    private Point spawnPacMan;
+    private List<Point> spawnCollectibleItems;
+
+    private MapDefault() {
+        this.spawnPacMan = new Point();
+        this.fenceGhosts = new ArrayList<>();
+        this.spawnCollectibleItems = new ArrayList<>();
+        for(int row = 0 ; row < this.map.length ; row ++ ) {
+
+            for(int column = 0 ; column < this.map[row].length ; column ++) {
+
+                if(this.map[row][column] == 3) {
+
+                    this.fenceGhosts.add(new Point(row, column));
+                }
+                else if(this.map[row][column] == 2) {
+
+                    this.spawnPacMan.setLocation(row, column);
+                }
+                else if(this.map[row][column] == 0) {
+
+                    this.spawnCollectibleItems.add(new Point(row, column));
+                }
+            }
+        }
+    }
 
     @Override
     public int[][] getMap() {
@@ -49,20 +77,29 @@ public class MapDefault implements Map {
 
     @Override
     public List<Point> getFenceGhost() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getFenceGhost'");
+        final List<Point> copyFenceGhost = new ArrayList<>();
+        for (Point point : this.fenceGhosts) {
+            
+            copyFenceGhost.add(point);
+        }
+        return copyFenceGhost;
     }
 
     @Override
     public Point getPacManSpawn() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPacManSpawn'");
+
+        return this.spawnPacMan.getLocation();
     }
 
     @Override
     public List<Point> getSpawnCollectibleItems() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSpawnCollectibleItems'");
+
+        final List<Point> copySpawnCollectibleItems = new ArrayList<>();
+        for (Point point : this.spawnCollectibleItems) {
+            
+            copySpawnCollectibleItems.add(point);
+        }
+        return copySpawnCollectibleItems;
     }
 
 }
