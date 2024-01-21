@@ -32,7 +32,7 @@ public interface PacMan extends Character {
 
     /**
      * Increases the actual points gained by pacman of a specific quantity.
-     * @param points the nuber of points to be added
+     * @param points the number of points to be added
      */
     void addPoints(int points);
 
