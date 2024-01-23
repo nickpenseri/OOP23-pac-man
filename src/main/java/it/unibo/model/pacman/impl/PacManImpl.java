@@ -79,16 +79,21 @@ public class PacManImpl implements PacMan {
     public void updateState() {
         final long now = System.currentTimeMillis();
         if (this.dir.isPresent()) {
-            final int movement = this.computeMovement(now - this.lastUpdate);
-            final Point translation = switch (this.dir.get()) {
-                case UP -> new Point(movement, 0);
-                case RIGHT -> new Point(0, movement);
-                case DOWN -> new Point(-movement, 0);
-                case LEFT -> new Point(0, -movement);
-            };
+            final Point translation = computeTranslation(now);
             this.position.translate((int) translation.getX(), (int) translation.getY());
         }
         this.lastUpdate = now;
+    }
+
+    private Point computeTranslation(final long time) {
+        final int movement = this.computeMovement(time - this.lastUpdate);
+        return switch (this.dir.get()) {
+            case UP -> new Point(0, movement);
+            case RIGHT -> new Point(movement, 0);
+            case DOWN -> new Point(0, -movement);
+            case LEFT -> new Point(-movement, 0);
+            default -> new Point(0, 0);
+        };
     }
 
     private int computeMovement(final long dt) {
