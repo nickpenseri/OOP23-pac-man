@@ -27,6 +27,7 @@ public interface PacMan extends Character {
 
     /**
      * Decreases the number of lives.
+     * @throws IllegalStateException if PacMan has no lives remaining
      */
     void removeLife();
 
