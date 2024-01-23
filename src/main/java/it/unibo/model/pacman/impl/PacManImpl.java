@@ -182,7 +182,11 @@ public class PacManImpl implements PacMan {
      */
     @Override
     public void removeLife() {
-        this.lives--;
+        if (this.lives == 0) {
+            throw new IllegalStateException("Cannot remove life from an object with no lives");
+        } else {
+            this.lives--;
+        }
     }
 
     /**
