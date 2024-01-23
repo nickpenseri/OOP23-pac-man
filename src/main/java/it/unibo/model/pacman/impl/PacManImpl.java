@@ -198,7 +198,11 @@ public class PacManImpl implements PacMan {
      */
     @Override
     public void removePoints(final int points) {
-        this.addPoints(-points);
+        if (this.getPoints() < points) {
+            this.points = 0;
+        } else {
+            this.points -= points;
+        }
     }
 
 }
