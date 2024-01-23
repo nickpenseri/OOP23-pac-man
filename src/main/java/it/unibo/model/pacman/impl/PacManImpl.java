@@ -6,9 +6,9 @@ import java.awt.Point;
 import java.awt.geom.Dimension2D;
 import java.util.Objects;
 import java.util.Optional;
-
 import it.unibo.model.api.Direction;
 import it.unibo.model.pacman.api.PacMan;
+
 /**
  * This class models an entity of a pac-man character that moves in a free space.
  * @see PacMan
