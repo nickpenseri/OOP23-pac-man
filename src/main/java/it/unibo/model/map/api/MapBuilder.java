@@ -4,21 +4,21 @@ import java.awt.Point;
 import java.util.List;
 
 /**
- * this interface is used to manage maps within the game.
+ * this interface, given a map, sets the initial game conditions.
  */
-public interface Map {
+public interface MapBuilder {
 
     /**
-     * method to obtain the game map.
-     * @return returns the game map represented with a two-dimensional integer matrix.
+     * method that returns the list of wall positions.
+     * @return returns a list with the positions of the walls on the game map.
      */
-    int[][] getMap();
+    List<Point> getWallsPath();
 
     /**
-     * method to obtain the ghost fence.
-     * @return returns a list of Points that represent the ghost fence.
+     * method to obtain the ghost spawn.
+     * @return returns a list of Points that represent the ghost spawn.
      */
-    List<Point> getFenceGhost();
+    List<Point> getSpawnGhost();
 
     /**
      * Method to get Pac-Man's location at the start of the game.
