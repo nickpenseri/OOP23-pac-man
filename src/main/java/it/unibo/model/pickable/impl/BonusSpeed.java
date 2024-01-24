@@ -1,22 +1,34 @@
 package it.unibo.model.pickable.impl;
 
+import java.awt.Point;
+import java.awt.geom.Dimension2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import it.unibo.model.pacman.api.PacMan;
-import it.unibo.model.pickable.api.EffectPickable;
 
 /**
  * Is a basic Pickable with the bonus effect, give to pacman more speed for 10
  * seconds and 50 points.
  */
-public class BonusSpeed extends PickableImpl implements EffectPickable {
-    static final int POINTS = 50;
+public class BonusSpeed extends EffectPickableImpl {
     static final int DELAY = 10_000;
 
-    /** Increse pacman speed for 10 seconds.
+    /**
+     * Constructor of the BonusSpeed.
+     * 
+     * @param position  the position of the pickable.
+     * @param dimension the dimension of the pickable.
+     */
+    public BonusSpeed(final Point position, final Dimension2D dimension) {
+        super(position, dimension);
+    }
+
+    /**
+     * Increse pacman speed for 10 seconds.
+     * 
      * @param pacman the pacman that will be affected by the effect.
-    */
+     */
     @Override
     public void doEffect(final PacMan pacman) {
         // Initial action and i put the result in effectApplied

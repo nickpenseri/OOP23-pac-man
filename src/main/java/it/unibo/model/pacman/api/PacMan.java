@@ -27,17 +27,19 @@ public interface PacMan extends Character {
 
     /**
      * Decreases the number of lives.
+     * @throws IllegalStateException if PacMan has no lives remaining
      */
     void removeLife();
 
     /**
      * Increases the actual points gained by pacman of a specific quantity.
-     * @param points the nuber of points to be added
+     * @param points the number of points to be added
      */
     void addPoints(int points);
 
     /**
      * Decreases the actual points gained by pacman of a specific quantity.
+     * If this quantity is greater than the actual points, the final points will be zero.
      * @param points the number of points to be detracted
      */
     void removePoints(int points);
