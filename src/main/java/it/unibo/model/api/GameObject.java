@@ -1,6 +1,6 @@
 package it.unibo.model.api;
 
-import java.awt.Image;
+import java.net.URL;
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
 
@@ -17,7 +17,7 @@ public interface GameObject {
      * Get the image of the actual state of the game object.
      * @return Actual Image of the object.
      */
-    Image getImage();
+    URL getImageUrl();
 
     /**
      * get the actual dimension of the object in the scene.
