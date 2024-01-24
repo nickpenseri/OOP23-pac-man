@@ -14,8 +14,8 @@ public interface GameObject {
     Point getPosition();
 
     /**
-     * Get the image of the actual state of the game object.
-     * @return Actual Image of the object.
+     * Get the Url of the image of the game object.
+     * @return Actual Url of the object.
      */
     URL getImageUrl();
 
