@@ -6,18 +6,22 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import it.unibo.model.map.api.MapBuilder;
+import it.unibo.model.map.api.MapTypes;
+
 /**
  * class which, given a map, sets the coordinates of the various objects.
  */
 public class MapBuilderImpl implements MapBuilder {
     // 0 pickable 1 no-pickable 2 spawn-pac-man 3-spawn-ghost 4-gate-ghost 5 wall
-    final private List<Point> spawnGhosts;
-    final private Point spawnPacMan;
-    final private List<Point> spawnCollectibleItems;
-    final private List<Point> spawnWalls;
+    private final List<Point> spawnGhosts;
+    private final Point spawnPacMan;
+    private final List<Point> spawnCollectibleItems;
+    private final List<Point> spawnWalls;
 
     /**
-     * constructor that given the map reads it and saves the coordinates in the lists.
+     * constructor that given the map reads it and saves the coordinates in the
+     * lists.
+     * 
      * @param map the game map.
      */
     public MapBuilderImpl(final int[][] map) {
@@ -28,17 +32,22 @@ public class MapBuilderImpl implements MapBuilder {
         for (final var x : range(0, map.length)) {
             for (final var y : range(0, map[x].length)) {
                 final int ris = map[x][y];
-                if(ris == 5) {
-                    this.spawnWalls.add(new Point(x, y));
-                }
-                else if (ris == 0) {
-                    this.spawnCollectibleItems.add(new Point(x, y));
-                }
-                else if (ris == 2) {
-                    this.spawnPacMan.setLocation(new Point(x, y));
-                }
-                else if (ris == 3) {
-                    this.spawnGhosts.add(new Point(x, y));
+                final MapTypes maptype = MapTypes.values()[ris];
+                switch (maptype) {
+                    case PICKABLE:
+                        this.spawnCollectibleItems.add(new Point(x, y));
+                        break;
+                    case SPAWN_PAC_MAN:
+                        this.spawnPacMan.setLocation(new Point(x, y));
+                        break;
+                    case SPAWN_GHOST:
+                        this.spawnGhosts.add(new Point(x, y));
+                        break;
+                    case WALL:
+                        this.spawnWalls.add(new Point(x, y));
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -46,6 +55,7 @@ public class MapBuilderImpl implements MapBuilder {
 
     /**
      * returns the list of coordinates (x,y) of the ghost spawn.
+     * 
      * @return returns the list of coordinate (x,y).
      */
     @Override
@@ -55,8 +65,9 @@ public class MapBuilderImpl implements MapBuilder {
     }
 
     /**
+     * returns the (x,y) coordinate of pac-man.
      * 
-     * @return
+     * @return returns a coordinate (x,y).
      */
     @Override
     public Point getPacManSpawn() {
@@ -66,6 +77,7 @@ public class MapBuilderImpl implements MapBuilder {
 
     /**
      * returns the list of coordinates (x,y) of the collectible item spawn.
+     * 
      * @return returns the list of coordinate (x,y).
      */
     @Override
@@ -76,6 +88,7 @@ public class MapBuilderImpl implements MapBuilder {
 
     /**
      * returns the list of coordinates (x,y) of the walls spawn.
+     * 
      * @return returns the list of coordinate (x,y).
      */
     @Override
