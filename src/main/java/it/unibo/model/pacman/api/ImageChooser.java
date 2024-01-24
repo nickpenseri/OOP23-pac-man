@@ -1,6 +1,6 @@
 package it.unibo.model.pacman.api;
 
-import java.awt.Image;
+import java.net.URL;
 import java.util.Optional;
 
 import it.unibo.model.api.Direction;
@@ -21,7 +21,7 @@ public interface ImageChooser {
     /**
      * It is called to obtain the image related with the actual state of pac-man.
      * @param dir the direction of pac-man
-     * @return the correct image related to pac-man
+     * @return the URL correct image related to pac-man
      */
-    Image actualImage(Optional<Direction> dir);
+    URL actualImageUrl(Optional<Direction> dir);
 }
