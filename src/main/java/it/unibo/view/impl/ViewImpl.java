@@ -1,21 +1,20 @@
 package it.unibo.view.impl;
 
-import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import static java.awt.Image.SCALE_DEFAULT;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import static java.awt.Image.SCALE_DEFAULT;
 
-
+import java.awt.Point;
 import java.awt.Graphics2D;
 import java.awt.Image;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
