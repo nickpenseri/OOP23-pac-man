@@ -1,0 +1,78 @@
+package it.unibo.view.impl;
+
+import java.awt.Point;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import static java.awt.Image.SCALE_DEFAULT;
+
+
+import java.awt.Graphics2D;
+import java.awt.Image;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import it.unibo.input.api.Command;
+import it.unibo.model.api.GameObject;
+import it.unibo.model.map.impl.MapReaderImpl;
+import it.unibo.view.api.View;
+
+
+/**Swing Implementation of View Interface.  */
+public abstract class ViewImpl extends JPanel implements View {
+
+    private static final long serialVersionUID = 1L;
+
+    private final List<Command> readedCommands;
+    private final int width;
+    private final int height;
+    private final Logger log = LoggerFactory.getLogger(MapReaderImpl.class);
+
+    /** Constructor for the View.
+     * @param width the width of the view
+     * @param height the height of the view
+     */
+    public ViewImpl(final int width, final int height) {
+
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Width and Height must be positive");
+        }
+        this.width = width;
+        this.height = height;
+        this.readedCommands = new ArrayList<>();
+    }
+
+    @Override
+    public final void updateView(final List<GameObject> gameObjects) {
+        Objects.requireNonNull(gameObjects);
+        final Graphics2D g2d = (Graphics2D) getGraphics();
+        gameObjects.stream().forEach(obj -> {
+            final Point pos = obj.getPosition();
+            try {
+                final var url = obj.getImageUrl().toString();
+                final Image img = ImageIO.read(new File(url)).getScaledInstance(this.width, this.height, SCALE_DEFAULT);
+                g2d.drawImage(img, pos.x, pos.y, this);
+            } catch (IOException e) {
+                log.error("errore durante la lettura dell'immagine" + e.getMessage());
+            }
+
+        });
+
+    }
+
+
+    @Override
+    public final List<Command> getListCommands() {
+       final List<Command> commands = new ArrayList<>(readedCommands);
+       readedCommands.clear();
+       return commands;
+    }
+
+}
