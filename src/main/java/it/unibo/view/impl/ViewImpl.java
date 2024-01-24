@@ -1,7 +1,8 @@
 package it.unibo.view.impl;
 
 import java.awt.Point;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import it.unibo.view.api.View;
 
 
 /**Swing Implementation of View Interface.  */
-public abstract class ViewImpl extends JPanel implements View {
+public abstract class ViewImpl extends JPanel implements View, KeyListener {
 
     private static final long serialVersionUID = 1L;
 
@@ -44,6 +45,8 @@ public abstract class ViewImpl extends JPanel implements View {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
+
+        setSize(width, height);
         this.width = width;
         this.height = height;
         this.readedCommands = new ArrayList<>();
@@ -75,4 +78,34 @@ public abstract class ViewImpl extends JPanel implements View {
        return commands;
     }
 
+    /**
+     * Every time that the view is added to the frame, it request the focus for read the key.
+     */
+    @Override
+    public void addNotify() {
+        super.addNotify();
+        setkeyListenerSettings();
+    }
+
+
+    @Override
+    public abstract void keyTyped(KeyEvent e);
+
+    @Override
+    public abstract void keyPressed(KeyEvent e);
+
+    @Override
+    public abstract void keyReleased(KeyEvent e);
+
+
+    /**
+     * This method is used to set the keyListener for the view.
+     */
+    private void setkeyListenerSettings() {
+        this.addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+        requestFocusInWindow();
+    }
+ 
 }
