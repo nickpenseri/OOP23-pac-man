@@ -18,6 +18,7 @@ public class PacManImpl implements PacMan {
     private static final int MAX_SPEED_LEVEL = 3;
     private static final int MIN_SPEED_LEVEL = -3;
     private static final double SPEED_MULTIPLIER = 0.10;
+    private static final double SECOND_TO_MILLIS = 1000.0;
 
     private int points;
     private int lives;
@@ -97,7 +98,7 @@ public class PacManImpl implements PacMan {
     }
 
     private int computeMovement(final long dt) {
-        return (int) (this.actualSpeed * dt);
+        return (int) (this.actualSpeed * (dt / SECOND_TO_MILLIS));
     } 
 
     /**
