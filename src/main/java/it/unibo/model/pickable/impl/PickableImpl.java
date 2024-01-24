@@ -49,9 +49,9 @@ public class PickableImpl implements Pickable {
     }
 
     /**
-     * Return the image of the pickable.
+     * Return the Url of the image of the pickable.
      * 
-     * @return the image of the pickable.
+     * @return the Url of the image of the pickable.
      */
     @Override
     public URL getImageUrl() {
