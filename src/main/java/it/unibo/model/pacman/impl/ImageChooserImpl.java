@@ -1,11 +1,7 @@
 package it.unibo.model.pacman.impl;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
-import javax.imageio.ImageIO;
 import it.unibo.model.api.Direction;
 import it.unibo.model.pacman.api.ImageChooser;
 
@@ -46,19 +42,12 @@ public class ImageChooserImpl implements ImageChooser {
      * {@inheritDoc}
      */
     @Override
-    public Image actualImage(final Optional<Direction> dir) {
-        Image actual = new BufferedImage(0, 0, 0);
-        try {
-            actual = ImageIO.read(dir.isEmpty() || this.closed ? CLOSED_URL : switch (dir.get()) {
+    public URL actualImageUrl(final Optional<Direction> dir) {
+        return dir.isEmpty() || this.closed ? CLOSED_URL : switch (dir.get()) {
                 case UP -> UP_URL;
                 case RIGHT -> RIGHT_URL;
                 case DOWN -> DOWN_URL;
                 case LEFT -> LEFT_URL;
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return actual;
+        };
     }
-
 }
