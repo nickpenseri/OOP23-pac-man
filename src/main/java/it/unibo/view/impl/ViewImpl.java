@@ -63,7 +63,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
                 final Image img = ImageIO.read(new File(url)).getScaledInstance(this.width, this.height, SCALE_DEFAULT);
                 g2d.drawImage(img, pos.x, pos.y, this);
             } catch (IOException e) {
-                log.error("errore durante la lettura dell'immagine" + e.getMessage());
+                log.error("error during image reading" + e.getMessage());
             }
 
         });
