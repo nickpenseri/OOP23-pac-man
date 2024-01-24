@@ -1,9 +1,9 @@
 package it.unibo.model.pacman.impl;
 
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
+import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 import it.unibo.model.api.Direction;
@@ -141,7 +141,7 @@ public class PacManImpl implements PacMan {
      * {@inheritDoc}
      */
     @Override
-    public Image getImage() {
+    public URL getImageUrl() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getImage'");
     }
