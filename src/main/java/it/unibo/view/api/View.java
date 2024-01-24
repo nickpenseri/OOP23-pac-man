@@ -3,6 +3,7 @@ package it.unibo.view.api;
 import java.util.List;
 
 import it.unibo.input.api.Command;
+import it.unibo.model.api.GameObject;
 
 /** 
  * The View interface is used to obtain user commands and model object logic.
@@ -10,10 +11,11 @@ import it.unibo.input.api.Command;
 */
     public interface View {
 
-    /**
-     * Update the game graphics.
-     */
-     void updateView();
+    
+    /** Update the game graphics. 
+    * @param gameObjects the list of objects in the model
+    */
+     void updateView(List<GameObject> gameObjects);
 
     /**
      * 
