@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import it.unibo.model.map.api.MapBuilder;
-
+/**
+ * class which, given a map, sets the coordinates of the various objects.
+ */
 public class MapBuilderImpl implements MapBuilder {
     // 0 pickable 1 no-pickable 2 spawn-pac-man 3-spawn-ghost 4-gate-ghost 5 wall
     final private List<Point> spawnGhosts;
@@ -14,6 +16,10 @@ public class MapBuilderImpl implements MapBuilder {
     final private List<Point> spawnCollectibleItems;
     final private List<Point> spawnWalls;
 
+    /**
+     * constructor that given the map reads it and saves the coordinates in the lists.
+     * @param map the game map.
+     */
     public MapBuilderImpl(final int[][] map) {
         this.spawnPacMan = new Point();
         this.spawnGhosts = new ArrayList<>();
@@ -38,37 +44,44 @@ public class MapBuilderImpl implements MapBuilder {
         }
     }
 
+    /**
+     * returns the list of coordinates (x,y) of the ghost spawn.
+     * @return returns the list of coordinate (x,y).
+     */
     @Override
     public List<Point> getSpawnGhost() {
-        final List<Point> copyFenceGhost = new ArrayList<>();
-        for (Point point : this.spawnGhosts) {
 
-            copyFenceGhost.add(point);
-        }
-        return copyFenceGhost;
+        return new ArrayList<>(this.spawnGhosts);
     }
 
+    /**
+     * 
+     * @return
+     */
     @Override
     public Point getPacManSpawn() {
 
         return this.spawnPacMan.getLocation();
     }
 
+    /**
+     * returns the list of coordinates (x,y) of the collectible item spawn.
+     * @return returns the list of coordinate (x,y).
+     */
     @Override
     public List<Point> getSpawnCollectibleItems() {
 
-        final List<Point> copySpawnCollectibleItems = new ArrayList<>();
-        for (Point point : this.spawnCollectibleItems) {
-
-            copySpawnCollectibleItems.add(point);
-        }
-        return copySpawnCollectibleItems;
+        return new ArrayList<>(this.spawnCollectibleItems);
     }
 
+    /**
+     * returns the list of coordinates (x,y) of the walls spawn.
+     * @return returns the list of coordinate (x,y).
+     */
     @Override
     public List<Point> getWallsPath() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWallsPath'");
+
+        return new ArrayList<>(this.spawnWalls);
     }
 
     private Iterable<Integer> range(final int x, final int y) {
