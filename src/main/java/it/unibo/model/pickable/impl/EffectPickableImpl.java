@@ -1,6 +1,6 @@
 package it.unibo.model.pickable.impl;
 
-import java.awt.Image;
+import java.net.URL;
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
 
@@ -10,8 +10,8 @@ import it.unibo.model.pickable.api.EffectPickable;
 /**
  * Is a basic Pickable with the bonus effect and give you 50 points.
  */
-public class EffectPickableImpl extends PickableImpl implements EffectPickable {
-    static final Image IMAGE = null;
+public abstract class EffectPickableImpl extends PickableImpl implements EffectPickable {
+    static final URL IMAGE_URL = null;
     static final int POINTS = 50;
 
     /**
@@ -30,7 +30,6 @@ public class EffectPickableImpl extends PickableImpl implements EffectPickable {
      * @param pacman the pacman that will be affected by the effect.
      */
     @Override
-    public void doEffect(final PacMan pacman) {
-    }
+    public abstract void doEffect(PacMan pacman);
 
 }

@@ -1,6 +1,6 @@
 package it.unibo.model.pickable.impl;
 
-import java.awt.Image;
+import java.net.URL;
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
 
@@ -14,7 +14,7 @@ import it.unibo.model.pickable.api.Pickable;
 public class PickableImpl implements Pickable {
     private final Point position;
     private final Dimension2D dimension;
-    static final Image IMAGE = null;
+    static final URL IMAGE_URL = null;
     static final int POINTS = 10;
 
     /**
@@ -54,8 +54,8 @@ public class PickableImpl implements Pickable {
      * @return the image of the pickable.
      */
     @Override
-    public Image getImage() {
-        return IMAGE;
+    public URL getImageUrl() {
+        return IMAGE_URL;
     }
 
     /**
