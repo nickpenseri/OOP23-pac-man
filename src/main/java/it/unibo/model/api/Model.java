@@ -19,6 +19,8 @@ public interface Model {
     /** Update the state of the objects in the model. */
     void updateState();
 
-    /** Initialize the game. */
-    void initGame();
+    /** Check if the game is over.
+     * @return true if the scene is over 
+    */
+    boolean isSceneOver();
 }
