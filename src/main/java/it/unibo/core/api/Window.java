@@ -8,7 +8,7 @@ public interface Window {
     void render();
 
     /** Set the scene panel to render.
-     * @param scenepanel the scene panel
+     * @param scenePanel the scene panel
      */
-    void setPanelScene(View scenepanel);
+    void setPanelScene(View scenePanel);
 }
