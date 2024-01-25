@@ -27,7 +27,6 @@ public class PacManImpl implements PacMan {
     private final Point position;
     private Optional<Direction> dir;
     private final Dimension dimension;
-    private long lastUpdate;
     private double actualSpeed;
 
     /**
@@ -53,7 +52,6 @@ public class PacManImpl implements PacMan {
         this.speedLevel = 0;
         this.points = 0;
         this.dir = Optional.empty();
-        this.lastUpdate = System.currentTimeMillis();
         this.computeSpeed();
     }
 
@@ -77,17 +75,15 @@ public class PacManImpl implements PacMan {
      * {@inheritDoc}
      */
     @Override
-    public void updateState() {
-        final long now = System.currentTimeMillis();
+    public void updateState(final long elapsed) {
         if (this.dir.isPresent()) {
-            final Point translation = computeTranslation(now);
+            final Point translation = computeTranslation(elapsed);
             this.position.translate((int) translation.getX(), (int) translation.getY());
         }
-        this.lastUpdate = now;
     }
 
-    private Point computeTranslation(final long time) {
-        final int movement = this.computeMovement(time - this.lastUpdate);
+    private Point computeTranslation(final long elapsed) {
+        final int movement = this.computeMovement(elapsed);
         return switch (this.dir.get()) {
             case UP -> new Point(0, movement);
             case RIGHT -> new Point(movement, 0);

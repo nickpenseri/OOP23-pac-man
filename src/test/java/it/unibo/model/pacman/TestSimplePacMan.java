@@ -20,6 +20,7 @@ class TestSimplePacMan {
     private static final int STARTING_LIVES = 2;
     private static final int HEIGHTH = 100;
     private static final int WIDTH = 100;
+    private static final long ELAPSED = 20;
     private static final Point STARTING_POS = new Point(0, 0);
     private static final Dimension DIMENSION = new Dimension(WIDTH, HEIGHTH);
     private static final double BASE_SPEED = 100.0;
@@ -43,7 +44,7 @@ class TestSimplePacMan {
         assertEquals(STARTING_POS, pacman.getPosition());
         assertEquals(DIMENSION, pacman.getDimension());
         assertEquals(0, pacman.getPoints());
-        pacman.updateState();
+        pacman.updateState(ELAPSED);
         assertEquals(STARTING_POS, pacman.getPosition());
         assertEquals(DIMENSION, pacman.getDimension());
         assertEquals(0, pacman.getPoints());

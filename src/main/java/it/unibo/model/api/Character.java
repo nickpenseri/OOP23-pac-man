@@ -12,8 +12,9 @@ public interface Character extends GameObject {
 
     /**
      * update the state of the Character.
+     * @param elapsed the time passed from the last update.
      */
-    void updateState();
+    void updateState(long elapsed);
 
     /**
      * Increase the speed of the Character, unless it is already at maximum.
