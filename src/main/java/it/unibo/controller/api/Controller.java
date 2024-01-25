@@ -15,8 +15,9 @@ public interface Controller {
 
     /**
      * Update the state of the model attached to the controller.
+     * @param elapsed the time elapsed from the last update
      */
-    void updateState();
+    void updateState(long elapsed);
 
     /**
      * Update the view attached to the controller and displays it.

@@ -33,8 +33,8 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void updateState() {
-       model.updateState();
+    public void updateState(final long elapsed) {
+       model.updateState(elapsed);
     }
 
      /**

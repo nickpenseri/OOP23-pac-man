@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import it.unibo.controller.api.Controller;
+import it.unibo.controller.impl.ControllerImpl;
 import it.unibo.core.api.Engine;
 
 
@@ -12,9 +13,7 @@ public class EngineImpl implements Engine {
 
     private final Logger log = LoggerFactory.getLogger(EngineImpl.class);
     private static final long PERIOD = 20; /* 20 ms = 50 frame for second */
-    private Controller currentScene;
-
-    
+    private Controller currentScene = new ControllerImpl(null, null);
     /**
      * {@inheritDoc}
      */
@@ -45,7 +44,7 @@ public class EngineImpl implements Engine {
      }
     private void processInput() { }
     private void updateGame(final int elapsed) {
-        currentScene.updateState();
+        currentScene.updateState(elapsed);
     }
     private void render() { }
 

@@ -16,8 +16,10 @@ public interface Model {
     */
     void processInput(List<Command> commands);
 
-    /** Update the state of the objects in the model. */
-    void updateState();
+    /** Update the state of the objects in the model.
+     * @param elapsed is the time elapsed from the last update.
+     */
+    void updateState(long elapsed);
 
     /** Check if the game is over.
      * @return true if the scene is over 

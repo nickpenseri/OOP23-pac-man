@@ -40,7 +40,7 @@ public class  GameScene implements Model {
      * {@inheritDoc}
      */
     @Override
-    public void updateState() {
+    public void updateState(final long elapsed) {
         //characters.forEach(c -> c.updateState());
     }
 
