@@ -2,20 +2,45 @@ package it.unibo.model.impl;
 
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
+import java.awt.Dimension;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 import it.unibo.model.api.GameObject;
 
 /** Basic Implementation of a GameObject. */
 public class GameObjectImpl implements GameObject {
 
+    private final Point position;
+    private final URL imageUrl;
+    private final Dimension dimension;
+
+    /** Constructor of a GameObject.
+     * @param position the position of the object
+     * @param imageUrl the url of the image of the object
+     * @param dimension the dimension of the object
+     */
+    public GameObjectImpl(final Point position, final URL imageUrl, final Dimension dimension) {
+        this.position = new Point(Objects.requireNonNull(position));
+        this.dimension = new Dimension(Objects.requireNonNull(dimension));
+
+        URL tempUrl;
+        try {
+            tempUrl = new URL(Objects.requireNonNull(imageUrl).toString());
+        } catch (MalformedURLException e) {
+            tempUrl = null;
+        }
+
+        this.imageUrl = tempUrl;
+    }
+
      /**
      * {@inheritDoc}
      */
     @Override
     public Point getPosition() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
+        return new Point(position);
     }
 
      /**
@@ -23,8 +48,15 @@ public class GameObjectImpl implements GameObject {
      */
     @Override
     public URL getImageUrl() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getImageUrl'");
+
+        URL tempUrl;
+        try {
+            tempUrl = new URL(this.imageUrl.toString());
+        } catch (MalformedURLException e) {
+            tempUrl = null;
+        }
+
+        return tempUrl;
     }
 
      /**
@@ -32,8 +64,7 @@ public class GameObjectImpl implements GameObject {
      */
     @Override
     public Dimension2D getDimension() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDimension'");
+        return new Dimension(this.dimension);
     }
 
 }
