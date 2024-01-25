@@ -3,13 +3,18 @@ package it.unibo.core.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.unibo.controller.api.Controller;
 import it.unibo.core.api.Engine;
+
 
 /** Implementation of a game engine. */
 public class EngineImpl implements Engine {
 
     private final Logger log = LoggerFactory.getLogger(EngineImpl.class);
-    private static long period = 20; /* 20 ms = 50 frame for second */
+    private static final long PERIOD = 20; /* 20 ms = 50 frame for second */
+    private Controller currentScene;
+
+    
     /**
      * {@inheritDoc}
      */
@@ -30,9 +35,9 @@ public class EngineImpl implements Engine {
 
     private void waitForNextFrame(final long current) {
         final long dt = System.currentTimeMillis() - current;
-        if (dt < period) {
+        if (dt < PERIOD) {
             try {
-                Thread.sleep(period - dt);
+                Thread.sleep(PERIOD - dt);
             } catch (InterruptedException ex) {
                 log.error("Error in sleep", ex);
              }
@@ -40,7 +45,7 @@ public class EngineImpl implements Engine {
      }
     private void processInput() { }
     private void updateGame(final int elapsed) {
-    
+        currentScene.updateState();
     }
     private void render() { }
 
