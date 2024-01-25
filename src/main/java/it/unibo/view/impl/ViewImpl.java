@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
-import it.unibo.model.map.impl.MapReaderImpl;
 import it.unibo.view.api.View;
 
 
@@ -33,7 +32,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     private final List<Command> readedCommands;
     private final int width;
     private final int height;
-    private final Logger log = LoggerFactory.getLogger(MapReaderImpl.class);
+    private final Logger log = LoggerFactory.getLogger(ViewImpl.class);
 
     /** Constructor for the View.
      * @param width the width of the view

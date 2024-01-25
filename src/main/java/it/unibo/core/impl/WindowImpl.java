@@ -4,10 +4,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.unibo.core.api.Window;
 import it.unibo.view.api.View;
@@ -15,10 +19,9 @@ import it.unibo.view.api.View;
 /** Implementation of a Swing window. */
 public class WindowImpl implements Window {
 
-
+    private final Logger log = LoggerFactory.getLogger(WindowImpl.class);
     private final JFrame frame;
-    private final int weight;
-    private final int height;
+    private final Dimension dimension;
     private  View panel;
 
     /** Constructor of a window.
@@ -28,24 +31,27 @@ public class WindowImpl implements Window {
      * @param height the height of the window
      */
     public WindowImpl(final View scenePanel, final String gameName, final int weight, final int height) {
+        if (weight <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Width and Height must be positive");
+        }
         frame = new JFrame(gameName);
-        this.weight = weight;
-        this.height = height;
-        frame.setSize(this.weight, this.height);
-    	frame.setMinimumSize(new Dimension(weight, height));
+        dimension = new Dimension(weight, height);
+        frame.setSize(weight, height);
+        frame.setMinimumSize(new Dimension(weight, height));
         frame.setResizable(false);
-
-        setPanelScene(scenePanel);
+        this.panel = scenePanel;
+        frame.getContentPane().add((Component) this.panel);
 
         frame.addWindowListener(new WindowAdapter() {
-			public void windowClosing(final WindowEvent ev) {
-				System.exit(-1);
-			}
-			public void windowClosed(final WindowEvent ev) {
-				System.exit(-1);
-			}
-		});
-
+            @Override
+            public void windowClosing(final WindowEvent ev) {
+                System.exit(-1);
+            }
+            @Override
+            public void windowClosed(final WindowEvent ev) {
+                System.exit(-1);
+            }
+        });
         frame.pack();
         frame.setVisible(true);
     }
@@ -56,14 +62,14 @@ public class WindowImpl implements Window {
     @Override
     public void render() {
         try {
-	    	SwingUtilities.invokeAndWait(() -> {
-	    		frame.repaint();
-	    	});
-    	} catch (Exception ex) {
-    		ex.printStackTrace();
-    	}
+            SwingUtilities.invokeAndWait(() -> {
+                frame.repaint();
+            });
+        } catch (InterruptedException | InvocationTargetException ex) {
+            log.error("Error meanwhile repaintg frame", ex);
+        }
     }
-    
+
      /**
      * {@inheritDoc}
      */
@@ -79,5 +85,13 @@ public class WindowImpl implements Window {
         frame.pack();
         frame.validate();
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Dimension getDimension() {
+       return new Dimension((int) this.dimension.getWidth(), (int) this.dimension.getHeight());
+    }
+
 }
