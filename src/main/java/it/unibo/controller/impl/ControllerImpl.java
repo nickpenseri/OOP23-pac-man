@@ -6,7 +6,7 @@ import it.unibo.model.api.Model;
 import it.unibo.view.api.View;
 
 /** The class is the implementation of the Controller Interface. */
-public final class ControllerImpl implements Controller {
+public class ControllerImpl implements Controller {
 
     private final  Model model;
     private final View view;
@@ -21,16 +21,25 @@ public final class ControllerImpl implements Controller {
         this.view = Objects.requireNonNull(view);
     }
 
+     /**
+     * {@inheritDoc}
+     */
     @Override
     public void processInput() {
         model.processInput(view.getListCommands());
     }
 
+     /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateState() {
        model.updateState();
     }
 
+     /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateView() {
         view.updateView(model.getObjects());
