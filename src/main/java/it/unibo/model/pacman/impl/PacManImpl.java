@@ -36,6 +36,7 @@ public class PacManImpl implements PacMan {
      * @param baseSpeed the speed of pac-man when it is not under special effects
      * @param startingPos teh position where pac-man spawns
      * @throws IllegalArgumentException if starting lives are less or equal to zero
+     * @throws IllegalArgumentException if speed is less or equal to zero
      * @throws NullPointerException if null objects have been passed
      */
     public PacManImpl(final int startingLives,
@@ -44,6 +45,9 @@ public class PacManImpl implements PacMan {
             final Point startingPos) {
         if (startingLives <= 0) {
             throw new IllegalArgumentException("Cannot instantiate an object with negative lives");
+        }
+        if (baseSpeed <= 0) {
+            throw new IllegalArgumentException("Cannot create an obkìject with negative speed");
         }
         this.dimension = new Dimension(Objects.requireNonNull(dimension));
         this.baseSpeed = baseSpeed;
