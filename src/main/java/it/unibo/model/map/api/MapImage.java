@@ -1,16 +1,15 @@
 package it.unibo.model.map.api;
 
 import java.net.URL;
+
+import it.unibo.model.impl.GameObjectImpl.Type;
 /**this interface takes care of returning URLs of the objects representing the map.*/
 public interface MapImage {
+
     /**
-     * return URL that represents wall.
-     * @return wall URL
+     * based on the type of the object it returns its URL.
+     * @param type type of the object
+     * @return url of the object
      */
-    URL getWallUrl();
-    /**
-     * URL representing the traversable path.
-     * @return traversable path URL
-     */
-    URL getPassableUrl();
+    URL getObjectUrl(Type type);
 }
