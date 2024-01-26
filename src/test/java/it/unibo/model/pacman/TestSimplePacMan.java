@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import it.unibo.model.api.Direction;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
 
@@ -25,6 +27,7 @@ class TestSimplePacMan {
     private static final Dimension DIMENSION = new Dimension(WIDTH, HEIGHTH);
     private static final double BASE_SPEED = 100.0;
     private static final int POINTS = 100;
+    private static final int MOVEMENT = (int) (BASE_SPEED * (ELAPSED / 1000.0));
 
     private PacMan pacman;
 
@@ -79,7 +82,8 @@ class TestSimplePacMan {
     }
 
     /**
-     * Tests speedIncrease, which should increase the speed a limited number of times.
+     * Tests speedIncrease, which should increase the speed a limited number of
+     * times.
      */
     @Test
     void testSpeedIncrease() {
@@ -90,7 +94,8 @@ class TestSimplePacMan {
     }
 
     /**
-     * Tests speedDecrease, which should decrease the speed a limited number of times.
+     * Tests speedDecrease, which should decrease the speed a limited number of
+     * times.
      */
     @Test
     void testSpeedDecrease() {
@@ -101,7 +106,7 @@ class TestSimplePacMan {
     }
 
     /**
-     * Tests adding and removing points, which cannot be negative.
+     * Tests adding and removing points, which cannot go below zero.
      */
     @Test
     void testPoints() {
@@ -113,5 +118,39 @@ class TestSimplePacMan {
         assertEquals(2 * POINTS, pacman.getPoints());
         pacman.removePoints(3 * POINTS);
         assertEquals(0, pacman.getPoints());
+    }
+
+    /**
+     * Tests that IllegalARgumentException are thrown if we pass a negative number
+     * as the points to be decracted or added.
+     */
+    @Test
+    void testPointsExceptions() {
+        assertThrows(IllegalArgumentException.class, () -> pacman.removePoints(-POINTS));
+        assertThrows(IllegalArgumentException.class, () -> pacman.addPoints(-POINTS));
+    }
+
+    /**
+     * Test for method updateState with every direction possible for pacman.
+     */
+    @Test
+    void testMovement() {
+        pacman.updateState(ELAPSED);
+        assertEquals(STARTING_POS, pacman.getPosition());
+        pacman.setDirection(Direction.RIGHT);
+        pacman.updateState(ELAPSED);
+        assertEquals(new Point(MOVEMENT, 0), pacman.getPosition());
+        pacman.setDirection(Direction.LEFT);
+        pacman.updateState(ELAPSED);
+        assertEquals(STARTING_POS, pacman.getPosition());
+        pacman.setDirection(Direction.UP);
+        pacman.updateState(0);
+        assertEquals(STARTING_POS, pacman.getPosition());
+        pacman.setDirection(Direction.DOWN);
+        pacman.updateState(ELAPSED);
+        assertEquals(new Point(0, -MOVEMENT), pacman.getPosition());
+        pacman.setDirection(Direction.UP);
+        pacman.updateState(ELAPSED);
+        assertEquals(STARTING_POS, pacman.getPosition());
     }
 }
