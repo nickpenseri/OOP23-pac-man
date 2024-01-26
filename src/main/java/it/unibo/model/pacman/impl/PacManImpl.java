@@ -195,6 +195,9 @@ public class PacManImpl implements PacMan {
      */
     @Override
     public void addPoints(final int points) {
+        if (points < 0) {
+            throw new IllegalArgumentException("Cannot add negative points");
+        }
         this.points += points;
     }
 
@@ -203,6 +206,9 @@ public class PacManImpl implements PacMan {
      */
     @Override
     public void removePoints(final int points) {
+        if (points < 0) {
+            throw new IllegalArgumentException("Cannot remove negative points");
+        }
         if (this.getPoints() < points) {
             this.points = 0;
         } else {
