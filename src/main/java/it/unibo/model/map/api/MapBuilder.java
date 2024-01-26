@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.List;
 
 import it.unibo.model.api.GameObject;
+import it.unibo.model.impl.GameObjectImpl;
 
 /**
  * this interface, given a map, sets the initial game conditions.
@@ -33,4 +34,10 @@ public interface MapBuilder {
      * @return returns a Point-type list representing all the boxes on the map where objects can be collected.
      */
     List<Point> getSpawnCollectibleItems();
+
+    /**
+     * returns the map represented by a two-dimensional matrix of objects.
+     * @return matrix of objects
+     */
+    GameObjectImpl[][] getObjectsMap();
 }

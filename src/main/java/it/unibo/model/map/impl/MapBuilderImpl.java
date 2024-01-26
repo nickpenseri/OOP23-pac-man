@@ -22,6 +22,7 @@ public class MapBuilderImpl implements MapBuilder {
     private final List<Point> spawnCollectibleItems;
     private final List<GameObject> spawnWalls;
     private final MapImageImpl mapImage = new MapImageImpl();
+    private GameObjectImpl[][] objectsMap;
 
     /**
      * constructor that given the map reads it and saves the coordinates in the
@@ -34,6 +35,7 @@ public class MapBuilderImpl implements MapBuilder {
         this.spawnGhosts = new ArrayList<>();
         this.spawnCollectibleItems = new ArrayList<>();
         this.spawnWalls = new ArrayList<>();
+        this.objectsMap = new GameObjectImpl[map.length][map[0].length];
         for (final var x : range(0, map.length)) {
             for (final var y : range(0, map[x].length)) {
                 final int ris = map[x][y];
@@ -41,17 +43,34 @@ public class MapBuilderImpl implements MapBuilder {
                 switch (maptype) {
                     case PICKABLE:
                         this.spawnCollectibleItems.add(new Point(x, y));
+                        this.objectsMap[x][y] = new GameObjectImpl(
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
+                                Type.PASSABLE);
                         break;
                     case SPAWN_PAC_MAN:
                         this.spawnPacMan.setLocation(new Point(x, y));
+                        this.objectsMap[x][y] = new GameObjectImpl(
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
+                                Type.PASSABLE);
                         break;
                     case SPAWN_GHOST:
                         this.spawnGhosts.add(new Point(x, y));
+                        this.objectsMap[x][y] = new GameObjectImpl(
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
+                                Type.PASSABLE);
                         break;
                     case WALL:
                         this.spawnWalls.add(
-                            new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.WALL), new Dimension(), Type.WALL));
+                                new GameObjectImpl(
+                                        new Point(x, y), this.mapImage.getObjectUrl(Type.WALL), new Dimension(),
+                                        Type.WALL));
+                        this.objectsMap[x][y] = new GameObjectImpl(
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.WALL), new Dimension(), Type.WALL);
+                        break;
+                    case GATE_GHOST, NO_PICKABLE:
+                        this.objectsMap[x][y] = new GameObjectImpl(
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
+                                Type.PASSABLE);
                         break;
                     default:
                         break;
@@ -96,7 +115,7 @@ public class MapBuilderImpl implements MapBuilder {
     /**
      * returns objects of type wall.
      * 
-     * @return returns the  list of the objects.
+     * @return returns the list of the objects.
      */
     @Override
     public List<GameObject> getWallsPath() {
@@ -107,6 +126,18 @@ public class MapBuilderImpl implements MapBuilder {
     private Iterable<Integer> range(final int x, final int y) {
 
         return x < y ? () -> IntStream.rangeClosed(x, y).iterator() : () -> IntStream.rangeClosed(y, x).iterator();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GameObjectImpl[][] getObjectsMap() {
+        final GameObjectImpl[][] copy = new GameObjectImpl[this.objectsMap.length][];
+        for (int i = 0; i < this.objectsMap.length; i++) {
+            copy[i] = this.objectsMap[i].clone();
+        }
+        return copy;
     }
 
 }
