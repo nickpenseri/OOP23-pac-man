@@ -73,6 +73,7 @@ public class PacManImpl implements PacMan {
     @Override
     public void setDirection(final Direction direction) {
         this.dir = Optional.of(Objects.requireNonNull(direction));
+        this.computeSpeed();
     }
 
     /**
@@ -98,7 +99,7 @@ public class PacManImpl implements PacMan {
     }
 
     private int computeMovement(final long dt) {
-        return (int) (this.actualSpeed * (dt / SECOND_TO_MILLIS));
+        return (int) (this.actualSpeed * ((double) dt / SECOND_TO_MILLIS));
     } 
 
     /**
