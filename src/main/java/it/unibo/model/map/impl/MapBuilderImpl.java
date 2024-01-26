@@ -4,7 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.awt.Dimension;
 
+import it.unibo.model.api.GameObject;
+import it.unibo.model.impl.GameObjectImpl;
+import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapTypes;
 
@@ -16,7 +20,8 @@ public class MapBuilderImpl implements MapBuilder {
     private final List<Point> spawnGhosts;
     private final Point spawnPacMan;
     private final List<Point> spawnCollectibleItems;
-    private final List<Point> spawnWalls;
+    private final List<GameObject> spawnWalls;
+    private final MapImageImpl mapImage = new MapImageImpl();
 
     /**
      * constructor that given the map reads it and saves the coordinates in the
@@ -44,7 +49,9 @@ public class MapBuilderImpl implements MapBuilder {
                         this.spawnGhosts.add(new Point(x, y));
                         break;
                     case WALL:
-                        this.spawnWalls.add(new Point(x, y));
+                        this.spawnWalls.add(
+                            new GameObjectImpl(
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.WALL), new Dimension(), Type.WALL));
                         break;
                     default:
                         break;
@@ -87,12 +94,12 @@ public class MapBuilderImpl implements MapBuilder {
     }
 
     /**
-     * returns the list of coordinates (x,y) of the walls spawn.
+     * returns objects of type wall.
      * 
-     * @return returns the list of coordinate (x,y).
+     * @return returns the  list of the objects.
      */
     @Override
-    public List<Point> getWallsPath() {
+    public List<GameObject> getWallsPath() {
 
         return new ArrayList<>(this.spawnWalls);
     }

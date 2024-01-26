@@ -3,16 +3,18 @@ package it.unibo.model.map.api;
 import java.awt.Point;
 import java.util.List;
 
+import it.unibo.model.api.GameObject;
+
 /**
  * this interface, given a map, sets the initial game conditions.
  */
 public interface MapBuilder {
 
     /**
-     * method that returns the list of wall positions.
-     * @return returns a list with the positions of the walls on the game map.
+     * method that returns the list of wall objects.
+     * @return returns a list with the object of the type  walls on the game map.
      */
-    List<Point> getWallsPath();
+    List<GameObject> getWallsPath();
 
     /**
      * method to obtain the ghost spawn.
