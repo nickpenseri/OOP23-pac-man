@@ -34,6 +34,7 @@ public interface PacMan extends Character {
     /**
      * Increases the actual points gained by pacman of a specific quantity.
      * @param points the number of points to be added
+     * @throws IllegalArgument exception if points are less than zero
      */
     void addPoints(int points);
 
@@ -41,6 +42,7 @@ public interface PacMan extends Character {
      * Decreases the actual points gained by pacman of a specific quantity.
      * If this quantity is greater than the actual points, the final points will be zero.
      * @param points the number of points to be detracted
+     * @throws IllegalArgument exception if points are less than zero
      */
     void removePoints(int points);
 }
