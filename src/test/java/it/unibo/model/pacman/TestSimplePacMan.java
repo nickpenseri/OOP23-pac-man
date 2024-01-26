@@ -121,7 +121,7 @@ class TestSimplePacMan {
     }
 
     /**
-     * Tests that IllegalARgumentException are thrown if we pass a negative number
+     * Tests that IllegalArgumentException are thrown if negative number are passed
      * as the points to be decracted or added.
      */
     @Test
