@@ -1,5 +1,8 @@
 package it.unibo.core.impl;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,9 +20,23 @@ public class EngineImpl implements Engine {
 
     private final Logger log = LoggerFactory.getLogger(EngineImpl.class);
     private static final long PERIOD = 20; /* 20 ms = 50 frame for second */
-    private final ViewImpl view = new GameView(800, 600);
-    private final Model gameScene = new GameScene();
-    private final Window window = new WindowImpl(view, "PacMan", 800, 600);
+    private final ViewImpl view;
+    private final Model gameScene;
+    private final Window window;
+    private static final int  PROPORTION = 2;
+
+    /** Constructor of the Engine, here is created the window of the game. */
+    public EngineImpl() {
+        final Toolkit toolkit = Toolkit.getDefaultToolkit();
+        final Dimension screenSize = toolkit.getScreenSize();
+        final int width = screenSize.width / PROPORTION;
+        final int height = screenSize.height / PROPORTION; 
+        this.view = new GameView(width, height);
+        this.gameScene = new GameScene();
+        this.window = new WindowImpl(view, "Pacman", width, height);
+    }
+
+
     /**
      * {@inheritDoc}
      */
@@ -53,6 +70,7 @@ public class EngineImpl implements Engine {
         gameScene.updateState(elapsed);
     }
     private void render() { 
+        view.updateView(gameScene.getObjects());
         window.render();
     }
 
