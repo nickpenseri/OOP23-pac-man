@@ -1,10 +1,13 @@
 package it.unibo.view.impl;
 
 import java.awt.event.KeyEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** View of the actual Game. */
 public class GameView extends ViewImpl {
 
+     private final Logger log = LoggerFactory.getLogger(GameView.class);
     private static final long serialVersionUID = 1L;
     /**
      * Constructor of the GameView.
@@ -27,6 +30,9 @@ public class GameView extends ViewImpl {
      */
     @Override
     public void keyPressed(final KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            log.info("UP");
+        }
     }
 
     /**
