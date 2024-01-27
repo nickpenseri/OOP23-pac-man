@@ -67,4 +67,13 @@ public class GameObjectImpl implements GameObject {
         return new Dimension(this.dimension);
     }
 
+
+    /**
+     * Set the position of the GameObject.
+     * @param position the position to set
+     */
+    protected final void setPosition(final Point position) {
+        this.position.setLocation(Objects.requireNonNull(position));
+    }
+
 }
