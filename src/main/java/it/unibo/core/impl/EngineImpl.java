@@ -32,7 +32,7 @@ public class EngineImpl implements Engine {
         final int width = screenSize.width / PROPORTION;
         final int height = screenSize.height / PROPORTION; 
         final View view = new GameView(width, height);
-        final Model gameScene = new GameScene();
+        final Model gameScene = new GameScene(width, height);
         this.controller = new ControllerImpl(gameScene, view);
         this.window = new WindowImpl(view, "Pacman", width, height);
     }
