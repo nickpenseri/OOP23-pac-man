@@ -86,6 +86,14 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     }
 
 
+    /**
+     * This method is used to add a command to the list of readed commands.
+     * @param command the command to add
+     */
+    protected final void addCommand(final Command command) {
+        this.readedCommands.add(command);
+    }
+
     @Override
     public abstract void keyTyped(KeyEvent e);
 
