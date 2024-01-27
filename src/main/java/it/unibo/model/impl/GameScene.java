@@ -39,7 +39,6 @@ public class  GameScene implements Model {
         if (!commands.isEmpty()) {
             log.info(commands.toString());
         }
-       
     }
 
      /**

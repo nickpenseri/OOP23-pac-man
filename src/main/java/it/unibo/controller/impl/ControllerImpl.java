@@ -1,10 +1,6 @@
 package it.unibo.controller.impl;
 
 import java.util.Objects;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Model;
 import it.unibo.view.api.View;
@@ -12,7 +8,6 @@ import it.unibo.view.api.View;
 /** The class is the implementation of the Controller Interface. */
 public class ControllerImpl implements Controller {
 
-    private final Logger log = LoggerFactory.getLogger(ControllerImpl.class);
     private final  Model model;
     private final View view;
 
