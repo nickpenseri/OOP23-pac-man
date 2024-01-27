@@ -6,13 +6,14 @@ import java.awt.Toolkit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+import it.unibo.controller.api.Controller;
+import it.unibo.controller.impl.ControllerImpl;
 import it.unibo.core.api.Engine;
 import it.unibo.core.api.Window;
 import it.unibo.model.api.Model;
 import it.unibo.model.impl.GameScene;
+import it.unibo.view.api.View;
 import it.unibo.view.impl.GameView;
-import it.unibo.view.impl.ViewImpl;
 
 
 /** Implementation of a game engine. */
@@ -20,9 +21,8 @@ public class EngineImpl implements Engine {
 
     private final Logger log = LoggerFactory.getLogger(EngineImpl.class);
     private static final long PERIOD = 20; /* 20 ms = 50 frame for second */
-    private final ViewImpl view;
-    private final Model gameScene;
     private final Window window;
+    private final Controller controller;
     private static final int  PROPORTION = 2;
 
     /** Constructor of the Engine, here is created the window of the game. */
@@ -31,8 +31,9 @@ public class EngineImpl implements Engine {
         final Dimension screenSize = toolkit.getScreenSize();
         final int width = screenSize.width / PROPORTION;
         final int height = screenSize.height / PROPORTION; 
-        this.view = new GameView(width, height);
-        this.gameScene = new GameScene();
+        final View view = new GameView(width, height);
+        final Model gameScene = new GameScene();
+        this.controller = new ControllerImpl(gameScene, view);
         this.window = new WindowImpl(view, "Pacman", width, height);
     }
 
@@ -65,12 +66,14 @@ public class EngineImpl implements Engine {
              }
         }
      }
-    private void processInput() { }
+    private void processInput() {
+        controller.processInput();
+     }
     private void updateGame(final int elapsed) {
-        gameScene.updateState(elapsed);
+        controller.updateState(elapsed);
     }
     private void render() { 
-        view.updateView(gameScene.getObjects());
+        controller.updateView();
         window.render();
     }
 
