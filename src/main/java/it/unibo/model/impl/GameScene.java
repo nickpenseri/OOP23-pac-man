@@ -3,9 +3,15 @@ package it.unibo.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import java.awt.Dimension;
+import java.awt.Point;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+import java.net.URL;
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.Model;
@@ -21,6 +27,8 @@ public class  GameScene implements Model {
     /** Constructor of a generic scene. */
     public GameScene() {
         this.gameObjects = new ArrayList<>();
+        final URL image = ClassLoader.getSystemResource("image/ghost/blue/BlueGhostDown.png");
+        this.gameObjects.add(new GameObjectImpl(new Point(0, 0), image, new Dimension(10, 10)));
     }
 
      /**

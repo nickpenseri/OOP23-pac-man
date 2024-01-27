@@ -2,6 +2,8 @@ package it.unibo.view.impl;
 
 import static java.awt.Image.SCALE_DEFAULT;
 
+
+import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.imageio.ImageIO;
@@ -33,6 +36,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     private final int width;
     private final int height;
     private final Logger log = LoggerFactory.getLogger(ViewImpl.class);
+    private List<GameObject> gameObjects;
 
     /** Constructor for the View.
      * @param width the width of the view
@@ -50,25 +54,43 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
         this.readedCommands = new ArrayList<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void updateView(final List<GameObject> gameObjects) {
-        Objects.requireNonNull(gameObjects);
-        final Graphics2D g2d = (Graphics2D) getGraphics();
-        gameObjects.stream().forEach(obj -> {
-            final Point pos = obj.getPosition();
-            try {
-                final var url = obj.getImageUrl().toString();
-                final Image img = ImageIO.read(new File(url)).getScaledInstance(this.width, this.height, SCALE_DEFAULT);
-                g2d.drawImage(img, pos.x, pos.y, this);
-            } catch (IOException e) {
-                log.error("error during image reading" + e.getMessage());
-            }
-
-        });
-
+       this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void paint(final Graphics g) {
+        if (g instanceof Graphics2D) {
+            final Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2.clearRect(0, 0, this.getWidth(), this.getHeight());
 
+            this.gameObjects.stream().forEach(obj -> {
+                final Point pos = obj.getPosition();
+                Image img = null;
+                try {
+                    final var url = "src/main/resources/image/ghost/blue/BlueGhostDown.png";
+                    //log.info(url);
+                    img = ImageIO.read(new File(url)).getScaledInstance(this.width / 10, this.height / 10, SCALE_DEFAULT);
+                } catch (IOException e) {
+                    log.error("error during image reading" + e.getMessage());
+                }
+                g2.drawImage(img, pos.x, pos.x, this);
+            });
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final synchronized  List<Command> getListCommands() {
        final List<Command> commands = new ArrayList<>(readedCommands);
