@@ -70,7 +70,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
 
 
     @Override
-    public final List<Command> getListCommands() {
+    public synchronized final List<Command> getListCommands() {
        final List<Command> commands = new ArrayList<>(readedCommands);
        readedCommands.clear();
        return commands;
@@ -90,7 +90,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      * This method is used to add a command to the list of readed commands.
      * @param command the command to add
      */
-    protected final void addCommand(final Command command) {
+    protected synchronized final void addCommand(final Command command) {
         this.readedCommands.add(command);
     }
 

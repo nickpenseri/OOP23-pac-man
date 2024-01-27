@@ -9,7 +9,7 @@ import it.unibo.input.api.Command;
 /** View of the actual Game. */
 public class GameView extends ViewImpl {
 
-     private final Logger log = LoggerFactory.getLogger(GameView.class);
+    private final Logger log = LoggerFactory.getLogger(GameView.class);
     private static final long serialVersionUID = 1L;
     /**
      * Constructor of the GameView.
@@ -36,6 +36,7 @@ public class GameView extends ViewImpl {
             log.info("UP");
             addCommand(Command.SET_DIR_UP);
         }
+        
     }
 
     /**
