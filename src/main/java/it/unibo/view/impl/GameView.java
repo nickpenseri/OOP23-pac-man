@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.unibo.input.api.Command;
+
 /** View of the actual Game. */
 public class GameView extends ViewImpl {
 
@@ -32,6 +34,7 @@ public class GameView extends ViewImpl {
     public void keyPressed(final KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             log.info("UP");
+            addCommand(Command.SET_DIR_UP);
         }
     }
 

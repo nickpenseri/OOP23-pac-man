@@ -3,15 +3,17 @@ package it.unibo.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.Model;
 
-
 /** Basic Implementation of a model of a scene. */
 public class  GameScene implements Model {
 
-
+    private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<GameObject> gameObjects;
     //private final List<Character> characters;
     //private final Character pacMan;
@@ -34,6 +36,10 @@ public class  GameScene implements Model {
      */
     @Override
     public  void processInput(final List<Command> commands) {
+        if (!commands.isEmpty()) {
+            log.info(commands.toString());
+        }
+       
     }
 
      /**
