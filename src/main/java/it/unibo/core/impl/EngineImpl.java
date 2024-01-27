@@ -1,25 +1,59 @@
 package it.unibo.core.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import it.unibo.core.api.Engine;
+import it.unibo.core.api.Window;
+import it.unibo.model.api.Model;
+import it.unibo.model.impl.GameScene;
+import it.unibo.view.impl.GameView;
+import it.unibo.view.impl.ViewImpl;
 
 
 /** Implementation of a game engine. */
 public class EngineImpl implements Engine {
-    //private Controller currentScene = new ControllerImpl(null, null);
+
+    private final Logger log = LoggerFactory.getLogger(EngineImpl.class);
+    private static final long PERIOD = 20; /* 20 ms = 50 frame for second */
+    private final ViewImpl view = new GameView(800, 600);
+    private final Model gameScene = new GameScene();
+    private final Window window = new WindowImpl(view, "PacMan", 800, 600);
     /**
      * {@inheritDoc}
      */
     @Override
     public void mainLoop() {
-        processInput();
-        updateGame();
-        render();
+            long lastTime = System.currentTimeMillis();
+            while (true) {
+                final long current = System.currentTimeMillis();
+                final int elapsed = (int) (current - lastTime);
+                processInput();
+                updateGame(elapsed);
+                render();
+                waitForNextFrame(current);
+                lastTime = current;
+            }
     }
 
 
+    private void waitForNextFrame(final long current) {
+        final long dt = System.currentTimeMillis() - current;
+        if (dt < PERIOD) {
+            try {
+                Thread.sleep(PERIOD - dt);
+            } catch (InterruptedException ex) {
+                log.error("Error in sleep", ex);
+             }
+        }
+     }
     private void processInput() { }
-    private void updateGame() { }
-    private void render() { }
+    private void updateGame(final int elapsed) {
+        gameScene.updateState(elapsed);
+    }
+    private void render() { 
+        window.render();
+    }
 
 }

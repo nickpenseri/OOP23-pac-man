@@ -20,7 +20,6 @@ public class ControllerImpl implements Controller {
         this.model = Objects.requireNonNull(model);
         this.view = Objects.requireNonNull(view);
     }
-
      /**
      * {@inheritDoc}
      */
