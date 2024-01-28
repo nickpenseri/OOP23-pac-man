@@ -5,6 +5,8 @@ import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pickable.impl.MalusSpeed;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,37 +32,36 @@ class MalusSpeedTest {
     @Test
     void testConstructor() {
         final Point position = new Point(POSITION, POSITION);
-        final MalusSpeed bonusSpeed = new MalusSpeed(position, DIMENSION);
+        final MalusSpeed malusSpeed = new MalusSpeed(position, DIMENSION);
 
-        assertEquals(position, bonusSpeed.getPosition());
-        assertEquals(DIMENSION, bonusSpeed.getDimension());
+        assertEquals(position, malusSpeed.getPosition());
+        assertEquals(DIMENSION, malusSpeed.getDimension());
     }
 
     /**
      * This method tests the method doEffect of the class MalusSpeed.
+     * @throws InterruptedException 
      */
     @Test
-    void testDoEffect() {
+    void testDoEffect() throws InterruptedException {
         final Point position = new Point(POSITION, POSITION);
-        final MalusSpeed bonusSpeed = new MalusSpeed(position, DIMENSION);
+        final MalusSpeed malusSpeed = new MalusSpeed(position, DIMENSION);
         final PacMan pacman = new PacManImpl(STARTING_LIVES, DIMENSION, BASE_SPEED, STARTING_POS);
-        //TODO: fix this test
-        // ---------------------------------------double initialSpeed =
-        // pacman.getSpeed(); // Assuming PacMan has a getSpeed method
-        bonusSpeed.doEffect(pacman);
 
-        // --------------------------------------assertTrue(pacman.getSpeed() >
-        // initialSpeed);
+        final int initialSpeed = pacman.getSpeedLevel();
+        malusSpeed.doEffect(pacman);
+
+        assertTrue(pacman.getSpeedLevel() < initialSpeed);
 
         final TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                // ------------------------------assertTrue(pacman.getSpeed() == initialSpeed);
+                assertEquals(initialSpeed, pacman.getSpeedLevel());
             }
         };
 
         /*
-         * Create new Timer and Schedule the task to decrease the speed after 10 seconds
+         * Create new Timer and Schedule the task to decrease the speed after 11 seconds
          */
         new Timer().schedule(task, DELAY);
     }

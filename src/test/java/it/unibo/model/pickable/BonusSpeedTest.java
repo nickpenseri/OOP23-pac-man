@@ -5,6 +5,8 @@ import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pickable.impl.BonusSpeed;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,23 +46,21 @@ class BonusSpeedTest {
         final Point position = new Point(POSITION, POSITION);
         final BonusSpeed bonusSpeed = new BonusSpeed(position, DIMENSION);
         final PacMan pacman = new PacManImpl(STARTING_LIVES, DIMENSION, BASE_SPEED, STARTING_POS);
-        //TODO: fix this test
-        // ---------------------------------------double initialSpeed =
-        // pacman.getSpeed(); // Assuming PacMan has a getSpeed method
+
+        final int initialSpeed = pacman.getSpeedLevel();
         bonusSpeed.doEffect(pacman);
 
-        // --------------------------------------assertTrue(pacman.getSpeed() >
-        // initialSpeed);
+        assertTrue(pacman.getSpeedLevel() > initialSpeed);
 
         final TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                // ------------------------------assertTrue(pacman.getSpeed() == initialSpeed);
+                assertEquals(initialSpeed, pacman.getSpeedLevel());
             }
         };
 
         /*
-         * Create new Timer and Schedule the task to decrease the speed after 10 seconds
+         * Create new Timer and Schedule the task to decrease the speed after 11 seconds
          */
         new Timer().schedule(task, DELAY);
     }
