@@ -15,6 +15,7 @@ import java.net.URL;
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.Model;
+import it.unibo.model.impl.GameObjectImpl.Type;
 
 /** Basic Implementation of a model of a scene. */
 public class  GameScene implements Model {
@@ -37,7 +38,7 @@ public class  GameScene implements Model {
         this.gameObjects = new ArrayList<>();
         //dimension = new Dimension(width, height);
         final URL image = ClassLoader.getSystemResource("image/ghost/blue/BlueGhostDown.png");
-        this.gameObjects.add(new GameObjectImpl(new Point(0, 0), image, new Dimension(10, 10)));
+        this.gameObjects.add(new GameObjectImpl(new Point(0, 0), image, new Dimension(10, 10), Type.GHOST));
     }
 
      /**

@@ -12,7 +12,7 @@ import it.unibo.model.api.GameObject;
 /** Basic Implementation of a GameObject. */
 public class GameObjectImpl implements GameObject {
     /**type of the GameObject. */
-    public enum Type { WALL, PASSABLE }
+    public enum Type { WALL, PASSABLE, GHOST }
     private final Type type;
     private final Point position;
     private final URL imageUrl;
