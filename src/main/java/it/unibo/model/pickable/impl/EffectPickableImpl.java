@@ -15,7 +15,7 @@ public abstract class EffectPickableImpl extends PickableImpl implements EffectP
     static final int POINTS = 50;
 
     /**
-     * Constructor of the MalusLife.
+     * Constructor of the EffectPickableImpl.
      * 
      * @param position  the position of the pickable.
      * @param dimension the dimension of the pickable.
