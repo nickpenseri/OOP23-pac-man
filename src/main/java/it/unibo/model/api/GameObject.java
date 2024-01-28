@@ -1,6 +1,8 @@
 package it.unibo.model.api;
 
 import java.net.URL;
+
+
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
 
@@ -24,4 +26,5 @@ public interface GameObject {
      * @return actual dimension.
      */
     Dimension2D getDimension();
+
 }

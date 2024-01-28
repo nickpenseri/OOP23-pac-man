@@ -11,7 +11,9 @@ import it.unibo.model.api.GameObject;
 
 /** Basic Implementation of a GameObject. */
 public class GameObjectImpl implements GameObject {
-
+    /**type of the GameObject. */
+    public enum Type { WALL, PASSABLE }
+    private final Type type;
     private final Point position;
     private final URL imageUrl;
     private final Dimension dimension;
@@ -20,10 +22,12 @@ public class GameObjectImpl implements GameObject {
      * @param position the position of the object
      * @param imageUrl the url of the image of the object
      * @param dimension the dimension of the object
+     * @param type the type of the object
      */
-    public GameObjectImpl(final Point position, final URL imageUrl, final Dimension dimension) {
+    public GameObjectImpl(final Point position, final URL imageUrl, final Dimension dimension, final Type type) {
         this.position = new Point(Objects.requireNonNull(position));
         this.dimension = new Dimension(Objects.requireNonNull(dimension));
+        this.type = type;
 
         URL tempUrl;
         try {
@@ -65,6 +69,14 @@ public class GameObjectImpl implements GameObject {
     @Override
     public Dimension2D getDimension() {
         return new Dimension(this.dimension);
+    }
+
+    /**
+     * return type of this Gameobject.
+     * @return return type of this Gameobject.
+     */
+    public Type getType() {
+        return this.type;
     }
 
 
