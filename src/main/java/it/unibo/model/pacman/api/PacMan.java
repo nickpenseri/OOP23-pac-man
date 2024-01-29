@@ -45,4 +45,10 @@ public interface PacMan extends Character {
      * @throws IllegalArgument exception if points are less than zero
      */
     void removePoints(int points);
+
+    /**
+     * Getter for the speed level.
+     * @return the actual speed level of pacman
+     */
+    int getSpeedLevel();
 }
