@@ -25,19 +25,19 @@ import it.unibo.model.physics.objectsmover.impl.PositionApproximatorImpl;
  */
 class TestPositionApproximator {
    
-    private PositionApproximator approximator;
+    //private PositionApproximator approximator;
     private GameObjectFactory factory;
 
     /** Configuration method */
     @BeforeEach
     void test() {
-       approximator = new PositionApproximatorImpl();
+       //approximator = new PositionApproximatorImpl();
        factory = new GameObjectFactoryImpl();
     }
 
 
     @Test
     void EmptyTest() {
-        assertTrue(new Dimension(10,10).equals(factory.createGameObjectWithEmptyGraphics(new Point(0,0), new Dimension(10,10), GameObjectImpl.Type.PASSABLE).getDimension()));
+        assertTrue(new Dimension(10, 10).equals(factory.createGameObjectWithEmptyGraphics(new Point(0, 0), new Dimension(10, 10), GameObjectImpl.Type.PASSABLE).getDimension()));
      }
 }
