@@ -35,6 +35,14 @@ public abstract class CharacterImpl implements Character{
     }
 
     /**
+     * Sets the position to a specified point.
+     * @param position the new position
+     */
+    protected void setPosition(final Point position) {
+        this.position.setLocation(position);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
