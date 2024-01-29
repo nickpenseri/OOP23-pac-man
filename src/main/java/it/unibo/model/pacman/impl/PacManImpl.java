@@ -34,7 +34,7 @@ public class PacManImpl implements PacMan {
      * @param startingLives the initial amount of lives that PacMan has
      * @param dimension the dimension of the character
      * @param baseSpeed the speed of pac-man when it is not under special effects
-     * @param startingPos teh position where pac-man spawns
+     * @param startingPos the position where pac-man spawns
      * @throws IllegalArgumentException if starting lives are less or equal to zero
      * @throws IllegalArgumentException if speed is less or equal to zero
      * @throws NullPointerException if null objects have been passed
@@ -215,6 +215,23 @@ public class PacManImpl implements PacMan {
         } else {
             this.points -= points;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getSpeedLevel() {
+        return this.speedLevel;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void respawn(final Point spawnPoint) {
+        this.position.setLocation(spawnPoint);
+        this.dir = Optional.empty();
     }
 
 }
