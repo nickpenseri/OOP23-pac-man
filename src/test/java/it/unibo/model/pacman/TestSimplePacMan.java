@@ -28,6 +28,7 @@ class TestSimplePacMan {
     private static final double BASE_SPEED = 100.0;
     private static final int POINTS = 100;
     private static final int MOVEMENT = (int) (BASE_SPEED * (ELAPSED / 1000.0));
+    private static final Point RESPAWN_POINT = new Point(500, 500);
 
     private PacMan pacman;
 
@@ -152,5 +153,19 @@ class TestSimplePacMan {
         pacman.setDirection(Direction.UP);
         pacman.updateState(ELAPSED);
         assertEquals(STARTING_POS, pacman.getPosition());
+    }
+
+    /**
+     * Test for method respawn.
+     */
+    @Test
+    void testRespawn() {
+        pacman.updateState(ELAPSED);
+        assertEquals(STARTING_POS, pacman.getPosition());
+        pacman.setDirection(Direction.UP);
+        pacman.respawn(RESPAWN_POINT);
+        assertEquals(RESPAWN_POINT, pacman.getPosition());
+        pacman.updateState(ELAPSED);
+        assertEquals(RESPAWN_POINT, pacman.getPosition());
     }
 }
