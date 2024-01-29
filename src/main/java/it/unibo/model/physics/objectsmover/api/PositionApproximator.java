@@ -1,6 +1,7 @@
 package it.unibo.model.physics.objectsmover.api;
 
 import java.util.List;
+import java.util.Optional;
 import it.unibo.model.api.GameObject;
 
 /**
@@ -13,5 +14,5 @@ public interface PositionApproximator {
      * @param list the list of game objects
      * @return the game object that approximates the position of the target
      */
-    GameObject getApproximatedPosition(GameObject target, List<GameObject> list);
+    Optional<GameObject> getApproximatedPosition(GameObject target, List<GameObject> list);
 }

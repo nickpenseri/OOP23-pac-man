@@ -1,6 +1,9 @@
 package it.unibo.model.physics.objectsmover.impl;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.physics.objectsmover.api.PositionApproximator;
@@ -14,9 +17,19 @@ public class PositionApproximatorImpl implements PositionApproximator {
      * {@inheritDoc}
      */
     @Override
-    public GameObject getApproximatedPosition(final GameObject target, final List<GameObject> list) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getApproximatedPosition'");
+    public Optional<GameObject> getApproximatedPosition(final GameObject target, final List<GameObject> list) {
+        Objects.requireNonNull(target);
+        Objects.requireNonNull(list);
+        return Optional.of(list.stream()
+        .min(Comparator.comparingDouble(o -> getDistance(target, o)))
+        .orElse(null));
+    }
+
+
+    private double getDistance(final GameObject target, final GameObject object) {
+        final var targetPos = Objects.requireNonNull(target.getPosition());
+        final var objPos = Objects.requireNonNull(object.getPosition());
+        return Math.sqrt(Math.pow(targetPos.x - objPos.x, 2) + Math.pow(targetPos.y - objPos.y, 2));
     }
 
 }
