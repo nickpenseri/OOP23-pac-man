@@ -36,7 +36,7 @@ class TestSimplePacMan {
      */
     @BeforeEach
     public void setUp() {
-        pacman = new PacManImpl(STARTING_LIVES, DIMENSION, BASE_SPEED, STARTING_POS);
+        this.pacman = new PacManImpl(STARTING_LIVES, DIMENSION, BASE_SPEED, STARTING_POS);
     }
 
     /**
