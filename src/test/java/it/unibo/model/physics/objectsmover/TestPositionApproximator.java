@@ -60,8 +60,15 @@ class TestPositionApproximator {
 
      @Test
      void checkEmptyList(){
-         var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), new Dimension(0, 0));
+         final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
+         var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), dim);
          final List<GameObject> list = List.of();
          assertFalse(approximator.getApproximatedPosition(target, list).isPresent());
      }
+
+      @Test
+      void testSamePosition(){
+
+      }
+
 }
