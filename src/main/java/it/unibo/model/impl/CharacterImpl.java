@@ -26,6 +26,10 @@ public abstract class CharacterImpl implements Character{
         this.speed = initialSpeed;
     }
 
+    /**
+     * Sets the speed to a specified value.
+     * @param speed the new speed
+     */
     protected void setSpeed(final double speed) {
         this.speed = speed;
     }
