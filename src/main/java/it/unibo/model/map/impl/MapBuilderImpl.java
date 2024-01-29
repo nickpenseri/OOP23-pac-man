@@ -36,8 +36,8 @@ public class MapBuilderImpl implements MapBuilder {
         this.spawnCollectibleItems = new ArrayList<>();
         this.spawnWalls = new ArrayList<>();
         this.objectsMap = new GameObjectImpl[map.length][map[0].length];
-        for (final var x : range(0, map.length)) {
-            for (final var y : range(0, map[x].length)) {
+        for (final var x : range(0, map.length - 1)) {
+            for (final var y : range(0, map[x].length - 1)) {
                 final int ris = map[x][y];
                 final MapTypes maptype = MapTypes.values()[ris];
                 switch (maptype) {

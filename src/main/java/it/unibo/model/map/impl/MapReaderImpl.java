@@ -33,11 +33,11 @@ public class MapReaderImpl implements MapReader {
                 final int numRows = Integer.parseInt(dimensions[0]);
                 final int numColumns = Integer.parseInt(dimensions[1]);
                 this.map = new int[numRows][numColumns];
-                for (final var row : range(0, numRows)) {
+                for (final var row : range(0, numRows - 1)) {
                     final String valuesLine = reader.readLine();
                     if (valuesLine != null) {
                         final String[] values = valuesLine.split(" ");
-                        for (final var column : range(0, numColumns)) {
+                        for (final var column : range(0, numColumns - 1)) {
                             this.map[row][column] = Integer.parseInt(values[column]);
                         }
                     } else {
