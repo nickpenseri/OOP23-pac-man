@@ -26,11 +26,13 @@ class TestMapBuilder {
 
     private MapBuilderImpl mapBuilder;
 
+    /**initialize mapbuilder. */
     @BeforeEach
     void setUp() {
         mapBuilder = new MapBuilderImpl(SAMPLE_MAP);
     }
 
+    /**method that tests ghost spawning. */
     @Test
     void testGetSpawnGhost() {
         List<Point> spawnGhost = mapBuilder.getSpawnGhost();
@@ -40,12 +42,14 @@ class TestMapBuilder {
         assertEquals(new Point(3, 3), spawnGhost.get(2));
     }
 
+    /**method that test pac-man spawn */
     @Test
     void testGetPacManSpawn() {
         Point pacManSpawn = mapBuilder.getPacManSpawn();
         assertEquals(new Point(2, 2), pacManSpawn);
     }
 
+    /**method that tests the path of collectible objects */
     @Test
     void testGetSpawnCollectibleItems() {
         List<Point> spawnCollectibleItems = mapBuilder.getSpawnCollectibleItems();
@@ -57,6 +61,7 @@ class TestMapBuilder {
         assertTrue(spawnCollectibleItems.contains(new Point(2, 1)));
     }
 
+    /**method that tests the path of the walls. */
     @Test
     void testGetWallsPath() {
         List<GameObject> wallsPath = mapBuilder.getWallsPath();
@@ -66,6 +71,7 @@ class TestMapBuilder {
         assertTrue(wallsPath.get(2).getPosition().equals(new Point(0, 2)));
     }
 
+    /**method that tests the map identified by gameobject. */
     @Test
     void testGetObjectsMap() {
         GameObjectImpl[][] objectsMap = mapBuilder.getObjectsMap();
