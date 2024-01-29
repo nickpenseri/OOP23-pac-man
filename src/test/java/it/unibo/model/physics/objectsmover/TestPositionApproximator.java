@@ -24,6 +24,7 @@ class TestPositionApproximator {
     private PositionApproximator approximator;
 
 
+    /** Configuration method */
     @BeforeAll
     void test() {
        approximator = new PositionApproximatorImpl();
