@@ -119,6 +119,7 @@ public abstract class CharacterImpl implements Character {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void resetDirection() {
         this.direction = Optional.empty();
     }
