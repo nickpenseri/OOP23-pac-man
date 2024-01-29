@@ -1,4 +1,4 @@
-package it.unibo.model.collisions;
+package it.unibo.model.physics.collisions;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,10 +8,10 @@ import java.awt.Point;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.model.collisions.api.CollisionCheckerFactory;
-import it.unibo.model.collisions.impl.CollisionCheckerFactoryImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
+import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
+import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
 
 /**
  * This class is used to test the behaviour of CollisionFactoryImpl.

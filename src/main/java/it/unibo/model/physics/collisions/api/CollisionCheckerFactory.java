@@ -1,4 +1,4 @@
-package it.unibo.model.collisions.api;
+package it.unibo.model.physics.collisions.api;
 
 import it.unibo.model.api.GameObject;
 

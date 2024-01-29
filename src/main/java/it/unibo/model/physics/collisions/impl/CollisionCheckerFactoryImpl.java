@@ -1,8 +1,8 @@
-package it.unibo.model.collisions.impl;
+package it.unibo.model.physics.collisions.impl;
 
 import it.unibo.model.api.GameObject;
-import it.unibo.model.collisions.api.CollisionChecker;
-import it.unibo.model.collisions.api.CollisionCheckerFactory;
+import it.unibo.model.physics.collisions.api.CollisionChecker;
+import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;

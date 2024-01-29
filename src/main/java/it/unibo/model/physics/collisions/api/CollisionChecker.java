@@ -1,4 +1,4 @@
-package it.unibo.model.collisions.api;
+package it.unibo.model.physics.collisions.api;
 
 /**
  * This interface models an object that can check if two objects of the same
