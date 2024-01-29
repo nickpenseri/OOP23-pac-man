@@ -68,7 +68,13 @@ class TestPositionApproximator {
 
       @Test
       void testSamePosition(){
-
+         final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
+         var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), dim);
+         final List<GameObject> list = IntStream.range(0, NUMBER_OF_GAME_OBJECTS)
+         .mapToObj(i -> factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), dim))
+         .collect(Collectors.toList());
+         assertEquals(list.get(0), approximator.getApproximatedPosition(target, list).get());
+         assertNotEquals(list.get(1), approximator.getApproximatedPosition(target, list).get());
       }
 
 }
