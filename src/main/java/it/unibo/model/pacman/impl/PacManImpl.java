@@ -217,4 +217,12 @@ public class PacManImpl implements PacMan {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getSpeedLevel() {
+        return this.speedLevel;
+    }
+
 }
