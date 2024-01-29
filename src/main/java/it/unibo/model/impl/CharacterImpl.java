@@ -10,7 +10,11 @@ import java.util.Optional;
 import it.unibo.model.api.Character;
 import it.unibo.model.api.Direction;
 
-public abstract class CharacterImpl implements Character{
+/**
+ * Generic implementation for a character, with also methods left to subclasses.
+ * @see Character
+ */
+public abstract class CharacterImpl implements Character {
 
     private static final int SECOND_TO_MILLIS = 1000;
 
@@ -103,11 +107,12 @@ public abstract class CharacterImpl implements Character{
     public Point getPosition() {
         return this.position.getLocation();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setDirection(Direction direction) {
+    public void setDirection(final Direction direction) {
         this.direction = Optional.of(Objects.requireNonNull(direction));
     }
 
@@ -117,6 +122,7 @@ public abstract class CharacterImpl implements Character{
     public void resetDirection() {
         this.direction = Optional.empty();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -128,5 +134,5 @@ public abstract class CharacterImpl implements Character{
      */
     @Override
     public abstract boolean decreaseSpeed();
-    
+
 }
