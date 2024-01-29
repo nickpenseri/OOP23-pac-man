@@ -225,4 +225,13 @@ public class PacManImpl implements PacMan {
         return this.speedLevel;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void respawn(final Point spawnPoint) {
+        this.position.setLocation(spawnPoint);
+        this.dir = Optional.empty();
+    }
+
 }
