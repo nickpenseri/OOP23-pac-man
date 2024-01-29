@@ -1,5 +1,7 @@
 package it.unibo.model.pacman.api;
 
+import java.awt.Point;
+
 import it.unibo.model.api.Character;
 /**
  * This interface models an entity of pacman, the character moved from the player.
@@ -51,4 +53,10 @@ public interface PacMan extends Character {
      * @return the actual speed level of pacman
      */
     int getSpeedLevel();
+
+    /**
+     * Changes PacMan's position to the given Point and resets the direction.
+     * @param spawnPoint new PacMan's position
+     */
+    void respawn(Point spawnPoint);
 }
