@@ -26,6 +26,10 @@ public abstract class CharacterImpl implements Character{
         this.speed = initialSpeed;
     }
 
+    protected void setSpeed(final double speed) {
+        this.speed = speed;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -74,6 +78,12 @@ public abstract class CharacterImpl implements Character{
         this.direction = Optional.of(Objects.requireNonNull(direction));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public void resetDirection() {
+        this.direction = Optional.empty();
+    }
     /**
      * {@inheritDoc}
      */
