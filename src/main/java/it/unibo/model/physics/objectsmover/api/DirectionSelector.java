@@ -12,5 +12,5 @@ public interface DirectionSelector {
      * @param toMove the object to move
      * @param target the object to reach
      */
-    void move(Character toMove, GameObject target);
+    void setDirection(Character toMove, GameObject target);
 }

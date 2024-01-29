@@ -15,7 +15,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
      * {@inheritDoc}
      */
     @Override
-    public void move(final Character toMove, final GameObject target) {
+    public void setDirection(final Character toMove, final GameObject target) {
         final int diffX = toMove.getPosition().x - target.getPosition().x;
         final int diffY = toMove.getPosition().y - target.getPosition().y;
 
