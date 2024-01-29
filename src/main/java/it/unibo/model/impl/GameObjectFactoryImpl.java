@@ -12,7 +12,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory{
 
     @Override
     public GameObject createGameObjectWithEmptyGraphics(final Point position,final Dimension dimension,final Type type) {
-        return new GameObjectImpl( Objects.requireNonNull(position), ClassLoader.getSystemResource("src/main/resources/image/map/flor/Flor.png"), Objects.requireNonNull(dimension), Objects.requireNonNull(type));
+        return new GameObjectImpl( Objects.requireNonNull(position), ClassLoader.getSystemResource("image/map/flor/Flor.png"), Objects.requireNonNull(dimension), Objects.requireNonNull(type));
     }
     
 }
