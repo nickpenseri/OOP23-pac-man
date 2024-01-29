@@ -57,4 +57,11 @@ class TestPositionApproximator {
         assertEquals(list.get(list.size() -1), approximator.getApproximatedPosition(target, list).get());
 
      }
+
+     @Test
+     void checkEmptyList(){
+         var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), new Dimension(0, 0));
+         final List<GameObject> list = List.of();
+         assertFalse(approximator.getApproximatedPosition(target, list).isPresent());
+     }
 }

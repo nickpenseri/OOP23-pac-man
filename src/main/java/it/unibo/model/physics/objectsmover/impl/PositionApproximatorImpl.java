@@ -20,9 +20,14 @@ public class PositionApproximatorImpl implements PositionApproximator {
     public Optional<GameObject> getApproximatedPosition(final GameObject target, final List<GameObject> list) {
         Objects.requireNonNull(target);
         Objects.requireNonNull(list);
+
+        if (list.isEmpty()) {
+            return Optional.empty();
+        }
+
         return Optional.of(list.stream()
-        .min(Comparator.comparingDouble(o -> getDistance(target, o)))
-        .orElse(null));
+        .min(Comparator.comparingDouble(o -> getDistance(target, o)))).get();
+        
     }
 
 
