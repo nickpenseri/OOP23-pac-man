@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.net.URL;
 import it.unibo.model.api.Direction;
 import it.unibo.model.impl.CharacterImpl;
+import it.unibo.model.pacman.api.ImageChooser;
 import it.unibo.model.pacman.api.PacMan;
 
 /**
@@ -21,6 +22,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
     private int lives;
     private int speedLevel;
     private final double baseSpeed;
+    private final ImageChooser imageManager;
 
     /**
      * Create an instamce of the class PacManImpl.
@@ -48,6 +50,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
         this.points = 0;
         this.baseSpeed = baseSpeed;
         this.computeSpeed();
+        this.imageManager = new ImageChooserImpl();
     }
 
     private void computeSpeed() {
@@ -56,6 +59,15 @@ public class PacManImpl extends CharacterImpl implements PacMan {
         } else {
             super.setSpeed(this.baseSpeed + this.baseSpeed * SPEED_MULTIPLIER * this.speedLevel);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateState(final long elapsed) {
+        super.updateState(elapsed);
+        this.imageManager.update();
     }
 
     /**
@@ -100,8 +112,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
      */
     @Override
     public URL getImageUrl() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getImage'");
+        return this.imageManager.actualImageUrl(this.getDirection());
     }
 
     /**
