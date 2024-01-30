@@ -69,7 +69,7 @@ public class EngineImpl implements Engine {
     private void processInput() {
         controller.processInput();
      }
-    private void updateGame(final int elapsed) {
+    private void updateGame(final long elapsed) {
         controller.updateState(elapsed);
     }
     private void render() { 

@@ -42,34 +42,34 @@ public class MapBuilderImpl implements MapBuilder {
                 final MapTypes maptype = MapTypes.values()[ris];
                 switch (maptype) {
                     case PICKABLE:
-                        this.spawnCollectibleItems.add(new Point(x, y));
+                        this.spawnCollectibleItems.add(new Point(y, x));
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
+                                new Point(y, x), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
                                 Type.PASSABLE);
                         break;
                     case SPAWN_PAC_MAN:
-                        this.spawnPacMan.setLocation(new Point(x, y));
+                        this.spawnPacMan.setLocation(new Point(y, x));
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
+                                new Point(y, x), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
                                 Type.PASSABLE);
                         break;
                     case SPAWN_GHOST:
-                        this.spawnGhosts.add(new Point(x, y));
+                        this.spawnGhosts.add(new Point(y, x));
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
+                                new Point(y, x), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
                                 Type.PASSABLE);
                         break;
                     case WALL:
                         this.spawnWalls.add(
                                 new GameObjectImpl(
-                                        new Point(x, y), this.mapImage.getObjectUrl(Type.WALL), new Dimension(),
+                                        new Point(y, x), this.mapImage.getObjectUrl(Type.WALL), new Dimension(),
                                         Type.WALL));
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.WALL), new Dimension(), Type.WALL);
+                                new Point(y, x), this.mapImage.getObjectUrl(Type.WALL), new Dimension(), Type.WALL);
                         break;
                     case GATE_GHOST, NO_PICKABLE:
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
+                                new Point(y, x), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
                                 Type.PASSABLE);
                         break;
                     default:

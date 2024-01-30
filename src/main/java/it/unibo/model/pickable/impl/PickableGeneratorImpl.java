@@ -17,7 +17,7 @@ import it.unibo.model.pickable.api.PickableGenerator;
 public class PickableGeneratorImpl implements PickableGenerator {
     private final Map<Point, Pickable> pickableMap = new HashMap<>();
     private static final int PERCENTAGE = 10;
-    private static final int PERCENTAGE_NORMAL_PICKABLE = 8;
+    private static final int PERCENTAGE_NORMAL_PICKABLE = 9;
     private static final int NUMBER_OF_ALL_EFFECT = EffectChose.values().length;
 
     /**

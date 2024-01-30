@@ -2,12 +2,15 @@ package it.unibo.view.impl;
 
 import static java.awt.Image.SCALE_DEFAULT;
 
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import java.awt.Point;
@@ -26,8 +29,7 @@ import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
 import it.unibo.view.api.View;
 
-
-/**Swing Implementation of View Interface.  */
+/** Swing Implementation of View Interface. */
 public abstract class ViewImpl extends JPanel implements View, KeyListener {
 
     private static final long serialVersionUID = 1L;
@@ -38,8 +40,10 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     private final Logger log = LoggerFactory.getLogger(ViewImpl.class);
     private List<GameObject> gameObjects;
 
-    /** Constructor for the View.
-     * @param width the width of the view
+    /**
+     * Constructor for the View.
+     * 
+     * @param width  the width of the view
      * @param height the height of the view
      */
     public ViewImpl(final int width, final int height) {
@@ -59,7 +63,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      */
     @Override
     public final void updateView(final List<GameObject> gameObjects) {
-       this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
+        this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
     }
 
     /**
@@ -69,21 +73,35 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     public void paint(final Graphics g) {
         if (g instanceof Graphics2D) {
             final Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
             g2.clearRect(0, 0, this.getWidth(), this.getHeight());
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 
+            // Create a Map to store the scaled images
+            final Map<String, Image> scaledImages = new HashMap<>();
+
+            // In your drawing method
             this.gameObjects.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
                 Image img = null;
                 try {
-                    final var url = "src/main/resources/image/ghost/blue/BlueGhostDown.png";
-                    //log.info(url);
-                    img = ImageIO.read(new File(url)).getScaledInstance(this.width / 10, this.height / 10, SCALE_DEFAULT);
+                    final var url = obj.getImageUrl().getPath();
+                    // Check if the scaled image is already in the Map
+                    if (scaledImages.containsKey(url)) {
+                        img = scaledImages.get(url);
+                    } else {
+                        // If not, read and scale the image, and put it in the Map
+                        img = ImageIO.read(new File(url)).getScaledInstance(20, 20, SCALE_DEFAULT);
+                        scaledImages.put(url, img);
+                    }
                 } catch (IOException e) {
                     log.error("error during image reading" + e.getMessage());
                 }
-                g2.drawImage(img, pos.x, pos.x, this);
+                g2.drawImage(img, pos.x * 20, pos.y * 20, this);
             });
         }
     }
@@ -92,14 +110,15 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      * {@inheritDoc}
      */
     @Override
-    public final synchronized  List<Command> getListCommands() {
-       final List<Command> commands = new ArrayList<>(readedCommands);
-       readedCommands.clear();
-       return commands;
+    public final synchronized List<Command> getListCommands() {
+        final List<Command> commands = new ArrayList<>(readedCommands);
+        readedCommands.clear();
+        return commands;
     }
 
     /**
-     * Every time that the view is added to the frame, it request the focus for read the key.
+     * Every time that the view is added to the frame, it request the focus for read
+     * the key.
      */
     @Override
     public void addNotify() {
@@ -107,12 +126,12 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
         setkeyListenerSettings();
     }
 
-
     /**
      * This method is used to add a command to the list of readed commands.
+     * 
      * @param command the command to add
      */
-    protected final synchronized  void addCommand(final Command command) {
+    protected final synchronized void addCommand(final Command command) {
         this.readedCommands.add(command);
     }
 
@@ -125,7 +144,6 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     @Override
     public abstract void keyReleased(KeyEvent e);
 
-
     /**
      * This method is used to set the keyListener for the view.
      */
@@ -135,5 +153,5 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
         setFocusTraversalKeysEnabled(false);
         requestFocusInWindow();
     }
- 
+
 }
