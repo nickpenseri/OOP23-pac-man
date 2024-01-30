@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 /**
  * This class is used to test the behaviour of the class PickableGeneratorImpl.
@@ -27,15 +27,15 @@ class PickableGeneratorImplTest {
     private static final double BASE_SPEED = 100.0;
 
     /**
-     * This method tests the method getPickableMap of the class
+     * This method tests the method getPickableList of the class
      * PickableGeneratorImpl.
      */
     @Test
-    void testGetPickableMap() {
+    void testGetPickableList() {
         final PickableGeneratorImpl generator = new PickableGeneratorImpl();
-        final Map<Point, Pickable> map = generator.getPickableMap();
-        assertNotNull(map);
-        assertTrue(map.isEmpty());
+        final List<Pickable> pickableList = new ArrayList<>(generator.getPickableList());
+        assertNotNull(pickableList);
+        assertTrue(pickableList.isEmpty());
     }
 
     /**
@@ -49,9 +49,9 @@ class PickableGeneratorImplTest {
         final ArrayList<Point> list = new ArrayList<>();
         list.add(point);
         generator.generateMap(list, DIMENSION);
-        assertTrue(generator.getPickableMap().containsKey(point));
+        assertFalse(generator.getPickableList().isEmpty());
         generator.takePickable(point, pacman);
-        assertFalse(generator.getPickableMap().containsKey(point));
+        assertTrue(generator.finishedPickable());
     }
 
     /**

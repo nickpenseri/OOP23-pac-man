@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.geom.Dimension2D;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import it.unibo.model.pacman.api.PacMan;
@@ -64,13 +65,13 @@ public class PickableGeneratorImpl implements PickableGenerator {
     }
 
     /**
-     * Is for get the Map of Pickable.
+     * Is for get the List of Pickable.
      * 
-     * @return a Map of Pickable.
+     * @return a List of Pickable.
      */
     @Override
-    public Map<Point, Pickable> getPickableMap() {
-        return new HashMap<>(pickableMap);
+    public List<Pickable> getPickableList() {
+        return new ArrayList<Pickable>(pickableMap.values());
     }
 
     /**
