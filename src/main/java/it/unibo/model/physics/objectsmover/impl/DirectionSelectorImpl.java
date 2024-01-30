@@ -17,7 +17,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
     @Override
     public void setDirection(final Character toMove, final GameObject target) {
         final int diffX = toMove.getPosition().x - target.getPosition().x;
-        final int diffY = toMove.getPosition().y - target.getPosition().y;
+        final int diffY = target.getPosition().y - toMove.getPosition().y;
 
         if (Math.abs(diffX) > Math.abs(diffY)) {
             if (diffX > 0) {

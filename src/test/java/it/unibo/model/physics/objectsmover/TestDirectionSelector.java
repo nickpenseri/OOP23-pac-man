@@ -16,6 +16,7 @@ import it.unibo.model.impl.GameObjectFactoryImpl;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.DirectionSelectorImpl;
 import it.unibo.model.api.Character;
+import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 
 
@@ -33,5 +34,7 @@ public class TestDirectionSelector {
     void upDirection(){
         Character ghost = new GhostImpl(new Point(TARGET_INIT_POSITION,TARGET_INIT_POSITION), dim, 1);
         GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INIT_POSITION,TARGET_INIT_POSITION + 1), dim);
+        selector.setDirection(ghost, target);
+        assertEquals(Direction.UP ,ghost.getDirection().get());
     }
 }
