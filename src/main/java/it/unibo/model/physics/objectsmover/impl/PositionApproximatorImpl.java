@@ -27,7 +27,6 @@ public class PositionApproximatorImpl implements PositionApproximator {
 
         return Optional.of(list.stream()
         .min(Comparator.comparingDouble(o -> getDistance(target, o)))).get();
-        
     }
 
 

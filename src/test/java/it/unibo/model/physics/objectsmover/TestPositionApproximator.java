@@ -26,7 +26,7 @@ class TestPositionApproximator {
 
    private static final int GAME_OBJ_SIZE = 10;
    private static final int GAME_OBJ_DISTANCE = 10;
-   private static final int TARGET_INITIAL_POSITION = 8;
+   private static final int TARGET_INIT_POSITION = 8;
    private static final int TARGET_SECOND_POSITION = 30;
    private static final int TARGET_THIRD_POSITION = 200;
    private static final int NUMBER_OF_GAME_OBJECTS = 10;
@@ -37,10 +37,10 @@ class TestPositionApproximator {
       * Test the behaviour of getApproximatedPosition, test if is always near to something.
       */
     @Test
-    void CheckPositionTest() {
+    void checkPositionTest() {
         final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
 
-        var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), dim);
+        var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), dim);
         final List<GameObject> list = IntStream.range(0, NUMBER_OF_GAME_OBJECTS)
         .mapToObj(i -> factory.createGameObjectWithEmptyGraphics(new Point(i * GAME_OBJ_DISTANCE, i * GAME_OBJ_DISTANCE), dim))
         .collect(Collectors.toList());
@@ -54,24 +54,24 @@ class TestPositionApproximator {
 
         target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_THIRD_POSITION, TARGET_THIRD_POSITION), dim);
         assertFalse(approximator.getApproximatedPosition(target, list).isEmpty());
-        assertEquals(list.get(list.size() -1), approximator.getApproximatedPosition(target, list).get());
+        assertEquals(list.get(list.size() - 1), approximator.getApproximatedPosition(target, list).get());
 
      }
 
      @Test
-     void checkEmptyList(){
+     void checkEmptyList() {
          final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
-         var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), dim);
+         final var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), dim);
          final List<GameObject> list = List.of();
          assertFalse(approximator.getApproximatedPosition(target, list).isPresent());
      }
 
       @Test
-      void testSamePosition(){
+      void testSamePosition() {
          final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
-         var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), dim);
+         final var target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), dim);
          final List<GameObject> list = IntStream.range(0, NUMBER_OF_GAME_OBJECTS)
-         .mapToObj(i -> factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INITIAL_POSITION, TARGET_INITIAL_POSITION), dim))
+         .mapToObj(i -> factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), dim))
          .collect(Collectors.toList());
          assertEquals(list.get(0), approximator.getApproximatedPosition(target, list).get());
          assertNotEquals(list.get(1), approximator.getApproximatedPosition(target, list).get());
