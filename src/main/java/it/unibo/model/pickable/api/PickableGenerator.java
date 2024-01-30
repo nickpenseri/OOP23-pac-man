@@ -3,7 +3,6 @@ package it.unibo.model.pickable.api;
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
 import java.util.List;
-import java.util.Map;
 
 import it.unibo.model.pacman.api.PacMan;
 
@@ -18,11 +17,11 @@ public interface PickableGenerator {
     void generateMap(List<Point> pickableSpawnPoints, Dimension2D dimension);
 
     /**
-     * Is for get the Map of Pickable.
+     * Is for get the List of Pickable.
      * 
-     * @return a Map of Pickable.
+     * @return a List of Pickable.
      */
-    Map<Point, Pickable> getPickableMap();
+    List<Pickable> getPickableList();
 
     /**
      * Is for take a Pickable and do the effect of this.
