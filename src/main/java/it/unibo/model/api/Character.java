@@ -1,5 +1,6 @@
 package it.unibo.model.api;
 
+import java.util.Optional;
 
 /** A GameObject that can be moved. */
 public interface Character extends GameObject {
@@ -11,9 +12,17 @@ public interface Character extends GameObject {
     void setDirection(Direction direction);
 
     /**
+     * Getter for the direction.
+     * @return the actual direction
+     */
+    Optional<Direction> getDirection();
+
+    /**
      * Resets the direction of the character, making it stop.
      */
     void resetDirection();
+
+  
 
     /**
      * update the state of the Character.
