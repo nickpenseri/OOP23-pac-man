@@ -1,30 +1,23 @@
 package it.unibo.model.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.awt.Dimension;
 import java.awt.Point;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import java.net.URL;
-
 import it.unibo.input.api.Command;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.Model;
-import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.impl.MapBuilderImpl;
 import it.unibo.model.map.impl.MapReaderImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
-import it.unibo.model.pickable.api.Pickable;
 import it.unibo.model.pickable.api.PickableGenerator;
 import it.unibo.model.pickable.impl.PickableGeneratorImpl;
 
@@ -84,6 +77,8 @@ public class  GameScene implements Model {
     public  List<GameObject> getObjects() {
         gameObjects.get(1).clear();
         gameObjects.get(1).addAll(pickableGenerator.getPickableList());
+        gameObjects.get(2).clear();
+        gameObjects.get(2).add(pacman);
         List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
             gameObjectsFlat.addAll(list);

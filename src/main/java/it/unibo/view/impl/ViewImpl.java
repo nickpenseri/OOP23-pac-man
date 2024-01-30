@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +34,8 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     private static final long serialVersionUID = 1L;
 
     private final List<Command> readedCommands;
-    private final int width;
-    private final int height;
+    //private final int width;
+    //private final int height;
     private final Logger log = LoggerFactory.getLogger(ViewImpl.class);
     private List<GameObject> gameObjects;
 
@@ -53,8 +52,8 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
         }
 
         setSize(width, height);
-        this.width = width;
-        this.height = height;
+        //this.width = width;
+        //this.height = height;
         this.readedCommands = new ArrayList<>();
     }
 
