@@ -87,5 +87,4 @@ public class GameObjectImpl implements GameObject {
     protected final void setPosition(final Point position) {
         this.position.setLocation(Objects.requireNonNull(position));
     }
-
 }

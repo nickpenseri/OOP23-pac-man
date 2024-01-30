@@ -11,6 +11,11 @@ public interface Character extends GameObject {
     void setDirection(Direction direction);
 
     /**
+     * Resets the direction of the character, making it stop.
+     */
+    void resetDirection();
+
+    /**
      * update the state of the Character.
      * @param elapsed the time passed from the last update.
      */

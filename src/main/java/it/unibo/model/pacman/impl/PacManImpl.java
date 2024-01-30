@@ -2,32 +2,25 @@ package it.unibo.model.pacman.impl;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.geom.Dimension2D;
 import java.net.URL;
-import java.util.Objects;
-import java.util.Optional;
 import it.unibo.model.api.Direction;
+import it.unibo.model.impl.CharacterImpl;
 import it.unibo.model.pacman.api.PacMan;
 
 /**
  * This class models an entity of a pac-man character that moves in a free space.
  * @see PacMan
  */
-public class PacManImpl implements PacMan {
+public class PacManImpl extends CharacterImpl implements PacMan {
 
     private static final int MAX_SPEED_LEVEL = 3;
     private static final int MIN_SPEED_LEVEL = -3;
     private static final double SPEED_MULTIPLIER = 0.10;
-    private static final double SECOND_TO_MILLIS = 1000.0;
 
     private int points;
     private int lives;
     private int speedLevel;
     private final double baseSpeed;
-    private final Point position;
-    private Optional<Direction> dir;
-    private final Dimension dimension;
-    private double actualSpeed;
 
     /**
      * Create an instamce of the class PacManImpl.
@@ -43,27 +36,25 @@ public class PacManImpl implements PacMan {
             final Dimension dimension,
             final double baseSpeed,
             final Point startingPos) {
+        super(startingPos, dimension, baseSpeed);
         if (startingLives <= 0) {
             throw new IllegalArgumentException("Cannot instantiate an object with negative lives");
         }
         if (baseSpeed <= 0) {
             throw new IllegalArgumentException("Cannot create an obkìject with negative speed");
         }
-        this.dimension = new Dimension(Objects.requireNonNull(dimension));
-        this.baseSpeed = baseSpeed;
-        this.position = Objects.requireNonNull(startingPos).getLocation();
         this.lives = startingLives;
         this.speedLevel = 0;
         this.points = 0;
-        this.dir = Optional.empty();
+        this.baseSpeed = baseSpeed;
         this.computeSpeed();
     }
 
     private void computeSpeed() {
-        if (this.dir.isEmpty()) {
-            this.actualSpeed = 0;
+        if (super.getDirection().isEmpty()) {
+            super.setSpeed(0);
         } else {
-            this.actualSpeed = this.baseSpeed + this.baseSpeed * SPEED_MULTIPLIER * this.speedLevel;
+            super.setSpeed(this.baseSpeed + this.baseSpeed * SPEED_MULTIPLIER * this.speedLevel);
         }
     }
 
@@ -72,35 +63,9 @@ public class PacManImpl implements PacMan {
      */
     @Override
     public void setDirection(final Direction direction) {
-        this.dir = Optional.of(Objects.requireNonNull(direction));
+        super.setDirection(direction);
         this.computeSpeed();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void updateState(final long elapsed) {
-        if (this.dir.isPresent()) {
-            final Point translation = computeTranslation(elapsed);
-            this.position.translate((int) translation.getX(), (int) translation.getY());
-        }
-    }
-
-    private Point computeTranslation(final long elapsed) {
-        final int movement = this.computeMovement(elapsed);
-        return switch (this.dir.get()) {
-            case UP -> new Point(0, movement);
-            case RIGHT -> new Point(movement, 0);
-            case DOWN -> new Point(0, -movement);
-            case LEFT -> new Point(-movement, 0);
-            default -> new Point(0, 0);
-        };
-    }
-
-    private int computeMovement(final long dt) {
-        return (int) (this.actualSpeed * ((double) dt / SECOND_TO_MILLIS));
-    } 
 
     /**
      * {@inheritDoc}
@@ -134,25 +99,9 @@ public class PacManImpl implements PacMan {
      * {@inheritDoc}
      */
     @Override
-    public Point getPosition() {
-        return this.position.getLocation();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public URL getImageUrl() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getImage'");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Dimension2D getDimension() {
-        return new Dimension(this.dimension);
     }
 
     /**
@@ -230,8 +179,8 @@ public class PacManImpl implements PacMan {
      */
     @Override
     public void respawn(final Point spawnPoint) {
-        this.position.setLocation(spawnPoint);
-        this.dir = Optional.empty();
+        super.setPosition(spawnPoint);
+        super.resetDirection();
     }
 
 }
