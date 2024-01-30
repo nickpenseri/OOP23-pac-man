@@ -37,4 +37,21 @@ public class TestDirectionSelector {
         selector.setDirection(ghost, target);
         assertEquals(Direction.UP ,ghost.getDirection().get());
     }
+
+
+    @Test
+    void DownDirection(){
+        Character ghost = new GhostImpl(new Point(TARGET_INIT_POSITION,TARGET_INIT_POSITION), dim, 1);
+        GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INIT_POSITION,TARGET_INIT_POSITION - 1), dim);
+        selector.setDirection(ghost, target);
+        assertEquals(Direction.DOWN ,ghost.getDirection().get());
+    }
+
+    @Test
+    void LeftDirection(){
+        Character ghost = new GhostImpl(new Point(TARGET_INIT_POSITION,TARGET_INIT_POSITION), dim, 1);
+        GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(TARGET_INIT_POSITION-1,TARGET_INIT_POSITION), dim);
+        selector.setDirection(ghost, target);
+        assertEquals(Direction.LEFT ,ghost.getDirection().get());
+    }
 }
