@@ -56,7 +56,7 @@ public abstract class CharacterImpl implements Character {
      * Getter for the direction.
      * @return the actual direction
      */
-    protected Optional<Direction> getDirection() {
+    public Optional<Direction> getDirection() {
         return this.direction;
     }
 

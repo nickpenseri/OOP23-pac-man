@@ -65,6 +65,7 @@ public class  GameScene implements Model {
     @Override
     public void updateState(final long elapsed) {
         //characters.forEach(c -> c.updateState());
+        log.info("udpategame");
     }
 
      /**

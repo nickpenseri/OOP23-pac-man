@@ -1,5 +1,6 @@
 package it.unibo.view.impl;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,9 @@ public class GameView extends ViewImpl {
      */
     public GameView(final int width, final int height) {
         super(width, height);
+        this.setOpaque(true);
+        this.setBackground(Color.BLACK);
+    
     }
 
     /**

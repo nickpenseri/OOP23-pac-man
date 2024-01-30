@@ -2,7 +2,7 @@ package it.unibo.view.impl;
 
 import static java.awt.Image.SCALE_DEFAULT;
 
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -59,19 +59,23 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      */
     @Override
     public final void updateView(final List<GameObject> gameObjects) {
-       this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
+       this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));   
     }
+
+  
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void paint(final Graphics g) {
+       
         if (g instanceof Graphics2D) {
             final Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2.clearRect(0, 0, this.getWidth(), this.getHeight());
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, getWidth(), getHeight());
 
             this.gameObjects.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
@@ -84,6 +88,9 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
                     log.error("error during image reading" + e.getMessage());
                 }
                 g2.drawImage(img, pos.x, pos.x, this);
+           
+             
+                
             });
         }
     }
