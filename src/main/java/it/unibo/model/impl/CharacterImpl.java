@@ -44,11 +44,8 @@ public abstract class CharacterImpl implements Character {
         this.speed = speed;
     }
 
-    /**
-     * Sets the position to a specified point.
-     * @param position the new position
-     */
-    protected void setPosition(final Point position) {
+    /**{@inheritDoc} */
+    public void setPosition(final Point position) {
         this.position.setLocation(position);
     }
 
