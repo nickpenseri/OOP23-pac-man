@@ -1,9 +1,9 @@
 package it.unibo.model.physics.objectsmover.impl;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.physics.objectsmover.api.PositionApproximator;
@@ -17,7 +17,7 @@ public class PositionApproximatorImpl implements PositionApproximator {
      * {@inheritDoc}
      */
     @Override
-    public Optional<GameObject> getApproximatedPosition(final GameObject target, final List<GameObject> list) {
+    public Optional<GameObject> getApproximatedPosition(final GameObject target, final Set<GameObject> list) {
         Objects.requireNonNull(target);
         Objects.requireNonNull(list);
 
