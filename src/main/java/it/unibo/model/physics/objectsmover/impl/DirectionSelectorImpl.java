@@ -13,19 +13,23 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 
     /**
      * {@inheritDoc}
+     * the longhest distance has always the priority.
      */
     @Override
     public void setDirection(final Character toMove, final GameObject target) {
         final int diffX = target.getPosition().x - toMove.getPosition().x;
         final int diffY = target.getPosition().y - toMove.getPosition().y;
 
-        if (Math.abs(diffX) > Math.abs(diffY)) {
+
+    
+
+        if (Math.abs(diffX) >= Math.abs(diffY)) {
             if (diffX > 0) {
                 toMove.setDirection(Direction.RIGHT);
             } else {
                 toMove.setDirection(Direction.LEFT);
             }
-        } else if (Math.abs(diffX) < Math.abs(diffY)) {
+        } else {
             if (diffY > 0) {
                 toMove.setDirection(Direction.UP);
             } else {
