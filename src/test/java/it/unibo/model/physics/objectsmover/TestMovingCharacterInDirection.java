@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.awt.Dimension;
 import java.awt.Point;
 
-import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.ghost.impl.GhostImpl;
@@ -28,10 +27,10 @@ class TestMovingCharacterInDirection {
     void moveUp() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION + 1), dim);
-        int yDiff = ghost.getPosition().y - target.getPosition().y;
+        final int yDiff = ghost.getPosition().y - target.getPosition().y;
         selector.setDirection(ghost, target);
         ghost.updateState(1000);
-        int yDiffAfter = ghost.getPosition().y - target.getPosition().y;
+        final int yDiffAfter = ghost.getPosition().y - target.getPosition().y;
         assertTrue(Math.abs(yDiffAfter) < Math.abs(yDiff));
     }
 
@@ -40,10 +39,10 @@ class TestMovingCharacterInDirection {
     void moveDown() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION - 1), dim);
-        int yDiff = ghost.getPosition().y - target.getPosition().y;
+        final int yDiff = ghost.getPosition().y - target.getPosition().y;
         selector.setDirection(ghost, target);
         ghost.updateState(1000);
-        int yDiffAfter = ghost.getPosition().y - target.getPosition().y;
+        final int yDiffAfter = ghost.getPosition().y - target.getPosition().y;
         assertTrue(Math.abs(yDiffAfter) < Math.abs(yDiff));
     }
 
@@ -52,10 +51,10 @@ class TestMovingCharacterInDirection {
     void moveRight() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION), dim);
-        int xDiff = ghost.getPosition().x - target.getPosition().x;
+        final int xDiff = ghost.getPosition().x - target.getPosition().x;
         selector.setDirection(ghost, target);
         ghost.updateState(1000);
-        int xDiffAfter = ghost.getPosition().x - target.getPosition().x;
+        final int xDiffAfter = ghost.getPosition().x - target.getPosition().x;
         assertTrue(Math.abs(xDiffAfter) < Math.abs(xDiff));
     }
 
@@ -63,10 +62,10 @@ class TestMovingCharacterInDirection {
     void moveLeft() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION - 1, INIT_POSITION), dim);
-        int xDiff = ghost.getPosition().x - target.getPosition().x;
+        final int xDiff = ghost.getPosition().x - target.getPosition().x;
         selector.setDirection(ghost, target);
         ghost.updateState(1000);
-        int xDiffAfter = ghost.getPosition().x - target.getPosition().x;
+        final int xDiffAfter = ghost.getPosition().x - target.getPosition().x;
         assertTrue(Math.abs(xDiffAfter) < Math.abs(xDiff));
     }
 

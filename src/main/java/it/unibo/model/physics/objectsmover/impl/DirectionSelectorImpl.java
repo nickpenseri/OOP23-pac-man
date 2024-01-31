@@ -37,7 +37,6 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
                 } 
             }
         }
-       
     }
 }
  
