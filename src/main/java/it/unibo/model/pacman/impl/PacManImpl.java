@@ -43,7 +43,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
             throw new IllegalArgumentException("Cannot instantiate an object with negative lives");
         }
         if (baseSpeed <= 0) {
-            throw new IllegalArgumentException("Cannot create an obkìject with negative speed");
+            throw new IllegalArgumentException("Cannot instantiate an object with negative speed");
         }
         this.lives = startingLives;
         this.speedLevel = 0;
