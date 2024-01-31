@@ -9,7 +9,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
  /**
   * Implementation of the interface DirectionSelector, sets the direction of a character to move to reach a target.
   */
-  public class DirectionSelectorImpl implements DirectionSelector {
+  public class EuclideanDirectionSelector implements DirectionSelector {
 
     /**
      * {@inheritDoc}
