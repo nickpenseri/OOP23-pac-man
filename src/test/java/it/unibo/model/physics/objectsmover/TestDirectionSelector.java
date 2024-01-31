@@ -1,7 +1,8 @@
 package it.unibo.model.physics.objectsmover;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 import java.awt.Dimension;
@@ -85,10 +86,14 @@ class TestDirectionSelector {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
         GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION), dim);
         selector.setDirection(ghost, target);
-        //assertFalse(ghost.getDirection().isPresent());
+        assertFalse(ghost.getDirection().isPresent());
 
         target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION), dim);
         selector.setDirection(ghost, target);
-        //assertFalse(ghost.getDirection().isPresent());
+        assertTrue(ghost.getDirection().isPresent());
+
+        target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION), dim);
+        selector.setDirection(ghost, target);
+        assertFalse(ghost.getDirection().isPresent());
     }
 }

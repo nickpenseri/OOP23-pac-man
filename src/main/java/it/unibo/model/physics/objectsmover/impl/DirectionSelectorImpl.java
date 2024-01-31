@@ -20,19 +20,24 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
         final int diffX = target.getPosition().x - toMove.getPosition().x;
         final int diffY = target.getPosition().y - toMove.getPosition().y;
 
-        if (Math.abs(diffX) >= Math.abs(diffY)) {
-            if (diffX > 0) {
-                toMove.setDirection(Direction.RIGHT);
-            } else {
-                toMove.setDirection(Direction.LEFT);
-            }
+        if (diffX == 0 && diffY == 0) {
+           toMove.resetDirection();
         } else {
-            if (diffY > 0) {
-                toMove.setDirection(Direction.UP);
+            if (Math.abs(diffX) >= Math.abs(diffY)) {
+                if (diffX > 0) {
+                    toMove.setDirection(Direction.RIGHT);
+                } else {
+                    toMove.setDirection(Direction.LEFT);
+                }
             } else {
-                toMove.setDirection(Direction.DOWN);
-            } 
+                if (diffY > 0) {
+                    toMove.setDirection(Direction.UP);
+                } else {
+                    toMove.setDirection(Direction.DOWN);
+                } 
+            }
         }
+       
     }
 }
  
