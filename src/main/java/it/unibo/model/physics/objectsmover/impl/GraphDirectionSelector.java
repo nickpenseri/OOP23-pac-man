@@ -8,6 +8,8 @@ import it.unibo.model.physics.objectsmover.api.PositionApproximator;
 import org.jgrapht.alg.shortestpath.AStarShortestPath;
 import org.jgrapht.graph.DefaultEdge;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.util.Objects;
 
 import org.jgrapht.Graph;
@@ -27,6 +29,7 @@ public class GraphDirectionSelector implements DirectionSelector {
      * Creates a new GraphDirectionSelector.
      * @param graph the graph of the gameMap
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     public GraphDirectionSelector(final Graph<GameObject, DefaultEdge> graph) {
         this.graph = Objects.requireNonNull(graph);
         this.approximator = new PositionApproximatorImpl();
