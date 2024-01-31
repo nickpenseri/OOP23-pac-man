@@ -46,7 +46,8 @@ public class BlueGhostMovementImages implements ImageChooser {
      */
     @Override
     public URL actualImageUrl(final Optional<Direction> dir) {
-        return ClassLoader.getSystemResource(this.select(dir));
+        final String actualImage = select(dir);
+        return ClassLoader.getSystemResource(actualImage);
     }
 
     private String select(final Optional<Direction> dir) {

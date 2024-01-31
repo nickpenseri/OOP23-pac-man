@@ -9,6 +9,7 @@ import java.awt.Point;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
+import it.unibo.model.ghost.impl.BlueGhostMovementImages;
 import it.unibo.model.ghost.impl.GhostImpl;
 import it.unibo.model.impl.GameObjectFactoryImpl;
 import it.unibo.model.api.Character;
@@ -25,7 +26,7 @@ class TestMovingCharacterInDirection {
 
     @Test
     void moveUp() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION + 1), dim);
         final int yDiff = ghost.getPosition().y - target.getPosition().y;
         selector.setDirection(ghost, target);
@@ -37,7 +38,7 @@ class TestMovingCharacterInDirection {
 
     @Test
     void moveDown() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION - 1), dim);
         final int yDiff = ghost.getPosition().y - target.getPosition().y;
         selector.setDirection(ghost, target);
@@ -49,7 +50,7 @@ class TestMovingCharacterInDirection {
 
     @Test
     void moveRight() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION), dim);
         final int xDiff = ghost.getPosition().x - target.getPosition().x;
         selector.setDirection(ghost, target);
@@ -60,7 +61,7 @@ class TestMovingCharacterInDirection {
 
     @Test
     void moveLeft() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION - 1, INIT_POSITION), dim);
         final int xDiff = ghost.getPosition().x - target.getPosition().x;
         selector.setDirection(ghost, target);
@@ -72,7 +73,7 @@ class TestMovingCharacterInDirection {
 
     @Test
     void noMove() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION), dim);
         selector.setDirection(ghost, target);
         ghost.updateState(1000);
