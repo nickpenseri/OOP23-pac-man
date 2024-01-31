@@ -20,9 +20,6 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
         final int diffX = target.getPosition().x - toMove.getPosition().x;
         final int diffY = target.getPosition().y - toMove.getPosition().y;
 
-
-    
-
         if (Math.abs(diffX) >= Math.abs(diffY)) {
             if (diffX > 0) {
                 toMove.setDirection(Direction.RIGHT);

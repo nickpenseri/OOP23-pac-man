@@ -21,9 +21,7 @@ public class GameView extends ViewImpl {
         super(width, height);
         this.setOpaque(true);
         this.setBackground(Color.BLACK);
-    
     }
-
     /**
      * {@inheritDoc}
      */

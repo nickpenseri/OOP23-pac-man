@@ -22,7 +22,6 @@ public interface Character extends GameObject {
      */
     void resetDirection();
 
-  
 
     /**
      * update the state of the Character.

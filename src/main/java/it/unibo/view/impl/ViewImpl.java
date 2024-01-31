@@ -59,17 +59,14 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      */
     @Override
     public final void updateView(final List<GameObject> gameObjects) {
-       this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));   
+        this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
     }
-
-  
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void paint(final Graphics g) {
-       
         if (g instanceof Graphics2D) {
             final Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -88,9 +85,6 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
                     log.error("error during image reading" + e.getMessage());
                 }
                 g2.drawImage(img, pos.x, pos.x, this);
-           
-             
-                
             });
         }
     }
