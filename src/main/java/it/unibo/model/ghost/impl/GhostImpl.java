@@ -5,9 +5,9 @@ import java.awt.Point;
 import java.net.URL;
 import java.util.Objects;
 
+import it.unibo.model.api.ImageChooser;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.impl.CharacterImpl;
-import it.unibo.model.pacman.api.ImageChooser;
 
 /**
  * Implementation of the ghost.

@@ -11,7 +11,9 @@ import java.awt.Point;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.api.GameObjectFactory;
-import it.unibo.model.ghost.impl.BlueGhostMovementImages;
+import it.unibo.model.api.ImageChooser;
+import it.unibo.model.ghost.api.GhostColor;
+import it.unibo.model.ghost.impl.GhostGraphics;
 import it.unibo.model.ghost.impl.GhostImpl;
 import it.unibo.model.impl.GameObjectFactoryImpl;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
@@ -29,13 +31,14 @@ class TestDirectionSelector {
     private static final int GAME_OBJ_SIZE = 10;
     private static final int INIT_POSITION = 10;
 
+    private final ImageChooser graphics = new GhostGraphics(GhostColor.BLUE);
     private final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
     private final DirectionSelector selector = new DirectionSelectorImpl();
     private final GameObjectFactory factory  = new GameObjectFactoryImpl();
 
     @Test
     void upDirection() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, graphics);
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION + 1), dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.UP, ghost.getDirection().get());
@@ -44,7 +47,7 @@ class TestDirectionSelector {
 
     @Test
     void downDirection() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, graphics);
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION - 1), dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.DOWN, ghost.getDirection().get());
@@ -52,7 +55,7 @@ class TestDirectionSelector {
 
     @Test
     void leftDirection() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1,  graphics);
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION - 1, INIT_POSITION), dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.LEFT, ghost.getDirection().get());
@@ -60,7 +63,7 @@ class TestDirectionSelector {
 
     @Test
     void rightDirection() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, graphics);
         final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION), dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.RIGHT, ghost.getDirection().get());
@@ -68,7 +71,7 @@ class TestDirectionSelector {
 
     @Test
     void twoDirections() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, graphics);
         GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION + 1), dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.RIGHT, ghost.getDirection().get());
@@ -84,7 +87,7 @@ class TestDirectionSelector {
 
     @Test
     void noDirection() {
-        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, new BlueGhostMovementImages());
+        final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1, graphics);
         GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION), dim);
         selector.setDirection(ghost, target);
         assertFalse(ghost.getDirection().isPresent());

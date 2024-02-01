@@ -3,7 +3,7 @@ package it.unibo.model.pacman.impl;
 import java.net.URL;
 import java.util.Optional;
 import it.unibo.model.api.Direction;
-import it.unibo.model.pacman.api.ImageChooser;
+import it.unibo.model.api.ImageChooser;
 
 /**
  * This class represents an implementation of ImageChooser, which can be updated
