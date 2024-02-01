@@ -15,6 +15,7 @@ import it.unibo.model.pacman.api.PacMan;
  * this PacMan exceeds a border, it reappears at the opposite border.
  * It is composed of a PacMan, which is decorated, and every method delegates to
  * the decorated object, correcting the position in updateState.
+ * 
  * @see PacMan
  */
 public class PacManBordered implements PacMan {
@@ -25,19 +26,19 @@ public class PacManBordered implements PacMan {
 
     /**
      * Creates an object of this class which decorates the PacMan passed as a
-     * parameter and which moves in a space with heigth and width passed as parameters.
+     * parameter and which moves in a space with heigth and width passed as
+     * parameters.
+     * 
      * @param decorated the PacMan to be decorated
-     * @param heigth  the heigth of the bordered space
-     * @param width the width of the bordered space
-     * @throws NullPointerException if the PacMan to be decorated is null
-     * @throws IllegalArgumentException if width or heigth are less or equal to zero.
+     * @param heigth    the heigth of the bordered space
+     * @param width     the width of the bordered space
+     * @throws NullPointerException     if the PacMan to be decorated is null
+     * @throws IllegalArgumentException if width or heigth are less or equal to
+     *                                  zero.
      */
-    @SuppressFBWarnings(
-        value = {
+    @SuppressFBWarnings(value = {
             "EI_EXPOSE_REP2"
-        },
-        justification = "Changings of the decorated object should also affect this object"
-    )
+    }, justification = "Changings of the decorated object should also affect this object")
     public PacManBordered(final PacMan decorated, final int heigth, final int width) {
         this.decorated = Objects.requireNonNull(decorated);
         if (heigth <= 0) {
@@ -92,10 +93,22 @@ public class PacManBordered implements PacMan {
         return this.decorated.getSpeedLevel();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Changes PacMan's position to the given Point and resets the direction.
+     * 
+     * @param spawnPoint the new position of pacman
+     * @throws IllegalArgumentException if spawnPoint is outside borders
+     */
     @Override
     public void respawn(final Point spawnPoint) {
+        if (!isInBorders(spawnPoint)) {
+            throw new IllegalArgumentException("Cannot respawn outside the borders");
+        }
         this.decorated.respawn(spawnPoint);
+    }
+
+    private boolean isInBorders(final Point position) {
+        return position.getX() >= 0 && position.getX() < width && position.getY() >= 0 && position.getY() < heigth;
     }
 
     /** {@inheritDoc} */
@@ -134,7 +147,10 @@ public class PacManBordered implements PacMan {
         this.decorated.resetDirection();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Updates the state of the Character. If pacman exceeds a border, it reappears
+     * at the opposite border.
+     */
     @Override
     public void updateState(final long elapsed) {
         this.decorated.updateState(elapsed);
