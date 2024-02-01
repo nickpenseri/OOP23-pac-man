@@ -11,18 +11,20 @@ import it.unibo.model.api.GameObject;
 
 /** Basic Implementation of a GameObject. */
 public class GameObjectImpl implements GameObject {
-    /**type of the GameObject. */
-    public enum Type { WALL, PASSABLE, GHOST }
+    /** type of the GameObject. */
+    public enum Type { WALL, FLOR, GHOST, GATE }
     private final Type type;
     private final Point position;
     private final URL imageUrl;
     private final Dimension dimension;
 
-    /** Constructor of a GameObject.
-     * @param position the position of the object
-     * @param imageUrl the url of the image of the object
+    /**
+     * Constructor of a GameObject.
+     * 
+     * @param position  the position of the object
+     * @param imageUrl  the url of the image of the object
      * @param dimension the dimension of the object
-     * @param type the type of the object
+     * @param type      the type of the object
      */
     public GameObjectImpl(final Point position, final URL imageUrl, final Dimension dimension, final Type type) {
         this.position = new Point(Objects.requireNonNull(position));
@@ -39,7 +41,7 @@ public class GameObjectImpl implements GameObject {
         this.imageUrl = tempUrl;
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -47,7 +49,7 @@ public class GameObjectImpl implements GameObject {
         return new Point(position);
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -63,7 +65,7 @@ public class GameObjectImpl implements GameObject {
         return tempUrl;
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -73,15 +75,16 @@ public class GameObjectImpl implements GameObject {
 
     /**
      * return type of this Gameobject.
+     * 
      * @return return type of this Gameobject.
      */
     public Type getType() {
         return this.type;
     }
 
-
     /**
      * Set the position of the GameObject.
+     * 
      * @param position the position to set
      */
     protected final void setPosition(final Point position) {

@@ -4,9 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.awt.Dimension;
 
 import it.unibo.model.api.GameObject;
+import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.map.api.MapBuilder;
@@ -21,7 +21,7 @@ public class MapBuilderImpl implements MapBuilder {
     private final Point spawnPacMan;
     private final List<Point> spawnCollectibleItems;
     private final List<GameObject> spawnWalls;
-    private final MapImageImpl mapImage = new MapImageImpl();
+    private GameObjectFactory gameFactory; 
     private GameObjectImpl[][] objectsMap;
 
     /**
@@ -29,8 +29,10 @@ public class MapBuilderImpl implements MapBuilder {
      * lists.
      * 
      * @param map the game map.
+     * @param gameFactory
      */
-    public MapBuilderImpl(final int[][] map) {
+    public MapBuilderImpl(final int[][] map, final GameObjectFactory gameFactory) {
+        this.gameFactory = gameFactory;
         this.spawnPacMan = new Point();
         this.spawnGhosts = new ArrayList<>();
         this.spawnCollectibleItems = new ArrayList<>();
@@ -42,35 +44,23 @@ public class MapBuilderImpl implements MapBuilder {
                 final MapTypes maptype = MapTypes.values()[ris];
                 switch (maptype) {
                     case PICKABLE:
-                        this.spawnCollectibleItems.add(new Point(x, y));
-                        this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.FLOR), new Dimension(),
-                                Type.FLOR);
+                        this.spawnCollectibleItems.add(new Point(y, x));
+                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
                         break;
                     case SPAWN_PAC_MAN:
-                        this.spawnPacMan.setLocation(new Point(x, y));
-                        this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.FLOR), new Dimension(),
-                                Type.FLOR);
+                        this.spawnPacMan.setLocation(new Point(y, x));
+                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
                         break;
                     case SPAWN_GHOST:
                         this.spawnGhosts.add(new Point(x, y));
-                        this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.FLOR), new Dimension(),
-                                Type.FLOR);
+                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
                         break;
                     case WALL:
-                        this.spawnWalls.add(
-                                new GameObjectImpl(
-                                        new Point(x, y), this.mapImage.getObjectUrl(Type.WALL), new Dimension(),
-                                        Type.WALL));
-                        this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.WALL), new Dimension(), Type.WALL);
+                        this.spawnWalls.add(this.gameFactory.createGameObject(new Point(y, x), Type.WALL));
+                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.WALL);
                         break;
                     case GATE_GHOST, NO_PICKABLE:
-                        this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.FLOR), new Dimension(),
-                                Type.FLOR);
+                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
                         break;
                     default:
                         break;
