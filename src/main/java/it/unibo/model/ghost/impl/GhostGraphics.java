@@ -36,12 +36,12 @@ public class GhostGraphics implements ImageChooser {
         this.stopped = commonName + "Ghost.png";
         this.upTailExtended = commonName + "GhostUp.png";
         this.upTailRetracted = commonName + "GhostUp2.png";
-        this.rightTailExtended = commonName + "Right2.png";
-        this.rightTailRetracted = commonName + "Right.png";
-        this.downTailExtended = commonName + "Down2.png";
-        this.downTailRetracted = commonName + "Down.png";
-        this.leftTailExtended = commonName + "Left2.png";
-        this.leftTailRetracted = commonName + "Left.png";
+        this.rightTailExtended = commonName + "GhostRight2.png";
+        this.rightTailRetracted = commonName + "GhostRight.png";
+        this.downTailExtended = commonName + "GhostDown2.png";
+        this.downTailRetracted = commonName + "GhostDown.png";
+        this.leftTailExtended = commonName + "GhostLeft2.png";
+        this.leftTailRetracted = commonName + "GhostLeft.png";
         this.tailExtended = true;
     }
 
