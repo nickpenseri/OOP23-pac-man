@@ -30,8 +30,8 @@ public abstract class CharacterImpl implements Character {
      * @param initialSpeed teh initial speed of the character
      */
     protected CharacterImpl(final Point initialPos, final Dimension dimension, final double initialSpeed) {
-        this.position = Objects.requireNonNull(initialPos);
-        this.dimension = Objects.requireNonNull(dimension);
+        this.position = new Point(Objects.requireNonNull(initialPos));
+        this.dimension = new Dimension(Objects.requireNonNull(dimension));
         this.direction = Optional.empty();
         this.speed = initialSpeed;
     }
@@ -44,11 +44,9 @@ public abstract class CharacterImpl implements Character {
         this.speed = speed;
     }
 
-    /**
-     * Sets the position to a specified point.
-     * @param position the new position
-     */
-    protected void setPosition(final Point position) {
+    /**{@inheritDoc} */
+    @Override
+    public void setPosition(final Point position) {
         this.position.setLocation(position);
     }
 
@@ -98,7 +96,7 @@ public abstract class CharacterImpl implements Character {
      */
     @Override
     public Dimension2D getDimension() {
-        return this.dimension.getSize();
+        return new Dimension(this.dimension);
     }
 
     /**
@@ -106,7 +104,7 @@ public abstract class CharacterImpl implements Character {
      */
     @Override
     public Point getPosition() {
-        return this.position.getLocation();
+        return new Point(this.position);
     }
 
     /**
