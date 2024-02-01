@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 import java.awt.Dimension;
 import java.awt.Point;
 
@@ -19,8 +18,6 @@ import it.unibo.model.api.Character;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 
-
-
 /**
  * Test for the DirectionSelector.
  */
@@ -30,21 +27,23 @@ class TestDirectionSelector {
 
     private final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
     private final DirectionSelector selector = new DirectionSelectorImpl();
-    private final GameObjectFactory factory  = new GameObjectFactoryImpl();
+    private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, INIT_POSITION, GAME_OBJ_SIZE,
+            GAME_OBJ_SIZE);
 
     @Test
     void upDirection() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
-        final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION + 1), dim);
+        final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION + 1),
+                dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.UP, ghost.getDirection().get());
     }
 
-
     @Test
     void downDirection() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
-        final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION - 1), dim);
+        final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION, INIT_POSITION - 1),
+                dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.DOWN, ghost.getDirection().get());
     }
@@ -52,7 +51,8 @@ class TestDirectionSelector {
     @Test
     void leftDirection() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
-        final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION - 1, INIT_POSITION), dim);
+        final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION - 1, INIT_POSITION),
+                dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.LEFT, ghost.getDirection().get());
     }
@@ -60,7 +60,8 @@ class TestDirectionSelector {
     @Test
     void rightDirection() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
-        final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION), dim);
+        final GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION),
+                dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.RIGHT, ghost.getDirection().get());
     }
@@ -68,7 +69,8 @@ class TestDirectionSelector {
     @Test
     void twoDirections() {
         final Character ghost = new GhostImpl(new Point(INIT_POSITION, INIT_POSITION), dim, 1);
-        GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION + 1), dim);
+        GameObject target = factory.createGameObjectWithEmptyGraphics(new Point(INIT_POSITION + 1, INIT_POSITION + 1),
+                dim);
         selector.setDirection(ghost, target);
         assertEquals(Direction.RIGHT, ghost.getDirection().get());
 

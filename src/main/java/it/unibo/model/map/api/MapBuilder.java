@@ -40,4 +40,9 @@ public interface MapBuilder {
      * @return matrix of objects
      */
     GameObjectImpl[][] getObjectsMap();
+    /**
+     * method for obtaining the position on all objects on the map to be drawn.
+     * @return the list containig the game objects of the game map.
+     */
+    List<GameObject> getPaintMap();
 }

@@ -13,7 +13,7 @@ import it.unibo.model.map.impl.MapImageImpl;
  * This class implements the {@link GameObjectFactory} interface.
  */
 public class GameObjectFactoryImpl implements GameObjectFactory {
-    private Dimension dimension;
+    private final Dimension dimension;
     private final MapImageImpl mapImage = new MapImageImpl();
     /**
      * sets the size of objects based on map size and screen window size.

@@ -21,9 +21,8 @@ public class MapBuilderImpl implements MapBuilder {
     private final Point spawnPacMan;
     private final List<Point> spawnCollectibleItems;
     private final List<GameObject> spawnWalls;
-    private final List<GameObject> paintMap;
-    private GameObjectFactory gameFactory; 
-    private GameObjectImpl[][] objectsMap;
+    private final List<GameObject> paintMap; 
+    private final GameObjectImpl[][] objectsMap;
 
     /**
      * constructor that given the map reads it and saves the coordinates in the
@@ -33,7 +32,6 @@ public class MapBuilderImpl implements MapBuilder {
      * @param gameFactory factory for creating game object based on window size and map size.
      */
     public MapBuilderImpl(final int[][] map, final GameObjectFactory gameFactory) {
-        this.gameFactory = gameFactory;
         this.paintMap = new ArrayList<>();
         this.spawnPacMan = new Point();
         this.spawnGhosts = new ArrayList<>();
@@ -47,31 +45,31 @@ public class MapBuilderImpl implements MapBuilder {
                 switch (maptype) {
                     case PICKABLE:
                         this.spawnCollectibleItems.add(new Point(y, x));
-                        this.paintMap.add(this.gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
+                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
                         break;
                     case SPAWN_PAC_MAN:
                         this.spawnPacMan.setLocation(new Point(y, x));
-                        this.paintMap.add(this.gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
+                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
                         break;
                     case SPAWN_GHOST:
-                        this.spawnGhosts.add(new Point(x, y));
-                        this.paintMap.add(this.gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.spawnGhosts.add(new Point(y, x));
+                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
+                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
                         break;
                     case WALL:
-                        this.spawnWalls.add(this.gameFactory.createGameObject(new Point(y, x), Type.WALL));
-                        this.paintMap.add(this.gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.WALL);
+                        this.spawnWalls.add(gameFactory.createGameObject(new Point(y, x), Type.WALL));
+                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
+                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.WALL);
                         break;
                     case GATE_GHOST:
-                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
-                        this.paintMap.add(this.gameFactory.createGameObject(new Point(y, x), Type.GATE));
+                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.GATE));
                         break;
                     case NO_PICKABLE:
-                        this.paintMap.add(this.gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = this.gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
+                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
                         break;
                     default:
                         break;
@@ -139,6 +137,14 @@ public class MapBuilderImpl implements MapBuilder {
             copy[i] = this.objectsMap[i].clone();
         }
         return copy;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<GameObject> getPaintMap() {
+        return new ArrayList<>(this.paintMap);
     }
 
 }
