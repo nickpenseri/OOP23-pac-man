@@ -24,13 +24,21 @@ public class PacManBordered implements PacMan {
 
     /**
      * Creates an object of this class which decorates the PacMan passed as a
-     * parameter.
-     * 
+     * parameter and which moves in a space with heigth and width passed as parameters.
      * @param decorated the PacMan to be decorated
-     * @param upBorder  the heigth of the bordered spce
+     * @param heigth  the heigth of the bordered space
+     * @param width the width of the bordered space
+     * @throws NullPointerException if the PacMan to be decorated is null
+     * @throws IllegalArgumentException if width or heigth are less or equal to zero.
      */
     public PacManBordered(final PacMan decorated, final int heigth, final int width) {
         this.decorated = Objects.requireNonNull(decorated);
+        if (heigth <= 0) {
+            throw new IllegalArgumentException("Cannot instantiate an object with negative heigth");
+        }
+        if (width <= 0) {
+            throw new IllegalArgumentException("Cannot instantiate an object with negative width");
+        }
         this.heigth = heigth;
         this.width = width;
     }
