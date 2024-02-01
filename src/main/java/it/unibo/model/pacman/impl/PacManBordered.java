@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.api.Direction;
 import it.unibo.model.pacman.api.PacMan;
 
@@ -31,6 +32,12 @@ public class PacManBordered implements PacMan {
      * @throws NullPointerException if the PacMan to be decorated is null
      * @throws IllegalArgumentException if width or heigth are less or equal to zero.
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI_EXPOSE_REP2"
+        },
+        justification = "Changings of the decorated object should also affect this object"
+    )
     public PacManBordered(final PacMan decorated, final int heigth, final int width) {
         this.decorated = Objects.requireNonNull(decorated);
         if (heigth <= 0) {
