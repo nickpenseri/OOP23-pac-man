@@ -44,20 +44,20 @@ public class MapBuilderImpl implements MapBuilder {
                     case PICKABLE:
                         this.spawnCollectibleItems.add(new Point(x, y));
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
-                                Type.PASSABLE);
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.FLOR), new Dimension(),
+                                Type.FLOR);
                         break;
                     case SPAWN_PAC_MAN:
                         this.spawnPacMan.setLocation(new Point(x, y));
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
-                                Type.PASSABLE);
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.FLOR), new Dimension(),
+                                Type.FLOR);
                         break;
                     case SPAWN_GHOST:
                         this.spawnGhosts.add(new Point(x, y));
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
-                                Type.PASSABLE);
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.FLOR), new Dimension(),
+                                Type.FLOR);
                         break;
                     case WALL:
                         this.spawnWalls.add(
@@ -69,8 +69,8 @@ public class MapBuilderImpl implements MapBuilder {
                         break;
                     case GATE_GHOST, NO_PICKABLE:
                         this.objectsMap[x][y] = new GameObjectImpl(
-                                new Point(x, y), this.mapImage.getObjectUrl(Type.PASSABLE), new Dimension(),
-                                Type.PASSABLE);
+                                new Point(x, y), this.mapImage.getObjectUrl(Type.FLOR), new Dimension(),
+                                Type.FLOR);
                         break;
                     default:
                         break;
