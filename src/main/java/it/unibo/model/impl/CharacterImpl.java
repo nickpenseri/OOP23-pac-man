@@ -45,6 +45,7 @@ public abstract class CharacterImpl implements Character {
     }
 
     /**{@inheritDoc} */
+    @Override
     public void setPosition(final Point position) {
         this.position.setLocation(position);
     }
