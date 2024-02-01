@@ -1,6 +1,7 @@
 package it.unibo.model.pacman;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -59,7 +60,7 @@ class TestBorderedPacMan {
     }
 
     /**
-     * Tests pacman's movement acroiss the borders.
+     * Tests pacman's movement across the borders.
      */
     @Test
     void testMovement() {
@@ -84,5 +85,19 @@ class TestBorderedPacMan {
         pacman.setDirection(Direction.DOWN);
         pacman.updateState(ELAPSED);
         assertEquals(new Point((int) STARTING_POS.getX(), BORDER_UP - MOVEMENT), pacman.getPosition());
+    }
+
+    /**
+     * Tests pacman's respawn and exception throwing in case of a respawn with position out of borders.
+     */
+    @Test
+    void testRespawn() {
+        pacman.setDirection(Direction.UP);
+        pacman.updateState(ELAPSED);
+        pacman.respawn(STARTING_POS);
+        pacman.updateState(ELAPSED);
+        assertEquals(STARTING_POS, pacman.getPosition());
+        assertThrows(IllegalArgumentException.class, () -> pacman.respawn(new Point(2 * BORDER_RIGHT, 0)));
+        assertThrows(IllegalArgumentException.class, () -> pacman.respawn(new Point(0, 2 * BORDER_UP)));
     }
 }
