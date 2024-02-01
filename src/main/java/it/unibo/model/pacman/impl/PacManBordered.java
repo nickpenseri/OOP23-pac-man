@@ -123,6 +123,33 @@ public class PacManBordered implements PacMan {
     @Override
     public void updateState(final long elapsed) {
         this.decorated.updateState(elapsed);
+        this.correctPosition();
+    }
+
+    private void correctPosition() {
+        this.decorated.setPosition(new Point(this.correctX(), this.correctY()));
+    }
+
+    private int correctX() {
+        final int actualX = (int) this.getPosition().getX();
+        if (actualX > width) {
+            return actualX - width;
+        } else if (actualX < 0) {
+            return width + actualX;
+        } else {
+            return actualX;
+        }
+    }
+
+    private int correctY() {
+        final int actualY = (int) this.getPosition().getY();
+        if (actualY > heigth) {
+            return actualY - heigth;
+        } else if (actualY < 0) {
+            return heigth + actualY;
+        } else {
+            return actualY;
+        }
     }
 
     /** {@inheritDoc} */
