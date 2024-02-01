@@ -65,6 +65,7 @@ public class MapBuilderImpl implements MapBuilder {
                         break;
                     case GATE_GHOST:
                         this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.spawnWalls.add(gameFactory.createGameObject(new Point(y, x), Type.GATE));
                         this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.GATE));
                         break;
                     case NO_PICKABLE:
