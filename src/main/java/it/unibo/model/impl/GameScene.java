@@ -25,7 +25,7 @@ public class  GameScene implements Model {
     //private final Dimension dimension;
     //private final List<Character> characters;
     //private final Character pacMan;
-
+    
     /** Constructor of a generic scene. 
     * @param width the width of the scene
     * @param height the height of the scene
@@ -37,8 +37,8 @@ public class  GameScene implements Model {
 
         this.gameObjects = new ArrayList<>();
         //dimension = new Dimension(width, height);
-        final URL image = ClassLoader.getSystemResource("image/ghost/blue/BlueGhostDown.png");
-        this.gameObjects.add(new GameObjectImpl(new Point(0, 0), image, new Dimension(10, 10), Type.GHOST));
+       
+        
     }
 
      /**
