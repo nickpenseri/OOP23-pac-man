@@ -21,34 +21,34 @@ import it.unibo.model.pacman.api.PacMan;
 public class PacManBordered implements PacMan {
 
     private final PacMan decorated;
-    private final int heigth;
-    private final int width;
+    private final int borderUp;
+    private final int borderRight;
 
     /**
      * Creates an object of this class which decorates the PacMan passed as a
-     * parameter and which moves in a space with heigth and width passed as
+     * parameter and which moves in a space with borderUp and borderRight passed as
      * parameters.
      * 
-     * @param decorated the PacMan to be decorated
-     * @param heigth    the heigth of the bordered space
-     * @param width     the width of the bordered space
-     * @throws NullPointerException     if the PacMan to be decorated is null
-     * @throws IllegalArgumentException if width or heigth are less or equal to
-     *                                  zero.
+     * @param decorated   the PacMan to be decorated
+     * @param borderUp    the borderUp of the bordered space
+     * @param borderRight the borderRight of the bordered space
+     * @throws NullPointerException     if the PacMan to be decorated is null.
+     * @throws IllegalArgumentException if borderRight or borderUp are less or equal
+     *                                  to zero.
      */
     @SuppressFBWarnings(value = {
             "EI_EXPOSE_REP2"
     }, justification = "Changings of the decorated object should also affect this object")
-    public PacManBordered(final PacMan decorated, final int heigth, final int width) {
+    public PacManBordered(final PacMan decorated, final int borderUp, final int borderRight) {
         this.decorated = Objects.requireNonNull(decorated);
-        if (heigth <= 0) {
-            throw new IllegalArgumentException("Cannot instantiate an object with negative heigth");
+        if (borderUp <= 0) {
+            throw new IllegalArgumentException("Cannot instantiate an object with negative borderUp");
         }
-        if (width <= 0) {
-            throw new IllegalArgumentException("Cannot instantiate an object with negative width");
+        if (borderRight <= 0) {
+            throw new IllegalArgumentException("Cannot instantiate an object with negative borderRight");
         }
-        this.heigth = heigth;
-        this.width = width;
+        this.borderUp = borderUp;
+        this.borderRight = borderRight;
     }
 
     /** {@inheritDoc} */
@@ -108,7 +108,8 @@ public class PacManBordered implements PacMan {
     }
 
     private boolean isInBorders(final Point position) {
-        return position.getX() >= 0 && position.getX() < width && position.getY() >= 0 && position.getY() < heigth;
+        return position.getX() >= 0 && position.getX() < borderRight && position.getY() >= 0
+                && position.getY() < borderUp;
     }
 
     /** {@inheritDoc} */
@@ -163,10 +164,10 @@ public class PacManBordered implements PacMan {
 
     private int correctX() {
         final int actualX = (int) this.getPosition().getX();
-        if (actualX >= width) {
-            return actualX - width;
+        if (actualX >= borderRight) {
+            return actualX - borderRight;
         } else if (actualX < 0) {
-            return width + actualX;
+            return borderRight + actualX;
         } else {
             return actualX;
         }
@@ -174,10 +175,10 @@ public class PacManBordered implements PacMan {
 
     private int correctY() {
         final int actualY = (int) this.getPosition().getY();
-        if (actualY >= heigth) {
-            return actualY - heigth;
+        if (actualY >= borderUp) {
+            return actualY - borderUp;
         } else if (actualY < 0) {
-            return heigth + actualY;
+            return borderUp + actualY;
         } else {
             return actualY;
         }
