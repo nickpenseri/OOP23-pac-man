@@ -147,7 +147,7 @@ public class PacManBordered implements PacMan {
 
     private int correctX() {
         final int actualX = (int) this.getPosition().getX();
-        if (actualX > width) {
+        if (actualX >= width) {
             return actualX - width;
         } else if (actualX < 0) {
             return width + actualX;
@@ -158,7 +158,7 @@ public class PacManBordered implements PacMan {
 
     private int correctY() {
         final int actualY = (int) this.getPosition().getY();
-        if (actualY > heigth) {
+        if (actualY >= heigth) {
             return actualY - heigth;
         } else if (actualY < 0) {
             return heigth + actualY;
