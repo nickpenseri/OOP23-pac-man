@@ -84,13 +84,13 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
                         img = scaledImages.get(url);
                     } else {
                         // If not, read and scale the image, and put it in the Map
-                        img = ImageIO.read(new File(url)).getScaledInstance(DIMENSION, DIMENSION, SCALE_DEFAULT);
+                        img = ImageIO.read(new File(url)).getScaledInstance((int) obj.getDimension().getHeight(),(int) obj.getDimension().getWidth(), SCALE_DEFAULT);
                         scaledImages.put(url, img);
                     }
                 } catch (IOException e) {
                     log.error("error during image reading" + e.getMessage());
                 }
-                g2.drawImage(img, pos.x * DIMENSION, pos.y * DIMENSION, this);
+                g2.drawImage(img, pos.x , (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y) , this);
             });
         }
     }

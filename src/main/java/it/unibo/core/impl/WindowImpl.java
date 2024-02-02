@@ -1,7 +1,10 @@
 package it.unibo.core.impl;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -46,12 +49,29 @@ public class WindowImpl implements Window {
         dimension = new Dimension(weight, height);
         frame.setSize(weight, height);
         frame.setMinimumSize(new Dimension(weight, height));
-        frame.setResizable(true);
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        frame.setResizable(false);
+     
         final ViewImplInfo panel2 = gameViewInfo.clone();
-        frame.getContentPane().add((Component) panel2);
+      
         this.panel = view1;
-        frame.getContentPane().add((Component) this.panel);
+     
+
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        
+        constraints.gridy = 1;
+        constraints.weighty = 0.9; // Questo pannello occupa il 70% dello spazio verticale
+        constraints.fill = GridBagConstraints.BOTH;
+        frame.add((Component)this.panel, constraints);
+
+        // Aggiunta del pannello 2 (più alto)
+       // Aggiunta del pannello 1 (più basso)
+       constraints.gridx = 0;
+       constraints.gridy = 0;
+       constraints.weightx = 1.0;
+       constraints.weighty = 0.1; // Questo pannello occupa il 30% dello spazio verticale
+        frame.add(panel2, constraints);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override

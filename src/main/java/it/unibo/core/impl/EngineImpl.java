@@ -29,11 +29,14 @@ public class EngineImpl implements Engine {
     public EngineImpl() {
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final Dimension screenSize = toolkit.getScreenSize();
-        final int height = screenSize.width / PROPORTION;
-        final int width = screenSize.height / PROPORTION;
-        final ViewImplInfo gameViewInfo = new ViewImplInfo(width / 2, height / 2);
-        final View gameView = new GameView(width / 2, height / 2);
-        final Model gameScene = new GameScene(width, height);
+        final int height = screenSize.height / PROPORTION;
+        final int width = screenSize.width / PROPORTION;
+
+        final int infoWidth = width / 10;
+        final int infoHeight = height / 10;
+        final ViewImplInfo gameViewInfo = new ViewImplInfo(infoWidth, infoHeight);
+        final View gameView = new GameView(width - infoWidth, height - infoWidth);
+        final Model gameScene = new GameScene(width - infoWidth, height - infoWidth);
         this.controller = new ControllerImplGame(gameScene, gameView, gameViewInfo);
         this.window = new WindowImpl(gameView, gameViewInfo, "Pacman", width, height);
     }

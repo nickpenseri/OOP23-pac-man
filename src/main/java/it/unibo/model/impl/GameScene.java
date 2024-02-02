@@ -13,6 +13,8 @@ import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
+import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.impl.MapBuilderImpl;
@@ -27,8 +29,8 @@ public class GameScene implements Model {
 
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
-    private final PacMan pacman;
-    private final PickableGenerator pickableGenerator;
+    private final PickableGenerator pickableGenerator = new PickableGeneratorImpl();
+    private final Ghost ghost;
     // private final Dimension dimension;
     // private final List<Character> characters;
     // private final Character pacMan;
@@ -59,25 +61,9 @@ public class GameScene implements Model {
 
         final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
-        // Creo il mapBuilder con la mappa che ha letto il mapReader
-        final MapBuilder mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
-        final List<GameObject> walls = mapBuilder.getWallsPath();
-        this.gameObjects.add(walls);
+      
+        ghost = gameObjectFactory.createGhost(new Point(0,0), 100, GhostColor.RED);
 
-        // Creao il pickable generator
-        pickableGenerator = new PickableGeneratorImpl();
-        // Genero la Mappa dei pickable in base alla lista ritornata dal mapBuilder e do
-        // alle immagini la dimensione default
-        pickableGenerator.generateMap(mapBuilder.getSpawnCollectibleItems(), new Dimension(10, 10));
-        final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
-        // Prendo la mappa dei pickable dal pickableGenerator
-        this.gameObjects.add(pickable);
-
-        // Creo il pacMan
-        this.pacman = new PacManImpl(3, new Dimension(10, 10), 10, mapBuilder.getPacManSpawn());
-        final List<GameObject> pacMan = new ArrayList<>();
-        pacMan.add(pacman);
-        this.gameObjects.add(pacMan);
     }
 
     /**
@@ -85,10 +71,7 @@ public class GameScene implements Model {
      */
     @Override
     public List<GameObject> getObjects() {
-        gameObjects.get(1).clear();
-        gameObjects.get(1).addAll(pickableGenerator.getPickableList());
-        gameObjects.get(2).clear();
-        gameObjects.get(2).add(pacman);
+        gameObjects.add(new ArrayList<>(List.of(ghost)));
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
             gameObjectsFlat.addAll(list);
@@ -107,17 +90,17 @@ public class GameScene implements Model {
             commands.forEach(c -> {
                 switch (c) {
                     case SET_DIR_UP:
-                        pickableGenerator.takePickable(new Point(1, 1), pacman);
-                        pacman.setDirection(Direction.UP);
+                     
+                        ghost.setDirection(Direction.UP);
                         break;
                     case SET_DIR_DOWN:
-                        pacman.setDirection(Direction.DOWN);
+                        ghost.setDirection(Direction.DOWN);
                         break;
                     case SET_DIR_LEFT:
-                        pacman.setDirection(Direction.LEFT);
+                        ghost.setDirection(Direction.LEFT);
                         break;
                     case SET_DIR_RIGHT:
-                        pacman.setDirection(Direction.RIGHT);
+                        ghost.setDirection(Direction.RIGHT);
                         break;
                     default:
                         break;
@@ -132,7 +115,7 @@ public class GameScene implements Model {
     @Override
     public void updateState(final long elapsed) {
         // characters.forEach(c -> c.updateState());
-        pacman.updateState(elapsed);
+        ghost.updateState(elapsed);
     }
 
     /**
@@ -148,7 +131,7 @@ public class GameScene implements Model {
      */
     @Override
     public int getPacManLifes() {
-        return pacman.getRemainingLives();
+        return 2;
     }
 
     /**
@@ -156,7 +139,7 @@ public class GameScene implements Model {
      */
     @Override
     public int getPacManScores() {
-        return pacman.getPoints();
+        return 15;
     }
 
 }
