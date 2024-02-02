@@ -7,10 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
+import java.util.Set;
 import java.awt.Point;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -33,7 +34,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
 
     private final List<Command> readedCommands;
     private final Logger log = LoggerFactory.getLogger(ViewImpl.class);
-    private List<GameObject> gameObjects = new ArrayList<>();
+    private Set<GameObject> gameObjects;
     private static final int DIMENSION = 20;
      // Create a Map to store the scaled images
     final Map<String, Image> scaledImages;
@@ -53,6 +54,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
         setSize(width, height);
         this.readedCommands = new ArrayList<>();
         this.scaledImages = new HashMap<>();
+        gameObjects = new HashSet<>();
     }
 
     /**
@@ -60,7 +62,19 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      */
     @Override
     public final void updateView(final List<GameObject> gameObjects) {
-        this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
+        this.gameObjects.addAll(gameObjects);
+        gameObjects.forEach(obj -> {
+            final var url = obj.getImageUrl().getPath();
+            if (!scaledImages.containsKey(url)) {
+                try {
+                    System.out.println("Reading image: " + url);
+                    Image img = ImageIO.read(new File(url)).getScaledInstance((int) obj.getDimension().getHeight(),(int) obj.getDimension().getWidth(), SCALE_DEFAULT);
+                    scaledImages.put(url, img);
+                } catch (IOException e) {
+                    log.error("error during image reading" + e.getMessage());
+                }
+            }
+        });
     }
 
     /**
@@ -72,28 +86,12 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
             final Graphics2D g2 = (Graphics2D) g;
 
             SetupGraphics2D.setupGraphics2DStatic(g2, this.getWidth(), this.getHeight());
-
-           
-
+          
             // In your drawing method
             this.gameObjects.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
-                Image img = null;
-                try {
-                    final var url = obj.getImageUrl().getPath();
-                    // Check if the scaled image is already in the Map
-                    if (scaledImages.containsKey(url)) {
-                        img = scaledImages.get(url);
-                        //System.out.println("ce l'ho già");
-                    } else {
-                        // If not, read and scale the image, and put it in the Map
-                        System.out.println(url);
-                        img = ImageIO.read(new File(url)).getScaledInstance((int) obj.getDimension().getHeight(),(int) obj.getDimension().getWidth(), SCALE_DEFAULT);
-                        scaledImages.put(url, img);
-                    }
-                } catch (IOException e) {
-                    log.error("error during image reading" + e.getMessage());
-                }
+                var img = scaledImages.get(obj.getImageUrl().getPath());
+              
                 g2.drawImage(img, pos.x , (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y) , this);
             });
         }
