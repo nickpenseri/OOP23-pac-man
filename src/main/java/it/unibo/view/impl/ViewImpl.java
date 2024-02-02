@@ -38,6 +38,9 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     private static final int DIMENSION = 20;
      // Create a Map to store the scaled images
     final Map<String, Image> scaledImages;
+    private Map<GameObject, Point> previousPositions = new HashMap<>();
+    private Map<GameObject, String> previousImageUrls = new HashMap<>();
+    private List<GameObject> objectsToRedraw = new ArrayList<>();
 
     /**
      * Constructor for the View.
@@ -51,6 +54,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
 
+        this.setDoubleBuffered(true);
         setSize(width, height);
         this.readedCommands = new ArrayList<>();
         this.scaledImages = new HashMap<>();
@@ -74,7 +78,11 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
                     log.error("error during image reading" + e.getMessage());
                 }
             }
-        });
+     
+    });
+       
+
+       
     }
 
     /**
@@ -86,9 +94,27 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
             final Graphics2D g2 = (Graphics2D) g;
 
             SetupGraphics2D.setupGraphics2DStatic(g2, this.getWidth(), this.getHeight());
+
+                    // Iterate over all game objects
+        for (GameObject obj : gameObjects) {
+            final var url = obj.getImageUrl().getPath();
+
+            // Check if the object's position or image URL has changed
+            if (!Objects.equals(previousPositions.get(obj), obj.getPosition()) || !Objects.equals(previousImageUrls.get(obj), url)) {
+                // Add the object to the list of objects to redraw
+                objectsToRedraw.add(obj);
+                System.out.println("Adding object to redraw: " + obj);
+                // Update the previous position and image URL
+                previousPositions.put(obj, obj.getPosition());
+                previousImageUrls.put(obj, url);
+            } else {
+                // Remove the object from the list of objects to redraw
+                objectsToRedraw.remove(obj);
+            }
+        }
           
             // In your drawing method
-            this.gameObjects.stream().forEach(obj -> {
+            this.objectsToRedraw.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
                 var img = scaledImages.get(obj.getImageUrl().getPath());
               

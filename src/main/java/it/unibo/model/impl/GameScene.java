@@ -75,9 +75,10 @@ public class GameScene implements Model {
      */
     @Override
     public List<GameObject> getObjects() {
-
-        gameObjects.add(new ArrayList<>(mapBuilder.getPaintMap()));
+        gameObjects.clear();
         gameObjects.add(new ArrayList<>(List.of(ghost)));
+        gameObjects.add(new ArrayList<>(mapBuilder.getPaintMap()));
+        
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
             gameObjectsFlat.addAll(list);
