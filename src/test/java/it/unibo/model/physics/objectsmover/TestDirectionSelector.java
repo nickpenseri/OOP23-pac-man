@@ -4,15 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.awt.Dimension;
 import java.awt.Point;
 
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.api.GameObjectFactory;
-import it.unibo.model.api.ImageChooser;
 import it.unibo.model.ghost.api.GhostColor;
-import it.unibo.model.ghost.impl.GhostGraphics;
 import it.unibo.model.impl.GameObjectFactoryImpl;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
@@ -29,8 +26,6 @@ class TestDirectionSelector {
     private static final int GAME_OBJ_SIZE2 = 1;
     private static final int INIT_POSITION = 10;
 
-    private final ImageChooser graphics = new GhostGraphics(GhostColor.BLUE);
-    private final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
     private final DirectionSelector selector = new DirectionSelectorImpl();
     private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, GAME_OBJ_SIZE, GAME_OBJ_SIZE2, GAME_OBJ_SIZE2);
 
