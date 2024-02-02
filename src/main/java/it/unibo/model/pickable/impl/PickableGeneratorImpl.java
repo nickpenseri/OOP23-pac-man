@@ -83,9 +83,13 @@ public class PickableGeneratorImpl implements PickableGenerator {
     @Override
     public void takePickable(final Point point, final PacMan pacman) {
         if (pickableMap.containsKey(point)) {
-            pickableMap.get(point).addPointsPickable(pacman);
-            if (pickableMap.get(point) instanceof EffectPickable) {
+            if (pickableMap.get(point) instanceof BonusPoints) {
                 ((EffectPickable) pickableMap.get(point)).doEffect(pacman);
+            } else {
+                pickableMap.get(point).addPointsPickable(pacman);
+                if (pickableMap.get(point) instanceof EffectPickable) {
+                    ((EffectPickable) pickableMap.get(point)).doEffect(pacman);
+                }
             }
             pickableMap.remove(point);
         }
