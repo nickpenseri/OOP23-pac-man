@@ -20,12 +20,13 @@ import it.unibo.model.physics.objectsmover.impl.DirectionSelectorImpl;
 
 class TestMovingCharacterInDirection {
     private static final int GAME_OBJ_SIZE = 10;
+    private static final int MAP_SIZE = 1;
     private static final int INIT_POSITION = 10;
 
     private final GhostGraphics graphics = new GhostGraphics(GhostColor.BLUE);
     private final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
     private final DirectionSelector selector = new DirectionSelectorImpl();
-    private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, INIT_POSITION, GAME_OBJ_SIZE, GAME_OBJ_SIZE);
+    private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, INIT_POSITION, MAP_SIZE, MAP_SIZE);
 
     @Test
     void moveUp() {

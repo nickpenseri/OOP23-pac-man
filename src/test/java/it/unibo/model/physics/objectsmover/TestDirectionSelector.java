@@ -23,11 +23,11 @@ import it.unibo.model.api.GameObject;
  */
 class TestDirectionSelector {
     private static final int GAME_OBJ_SIZE = 10;
-    private static final int GAME_OBJ_SIZE2 = 1;
+    private static final int MAP_SIZE = 1;
     private static final int INIT_POSITION = 10;
 
     private final DirectionSelector selector = new DirectionSelectorImpl();
-    private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, GAME_OBJ_SIZE, GAME_OBJ_SIZE2, GAME_OBJ_SIZE2);
+    private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, GAME_OBJ_SIZE, MAP_SIZE, MAP_SIZE);
 
     @Test
     void upDirection() {
