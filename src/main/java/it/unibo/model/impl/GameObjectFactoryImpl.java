@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
+import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
@@ -31,16 +32,6 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GameObject createGameObjectWithEmptyGraphics(final Point position, final Dimension dimension) {
-        final var pos = Objects.requireNonNull(position);
-        final var dim = Objects.requireNonNull(dimension);
-        final var img = ClassLoader.getSystemResource("image/map/flor/Flor.png");
-        return new GameObjectImpl(pos, img, dim, GameObjectImpl.Type.FLOR);
-    }
 
     /**
      * {@inheritDoc}
@@ -55,7 +46,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public GameObject createGhost(final Point position, final int speed, final GhostColor color) {
+    public Ghost createGhost(final Point position, final int speed, final GhostColor color) {
         switch (color) {
             case RED:
                 return ghostFactory.createRedGhost(position, speed);
