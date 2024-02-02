@@ -40,6 +40,14 @@ public class GameView extends ViewImpl {
             log.info("DOWN");
             addCommand(Command.SET_DIR_DOWN);
         }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            log.info("LEFT");
+            addCommand(Command.SET_DIR_LEFT);
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            log.info("RIGHT");
+            addCommand(Command.SET_DIR_RIGHT);
+        }
     }
 
     /**
