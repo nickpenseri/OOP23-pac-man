@@ -2,9 +2,6 @@ package it.unibo.model.impl;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.Objects;
-
-import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;

@@ -26,13 +26,14 @@ class TestDirectionSelector {
     private static final int MAP_SIZE = 1;
     private static final int INIT_POSITION = 10;
 
+    private final GameObjectImpl.Type type = GameObjectImpl.Type.FLOR;
     private final DirectionSelector selector = new DirectionSelectorImpl();
     private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, GAME_OBJ_SIZE, MAP_SIZE, MAP_SIZE);
 
     @Test
     void upDirection() {
         final Character ghost =  factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
-        final GameObjectImpl target = factory.createGameObject(new Point(INIT_POSITION, INIT_POSITION + 1), GameObjectImpl.Type.FLOR);
+        final GameObjectImpl target = factory.createGameObject(new Point(INIT_POSITION, INIT_POSITION + 1), type);
         selector.setDirection(ghost, target);
         assertEquals(Direction.UP, ghost.getDirection().get());
     }

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,10 +41,10 @@ class TestPositionApproximator {
    @Test
    void checkPositionTest() {
 
-      var target = factory.createGameObject(new Point (TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR);
+      var target = factory.createGameObject(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR);
       final List<GameObject> list = IntStream.range(0, NUMBER_OF_GAME_OBJECTS)
             .mapToObj(i -> factory
-            .createGameObject(new Point (i * GAME_OBJ_DISTANCE, i * GAME_OBJ_DISTANCE), Type.FLOR))
+            .createGameObject(new Point(i * GAME_OBJ_DISTANCE, i * GAME_OBJ_DISTANCE), Type.FLOR))
             .collect(Collectors.toList());
 
       assertNotEquals(list.get(0), approximator.getApproximatedPosition(target, list).get());
@@ -63,17 +62,17 @@ class TestPositionApproximator {
 
    @Test
    void checkEmptyList() {
-      final var target = factory.createGameObject(new Point (TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR);
+      final var target = factory.createGameObject(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR);
       final List<GameObject> list = List.of();
       assertFalse(approximator.getApproximatedPosition(target, list).isPresent());
    }
 
    @Test
    void testSamePosition() {
-      final var target = factory.createGameObject(new Point (TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR);
+      final var target = factory.createGameObject(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR);
       final List<GameObject> list = IntStream.range(0, NUMBER_OF_GAME_OBJECTS)
             .mapToObj(i -> factory
-            .createGameObject(new Point (TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR))
+            .createGameObject(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR))
             .collect(Collectors.toList());
       assertEquals(list.get(0), approximator.getApproximatedPosition(target, list).get());
       assertNotEquals(list.get(1), approximator.getApproximatedPosition(target, list).get());
