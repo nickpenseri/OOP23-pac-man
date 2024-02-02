@@ -13,7 +13,7 @@ import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.impl.GameObjectFactoryImpl;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
-import it.unibo.model.physics.objectsmover.impl.DirectionSelectorImpl;
+import it.unibo.model.physics.objectsmover.impl.EuclideanDirectionSelector;
 import it.unibo.model.api.Character;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
@@ -26,9 +26,15 @@ class TestDirectionSelector {
     private static final int MAP_SIZE = 1;
     private static final int INIT_POSITION = 10;
 
+<<<<<<< HEAD
     private final GameObjectImpl.Type type = GameObjectImpl.Type.FLOR;
     private final DirectionSelector selector = new DirectionSelectorImpl();
     private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, GAME_OBJ_SIZE, MAP_SIZE, MAP_SIZE);
+=======
+    private final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
+    private final DirectionSelector selector = new EuclideanDirectionSelector();
+    private final GameObjectFactory factory  = new GameObjectFactoryImpl();
+>>>>>>> MoveOnGraph
 
     @Test
     void upDirection() {
