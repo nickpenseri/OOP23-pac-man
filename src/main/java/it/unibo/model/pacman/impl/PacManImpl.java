@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.net.URL;
 import it.unibo.model.api.Direction;
+import it.unibo.model.api.ImageChooser;
 import it.unibo.model.impl.CharacterImpl;
-import it.unibo.model.pacman.api.ImageChooser;
 import it.unibo.model.pacman.api.PacMan;
 
 /**
@@ -43,7 +43,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
             throw new IllegalArgumentException("Cannot instantiate an object with negative lives");
         }
         if (baseSpeed <= 0) {
-            throw new IllegalArgumentException("Cannot create an obkìject with negative speed");
+            throw new IllegalArgumentException("Cannot instantiate an object with negative speed");
         }
         this.lives = startingLives;
         this.speedLevel = 0;

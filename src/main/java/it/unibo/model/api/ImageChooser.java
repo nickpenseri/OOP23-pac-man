@@ -1,9 +1,7 @@
-package it.unibo.model.pacman.api;
+package it.unibo.model.api;
 
 import java.net.URL;
 import java.util.Optional;
-
-import it.unibo.model.api.Direction;
 
 /**
  * This interface models an entity of ImageChooser, an object that is responsible of

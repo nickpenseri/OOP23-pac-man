@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import java.awt.Dimension;
-import java.awt.Point;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import java.net.URL;
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.Model;
-import it.unibo.model.impl.GameObjectImpl.Type;
+
 
 /** Basic Implementation of a model of a scene. */
 public class  GameScene implements Model {
@@ -25,7 +20,6 @@ public class  GameScene implements Model {
     //private final Dimension dimension;
     //private final List<Character> characters;
     //private final Character pacMan;
-
     /** Constructor of a generic scene. 
     * @param width the width of the scene
     * @param height the height of the scene
@@ -34,11 +28,8 @@ public class  GameScene implements Model {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
-
         this.gameObjects = new ArrayList<>();
         //dimension = new Dimension(width, height);
-        final URL image = ClassLoader.getSystemResource("image/ghost/blue/BlueGhostDown.png");
-        this.gameObjects.add(new GameObjectImpl(new Point(0, 0), image, new Dimension(10, 10), Type.GHOST));
     }
 
      /**

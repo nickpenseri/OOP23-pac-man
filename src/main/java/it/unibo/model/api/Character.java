@@ -1,5 +1,6 @@
 package it.unibo.model.api;
 
+import java.awt.Point;
 import java.util.Optional;
 
 /** A GameObject that can be moved. */
@@ -10,6 +11,12 @@ public interface Character extends GameObject {
      * @param direction The new direction of the Character.
      */
     void setDirection(Direction direction);
+
+    /**
+     * Sets the position to a specified point.
+     * @param position the new position
+     */
+    void setPosition(Point position);
 
     /**
      * Getter for the direction.
