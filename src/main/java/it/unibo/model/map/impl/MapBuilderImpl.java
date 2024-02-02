@@ -60,7 +60,7 @@ public class MapBuilderImpl implements MapBuilder {
                         break;
                     case WALL:
                         this.spawnWalls.add(gameFactory.createGameObject(new Point(y, x), Type.WALL));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
+                        this.paintMap.add(gameFactory.createGameObject(new Point(y* 10, x), Type.FLOR));
                         this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.WALL);
                         break;
                     case GATE_GHOST:

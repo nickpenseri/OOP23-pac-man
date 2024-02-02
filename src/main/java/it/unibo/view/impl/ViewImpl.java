@@ -35,6 +35,8 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     private final Logger log = LoggerFactory.getLogger(ViewImpl.class);
     private List<GameObject> gameObjects = new ArrayList<>();
     private static final int DIMENSION = 20;
+     // Create a Map to store the scaled images
+    final Map<String, Image> scaledImages;
 
     /**
      * Constructor for the View.
@@ -50,6 +52,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
 
         setSize(width, height);
         this.readedCommands = new ArrayList<>();
+        this.scaledImages = new HashMap<>();
     }
 
     /**
@@ -70,8 +73,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
 
             SetupGraphics2D.setupGraphics2DStatic(g2, this.getWidth(), this.getHeight());
 
-            // Create a Map to store the scaled images
-            final Map<String, Image> scaledImages = new HashMap<>();
+           
 
             // In your drawing method
             this.gameObjects.stream().forEach(obj -> {
@@ -82,8 +84,10 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
                     // Check if the scaled image is already in the Map
                     if (scaledImages.containsKey(url)) {
                         img = scaledImages.get(url);
+                        //System.out.println("ce l'ho già");
                     } else {
                         // If not, read and scale the image, and put it in the Map
+                        System.out.println(url);
                         img = ImageIO.read(new File(url)).getScaledInstance((int) obj.getDimension().getHeight(),(int) obj.getDimension().getWidth(), SCALE_DEFAULT);
                         scaledImages.put(url, img);
                     }

@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +20,7 @@ import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.impl.MapBuilderImpl;
+import it.unibo.model.map.impl.MapGraphImpl;
 import it.unibo.model.map.impl.MapReaderImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
@@ -31,6 +34,9 @@ public class GameScene implements Model {
     private final List<List<GameObject>> gameObjects;
     private final PickableGenerator pickableGenerator = new PickableGeneratorImpl();
     private final Ghost ghost;
+    private final MapBuilder mapBuilder;
+    private final GameObjectImpl[][] objectsMap;
+    //private final Graph<GameObject, DefaultEdge> graph;
     // private final Dimension dimension;
     // private final List<Character> characters;
     // private final Character pacMan;
@@ -49,12 +55,6 @@ public class GameScene implements Model {
 
         this.gameObjects = new ArrayList<>();
         // dimension = new Dimension(width, height);
-        /*
-         * final URL image =
-         * ClassLoader.getSystemResource("image/ghost/blue/BlueGhostDown.png");
-         * this.gameObjects.add(new GameObjectImpl(new Point(0, 0), image, new
-         * Dimension(10, 10), Type.GHOST));
-         */
 
         // Creo il mapReader passandogli la mappa
         final MapReader map = new MapReaderImpl("src/main/resources/map1.txt");
@@ -62,6 +62,10 @@ public class GameScene implements Model {
         final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
       
+        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
+        objectsMap = mapBuilder.getObjectsMap();
+
+        //graph = new MapGraphImpl(objectsMap).getGraph();
         ghost = gameObjectFactory.createGhost(new Point(0,0), 100, GhostColor.RED);
 
     }
@@ -71,6 +75,8 @@ public class GameScene implements Model {
      */
     @Override
     public List<GameObject> getObjects() {
+
+        gameObjects.add(new ArrayList<>(mapBuilder.getPaintMap()));
         gameObjects.add(new ArrayList<>(List.of(ghost)));
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {

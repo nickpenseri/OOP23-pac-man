@@ -20,15 +20,9 @@ class TestMovingCharacterInDirection {
     private static final int MAP_SIZE = 1;
     private static final int INIT_POSITION = 10;
 
-<<<<<<< HEAD
     private final GameObjectImpl.Type type = GameObjectImpl.Type.FLOR;
-    private final DirectionSelector selector = new DirectionSelectorImpl();
-    private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, INIT_POSITION, MAP_SIZE, MAP_SIZE);
-=======
-    private final Dimension dim = new Dimension(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
     private final DirectionSelector selector = new EuclideanDirectionSelector();
-    private final GameObjectFactory factory  = new GameObjectFactoryImpl();
->>>>>>> MoveOnGraph
+    private final GameObjectFactory factory = new GameObjectFactoryImpl(GAME_OBJ_SIZE, INIT_POSITION, MAP_SIZE, MAP_SIZE);
 
     @Test
     void moveUp() {
