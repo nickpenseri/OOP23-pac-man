@@ -58,4 +58,13 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         }
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Dimension getObjectStandardDimension() {
+        return new Dimension(this.dimension);
+    }
+
 }

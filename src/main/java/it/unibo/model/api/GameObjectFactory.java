@@ -1,5 +1,6 @@
 package it.unibo.model.api;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
@@ -27,5 +28,11 @@ public interface GameObjectFactory {
      * @return the created ghost
      */
     Ghost createGhost(Point position, int speed, GhostColor color);
+
+
+    /**
+     * @return the standard dimension of a game objects
+     */
+    Dimension getObjectStandardDimension();
 
 }
