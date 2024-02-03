@@ -73,4 +73,12 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return new PacManBordered(new PacManImpl(3, dimension, speed, position), screenHeight, screenWidth);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Dimension getStandardDimension() {
+        return new Dimension(this.dimension);
+    }
+
 }

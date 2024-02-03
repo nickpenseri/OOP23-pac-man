@@ -1,5 +1,6 @@
 package it.unibo.model.api;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
@@ -37,4 +38,10 @@ public interface GameObjectFactory {
      * @return the created pac-man
      */
     PacMan createPacMan(Point position, double speed, int startingLives);
+
+    /**
+     * Getter for the standard dimension of a gameObject.
+     * @return the standard dimension of a gameObject
+     */
+    Dimension getStandardDimension();
 }
