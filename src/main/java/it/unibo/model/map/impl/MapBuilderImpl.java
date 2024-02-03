@@ -45,32 +45,38 @@ public class MapBuilderImpl implements MapBuilder {
                 switch (maptype) {
                     case PICKABLE:
                         this.spawnCollectibleItems.add(new Point(y, x));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        final var object1 = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.paintMap.add(object1);
+                        this.objectsMap[x][y] = object1;
                         break;
                     case SPAWN_PAC_MAN:
                         this.spawnPacMan.setLocation(new Point(y, x));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        final var object2 = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.paintMap.add(object2);
+                        this.objectsMap[x][y] = object2;
                         break;
                     case SPAWN_GHOST:
                         this.spawnGhosts.add(new Point(y, x));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        final var object3 = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.paintMap.add(object3);
+                        this.objectsMap[x][y] = object3;
                         break;
                     case WALL:
-                        this.spawnWalls.add(gameFactory.createGameObject(new Point(y, x), Type.WALL));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.WALL);
+                        final var object4 = gameFactory.createGameObject(new Point(y, x), Type.WALL);
+                        this.spawnWalls.add(object4);
+                        this.paintMap.add(object4);
+                        this.objectsMap[x][y] = object4;
                         break;
                     case GATE_GHOST:
                         this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
-                        this.spawnWalls.add(gameFactory.createGameObject(new Point(y, x), Type.GATE));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.GATE));
+                        final var object5 = gameFactory.createGameObject(new Point(y, x), Type.GATE);
+                        this.spawnWalls.add(object5);
+                        this.paintMap.add(object5);
                         break;
                     case NO_PICKABLE:
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        final var object6 = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.paintMap.add(object6);
+                        this.objectsMap[x][y] = object6;
                         break;
                     default:
                         break;
