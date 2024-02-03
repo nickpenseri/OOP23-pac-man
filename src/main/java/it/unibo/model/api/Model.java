@@ -25,4 +25,16 @@ public interface Model {
      * @return true if the scene is over 
     */
     boolean isSceneOver();
+
+    /**
+     * Return the PacMan lifes.
+     * @return the PacMan lifes
+     */
+    int getPacManLifes();
+
+    /**
+     * Return the PacMan scores.
+     * @return the PacMan scores
+     */
+    int getPacManScores();
 }

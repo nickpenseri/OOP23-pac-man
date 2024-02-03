@@ -1,6 +1,5 @@
 package it.unibo.view.impl;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,6 @@ public class GameView extends ViewImpl {
     public GameView(final int width, final int height) {
         super(width, height);
         this.setOpaque(true);
-        this.setBackground(Color.BLACK);
     }
     /**
      * {@inheritDoc}
@@ -41,6 +39,14 @@ public class GameView extends ViewImpl {
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             log.info("DOWN");
             addCommand(Command.SET_DIR_DOWN);
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            log.info("LEFT");
+            addCommand(Command.SET_DIR_LEFT);
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            log.info("RIGHT");
+            addCommand(Command.SET_DIR_RIGHT);
         }
     }
 
