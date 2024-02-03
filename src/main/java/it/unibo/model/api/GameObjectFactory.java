@@ -5,6 +5,7 @@ import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
+import it.unibo.model.pacman.api.PacMan;
 
 /**
  * This interface models an object that creates game objects.
@@ -27,5 +28,12 @@ public interface GameObjectFactory {
      * @return the created ghost
      */
     Ghost createGhost(Point position, int speed, GhostColor color);
-
+    
+    /**
+     * Creates a pacman object ready for the game.
+     * @param position the position of pacman
+     * @param speed the base speed of pacman
+     * @return the created pac-man
+     */
+    PacMan createPacMan(Point position, double speed);
 }
