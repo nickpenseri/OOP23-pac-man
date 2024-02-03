@@ -27,7 +27,7 @@ public interface GameObjectFactory {
      * @param color the color of the ghost
      * @return the created ghost
      */
-    Ghost createGhost(Point position, int speed, GhostColor color);
+    Ghost createGhost(Point position, double speed, GhostColor color);
 
     /**
      * Creates a pacman object ready for the game.
