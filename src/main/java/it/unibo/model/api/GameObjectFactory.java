@@ -33,7 +33,8 @@ public interface GameObjectFactory {
      * Creates a pacman object ready for the game.
      * @param position the position of pacman
      * @param speed the base speed of pacman
+     * @param startingLives the initial number of lives
      * @return the created pac-man
      */
-    PacMan createPacMan(Point position, double speed);
+    PacMan createPacMan(Point position, double speed, int startingLives);
 }
