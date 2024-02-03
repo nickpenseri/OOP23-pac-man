@@ -2,6 +2,7 @@ package it.unibo.model.map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
 
@@ -28,11 +29,13 @@ class TestMapBuilder {
     };
 
     private MapBuilderImpl mapBuilder;
+    private Dimension dimension;
 
     /** initialize mapbuilder. */
     @BeforeEach
     void setUp() {
         mapBuilder = new MapBuilderImpl(SAMPLE_MAP, new GameObjectFactoryImpl(10, 10, 2, 2));
+        this.dimension = new GameObjectFactoryImpl(10, 10, 2, 2).getStandardDimension();
     }
 
     /** method that tests ghost spawning. */
@@ -50,7 +53,7 @@ class TestMapBuilder {
     @Test
     void testGetPacManSpawn() {
         final Point pacManSpawn = mapBuilder.getPacManSpawn();
-        assertEquals(new Point(2, 2), pacManSpawn);
+        assertEquals(new Point(10, 10), pacManSpawn);
     }
 
     /** method that tests the path of collectible objects. */
@@ -68,9 +71,12 @@ class TestMapBuilder {
     void testGetWallsPath() {
         final List<GameObject> wallsPath = mapBuilder.getWallsPath();
         assertEquals(16, wallsPath.size());
-        assertEquals(wallsPath.get(0).getPosition(), new Point(0, 0));
-        assertEquals(wallsPath.get(1).getPosition(), new Point(1, 0));
-        assertEquals(wallsPath.get(2).getPosition(), new Point(2, 0));
+        assertEquals(wallsPath.get(0).getPosition(),
+                new Point(getCordinateY(dimension, 0), getCordinateX(dimension, 0)));
+        assertEquals(wallsPath.get(1).getPosition(),
+                new Point(getCordinateY(dimension, 1), getCordinateX(dimension, 0)));
+        assertEquals(wallsPath.get(2).getPosition(),
+                new Point(getCordinateY(dimension, 2), getCordinateX(dimension, 0)));
     }
 
     /** method that tests the map identified by gameobject. */
@@ -79,5 +85,14 @@ class TestMapBuilder {
         final GameObjectImpl[][] objectsMap = mapBuilder.getObjectsMap();
         assertEquals(SAMPLE_MAP.length, objectsMap.length);
         assertEquals(SAMPLE_MAP[0].length, objectsMap[0].length);
+    }
+
+    private int getCordinateY(final Dimension dimension, final int y) {
+        return y * dimension.height;
+    }
+
+    private int getCordinateX(final Dimension dimension, final int x) {
+        final int heightCell = TestMapBuilder.SAMPLE_MAP.length - 1 - x;
+        return heightCell * dimension.width;
     }
 }
