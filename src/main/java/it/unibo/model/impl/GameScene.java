@@ -1,8 +1,8 @@
 package it.unibo.model.impl;
 
+
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.slf4j.Logger;
@@ -30,7 +30,8 @@ public class GameScene implements Model {
 
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
-    private final MapBuilder mapBuilder;
+    private final PacMan pacman;
+    private final PickableGenerator pickableGenerator;
     //private final GameObjectImpl[][] objectsMap;
     private final Ghost ghost;
     private final Ghost ghost2;
@@ -71,16 +72,10 @@ public class GameScene implements Model {
         final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
-
-        final Dimension standardDimension = gameObjectFactory.getStandardDimension();
-
-
-        // Creo il pacMan
-        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), standardDimension.getWidth(), 3);
+        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), SPEED, 3);
         final List<GameObject> pacMan = new ArrayList<>();
         pacMan.add(pacman);
         this.gameObjects.add(pacMan);
-        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
         final var objectsMap = mapBuilder.getObjectsMap();
 
         final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
@@ -97,9 +92,10 @@ public class GameScene implements Model {
      */
     @Override
     public List<GameObject> getObjects() {
-        gameObjects.clear();
-        gameObjects.add(new ArrayList<>(mapBuilder.getPaintMap()));
-        gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
+        gameObjects.get(1).clear();
+        gameObjects.get(1).addAll(pickableGenerator.getPickableList());
+        gameObjects.get(2).clear();
+        gameObjects.get(2).addAll(List.of(pacman, ghost, ghost2));
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
             gameObjectsFlat.addAll(list);
@@ -118,16 +114,16 @@ public class GameScene implements Model {
             commands.forEach(c -> {
                 switch (c) {
                     case SET_DIR_UP:
-                        ghost.setDirection(Direction.UP);
+                        pacman.setDirection(Direction.UP);
                         break;
                     case SET_DIR_DOWN:
-                        ghost.setDirection(Direction.DOWN);
+                        pacman.setDirection(Direction.DOWN);
                         break;
                     case SET_DIR_LEFT:
-                        ghost.setDirection(Direction.LEFT);
+                        pacman.setDirection(Direction.LEFT);
                         break;
                     case SET_DIR_RIGHT:
-                        ghost.setDirection(Direction.RIGHT);
+                        pacman.setDirection(Direction.RIGHT);
                         break;
                     default:
                         break;
@@ -143,6 +139,7 @@ public class GameScene implements Model {
     public void updateState(final long elapsed) {
 
         // characters.forEach(c -> c.updateState());
+        pacman.updateState(elapsed);
         directionSelector.setDirection(ghost, cammini.get(RANDOMPOS));
         ghost.updateState(elapsed);
         directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2));
