@@ -1,6 +1,5 @@
 package it.unibo.core.impl;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -68,8 +67,7 @@ public class WindowImpl implements Window {
         constraints.weightx = 1.0;
         constraints.weighty = INFO_PROPORTION; 
         frame.add((Component) this.infoViewInfo, constraints);
-
-        
+ 
 
         frame.addWindowListener(new WindowAdapter() {
             @Override

@@ -24,6 +24,11 @@ public class GraphDirectionSelector implements DirectionSelector {
     private final Graph<GameObject, DefaultEdge> graph;
     private final PositionApproximator approximator;
     private final DirectionSelector selectDir;
+    private State state = State.NOT_SELECTED;
+    private GameObject selected;
+    private enum State {
+        SELECTED, NOT_SELECTED
+    }
 
     /**
      * Creates a new GraphDirectionSelector.
@@ -63,9 +68,20 @@ public class GraphDirectionSelector implements DirectionSelector {
         final SingleSourcePaths<GameObject, DefaultEdge> aPaths = aStarAlg.getPaths(sourceVertex.get());
         final var path = aPaths.getPath(targetVertex.get());
         if (path.getVertexList().size() >= 2) {
-            selectDir.setDirection(toMove, path.getVertexList().get(1));
+
+           if (state == State.SELECTED){
+                if (!toMove.getPosition().equals(selected.getPosition()))  {
+                    selectDir.setDirection(toMove, selected);
+                } else {
+                    state =  State.NOT_SELECTED;
+                }
+           } else if (state == State.NOT_SELECTED){
+                selected =  path.getVertexList().get(1);
+                state = State.SELECTED;
+           }          
+            
         } else {
-            toMove.resetDirection();
+            selectDir.setDirection(toMove, target);
         }
     }
 }

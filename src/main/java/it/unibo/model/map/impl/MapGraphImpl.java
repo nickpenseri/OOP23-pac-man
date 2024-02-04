@@ -39,11 +39,13 @@ public class MapGraphImpl implements MapGraph {
         for (int i = 0; i < this.map.length; i++) {
             for (int j = 0; j < this.map[i].length; j++) {
                 final var gameObject = this.map[i][j];
-                addEdgeIfFlor(gameObject, i, j + 1);
-                addEdgeIfFlor(gameObject, i, j - 1);
-                addEdgeIfFlor(gameObject, i - 1, j);
-                addEdgeIfFlor(gameObject, i + 1, j);
-            }
+                if (gameObject.getType().equals(Type.FLOR)) {
+                    addEdgeIfFlor(gameObject, i, j + 1);
+                    addEdgeIfFlor(gameObject, i, j - 1);
+                    addEdgeIfFlor(gameObject, i - 1, j);
+                    addEdgeIfFlor(gameObject, i + 1, j);
+                }
+           }
         }
         return Graphs.undirectedGraph(this.graph);
     }
