@@ -2,6 +2,7 @@ package it.unibo.view.impl;
 
 import static java.awt.Image.SCALE_DEFAULT;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.IOException;
@@ -122,6 +123,15 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      */
     protected final synchronized void addCommand(final Command command) {
         this.readedCommands.add(command);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Dimension getDimension() {
+        return new Dimension(this.getWidth(), this.getHeight());
     }
 
     @Override

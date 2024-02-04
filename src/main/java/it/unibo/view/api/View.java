@@ -1,5 +1,6 @@
 package it.unibo.view.api;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import it.unibo.input.api.Command;
@@ -21,4 +22,10 @@ public interface View {
      * @return return a list commands user.
      */
      List<Command> getListCommands(); 
+
+
+     /** Get the dimension of the view.
+      * @return the dimension of the view
+      */
+     Dimension getDimension();
 }
