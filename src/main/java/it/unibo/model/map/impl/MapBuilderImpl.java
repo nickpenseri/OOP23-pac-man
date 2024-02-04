@@ -62,9 +62,9 @@ public class MapBuilderImpl implements MapBuilder {
                         this.objectsMap[x][y] = object2;
                         break;
                     case SPAWN_GHOST:
-                        this.spawnGhosts.add(new Point(y, x));
                         final var object3 = gameFactory.createGameObject(
                                 new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
+                        this.spawnGhosts.add(object3.getPosition());
                         this.paintMap.add(object3);
                         this.objectsMap[x][y] = object3;
                         break;

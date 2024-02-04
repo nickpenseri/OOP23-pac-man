@@ -11,7 +11,6 @@ import it.unibo.model.ghost.api.GhostFactory;
  * This class represents an implementation of {@link GhostFactory}.
  */
 public class GhostFactoryImpl implements GhostFactory {
-
     private final Dimension dimension;
 
     /**
