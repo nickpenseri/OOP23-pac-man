@@ -32,8 +32,6 @@ public class GameView extends ViewImpl {
     private final Map<String, Image> scaledImages;
     /**
      * Constructor of the GameView.
-     * @param width of the view
-     * @param height of the view
      */
     public GameView() {
         this.setOpaque(true);
@@ -42,6 +40,9 @@ public class GameView extends ViewImpl {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateView(final List<GameObject> gameObjects) {
         this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
@@ -49,8 +50,8 @@ public class GameView extends ViewImpl {
             final var url = obj.getImageUrl().getPath();
             if (!scaledImages.containsKey(url)) {
                 try {
-                    System.out.println("Reading image: " + url);
-                    Image img = ImageIO.read(new File(url)).getScaledInstance((int) obj.getDimension().getHeight(),(int) obj.getDimension().getWidth(), SCALE_DEFAULT);
+                    Image img = ImageIO.read(new File(url)).getScaledInstance(
+                                (int) obj.getDimension().getHeight(), (int) obj.getDimension().getWidth(), SCALE_DEFAULT);
                     scaledImages.put(url, img);
                 } catch (IOException e) {
                     log.error("error during image reading" + e.getMessage());
@@ -60,6 +61,10 @@ public class GameView extends ViewImpl {
     }
 
 
+
+    /**
+    * {@inheritDoc}
+    */
     @Override
     public void paint(final Graphics g) {
          if (g instanceof Graphics2D) {
@@ -69,7 +74,7 @@ public class GameView extends ViewImpl {
              this.gameObjects.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
                 var img = scaledImages.get(obj.getImageUrl().getPath());
-                g2.drawImage(img, pos.x , (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y) , this);
+                g2.drawImage(img, pos.x, (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y), this);
             });
         }
     }

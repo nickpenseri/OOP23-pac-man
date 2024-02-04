@@ -1,6 +1,6 @@
 package it.unibo.view.impl;
 
-import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +39,6 @@ public class GameInfoView extends ViewImpl {
      */
     public final void updateView(final List<GameObject> pacmanInfo) {
         this.pacmanInfo = new ArrayList<>(Objects.requireNonNull(pacmanInfo));
-      
     }
 
     /**
@@ -74,16 +70,14 @@ public class GameInfoView extends ViewImpl {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(final KeyEvent e) {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(final KeyEvent e) {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(final KeyEvent e) {
     }
-
-   
 }

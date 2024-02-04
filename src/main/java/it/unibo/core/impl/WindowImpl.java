@@ -27,12 +27,12 @@ public class WindowImpl implements Window {
 
     private final Dimension dimension;
     private View gameViewPanel;
-    final View InfoViewInfo;
+    private final View infoViewInfo;
 
     /**
      * Constructor of a window.
      * 
-     * @param view1        the scene panel
+     * @param gameViewPanel the scene panel
      * @param gameViewInfo the score panel
      * @param gameName     the name of the game
      * @param weight       the weight of the window
@@ -50,24 +50,21 @@ public class WindowImpl implements Window {
         frame.setMinimumSize(new Dimension(weight, height));
         frame.setResizable(true);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-        
         this.gameViewPanel = gameViewPanel;
-        this.InfoViewInfo = gameViewInfo;
-        
-        
+        this.infoViewInfo = gameViewInfo;
         frame.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.gridy = 1;
         constraints.weighty = 0.95; 
         constraints.fill = GridBagConstraints.BOTH;
-        frame.add((Component)this.gameViewPanel, constraints);
+        frame.add((Component) this.gameViewPanel, constraints);
 
-       constraints.gridx = 0;
-       constraints.gridy = 0;
-       constraints.weightx = 1.0;
-       constraints.weighty = 0.05; 
-        frame.add((Component) this.InfoViewInfo, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 1.0;
+        constraints.weighty = 0.05; 
+        frame.add((Component) this.infoViewInfo, constraints);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -123,14 +120,24 @@ public class WindowImpl implements Window {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Dimension getGamePanelDimension() {
-        return new Dimension((int) this.gameViewPanel.getDimension().getWidth(), (int) this.gameViewPanel.getDimension().getHeight());
+        final int width = (int) this.dimension.getWidth();
+        final int height = (int) this.dimension.getHeight();
+        return new Dimension(width, height);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override 
     public Dimension getInfoPanelDimension() {
-        return new Dimension((int) this.InfoViewInfo.getDimension().getWidth(), (int) this.InfoViewInfo.getDimension().getHeight());
+        final int width = (int) this.infoViewInfo.getDimension().getWidth();
+        final int height = (int) this.infoViewInfo.getDimension().getHeight();
+        return new Dimension(width, height);
     }
 
 }

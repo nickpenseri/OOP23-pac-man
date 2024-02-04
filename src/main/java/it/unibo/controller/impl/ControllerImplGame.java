@@ -1,7 +1,5 @@
 package it.unibo.controller.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Model;
