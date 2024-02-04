@@ -1,7 +1,5 @@
 package it.unibo.model.impl;
 
-import java.awt.Dimension;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,29 +20,24 @@ import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.impl.MapBuilderImpl;
 import it.unibo.model.map.impl.MapGraphImpl;
 import it.unibo.model.map.impl.MapReaderImpl;
-import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
-import it.unibo.model.pickable.api.PickableGenerator;
-import it.unibo.model.pickable.impl.PickableGeneratorImpl;
 
 /** Basic Implementation of a model of a scene. */
 public class GameScene implements Model {
 
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
-    private final PickableGenerator pickableGenerator = new PickableGeneratorImpl();
     private final MapBuilder mapBuilder;
-    private final GameObjectImpl[][] objectsMap;
+    //private final GameObjectImpl[][] objectsMap;
     private final Ghost ghost;
     private final Ghost ghost2;
-    private final Graph<GameObject, DefaultEdge> graph;
-    DirectionSelector directionSelector;
-    DirectionSelector directionSelector2;
-    //private final Graph<GameObject, DefaultEdge> graph;
-    // private final Dimension dimension;
-    // private final List<Character> characters;
-    // private final Character pacMan;
+    private final DirectionSelector directionSelector;
+    private final DirectionSelector directionSelector2;
+    private final List<GameObject> cammini;
+    private static final int RANDOMPOS = 0;
+    private static final int RANDOMPOS2 = 59;
+    private static final int SPEED = 50;
 
     /**
      * Constructor of a generic scene.
@@ -66,17 +59,15 @@ public class GameScene implements Model {
 
         final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
-      
         mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
-        objectsMap = mapBuilder.getObjectsMap();
+        final var objectsMap = mapBuilder.getObjectsMap();
 
-        graph = new MapGraphImpl(objectsMap).getGraph();
-
-        //graph = new MapGraphImpl(objectsMap).getGraph();
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), 50, GhostColor.RED);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), 50, GhostColor.BLUE);
-        directionSelector = new GraphDirectionSelector(this.graph);
-        directionSelector2 = new GraphDirectionSelector(this.graph);
+        final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), SPEED, GhostColor.RED);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), SPEED, GhostColor.BLUE);
+        directionSelector = new GraphDirectionSelector(graph);
+        directionSelector2 = new GraphDirectionSelector(graph);
+        cammini = new ArrayList<>(graph.vertexSet());
 
     }
 
@@ -87,8 +78,7 @@ public class GameScene implements Model {
     public List<GameObject> getObjects() {
         gameObjects.clear();
         gameObjects.add(new ArrayList<>(mapBuilder.getPaintMap()));
-        gameObjects.add(new ArrayList<>(List.of(ghost,ghost2)));
-        
+        gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
             gameObjectsFlat.addAll(list);
@@ -130,11 +120,11 @@ public class GameScene implements Model {
      */
     @Override
     public void updateState(final long elapsed) {
+
         // characters.forEach(c -> c.updateState());
-        List<GameObject> cammini = new ArrayList<>(this.graph.vertexSet());
-        directionSelector.setDirection(ghost, cammini.get(0));
+        directionSelector.setDirection(ghost, cammini.get(RANDOMPOS));
         ghost.updateState(elapsed);
-        directionSelector2.setDirection(ghost2, cammini.get(59));
+        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2));
         ghost2.updateState(elapsed);
     }
 
@@ -151,7 +141,7 @@ public class GameScene implements Model {
      */
     @Override
     public int getPacManLifes() {
-        return 2;
+        return SPEED;
     }
 
     /**
@@ -159,7 +149,7 @@ public class GameScene implements Model {
      */
     @Override
     public int getPacManScores() {
-        return 15;
+        return SPEED;
     }
 
 }

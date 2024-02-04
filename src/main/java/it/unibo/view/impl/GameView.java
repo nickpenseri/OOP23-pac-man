@@ -91,7 +91,6 @@ public class GameView extends ViewImpl {
      */
     @Override
     public void keyPressed(final KeyEvent e) {
-        System.out.println("KeyTyped");
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             log.info("UP");
             addCommand(Command.SET_DIR_UP);

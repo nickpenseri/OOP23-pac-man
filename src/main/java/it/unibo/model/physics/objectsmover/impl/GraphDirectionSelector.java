@@ -77,11 +77,12 @@ public class GraphDirectionSelector implements DirectionSelector {
                 }
            } else if (state == State.NOT_SELECTED) {
                 selected =  path.getVertexList().get(1);
+                selectDir.setDirection(toMove, selected);
                 state = State.SELECTED;
-           }    
-           
+           }
         } else {
             selectDir.setDirection(toMove, target);
         }
+
     }
 }
