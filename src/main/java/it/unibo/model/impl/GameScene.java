@@ -23,7 +23,8 @@ import it.unibo.model.map.impl.MapBuilderImpl;
 import it.unibo.model.map.impl.MapGraphImpl;
 import it.unibo.model.map.impl.MapReaderImpl;
 import it.unibo.model.pacman.api.PacMan;
-import it.unibo.model.pacman.impl.PacManImpl;
+import it.unibo.model.physics.objectsmover.api.DirectionSelector;
+import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
 import it.unibo.model.pickable.api.PickableGenerator;
 import it.unibo.model.pickable.impl.PickableGeneratorImpl;
 
@@ -33,9 +34,13 @@ public class GameScene implements Model {
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
     private final PickableGenerator pickableGenerator = new PickableGeneratorImpl();
-    private final Ghost ghost;
     private final MapBuilder mapBuilder;
     private final GameObjectImpl[][] objectsMap;
+    private final Ghost ghost;
+    private final Ghost ghost2;
+    private final Graph<GameObject, DefaultEdge> graph;
+    DirectionSelector directionSelector;
+    DirectionSelector directionSelector2;
     //private final Graph<GameObject, DefaultEdge> graph;
     // private final Dimension dimension;
     // private final List<Character> characters;
@@ -65,8 +70,13 @@ public class GameScene implements Model {
         mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
         objectsMap = mapBuilder.getObjectsMap();
 
+        graph = new MapGraphImpl(objectsMap).getGraph();
+
         //graph = new MapGraphImpl(objectsMap).getGraph();
-        ghost = gameObjectFactory.createGhost(new Point(0,0), 100, GhostColor.RED);
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), 50, GhostColor.RED);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), 50, GhostColor.BLUE);
+        directionSelector = new GraphDirectionSelector(this.graph);
+        directionSelector2 = new GraphDirectionSelector(this.graph);
 
     }
 
@@ -76,8 +86,8 @@ public class GameScene implements Model {
     @Override
     public List<GameObject> getObjects() {
         gameObjects.clear();
-        gameObjects.add(new ArrayList<>(List.of(ghost)));
         gameObjects.add(new ArrayList<>(mapBuilder.getPaintMap()));
+        gameObjects.add(new ArrayList<>(List.of(ghost,ghost2)));
         
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
@@ -97,7 +107,6 @@ public class GameScene implements Model {
             commands.forEach(c -> {
                 switch (c) {
                     case SET_DIR_UP:
-                     
                         ghost.setDirection(Direction.UP);
                         break;
                     case SET_DIR_DOWN:
@@ -122,7 +131,11 @@ public class GameScene implements Model {
     @Override
     public void updateState(final long elapsed) {
         // characters.forEach(c -> c.updateState());
+        List<GameObject> cammini = new ArrayList<>(this.graph.vertexSet());
+        directionSelector.setDirection(ghost, cammini.get(0));
         ghost.updateState(elapsed);
+        directionSelector2.setDirection(ghost2, cammini.get(59));
+        ghost2.updateState(elapsed);
     }
 
     /**

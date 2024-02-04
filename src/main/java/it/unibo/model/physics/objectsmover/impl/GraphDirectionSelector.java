@@ -69,17 +69,17 @@ public class GraphDirectionSelector implements DirectionSelector {
         final var path = aPaths.getPath(targetVertex.get());
         if (path.getVertexList().size() >= 2) {
 
-           if (state == State.SELECTED){
+           if (state == State.SELECTED) {
                 if (!toMove.getPosition().equals(selected.getPosition()))  {
                     selectDir.setDirection(toMove, selected);
                 } else {
                     state =  State.NOT_SELECTED;
                 }
-           } else if (state == State.NOT_SELECTED){
+           } else if (state == State.NOT_SELECTED) {
                 selected =  path.getVertexList().get(1);
                 state = State.SELECTED;
-           }          
-            
+           }    
+           
         } else {
             selectDir.setDirection(toMove, target);
         }
