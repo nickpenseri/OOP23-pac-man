@@ -13,8 +13,9 @@ import it.unibo.core.api.Window;
 import it.unibo.model.api.Model;
 import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.View;
+import it.unibo.view.impl.GameInfoView;
 import it.unibo.view.impl.GameView;
-import it.unibo.view.impl.ViewImplInfo;
+
 
 /** Implementation of a game engine. */
 public class EngineImpl implements Engine {
@@ -29,16 +30,15 @@ public class EngineImpl implements Engine {
     public EngineImpl() {
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final Dimension screenSize = toolkit.getScreenSize();
-        final int height = screenSize.height / PROPORTION;
+        final int height = screenSize.width / PROPORTION;
         final int width = screenSize.width / PROPORTION;
-
-        final int infoWidth = width / 10;
-        final int infoHeight = height / 10;
-        final ViewImplInfo gameViewInfo = new ViewImplInfo(infoWidth, infoHeight);
-        final View gameView = new GameView(width - infoWidth, height - infoWidth);
-        final Model gameScene = new GameScene(width - infoWidth, height - infoWidth);
-        this.controller = new ControllerImplGame(gameScene, gameView, gameViewInfo);
+        final View gameViewInfo = new GameInfoView();
+        final View gameView = new GameView();
         this.window = new WindowImpl(gameView, gameViewInfo, "Pacman", width, height);
+        final var gamedim = this.window.getGamePanelDimension();
+        final var infodim = this.window.getInfoPanelDimension();
+        final Model gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight() - (int) infodim.getHeight());
+        this.controller = new ControllerImplGame(gameScene, gameView, gameViewInfo);
     }
 
     /**

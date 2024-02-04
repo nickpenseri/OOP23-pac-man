@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 import it.unibo.core.api.Window;
 import it.unibo.view.api.View;
-import it.unibo.view.impl.ViewImplInfo;
 
 /** Implementation of a Swing window. */
 public class WindowImpl implements Window {
@@ -28,18 +27,21 @@ public class WindowImpl implements Window {
     private final JFrame frame;
 
     private final Dimension dimension;
-    private View panel;
+    private View gameViewPanel;
+    private final View infoViewInfo;
+    private static final float INFO_PROPORTION = 0.05f;
+    private static final float GAME_PROPORTION = 1 - INFO_PROPORTION;
 
     /**
      * Constructor of a window.
      * 
-     * @param view1        the scene panel
+     * @param gameViewPanel the scene panel
      * @param gameViewInfo the score panel
      * @param gameName     the name of the game
      * @param weight       the weight of the window
      * @param height       the height of the window
      */
-    public WindowImpl(final View view1, final ViewImplInfo gameViewInfo, final String gameName, final int weight,
+    public WindowImpl(final View gameViewPanel, final View gameViewInfo, final String gameName, final int weight,
             final int height) {
 
         if (weight <= 0 || height <= 0) {
@@ -49,29 +51,25 @@ public class WindowImpl implements Window {
         dimension = new Dimension(weight, height);
         frame.setSize(weight, height);
         frame.setMinimumSize(new Dimension(weight, height));
-        frame.setResizable(false);
-     
-        final ViewImplInfo panel2 = gameViewInfo.clone();
-      
-        this.panel = view1;
-     
-
+        frame.setResizable(true);
+        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        this.gameViewPanel = gameViewPanel;
+        this.infoViewInfo = gameViewInfo;
         frame.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+        final GridBagConstraints constraints = new GridBagConstraints();
+
+        constraints.gridy = 1;
+        constraints.weighty = GAME_PROPORTION; 
+        constraints.fill = GridBagConstraints.BOTH;
+        frame.add((Component) this.gameViewPanel, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 1.0;
+        constraints.weighty = INFO_PROPORTION; 
+        frame.add((Component) this.infoViewInfo, constraints);
 
         
-        constraints.gridy = 1;
-        constraints.weighty = 0.9; // Questo pannello occupa il 70% dello spazio verticale
-        constraints.fill = GridBagConstraints.BOTH;
-        frame.add((Component)this.panel, constraints);
-
-        // Aggiunta del pannello 2 (più alto)
-       // Aggiunta del pannello 1 (più basso)
-       constraints.gridx = 0;
-       constraints.gridy = 0;
-       constraints.weightx = 1.0;
-       constraints.weighty = 0.1; // Questo pannello occupa il 30% dello spazio verticale
-        frame.add(panel2, constraints);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -86,6 +84,7 @@ public class WindowImpl implements Window {
         });
         frame.pack();
         frame.setVisible(true);
+        ((Component) this.gameViewPanel).requestFocusInWindow();
     }
 
     /**
@@ -108,12 +107,12 @@ public class WindowImpl implements Window {
     @Override
     public void setPanelScene(final View scenePanel) {
 
-        if (!Objects.isNull(this.panel)) {
-            frame.getContentPane().remove((Component) this.panel);
+        if (!Objects.isNull(this.gameViewPanel)) {
+            frame.getContentPane().remove((Component) this.gameViewPanel);
         }
 
-        this.panel = scenePanel;
-        frame.getContentPane().add((Component) panel);
+        this.gameViewPanel = scenePanel;
+        frame.getContentPane().add((Component) gameViewPanel);
         frame.pack();
         frame.validate();
     }
@@ -124,6 +123,27 @@ public class WindowImpl implements Window {
     @Override
     public Dimension getDimension() {
         return new Dimension((int) this.dimension.getWidth(), (int) this.dimension.getHeight());
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Dimension getGamePanelDimension() {
+        final int width = (int) this.gameViewPanel.getDimension().getWidth();
+        final int height = (int) this.gameViewPanel.getDimension().getHeight();
+        return new Dimension(width, height);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override 
+    public Dimension getInfoPanelDimension() {
+        final int width = (int) this.infoViewInfo.getDimension().getWidth();
+        final int height = (int) this.infoViewInfo.getDimension().getHeight();
+        return new Dimension(width, height);
     }
 
 }

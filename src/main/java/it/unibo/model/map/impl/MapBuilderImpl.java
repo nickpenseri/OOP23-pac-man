@@ -1,5 +1,6 @@
 package it.unibo.model.map.impl;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +22,16 @@ public class MapBuilderImpl implements MapBuilder {
     private final Point spawnPacMan;
     private final List<Point> spawnCollectibleItems;
     private final List<GameObject> spawnWalls;
-    private final List<GameObject> paintMap; 
+    private final List<GameObject> paintMap;
     private final GameObjectImpl[][] objectsMap;
 
     /**
      * constructor that given the map reads it and saves the coordinates in the
      * lists.
      * 
-     * @param map the game map.
-     * @param gameFactory factory for creating game object based on window size and map size.
+     * @param map         the game map.
+     * @param gameFactory factory for creating game object based on window size and
+     *                    map size.
      */
     public MapBuilderImpl(final int[][] map, final GameObjectFactory gameFactory) {
         this.paintMap = new ArrayList<>();
@@ -38,6 +40,7 @@ public class MapBuilderImpl implements MapBuilder {
         this.spawnCollectibleItems = new ArrayList<>();
         this.spawnWalls = new ArrayList<>();
         this.objectsMap = new GameObjectImpl[map.length][map[0].length];
+        final var dimension = gameFactory.getStandardDimension();
         for (final var x : range(0, map.length - 1)) {
             for (final var y : range(0, map[x].length - 1)) {
                 final int ris = map[x][y];
@@ -45,32 +48,46 @@ public class MapBuilderImpl implements MapBuilder {
                 switch (maptype) {
                     case PICKABLE:
                         this.spawnCollectibleItems.add(new Point(y, x));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        final var object1 = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
+                        this.paintMap.add(object1);
+                        this.objectsMap[x][y] = object1;
                         break;
                     case SPAWN_PAC_MAN:
-                        this.spawnPacMan.setLocation(new Point(y, x));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        this.spawnPacMan.setLocation(
+                            new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)));
+                        final var object2 = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
+                        this.paintMap.add(object2);
+                        this.objectsMap[x][y] = object2;
                         break;
                     case SPAWN_GHOST:
                         this.spawnGhosts.add(new Point(y, x));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        final var object3 = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
+                        this.paintMap.add(object3);
+                        this.objectsMap[x][y] = object3;
                         break;
                     case WALL:
-                        this.spawnWalls.add(gameFactory.createGameObject(new Point(y, x), Type.WALL));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y* 10, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.WALL);
+                        final var object4 = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.WALL);
+                        this.spawnWalls.add(object4);
+                        this.paintMap.add(object4);
+                        this.objectsMap[x][y] = object4;
                         break;
                     case GATE_GHOST:
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
-                        this.spawnWalls.add(gameFactory.createGameObject(new Point(y, x), Type.GATE));
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.GATE));
+                        this.objectsMap[x][y] = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
+                        final var object5 = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.GATE);
+                        this.spawnWalls.add(object5);
+                        this.paintMap.add(object5);
                         break;
                     case NO_PICKABLE:
-                        this.paintMap.add(gameFactory.createGameObject(new Point(y, x), Type.FLOR));
-                        this.objectsMap[x][y] = gameFactory.createGameObject(new Point(y, x), Type.FLOR);
+                        final var object6 = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
+                        this.paintMap.add(object6);
+                        this.objectsMap[x][y] = object6;
                         break;
                     default:
                         break;
@@ -146,6 +163,15 @@ public class MapBuilderImpl implements MapBuilder {
     @Override
     public List<GameObject> getPaintMap() {
         return new ArrayList<>(this.paintMap);
+    }
+
+    private int getCordinateY(final Dimension dimension, final int y) {
+        return y * dimension.height;
+    }
+
+    private int getCordinateX(final Dimension dimension, final int x) {
+        final int heightCell = this.objectsMap.length - 1 - x;
+        return heightCell * dimension.width;
     }
 
 }
