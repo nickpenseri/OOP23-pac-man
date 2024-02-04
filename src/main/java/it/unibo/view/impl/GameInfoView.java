@@ -37,6 +37,7 @@ public class GameInfoView extends ViewImpl {
     /**
      * {@inheritDoc}
      */
+    @Override
     public final void updateView(final List<GameObject> pacmanInfo) {
         this.pacmanInfo = new ArrayList<>(Objects.requireNonNull(pacmanInfo));
     }
@@ -46,6 +47,7 @@ public class GameInfoView extends ViewImpl {
      */
     @Override
     public void paint(final Graphics g) {
+        /* */
         if (g instanceof Graphics2D) {
             final Graphics2D g2 = (Graphics2D) g;
 

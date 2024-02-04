@@ -50,7 +50,7 @@ public class GameView extends ViewImpl {
             final var url = obj.getImageUrl().getPath();
             if (!scaledImages.containsKey(url)) {
                 try {
-                    Image img = ImageIO.read(new File(url)).getScaledInstance(
+                    final Image img = ImageIO.read(new File(url)).getScaledInstance(
                                 (int) obj.getDimension().getHeight(), (int) obj.getDimension().getWidth(), SCALE_DEFAULT);
                     scaledImages.put(url, img);
                 } catch (IOException e) {
@@ -73,7 +73,7 @@ public class GameView extends ViewImpl {
 
              this.gameObjects.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
-                var img = scaledImages.get(obj.getImageUrl().getPath());
+                final var img = scaledImages.get(obj.getImageUrl().getPath());
                 g2.drawImage(img, pos.x, (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y), this);
             });
         }

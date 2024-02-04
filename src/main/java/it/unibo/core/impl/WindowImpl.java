@@ -28,6 +28,8 @@ public class WindowImpl implements Window {
     private final Dimension dimension;
     private View gameViewPanel;
     private final View infoViewInfo;
+    private static final float INFO_PROPORTION = 0.05f;
+    private static final float GAME_PROPORTION = 1 - INFO_PROPORTION;
 
     /**
      * Constructor of a window.
@@ -53,17 +55,17 @@ public class WindowImpl implements Window {
         this.gameViewPanel = gameViewPanel;
         this.infoViewInfo = gameViewInfo;
         frame.setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+        final GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.gridy = 1;
-        constraints.weighty = 0.95; 
+        constraints.weighty = GAME_PROPORTION; 
         constraints.fill = GridBagConstraints.BOTH;
         frame.add((Component) this.gameViewPanel, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weightx = 1.0;
-        constraints.weighty = 0.05; 
+        constraints.weighty = INFO_PROPORTION; 
         frame.add((Component) this.infoViewInfo, constraints);
 
         frame.addWindowListener(new WindowAdapter() {
@@ -125,8 +127,8 @@ public class WindowImpl implements Window {
      */
     @Override
     public Dimension getGamePanelDimension() {
-        final int width = (int) this.dimension.getWidth();
-        final int height = (int) this.dimension.getHeight();
+        final int width = (int) this.gameViewPanel.getDimension().getWidth();
+        final int height = (int) this.gameViewPanel.getDimension().getHeight();
         return new Dimension(width, height);
     }
 
