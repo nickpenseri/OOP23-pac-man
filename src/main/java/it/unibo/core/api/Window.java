@@ -18,4 +18,14 @@ public interface Window {
      * @return the dimension of the window
      */
     Dimension getDimension();
+
+     /** Get the dimension og the game panel.
+     * @return the dimension of the window
+     */
+    Dimension getGamePanelDimension();
+
+    /** Get the dimension of the info panel.
+     * @return the dimension of the window
+     */
+    Dimension getInfoPanelDimension();
 }

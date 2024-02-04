@@ -25,7 +25,8 @@ public class WindowImpl implements Window {
     private final JFrame frame;
 
     private final Dimension dimension;
-    private View panel;
+    private View gameViewPanel;
+    final ViewImplInfo InfoViewInfo;
 
     /**
      * Constructor of a window.
@@ -36,7 +37,7 @@ public class WindowImpl implements Window {
      * @param weight       the weight of the window
      * @param height       the height of the window
      */
-    public WindowImpl(final View view1, final ViewImplInfo gameViewInfo, final String gameName, final int weight,
+    public WindowImpl(final View gameViewPanel, final ViewImplInfo gameViewInfo, final String gameName, final int weight,
             final int height) {
 
         if (weight <= 0 || height <= 0) {
@@ -48,10 +49,14 @@ public class WindowImpl implements Window {
         frame.setMinimumSize(new Dimension(weight, height));
         frame.setResizable(true);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
-        final ViewImplInfo panel2 = gameViewInfo.clone();
-        frame.getContentPane().add((Component) panel2);
-        this.panel = view1;
-        frame.getContentPane().add((Component) this.panel);
+        
+        this.gameViewPanel = gameViewPanel;
+        this.InfoViewInfo = gameViewInfo;
+        
+        
+        frame.getContentPane().add((Component) this.gameViewPanel);
+        
+        frame.getContentPane().add((Component) this.InfoViewInfo);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -88,12 +93,12 @@ public class WindowImpl implements Window {
     @Override
     public void setPanelScene(final View scenePanel) {
 
-        if (!Objects.isNull(this.panel)) {
-            frame.getContentPane().remove((Component) this.panel);
+        if (!Objects.isNull(this.gameViewPanel)) {
+            frame.getContentPane().remove((Component) this.gameViewPanel);
         }
 
-        this.panel = scenePanel;
-        frame.getContentPane().add((Component) panel);
+        this.gameViewPanel = scenePanel;
+        frame.getContentPane().add((Component) gameViewPanel);
         frame.pack();
         frame.validate();
     }
@@ -103,6 +108,16 @@ public class WindowImpl implements Window {
      */
     @Override
     public Dimension getDimension() {
+        return new Dimension((int) this.dimension.getWidth(), (int) this.dimension.getHeight());
+    }
+
+
+    @Override
+    public Dimension getGamePanelDimension() {
+        return new Dimension((int) this.gameViewPanel.getWidth(), (int) this.dimension.getHeight());
+    }
+
+    @Override Dimension getInfoPanelDimension() {
         return new Dimension((int) this.dimension.getWidth(), (int) this.dimension.getHeight());
     }
 
