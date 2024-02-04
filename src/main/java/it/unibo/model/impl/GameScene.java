@@ -18,7 +18,6 @@ import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.impl.MapBuilderImpl;
 import it.unibo.model.map.impl.MapReaderImpl;
 import it.unibo.model.pacman.api.PacMan;
-import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pickable.api.PickableGenerator;
 
 /** Basic Implementation of a model of a scene. */
@@ -69,8 +68,11 @@ public class GameScene implements Model {
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
 
+        final Dimension standardDimension = gameObjectFactory.getStandardDimension();
+
+
         // Creo il pacMan
-        this.pacman = new PacManImpl(3, new Dimension(10, 10), 10, mapBuilder.getPacManSpawn());
+        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), standardDimension.getWidth(), 3);
         final List<GameObject> pacMan = new ArrayList<>();
         pacMan.add(pacman);
         this.gameObjects.add(pacMan);
