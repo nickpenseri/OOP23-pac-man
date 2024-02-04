@@ -27,8 +27,6 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      */
     public ViewImpl() {
         this.readedCommands = new ArrayList<>();
-        this.scaledImages = new HashMap<>();
-        gameObjects = new HashSet<>();
     }
 
     /**
