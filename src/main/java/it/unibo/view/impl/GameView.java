@@ -1,16 +1,35 @@
 package it.unibo.view.impl;
 
+import static java.awt.Image.SCALE_DEFAULT;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.imageio.ImageIO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import it.unibo.input.api.Command;
+import it.unibo.model.api.GameObject;
 
 /** View of the actual Game. */
 public class GameView extends ViewImpl {
 
     private final Logger log = LoggerFactory.getLogger(GameView.class);
     private static final long serialVersionUID = 1L;
+    private List<GameObject> gameObjects;
+    private final Map<String, Image> scaledImages;
     /**
      * Constructor of the GameView.
      * @param width of the view
@@ -19,7 +38,44 @@ public class GameView extends ViewImpl {
     public GameView(final int width, final int height) {
         super(width, height);
         this.setOpaque(true);
+        gameObjects = new ArrayList<>();
+        this.scaledImages = new HashMap<>();
     }
+
+
+    @Override
+    public void updateView(final List<GameObject> gameObjects) {
+        this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
+        gameObjects.forEach(obj -> {
+            final var url = obj.getImageUrl().getPath();
+            if (!scaledImages.containsKey(url)) {
+                try {
+                    System.out.println("Reading image: " + url);
+                    Image img = ImageIO.read(new File(url)).getScaledInstance((int) obj.getDimension().getHeight(),(int) obj.getDimension().getWidth(), SCALE_DEFAULT);
+                    scaledImages.put(url, img);
+                } catch (IOException e) {
+                    log.error("error during image reading" + e.getMessage());
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void paint(final Graphics g) {
+         if (g instanceof Graphics2D) {
+            final Graphics2D g2 = (Graphics2D) g;
+            SetupGraphics2D.setupGraphics2DStatic(g2, this.getWidth(), this.getHeight());
+
+             this.gameObjects.stream().forEach(obj -> {
+                final Point pos = obj.getPosition();
+                var img = scaledImages.get(obj.getImageUrl().getPath());
+              
+                g2.drawImage(img, pos.x , (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y) , this);
+            });
+        }
+    }
+
     /**
      * {@inheritDoc}
      */

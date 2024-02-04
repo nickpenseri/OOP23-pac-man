@@ -34,8 +34,7 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
 
     private final List<Command> readedCommands;
     private final Logger log = LoggerFactory.getLogger(ViewImpl.class);
-    private List<GameObject> gameObjects = new ArrayList<>();
-    private static final int DIMENSION = 20;
+   
 
     /**
      * Constructor for the View.
@@ -57,44 +56,13 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      * {@inheritDoc}
      */
     @Override
-    public final void updateView(final List<GameObject> gameObjects) {
-        this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
-    }
+    public abstract void updateView(final List<GameObject> gameObjects);
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void paint(final Graphics g) {
-        if (g instanceof Graphics2D) {
-            final Graphics2D g2 = (Graphics2D) g;
-
-            SetupGraphics2D.setupGraphics2DStatic(g2, this.getWidth(), this.getHeight());
-
-            // Create a Map to store the scaled images
-            final Map<String, Image> scaledImages = new HashMap<>();
-
-            // In your drawing method
-            this.gameObjects.stream().forEach(obj -> {
-                final Point pos = obj.getPosition();
-                Image img = null;
-                try {
-                    final var url = obj.getImageUrl().getPath();
-                    // Check if the scaled image is already in the Map
-                    if (scaledImages.containsKey(url)) {
-                        img = scaledImages.get(url);
-                    } else {
-                        // If not, read and scale the image, and put it in the Map
-                        img = ImageIO.read(new File(url)).getScaledInstance(DIMENSION, DIMENSION, SCALE_DEFAULT);
-                        scaledImages.put(url, img);
-                    }
-                } catch (IOException e) {
-                    log.error("error during image reading" + e.getMessage());
-                }
-                g2.drawImage(img, pos.x * DIMENSION, pos.y * DIMENSION, this);
-            });
-        }
-    }
+    public abstract void paint(final Graphics g);
 
     /**
      * {@inheritDoc}
