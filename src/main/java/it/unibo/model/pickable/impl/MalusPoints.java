@@ -1,7 +1,7 @@
 package it.unibo.model.pickable.impl;
 
+import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.geom.Dimension2D;
 
 import it.unibo.model.pacman.api.PacMan;
 
@@ -17,7 +17,7 @@ public class MalusPoints extends EffectPickableImpl {
      * @param position  the position of the pickable.
      * @param dimension the dimension of the pickable.
      */
-    public MalusPoints(final Point position, final Dimension2D dimension) {
+    public MalusPoints(final Point position, final Dimension dimension) {
         super(position, dimension);
     }
 

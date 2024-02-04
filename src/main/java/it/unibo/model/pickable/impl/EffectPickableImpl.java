@@ -1,8 +1,8 @@
 package it.unibo.model.pickable.impl;
 
 import java.net.URL;
+import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.geom.Dimension2D;
 
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pickable.api.EffectPickable;
@@ -20,7 +20,7 @@ public abstract class EffectPickableImpl extends PickableImpl implements EffectP
      * @param position  the position of the pickable.
      * @param dimension the dimension of the pickable.
      */
-    public EffectPickableImpl(final Point position, final Dimension2D dimension) {
+    public EffectPickableImpl(final Point position, final Dimension dimension) {
         super(position, dimension);
     }
 
@@ -33,7 +33,6 @@ public abstract class EffectPickableImpl extends PickableImpl implements EffectP
     public URL getImageUrl() {
         return IMAGE_URL;
     }
-
 
     /**
      * Do the effect of the pickable.

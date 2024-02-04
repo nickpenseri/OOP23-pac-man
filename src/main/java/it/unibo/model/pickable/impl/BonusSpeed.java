@@ -1,7 +1,7 @@
 package it.unibo.model.pickable.impl;
 
+import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.geom.Dimension2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,7 +20,7 @@ public class BonusSpeed extends EffectPickableImpl {
      * @param position  the position of the pickable.
      * @param dimension the dimension of the pickable.
      */
-    public BonusSpeed(final Point position, final Dimension2D dimension) {
+    public BonusSpeed(final Point position, final Dimension dimension) {
         super(position, dimension);
     }
 

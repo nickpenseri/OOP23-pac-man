@@ -1,7 +1,7 @@
 package it.unibo.model.pickable.impl;
 
+import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.geom.Dimension2D;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -27,8 +27,9 @@ public class PickableGeneratorImpl implements PickableGenerator {
      * @param pickableSpawnPoints is a list of Point where the pickable can spawn.
      */
     @Override
-    public void generateMap(final List<Point> pickableSpawnPoints, final Dimension2D dimension) {
+    public void generateMap(final List<Point> pickableSpawnPoints, final Dimension dimension) {
         for (final Point point : pickableSpawnPoints) {
+            point.setLocation(point.getX() * (int) dimension.getHeight(), point.getY() * (int) dimension.getWidth());
             final double doubleRandomNumberForTypeOfPickable = Math.random() * PERCENTAGE;
             // convert double to integer
             final int randomNumberForTypeOfPickable = (int) doubleRandomNumberForTypeOfPickable;
