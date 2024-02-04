@@ -20,7 +20,6 @@ import it.unibo.model.map.impl.MapReaderImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pickable.api.PickableGenerator;
-import it.unibo.model.pickable.impl.PickableGeneratorImpl;
 
 /** Basic Implementation of a model of a scene. */
 public class GameScene implements Model {
@@ -64,11 +63,8 @@ public class GameScene implements Model {
         final List<GameObject> walls = mapBuilder.getWallsPath();
         this.gameObjects.add(walls);
 
-        // Creao il pickable generator
-        pickableGenerator = new PickableGeneratorImpl();
-        // Genero la Mappa dei pickable in base alla lista ritornata dal mapBuilder e do
-        // alle immagini la dimensione default
-        pickableGenerator.generateMap(mapBuilder.getSpawnCollectibleItems(), new Dimension(10, 10));
+        // Creao il pickable generator e creo la mappa dei pickable
+        pickableGenerator = gameObjectFactory.createPickableGenerator(mapBuilder.getSpawnCollectibleItems());
         final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);

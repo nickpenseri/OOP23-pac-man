@@ -1,11 +1,9 @@
 package it.unibo.view.impl;
 
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
-
 
 import it.unibo.model.api.GameObject;
 
@@ -44,12 +42,12 @@ public class GameInfoView extends ViewImpl {
 
     @Override
     public void keyTyped(final KeyEvent e) {
-        
+
     }
 
     @Override
     public void keyPressed(final KeyEvent e) {
-    
+
     }
 
     @Override

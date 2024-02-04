@@ -1,7 +1,5 @@
 package it.unibo.view.impl;
 
-
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;

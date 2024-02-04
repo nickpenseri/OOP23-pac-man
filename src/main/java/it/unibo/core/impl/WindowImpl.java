@@ -35,10 +35,10 @@ public class WindowImpl implements Window {
      * Constructor of a window.
      * 
      * @param gameViewPanel the scene panel
-     * @param gameViewInfo the score panel
-     * @param gameName     the name of the game
-     * @param weight       the weight of the window
-     * @param height       the height of the window
+     * @param gameViewInfo  the score panel
+     * @param gameName      the name of the game
+     * @param weight        the weight of the window
+     * @param height        the height of the window
      */
     public WindowImpl(final View gameViewPanel, final View gameViewInfo, final String gameName, final int weight,
             final int height) {
@@ -58,17 +58,15 @@ public class WindowImpl implements Window {
         final GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.gridy = 1;
-        constraints.weighty = GAME_PROPORTION; 
+        constraints.weighty = GAME_PROPORTION;
         constraints.fill = GridBagConstraints.BOTH;
         frame.add((Component) this.gameViewPanel, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.weightx = 1.0;
-        constraints.weighty = INFO_PROPORTION; 
+        constraints.weighty = INFO_PROPORTION;
         frame.add((Component) this.infoViewInfo, constraints);
-
-        
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -124,7 +122,6 @@ public class WindowImpl implements Window {
         return new Dimension((int) this.dimension.getWidth(), (int) this.dimension.getHeight());
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -138,7 +135,7 @@ public class WindowImpl implements Window {
     /**
      * {@inheritDoc}
      */
-    @Override 
+    @Override
     public Dimension getInfoPanelDimension() {
         final int width = (int) this.infoViewInfo.getDimension().getWidth();
         final int height = (int) this.infoViewInfo.getDimension().getHeight();
