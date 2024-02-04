@@ -41,7 +41,6 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
      * 
      */
     public ViewImpl() {
-        this.setOpaque(true);
         this.readedCommands = new ArrayList<>();
     }
 

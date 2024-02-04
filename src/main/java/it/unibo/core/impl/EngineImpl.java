@@ -31,10 +31,9 @@ public class EngineImpl implements Engine {
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
         final Dimension screenSize = toolkit.getScreenSize();
         final int height = screenSize.width / PROPORTION;
-        final int width = screenSize.height / PROPORTION;
+        final int width = screenSize.width / PROPORTION;
         final View gameViewInfo = new GameInfoView();
         final View gameView = new GameView();
-        final Model gameScene = new GameScene(width, height);
    
         this.window = new WindowImpl(gameView, gameViewInfo, "Pacman", width, height);
         var gamedim = this.window.getGamePanelDimension();

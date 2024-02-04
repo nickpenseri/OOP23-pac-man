@@ -35,8 +35,7 @@ public class GameView extends ViewImpl {
      * @param width of the view
      * @param height of the view
      */
-    public GameView(final int width, final int height) {
-        super(width, height);
+    public GameView() {
         this.setOpaque(true);
         gameObjects = new ArrayList<>();
         this.scaledImages = new HashMap<>();
