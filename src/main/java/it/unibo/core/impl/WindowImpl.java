@@ -2,6 +2,8 @@ package it.unibo.core.impl;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import it.unibo.core.api.Window;
 import it.unibo.view.api.View;
-import it.unibo.view.impl.ViewImplInfo;
 
 /** Implementation of a Swing window. */
 public class WindowImpl implements Window {
@@ -26,7 +27,7 @@ public class WindowImpl implements Window {
 
     private final Dimension dimension;
     private View gameViewPanel;
-    final ViewImplInfo InfoViewInfo;
+    final View InfoViewInfo;
 
     /**
      * Constructor of a window.
@@ -37,7 +38,7 @@ public class WindowImpl implements Window {
      * @param weight       the weight of the window
      * @param height       the height of the window
      */
-    public WindowImpl(final View gameViewPanel, final ViewImplInfo gameViewInfo, final String gameName, final int weight,
+    public WindowImpl(final View gameViewPanel, final View gameViewInfo, final String gameName, final int weight,
             final int height) {
 
         if (weight <= 0 || height <= 0) {
@@ -54,9 +55,19 @@ public class WindowImpl implements Window {
         this.InfoViewInfo = gameViewInfo;
         
         
-        frame.getContentPane().add((Component) this.gameViewPanel);
-        
-        frame.getContentPane().add((Component) this.InfoViewInfo);
+        frame.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        constraints.gridy = 1;
+        constraints.weighty = 0.95; 
+        constraints.fill = GridBagConstraints.BOTH;
+        frame.add((Component)this.gameViewPanel, constraints);
+
+       constraints.gridx = 0;
+       constraints.gridy = 0;
+       constraints.weightx = 1.0;
+       constraints.weighty = 0.05; 
+        frame.add((Component) this.InfoViewInfo, constraints);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -114,11 +125,12 @@ public class WindowImpl implements Window {
 
     @Override
     public Dimension getGamePanelDimension() {
-        return new Dimension((int) this.gameViewPanel.getWidth(), (int) this.dimension.getHeight());
+        return new Dimension((int) this.gameViewPanel.getDimension().getWidth(), (int) this.gameViewPanel.getDimension().getHeight());
     }
 
-    @Override Dimension getInfoPanelDimension() {
-        return new Dimension((int) this.dimension.getWidth(), (int) this.dimension.getHeight());
+    @Override 
+    public Dimension getInfoPanelDimension() {
+        return new Dimension((int) this.InfoViewInfo.getDimension().getWidth(), (int) this.InfoViewInfo.getDimension().getHeight());
     }
 
 }

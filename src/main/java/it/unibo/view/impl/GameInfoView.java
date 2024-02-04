@@ -22,7 +22,7 @@ import it.unibo.model.api.GameObject;
 /**
  * Swing Implementation of View Interface for life and score.
  */
-public class ViewImplInfo extends ViewImpl {
+public class GameInfoView extends ViewImpl {
     static final long serialVersionUID = 1L;
     private static final int DIMENSION = 20;
     private List<GameObject> pacmanInfo;
@@ -34,7 +34,7 @@ public class ViewImplInfo extends ViewImpl {
      * @param width  the width of the view
      * @param height the height of the view
      */
-    public ViewImplInfo(final int width, final int height) {
+    public GameInfoView(final int width, final int height) {
         super(width, height);
         pacmanInfo = new ArrayList<>(); 
     }
