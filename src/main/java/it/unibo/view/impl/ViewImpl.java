@@ -9,6 +9,9 @@ import java.util.List;
 import javax.swing.JPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
 import it.unibo.view.api.View;
@@ -93,6 +96,10 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         requestFocusInWindow();
+    }
+
+    private void readObject(final ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
     }
 
 }

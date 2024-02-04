@@ -26,10 +26,10 @@ import it.unibo.model.api.GameObject;
 /** View of the actual Game. */
 public class GameView extends ViewImpl {
 
-    private final Logger log = LoggerFactory.getLogger(GameView.class);
     private static final long serialVersionUID = 1L;
-    private List<GameObject> gameObjects;
-    private final Map<String, Image> scaledImages;
+    private final transient Logger log = LoggerFactory.getLogger(GameView.class);
+    private transient List<GameObject> gameObjects;
+    private final transient Map<String, Image> scaledImages;
     /**
      * Constructor of the GameView.
      */
@@ -115,5 +115,4 @@ public class GameView extends ViewImpl {
     @Override
     public void keyReleased(final KeyEvent e) {
     }
-
 }
