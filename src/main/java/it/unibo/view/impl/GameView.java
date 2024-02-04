@@ -70,7 +70,6 @@ public class GameView extends ViewImpl {
              this.gameObjects.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
                 var img = scaledImages.get(obj.getImageUrl().getPath());
-              
                 g2.drawImage(img, pos.x , (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y) , this);
             });
         }

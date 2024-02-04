@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -15,13 +17,15 @@ import javax.swing.JPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.unibo.model.api.GameObject;
+
 /**
  * Swing Implementation of View Interface for life and score.
  */
-public class ViewImplInfo extends JPanel implements Cloneable {
+public class ViewImplInfo extends ViewImpl {
     static final long serialVersionUID = 1L;
     private static final int DIMENSION = 20;
-    private final List<Integer> pacmanInfo = new ArrayList<>();
+    private List<GameObject> pacmanInfo;
     private final transient Logger log = LoggerFactory.getLogger(ViewImpl.class);
 
     /**
@@ -31,20 +35,16 @@ public class ViewImplInfo extends JPanel implements Cloneable {
      * @param height the height of the view
      */
     public ViewImplInfo(final int width, final int height) {
-
-        if (width <= 0 || height <= 0) {
-            throw new IllegalArgumentException("Width and Height must be positive");
-        }
-
-        setSize(width, height);
+        super(width, height);
+        pacmanInfo = new ArrayList<>(); 
     }
 
     /**
      * {@inheritDoc}
      */
-    public final void updateView(final List<Integer> pacmanInfo2) {
-        this.pacmanInfo.clear();
-        this.pacmanInfo.addAll(pacmanInfo2);
+    public final void updateView(final List<GameObject> pacmanInfo) {
+        this.pacmanInfo = new ArrayList<>(Objects.requireNonNull(pacmanInfo));
+      
     }
 
     /**
@@ -65,24 +65,27 @@ public class ViewImplInfo extends JPanel implements Cloneable {
                 log.error("error during image reading" + e.getMessage());
             }
 
+            /* 
             for (int i = 0; i < this.pacmanInfo.get(0); i++) {
                 g2.drawImage(imgLife, 0 + i * DIMENSION, DIMENSION, this);
             }
             g2.setColor(Color.WHITE);
             g2.drawString("Score: " + this.pacmanInfo.get(1), DIMENSION * this.pacmanInfo.get(0), DIMENSION);
+            */
         }
     }
 
-    /**
-     * Clonation metod for the ViewImplInfo.
-     */
     @Override
-    public ViewImplInfo clone() {
-        try {
-            return (ViewImplInfo) super.clone();
-        } catch (CloneNotSupportedException e) {
-            log.error("error during cloning" + e.getMessage());
-            return null;
-        }
+    public void keyTyped(KeyEvent e) {
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+   
 }
