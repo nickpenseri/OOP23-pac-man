@@ -13,8 +13,9 @@ import it.unibo.core.api.Window;
 import it.unibo.model.api.Model;
 import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.View;
+import it.unibo.view.impl.GameInfoView;
 import it.unibo.view.impl.GameView;
-import it.unibo.view.impl.ViewImplInfo;
+
 
 /** Implementation of a game engine. */
 public class EngineImpl implements Engine {
@@ -31,11 +32,15 @@ public class EngineImpl implements Engine {
         final Dimension screenSize = toolkit.getScreenSize();
         final int height = screenSize.width / PROPORTION;
         final int width = screenSize.height / PROPORTION;
-        final ViewImplInfo gameViewInfo = new ViewImplInfo(width / 2, height / 2);
-        final View gameView = new GameView(width / 2, height / 2);
+        final View gameViewInfo = new GameInfoView();
+        final View gameView = new GameView();
         final Model gameScene = new GameScene(width, height);
-        this.controller = new ControllerImplGame(gameScene, gameView, gameViewInfo);
+   
         this.window = new WindowImpl(gameView, gameViewInfo, "Pacman", width, height);
+        var gamedim = this.window.getGamePanelDimension();
+        var infodim = this.window.getInfoPanelDimension();
+        final Model gameScene = new GameScene((int) gamedim.getWidth() , (int) gamedim.getHeight() - (int)infodim.getHeight() );
+        this.controller = new ControllerImplGame(gameScene, gameView, gameViewInfo);
     }
 
     /**

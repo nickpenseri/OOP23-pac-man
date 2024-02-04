@@ -39,16 +39,9 @@ public abstract class ViewImpl extends JPanel implements View, KeyListener {
     /**
      * Constructor for the View.
      * 
-     * @param width  the width of the view
-     * @param height the height of the view
      */
-    public ViewImpl(final int width, final int height) {
-
-        if (width <= 0 || height <= 0) {
-            throw new IllegalArgumentException("Width and Height must be positive");
-        }
-
-        setSize(width, height);
+    public ViewImpl() {
+        this.setOpaque(true);
         this.readedCommands = new ArrayList<>();
     }
 

@@ -31,11 +31,9 @@ public class GameInfoView extends ViewImpl {
     /**
      * Constructor of the ViewImpl.
      * 
-     * @param width  the width of the view
-     * @param height the height of the view
      */
-    public GameInfoView(final int width, final int height) {
-        super(width, height);
+    public GameInfoView() {
+        this.setOpaque(true);
         pacmanInfo = new ArrayList<>(); 
     }
 
