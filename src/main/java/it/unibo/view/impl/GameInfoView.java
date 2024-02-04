@@ -44,10 +44,12 @@ public class GameInfoView extends ViewImpl {
 
     @Override
     public void keyTyped(final KeyEvent e) {
+        
     }
 
     @Override
     public void keyPressed(final KeyEvent e) {
+    
     }
 
     @Override

@@ -68,6 +68,8 @@ public class WindowImpl implements Window {
         constraints.weighty = INFO_PROPORTION; 
         frame.add((Component) this.infoViewInfo, constraints);
 
+        
+
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(final WindowEvent ev) {
@@ -81,6 +83,7 @@ public class WindowImpl implements Window {
         });
         frame.pack();
         frame.setVisible(true);
+        ((Component) this.gameViewPanel).requestFocusInWindow();
     }
 
     /**
