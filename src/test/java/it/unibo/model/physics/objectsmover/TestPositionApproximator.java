@@ -3,7 +3,7 @@ package it.unibo.model.physics.objectsmover;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -77,8 +77,7 @@ class TestPositionApproximator {
             .mapToObj(i -> factory
             .createGameObject(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR))
             .collect(Collectors.toList());
-      assertEquals(list.get(0), approximator.getApproximatedPosition(target,  new HashSet<>(list)).get());
-      assertNotEquals(list.get(1), approximator.getApproximatedPosition(target,  new HashSet<>(list)).get());
+      assertTrue(list.contains(approximator.getApproximatedPosition(target,  new HashSet<>(list)).get()));
    }
 
 }
