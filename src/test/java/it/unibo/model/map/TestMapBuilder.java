@@ -31,6 +31,11 @@ class TestMapBuilder {
     private MapBuilderImpl mapBuilder;
     private Dimension dimension;
 
+    private static final int Y = 5;
+    private static final int X_FIRST_SPAWN = 5;
+    private static final int X_SECOND_SPAWN = 10;
+    private static final int X_THIRD_SPAWN = 15;
+
     /** initialize mapbuilder. */
     @BeforeEach
     void setUp() {
@@ -46,7 +51,7 @@ class TestMapBuilder {
         // assertEquals(new Point(3, 1), spawnGhost.get(O));
         // assertEquals(new Point(3, 2), spawnGhost.get(1));
         // assertEquals(new Point(3, 3), spawnGhost.get(2));
-        assertEquals(List.of(new Point(1, 3), new Point(2, 3), new Point(3, 3)), spawnGhost);
+        assertEquals(List.of(new Point(X_FIRST_SPAWN, Y), new Point(X_SECOND_SPAWN, Y), new Point(X_THIRD_SPAWN, Y)), spawnGhost);
     }
 
     /** method that test pac-man spawn. */
