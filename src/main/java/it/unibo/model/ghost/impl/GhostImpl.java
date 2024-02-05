@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import it.unibo.model.api.ImageChooser;
 import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.impl.CharacterImpl;
 
 /**
@@ -17,6 +18,7 @@ import it.unibo.model.impl.CharacterImpl;
 public class GhostImpl extends CharacterImpl implements Ghost {
 
     private final ImageChooser imagePack;
+    private GhostState state;
     /**
      * Creates a ghost.
      * @param initialPos the initial position of the ghost
@@ -27,6 +29,7 @@ public class GhostImpl extends CharacterImpl implements Ghost {
     public GhostImpl(final Point initialPos, final Dimension dimension, final double initialSpeed, final ImageChooser imagePack) {
         super(initialPos, dimension, initialSpeed);
         this.imagePack =  Objects.requireNonNull(imagePack);
+        state = GhostState.NORMAL;
     }
 
     /**
@@ -60,5 +63,13 @@ public class GhostImpl extends CharacterImpl implements Ghost {
     @Override
     public boolean decreaseSpeed() {
         return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setState(final GhostState state) {
+        this.state = state;
     }
 }
