@@ -15,6 +15,7 @@ import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
+import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.impl.MapBuilderImpl;
@@ -140,8 +141,10 @@ public class GameScene implements Model {
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
         directionSelector.setDirection(ghost, pacman);
+        ghost.setState(GhostState.SCARED);
         ghost.updateState(elapsed);
         directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2));
+        ghost2.setState(GhostState.DEAD);
         ghost2.updateState(elapsed);
     }
 

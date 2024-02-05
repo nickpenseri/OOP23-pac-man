@@ -47,7 +47,7 @@ public class GhostGraphicsImpl implements GhostGraphics {
         this.leftTailExtended = commonName + "GhostLeft2.png";
         this.leftTailRetracted = commonName + "GhostLeft.png";
         this.fear = BASE_PATH + "fear/GhostFear.png";
-        this.dead = BASE_PATH + "eyes/GhostDead.png";
+        this.dead = BASE_PATH + "eyes/GhostEyes.png";
         this.tailExtended = true;
     }
 
