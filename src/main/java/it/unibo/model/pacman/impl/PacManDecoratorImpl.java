@@ -74,8 +74,12 @@ public abstract class PacManDecoratorImpl implements PacManDecorator {
         return this.decorated.getSpeedLevel();
     }
 
+    /**{@inheritDoc} */
     @Override
-    public abstract void respawn(Point spawnPoint);
+    public void respawn(Point spawnPoint) {
+        this.decorated.setPosition(spawnPoint);
+        this.decorated.resetDirection();
+    }
 
     /** {@inheritDoc} */
     @Override
