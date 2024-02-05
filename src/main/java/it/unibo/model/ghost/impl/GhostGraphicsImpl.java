@@ -6,13 +6,15 @@ import java.util.Optional;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.ImageChooser;
 import it.unibo.model.ghost.api.GhostColor;
+import it.unibo.model.ghost.api.GhostGraphics;
+import it.unibo.model.ghost.api.GhostState;
 
 /**
  * This class represents an implementation of ImageChooser, which can be updated
  * and can give
  * the actual image.
  */
-public class GhostGraphics implements ImageChooser {
+public class GhostGraphicsImpl implements GhostGraphics {
 
     private static final String BASE_PATH = "image/ghost/";
 
@@ -25,13 +27,16 @@ public class GhostGraphics implements ImageChooser {
     private final String downTailRetracted;
     private final String leftTailExtended;
     private final String leftTailRetracted;
+    private final String fear;
+    private final String dead;
     private boolean tailExtended;
+    private GhostState state;
 
     /**
      * Creates an object of this class which initial state is closed.
      * @param color the color of the ghost
      */
-    public GhostGraphics(final GhostColor color) {
+    public GhostGraphicsImpl(final GhostColor color) {
         final String commonName = BASE_PATH + color.name().toLowerCase(Locale.US) + "/";
         this.stopped = commonName + "Ghost.png";
         this.upTailExtended = commonName + "GhostUp.png";
@@ -42,6 +47,8 @@ public class GhostGraphics implements ImageChooser {
         this.downTailRetracted = commonName + "GhostDown.png";
         this.leftTailExtended = commonName + "GhostLeft2.png";
         this.leftTailRetracted = commonName + "GhostLeft.png";
+        this.fear = BASE_PATH + "fear/GhostFear.png";
+        this.dead = BASE_PATH + "eyes/GhostDead.png";
         this.tailExtended = true;
     }
 
@@ -58,7 +65,16 @@ public class GhostGraphics implements ImageChooser {
      */
     @Override
     public URL actualImageUrl(final Optional<Direction> dir) {
-        final String actualImage = select(dir);
+        final String actualImage;
+        switch (state) {
+            case NORMAL -> actualImage = select(dir);
+            case DEAD ->   actualImage = dead;
+            case SCARED ->   actualImage = this.tailExtended ? fear : select(dir);
+            default -> {
+                actualImage = null;
+            }
+        }
+        
         return ClassLoader.getSystemResource(actualImage);
     }
 
@@ -80,5 +96,10 @@ public class GhostGraphics implements ImageChooser {
                 case LEFT -> leftTailExtended;
             };
         }
+    }
+
+    @Override
+    public void setState(GhostState state) {
+       this.state = state;
     }
 }
