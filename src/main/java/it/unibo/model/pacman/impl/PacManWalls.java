@@ -44,8 +44,39 @@ public class PacManWalls extends PacManDecoratorImpl {
      */
     @Override
     public void correctPosition() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'correctPosition'");
+        if (this.isInWalls()) {
+            this.setPosition(new Point(this.correctX(), this.correctY()));
+        }
+    }
+
+    private int correctY() {
+        final GameObject closestWall = closestWall();
+        return switch (this.getDirection().get()) {
+            case RIGHT, LEFT -> (int) this.getPosition().getY();
+            case UP -> (int) (closestWall.getPosition().getY() - closestWall.getDimension().getHeight());
+            case DOWN -> (int) (closestWall.getPosition().getY() + this.getDimension().getHeight());
+        };
+    }
+
+    private int correctX() {
+        final GameObject closestWall = closestWall();
+        return switch (this.getDirection().get()) {
+            case UP, DOWN -> (int) this.getPosition().getX();
+            case RIGHT -> (int) (closestWall.getPosition().getX() - this.getDimension().getWidth());
+            case LEFT -> (int) (closestWall.getPosition().getX() + closestWall.getDimension().getWidth());
+        };
+    }
+
+    private GameObject closestWall() {
+        return this.walls.stream()
+            .filter(wall -> collisionChecker.areColliding(wall, this))
+            .min((w1, w2) -> Double.compare(wallDistance(w1), wallDistance(w2)))
+            .get();
+    }
+
+    private double wallDistance(final GameObject wall) {
+        return Math.hypot(this.getPosition().getX() - wall.getPosition().getX(),
+                this.getPosition().getY() - wall.getPosition().getY());
     }
 
     /**
