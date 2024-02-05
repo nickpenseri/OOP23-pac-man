@@ -15,6 +15,7 @@ import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
  * This class models an entity of pacman which moves in a space with walls, that
  * cannot be passed.
  * It decorates an object of PacMan, changing respawn and updateState.
+ * 
  * @see PacMan
  */
 public class PacManWalls extends PacManDecoratorImpl {
@@ -27,7 +28,7 @@ public class PacManWalls extends PacManDecoratorImpl {
      * the walls passed in the list passed as a parameter.
      * 
      * @param decorated the PacMan to be decorated
-     * @param walls the list of walls
+     * @param walls     the list of walls
      * @throws NullPointerException if the list passed is null
      */
     public PacManWalls(final PacMan decorated, final List<GameObject> walls) {
@@ -37,6 +38,10 @@ public class PacManWalls extends PacManDecoratorImpl {
         this.collisionChecker = checkerFactory.gameObjectChecker();
     }
 
+    /**
+     * If pacman hit a wall, it returns in the position closest to the wall but not
+     * colliding with it.
+     */
     @Override
     public void correctPosition() {
         // TODO Auto-generated method stub
@@ -62,7 +67,7 @@ public class PacManWalls extends PacManDecoratorImpl {
 
     private boolean isInWalls() {
         return walls.stream()
-            .anyMatch(wall -> collisionChecker.areColliding(this, wall));
+                .anyMatch(wall -> collisionChecker.areColliding(this, wall));
     }
 
 }
