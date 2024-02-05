@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.api.Direction;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.api.PacManDecorator;
@@ -22,7 +23,11 @@ public abstract class PacManDecoratorImpl implements PacManDecorator {
      * Creates an object of PacManDecoratorImpl whic decorates another pacman.
      * 
      * @param decorated the pacman to be decorated.
+     * @throws NullPointerException if the pacman passed is null.
      */
+    @SuppressFBWarnings(value = {
+            "EI_EXPOSE_REP2"
+    }, justification = "Changings of the decorated object should also affect this object")
     protected PacManDecoratorImpl(final PacMan decorated) {
         this.decorated = Objects.requireNonNull(decorated);
     }
