@@ -105,8 +105,15 @@ public abstract class PacManDecoratorImpl implements PacManDecorator {
         this.decorated.resetDirection();
     }
 
+    /**
+     * Updates the state of pacman and corrects the position.
+     * @param elapsed the time passed from the last update
+     */
     @Override
-    public abstract void updateState(long elapsed);
+    public void updateState(long elapsed) {
+        this.decorated.updateState(elapsed);
+        this.correctPosition();
+    }
 
     /** {@inheritDoc} */
     @Override
