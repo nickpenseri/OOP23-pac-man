@@ -58,13 +58,13 @@ public abstract class PacManDecoratorImpl implements PacManDecorator {
 
     /** {@inheritDoc} */
     @Override
-    public void addPoints(int points) {
+    public void addPoints(final int points) {
         this.decorated.addPoints(points);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void removePoints(int points) {
+    public void removePoints(final int points) {
         this.decorated.removePoints(points);
     }
 
@@ -76,20 +76,20 @@ public abstract class PacManDecoratorImpl implements PacManDecorator {
 
     /**{@inheritDoc} */
     @Override
-    public void respawn(Point spawnPoint) {
+    public void respawn(final Point spawnPoint) {
         this.decorated.setPosition(spawnPoint);
         this.decorated.resetDirection();
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setDirection(Direction direction) {
+    public void setDirection(final Direction direction) {
         this.decorated.setDirection(direction);
     }
 
     /** {@inheritDoc} */
     @Override
-    public void setPosition(Point position) {
+    public void setPosition(final Point position) {
         this.decorated.setPosition(position);
     }
 
@@ -110,7 +110,7 @@ public abstract class PacManDecoratorImpl implements PacManDecorator {
      * @param elapsed the time passed from the last update
      */
     @Override
-    public void updateState(long elapsed) {
+    public void updateState(final long elapsed) {
         this.decorated.updateState(elapsed);
         this.correctPosition();
     }
