@@ -17,10 +17,9 @@ import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
  * It decorates an object of PacMan, changing respawn and updateState.
  * @see PacMan
  */
-public class PacManWalls extends PacManDecoratorImpl{
+public class PacManWalls extends PacManDecoratorImpl {
 
     private final List<GameObject> walls;
-    private final CollisionCheckerFactory checkerFactory;
     private final CollisionChecker<GameObject> collisionChecker;
 
     /**
@@ -34,7 +33,7 @@ public class PacManWalls extends PacManDecoratorImpl{
     public PacManWalls(final PacMan decorated, final List<GameObject> walls) {
         super(decorated);
         this.walls = new ArrayList<>(Objects.requireNonNull(walls));
-        this.checkerFactory = new CollisionCheckerFactoryImpl();
+        final CollisionCheckerFactory checkerFactory = new CollisionCheckerFactoryImpl();
         this.collisionChecker = checkerFactory.gameObjectChecker();
     }
 
