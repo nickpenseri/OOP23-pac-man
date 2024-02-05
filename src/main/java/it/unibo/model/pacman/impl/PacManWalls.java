@@ -66,6 +66,4 @@ public class PacManWalls extends PacManDecoratorImpl{
             .anyMatch(wall -> collisionChecker.areColliding(this, wall));
     }
 
-    
-
 }
