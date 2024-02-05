@@ -64,6 +64,7 @@ public class PacManBordered extends PacManDecoratorImpl {
     /**
      * If pacman exceeds a border, it reappears at the opposite border.
      */
+    @Override
     public void correctPosition() {
         this.setPosition(new Point(this.correctX(), this.correctY()));
     }
