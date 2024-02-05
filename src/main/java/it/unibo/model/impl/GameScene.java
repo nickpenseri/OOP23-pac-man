@@ -38,7 +38,6 @@ public class GameScene implements Model {
     private final DirectionSelector directionSelector;
     private final DirectionSelector directionSelector2;
     private final List<GameObject> cammini;
-    private static final int RANDOMPOS = 0;
     private static final int RANDOMPOS2 = 59;
     private static final int SPEED = 50;
 
@@ -140,7 +139,7 @@ public class GameScene implements Model {
 
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
-        directionSelector.setDirection(ghost, cammini.get(RANDOMPOS));
+        directionSelector.setDirection(ghost, pacman);
         ghost.updateState(elapsed);
         directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2));
         ghost2.updateState(elapsed);
