@@ -13,7 +13,7 @@ import it.unibo.model.pacman.api.PacMan;
  * 
  * @see PacMan
  */
-public class PacManBordered extends PacManDecoratorImpl{
+public class PacManBordered extends PacManDecoratorImpl {
 
     private final int borderUp;
     private final int borderRight;
