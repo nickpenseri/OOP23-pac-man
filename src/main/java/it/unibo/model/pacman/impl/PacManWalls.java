@@ -50,6 +50,9 @@ public class PacManWalls extends PacManDecoratorImpl {
     }
 
     private int correctY() {
+        if (this.getDirection().isEmpty()) {
+            return (int) this.getPosition().getY();
+        }
         final GameObject closestWall = closestWall();
         return switch (this.getDirection().get()) {
             case RIGHT, LEFT -> (int) this.getPosition().getY();
@@ -59,6 +62,9 @@ public class PacManWalls extends PacManDecoratorImpl {
     }
 
     private int correctX() {
+        if (this.getDirection().isEmpty()) {
+            return (int) this.getPosition().getX();
+        }
         final GameObject closestWall = closestWall();
         return switch (this.getDirection().get()) {
             case UP, DOWN -> (int) this.getPosition().getX();
