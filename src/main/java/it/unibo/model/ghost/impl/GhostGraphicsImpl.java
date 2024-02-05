@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.Optional;
 import it.unibo.model.api.Direction;
-import it.unibo.model.api.ImageChooser;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostGraphics;
 import it.unibo.model.ghost.api.GhostState;
