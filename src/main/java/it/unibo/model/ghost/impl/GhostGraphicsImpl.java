@@ -49,6 +49,7 @@ public class GhostGraphicsImpl implements GhostGraphics {
         this.fear = BASE_PATH + "fear/GhostFear.png";
         this.dead = BASE_PATH + "eyes/GhostEyes.png";
         this.tailExtended = true;
+        this.state = GhostState.NORMAL;
     }
 
     /**
@@ -64,17 +65,21 @@ public class GhostGraphicsImpl implements GhostGraphics {
      */
     @Override
     public URL actualImageUrl(final Optional<Direction> dir) {
-        final String actualImage;
+        URL result;
         switch (state) {
-            case NORMAL -> actualImage = select(dir);
-            case DEAD ->   actualImage = dead;
-            case SCARED ->   actualImage = this.tailExtended ? fear : select(dir);
-            default -> {
-                actualImage = null;
-            }
+            case NORMAL:
+                result = ClassLoader.getSystemResource(select(dir));
+                break;
+            case DEAD:
+                result = ClassLoader.getSystemResource(dead);
+                break;
+            case SCARED:
+                result = ClassLoader.getSystemResource(this.tailExtended ? fear : select(dir));
+                break;
+            default:
+                result = null;
         }
-        
-        return ClassLoader.getSystemResource(actualImage);
+        return result;
     }
 
     private String select(final Optional<Direction> dir) {
@@ -97,8 +102,11 @@ public class GhostGraphicsImpl implements GhostGraphics {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setState(GhostState state) {
+    public void setState(final GhostState state) {
        this.state = state;
     }
 }

@@ -31,7 +31,7 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createRedGhost(final Point pos, final double initialSpeed) {
-        return new GhostImpl(pos, dimension, initialSpeed, new GhostGraphicsImpl(GhostColor.RED));
+        return new GhostImpl(pos, dimension, initialSpeed, GhostColor.RED);
     }
 
     /**
@@ -39,7 +39,7 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createBlueGhost(final Point pos, final double initialSpeed) {
-        return new GhostImpl(pos, dimension, initialSpeed, new GhostGraphicsImpl(GhostColor.BLUE));
+        return new GhostImpl(pos, dimension, initialSpeed, GhostColor.BLUE);
     }
 
     /**
@@ -47,7 +47,7 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createPinkGhost(final Point pos, final double initialSpeed) {
-        return new GhostImpl(pos, dimension, initialSpeed, new GhostGraphicsImpl(GhostColor.PINK));
+        return new GhostImpl(pos, dimension, initialSpeed, GhostColor.PINK);
     }
 
     /**
@@ -55,6 +55,6 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createOrangeGhost(final Point pos, final double initialSpeed) {
-        return new GhostImpl(pos, dimension, initialSpeed, new GhostGraphicsImpl(GhostColor.ORANGE));
+        return new GhostImpl(pos, dimension, initialSpeed, GhostColor.ORANGE);
     }
 }
