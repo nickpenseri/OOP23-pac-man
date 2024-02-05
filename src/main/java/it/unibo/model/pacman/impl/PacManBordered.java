@@ -53,7 +53,7 @@ public class PacManBordered extends PacManDecoratorImpl{
         if (!isInBorders(spawnPoint)) {
             throw new IllegalArgumentException("Cannot respawn outside the borders");
         }
-        this.respawn(spawnPoint);
+        super.respawn(spawnPoint);
     }
 
     private boolean isInBorders(final Point position) {
