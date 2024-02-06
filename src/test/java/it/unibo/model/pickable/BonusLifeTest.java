@@ -41,7 +41,7 @@ class BonusLifeTest {
         final BonusLife bonusLife = new BonusLife(position, DIMENSION);
         final PacMan pacman = new PacManImpl(STARTING_LIVES, DIMENSION, BASE_SPEED, STARTING_POS);
         final int initialLives = pacman.getRemainingLives();
-        bonusLife.doEffect(pacman);
+        bonusLife.doEffect(pacman, null);
         assertEquals(initialLives + 1, pacman.getRemainingLives());
     }
 }

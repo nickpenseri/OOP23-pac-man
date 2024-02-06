@@ -1,6 +1,10 @@
 package it.unibo.model.pickable;
 
 import org.junit.jupiter.api.Test;
+
+import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostColor;
+import it.unibo.model.ghost.impl.GhostImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pickable.api.Pickable;
@@ -46,11 +50,16 @@ class PickableGeneratorImplTest {
         final PickableGeneratorImpl generator = new PickableGeneratorImpl();
         final Point point = new Point(POSITION, POSITION);
         final PacMan pacman = new PacManImpl(STARTING_LIVES, DIMENSION, BASE_SPEED, STARTING_POS);
+        final Ghost ghost1 = new GhostImpl(point, DIMENSION, BASE_SPEED, GhostColor.RED);
+        final Ghost ghost2 = new GhostImpl(point, DIMENSION, BASE_SPEED, GhostColor.BLUE);
+        final List<Ghost> ghosts = new ArrayList<>();
+        ghosts.add(ghost1);
+        ghosts.add(ghost2);
         final ArrayList<Point> list = new ArrayList<>();
         list.add(point);
         generator.generateMap(list, DIMENSION);
         assertFalse(generator.getPickableList().isEmpty());
-        generator.takePickable(point, pacman);
+        generator.takePickable(point, pacman, ghosts);
         assertTrue(generator.finishedPickable());
     }
 

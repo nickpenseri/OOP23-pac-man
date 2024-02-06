@@ -43,7 +43,7 @@ class BonusPointsTest {
         final BonusPoints bonusPoints = new BonusPoints(position, DIMENSION);
         final PacMan pacman = new PacManImpl(STARTING_LIVES, DIMENSION, BASE_SPEED, STARTING_POS);
         final int initialPoints = pacman.getPoints();
-        bonusPoints.doEffect(pacman);
+        bonusPoints.doEffect(pacman, null);
         assertEquals(initialPoints + INCREASE_POINTS, pacman.getPoints());
     }
 }

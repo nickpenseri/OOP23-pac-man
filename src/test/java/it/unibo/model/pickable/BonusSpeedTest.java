@@ -48,7 +48,7 @@ class BonusSpeedTest {
         final PacMan pacman = new PacManImpl(STARTING_LIVES, DIMENSION, BASE_SPEED, STARTING_POS);
 
         final int initialSpeed = pacman.getSpeedLevel();
-        bonusSpeed.doEffect(pacman);
+        bonusSpeed.doEffect(pacman, null);
 
         assertTrue(pacman.getSpeedLevel() > initialSpeed);
 
