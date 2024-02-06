@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pickable.api.EffectChose;
 import it.unibo.model.pickable.api.EffectPickable;
@@ -79,16 +80,17 @@ public class PickableGeneratorImpl implements PickableGenerator {
      * 
      * @param point  is the Point where the Pickable is
      * @param pacman is the PacMan that take the Pickable.
+     * @param ghosts is the List of Ghosts.
      */
     @Override
-    public void takePickable(final Point point, final PacMan pacman) {
+    public void takePickable(final Point point, final PacMan pacman, final List<Ghost> ghosts) {
         if (pickableMap.containsKey(point)) {
             if (pickableMap.get(point) instanceof BonusPoints) {
-                ((EffectPickable) pickableMap.get(point)).doEffect(pacman);
+                ((EffectPickable) pickableMap.get(point)).doEffect(pacman, ghosts);
             } else {
                 pickableMap.get(point).addPointsPickable(pacman);
                 if (pickableMap.get(point) instanceof EffectPickable) {
-                    ((EffectPickable) pickableMap.get(point)).doEffect(pacman);
+                    ((EffectPickable) pickableMap.get(point)).doEffect(pacman, ghosts);
                 }
             }
             pickableMap.remove(point);

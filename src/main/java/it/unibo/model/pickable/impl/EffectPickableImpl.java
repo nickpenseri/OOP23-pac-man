@@ -3,7 +3,9 @@ package it.unibo.model.pickable.impl;
 import java.net.URL;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.List;
 
+import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pickable.api.EffectPickable;
 
@@ -38,8 +40,9 @@ public abstract class EffectPickableImpl extends PickableImpl implements EffectP
      * Do the effect of the pickable.
      * 
      * @param pacman the pacman that will be affected by the effect.
+     * @param ghosts the list of ghosts that will be affected by the effect.
      */
     @Override
-    public abstract void doEffect(PacMan pacman);
+    public abstract void doEffect(PacMan pacman, List<Ghost> ghosts);
 
 }

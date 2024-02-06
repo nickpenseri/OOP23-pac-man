@@ -4,8 +4,10 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.List;
 
 import it.unibo.model.pacman.api.PacMan;
+import it.unibo.model.ghost.api.Ghost;
 
 /**
  * Is a basic Pickable with the bonus effect, remove to pacman speed for 10
@@ -28,9 +30,10 @@ public class MalusSpeed extends EffectPickableImpl {
      * Remove to pacman speed for 10 seconds.
      * 
      * @param pacman the pacman that will be affected by the effect.
+     * @param ghosts the list of ghosts that will be affected by the effect.
      */
     @Override
-    public void doEffect(final PacMan pacman) {
+    public void doEffect(final PacMan pacman, final List<Ghost> ghosts) {
         // Initial action and i put the result in effectApplied
         final boolean effectApplied = pacman.decreaseSpeed();
 

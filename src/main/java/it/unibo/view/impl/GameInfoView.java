@@ -7,6 +7,8 @@ import java.util.List;
 
 import it.unibo.model.api.GameObject;
 
+//TODO: Implement the view for the game info
+
 /**
  * Swing Implementation of View Interface for life and score.
  */
