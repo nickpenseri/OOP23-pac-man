@@ -36,7 +36,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * @param sizeY  column map size
      */
     public GameObjectFactoryImpl(final int height, final int width, final int sizeX, final int sizeY) {
-        this.dimension = new Dimension(width / sizeY, height / sizeX);
+        final int minDimension = Math.min(width / sizeY, height / sizeX);
+        this.dimension = new Dimension(minDimension, minDimension);
         this.screenHeight = height;
         this.screenWidth = width;
         ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
