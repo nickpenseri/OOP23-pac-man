@@ -1,13 +1,8 @@
 package it.unibo.model.pacman.impl;
 
 import java.awt.Point;
-import java.awt.geom.Dimension2D;
-import java.net.URL;
-import java.util.Objects;
-import java.util.Optional;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.model.api.Direction;
+
 import it.unibo.model.pacman.api.PacMan;
 
 /**
@@ -18,9 +13,8 @@ import it.unibo.model.pacman.api.PacMan;
  * 
  * @see PacMan
  */
-public class PacManBordered implements PacMan {
+public class PacManBordered extends PacManDecoratorImpl {
 
-    private final PacMan decorated;
     private final int borderUp;
     private final int borderRight;
 
@@ -36,11 +30,8 @@ public class PacManBordered implements PacMan {
      * @throws IllegalArgumentException if borderRight or borderUp are less or equal
      *                                  to zero.
      */
-    @SuppressFBWarnings(value = {
-            "EI_EXPOSE_REP2"
-    }, justification = "Changings of the decorated object should also affect this object")
     public PacManBordered(final PacMan decorated, final int borderUp, final int borderRight) {
-        this.decorated = Objects.requireNonNull(decorated);
+        super(decorated);
         if (borderUp <= 0) {
             throw new IllegalArgumentException("Cannot instantiate an object with negative borderUp");
         }
@@ -49,48 +40,6 @@ public class PacManBordered implements PacMan {
         }
         this.borderUp = borderUp;
         this.borderRight = borderRight;
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getPoints() {
-        return this.decorated.getPoints();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getRemainingLives() {
-        return this.decorated.getRemainingLives();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void addLife() {
-        this.decorated.addLife();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void removeLife() {
-        this.decorated.removeLife();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void addPoints(final int points) {
-        this.decorated.addPoints(points);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void removePoints(final int points) {
-        this.decorated.removePoints(points);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public int getSpeedLevel() {
-        return this.decorated.getSpeedLevel();
     }
 
     /**
@@ -104,7 +53,7 @@ public class PacManBordered implements PacMan {
         if (!isInBorders(spawnPoint)) {
             throw new IllegalArgumentException("Cannot respawn outside the borders");
         }
-        this.decorated.respawn(spawnPoint);
+        super.respawn(spawnPoint);
     }
 
     private boolean isInBorders(final Point position) {
@@ -112,54 +61,12 @@ public class PacManBordered implements PacMan {
                 && position.getY() < borderUp;
     }
 
-    /** {@inheritDoc} */
-    @Override
-    public URL getImageUrl() {
-        return this.decorated.getImageUrl();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public boolean increaseSpeed() {
-        return this.decorated.increaseSpeed();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public boolean decreaseSpeed() {
-        return this.decorated.decreaseSpeed();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setDirection(final Direction direction) {
-        this.decorated.setDirection(direction);
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Optional<Direction> getDirection() {
-        return this.decorated.getDirection();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void resetDirection() {
-        this.decorated.resetDirection();
-    }
-
     /**
-     * Updates the state of the Character. If pacman exceeds a border, it reappears
-     * at the opposite border.
+     * If pacman exceeds a border, it reappears at the opposite border.
      */
     @Override
-    public void updateState(final long elapsed) {
-        this.decorated.updateState(elapsed);
-        this.correctPosition();
-    }
-
-    private void correctPosition() {
-        this.decorated.setPosition(new Point(this.correctX(), this.correctY()));
+    public void correctPosition() {
+        this.setPosition(new Point(this.correctX(), this.correctY()));
     }
 
     private int correctX() {
@@ -182,24 +89,6 @@ public class PacManBordered implements PacMan {
         } else {
             return actualY;
         }
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Point getPosition() {
-        return this.decorated.getPosition();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public Dimension2D getDimension() {
-        return this.decorated.getDimension();
-    }
-
-    /** {@inheritDoc} */
-    @Override
-    public void setPosition(final Point position) {
-        this.decorated.setPosition(position);
     }
 
 }
