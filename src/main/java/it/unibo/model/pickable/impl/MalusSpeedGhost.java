@@ -31,8 +31,13 @@ public class MalusSpeedGhost extends EffectPickableImpl{
      */
     @Override
     public void doEffect(PacMan pacman, List<Ghost> ghosts) {
+        boolean passed = true;
+
         for (Ghost ghost : ghosts) {
-            ghost.decreaseSpeed();
+            boolean passedSingle = ghost.decreaseSpeed();
+            if (passed && !passedSingle) {
+                passed = false;
+            }
         }
 
         final TimerTask task = new TimerTask() {
@@ -46,9 +51,11 @@ public class MalusSpeedGhost extends EffectPickableImpl{
         };
 
         /*
-         * Create new Timer and Schedule the task to reset the state after 10 seconds
+         * Create new Timer and Schedule the task to reset the state after 10 seconds if the effect was applied
          */
-        new Timer().schedule(task, DELAY);
+        if (passed) {
+            new Timer().schedule(task, DELAY);
+        }
     }
     
 }
