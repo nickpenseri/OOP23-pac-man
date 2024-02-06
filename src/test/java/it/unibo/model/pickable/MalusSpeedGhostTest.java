@@ -29,6 +29,21 @@ class MalusSpeedGhostTest {
     private static final double BASE_SPEED = 100.0;
     static final int DELAY = 11_000;
 
+    /**
+     * This method tests the constructor of the class MalusSpeedGhost.
+     */
+    @Test
+    void testConstructor() {
+        final Point position = new Point(POSITION, POSITION);
+        final MalusSpeedGhost malusSpeedGhost = new MalusSpeedGhost(position, DIMENSION);
+
+        assertEquals(position, malusSpeedGhost.getPosition());
+        assertEquals(DIMENSION, malusSpeedGhost.getDimension());
+    }
+
+    /**
+     * This method tests the method doEffect of the class MalusSpeedGhost.
+     */
     @Test
     void testDoEffect() {
         final Point position = new Point(POSITION, POSITION);

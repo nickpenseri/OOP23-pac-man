@@ -30,6 +30,21 @@ class FearGhostTest {
     private static final double BASE_SPEED = 100.0;
     static final int DELAY = 11_000;
 
+    /**
+     * This method tests the constructor of the class FearGhost.
+     */
+    @Test
+    void testConstructor() {
+        final Point position = new Point(POSITION, POSITION);
+        final FearGhost fearGhost = new FearGhost(position, DIMENSION);
+
+        assertEquals(position, fearGhost.getPosition());
+        assertEquals(DIMENSION, fearGhost.getDimension());
+    }
+
+    /**
+     * This method tests the method doEffect of the class FearGhost.
+     */
     @Test
     void testDoEffect() {
         final Point position = new Point(POSITION, POSITION);
