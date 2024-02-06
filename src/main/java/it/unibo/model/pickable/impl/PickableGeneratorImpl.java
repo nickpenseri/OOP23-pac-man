@@ -29,7 +29,6 @@ public class PickableGeneratorImpl implements PickableGenerator {
     @Override
     public void generateMap(final List<Point> pickableSpawnPoints, final Dimension dimension) {
         for (final Point point : pickableSpawnPoints) {
-            point.setLocation(point.getX() * (int) dimension.getHeight(), point.getY() * (int) dimension.getWidth());
             final double doubleRandomNumberForTypeOfPickable = Math.random() * PERCENTAGE;
             // convert double to integer
             final int randomNumberForTypeOfPickable = (int) doubleRandomNumberForTypeOfPickable;
