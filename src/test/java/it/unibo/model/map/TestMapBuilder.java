@@ -51,7 +51,8 @@ class TestMapBuilder {
         // assertEquals(new Point(3, 1), spawnGhost.get(O));
         // assertEquals(new Point(3, 2), spawnGhost.get(1));
         // assertEquals(new Point(3, 3), spawnGhost.get(2));
-        assertEquals(List.of(new Point(X_FIRST_SPAWN, Y), new Point(X_SECOND_SPAWN, Y), new Point(X_THIRD_SPAWN, Y)), spawnGhost);
+        assertEquals(List.of(new Point(X_FIRST_SPAWN, Y), new Point(X_SECOND_SPAWN, Y), new Point(X_THIRD_SPAWN, Y)),
+                spawnGhost);
     }
 
     /** method that test pac-man spawn. */
@@ -66,8 +67,11 @@ class TestMapBuilder {
     void testGetSpawnCollectibleItems() {
         final List<Point> spawnCollectibleItems = mapBuilder.getSpawnCollectibleItems();
         assertEquals(W, spawnCollectibleItems.size());
-        final List<Point> expectedPoints = List.of(new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(1, 2),
-                new Point(3, 2));
+        final List<Point> expectedPoints = List.of(new Point(getCordinateY(dimension, 1), getCordinateX(dimension, 1)),
+                new Point(getCordinateY(dimension, 2), getCordinateX(dimension, 1)),
+                new Point(getCordinateY(dimension, 3), getCordinateX(dimension, 1)),
+                new Point(getCordinateY(dimension, 1), getCordinateX(dimension, 2)),
+                new Point(getCordinateY(dimension, 3), getCordinateX(dimension, 2)));
         assertEquals(expectedPoints, spawnCollectibleItems);
     }
 

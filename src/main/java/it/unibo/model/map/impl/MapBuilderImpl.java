@@ -47,7 +47,8 @@ public class MapBuilderImpl implements MapBuilder {
                 final MapTypes maptype = MapTypes.values()[ris];
                 switch (maptype) {
                     case PICKABLE:
-                        this.spawnCollectibleItems.add(new Point(y, x));
+                        this.spawnCollectibleItems.add(
+                            new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)));
                         final var object1 = gameFactory.createGameObject(
                                 new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
                         this.paintMap.add(object1);
@@ -55,7 +56,7 @@ public class MapBuilderImpl implements MapBuilder {
                         break;
                     case SPAWN_PAC_MAN:
                         this.spawnPacMan.setLocation(
-                            new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)));
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)));
                         final var object2 = gameFactory.createGameObject(
                                 new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
                         this.paintMap.add(object2);
