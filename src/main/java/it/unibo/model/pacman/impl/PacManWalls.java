@@ -22,6 +22,7 @@ public class PacManWalls extends PacManDecoratorImpl {
 
     private final List<GameObject> walls;
     private final CollisionChecker<GameObject> collisionChecker;
+    private Point lastPos;
 
     /**
      * Creates an object that decorates the PacMan passed as a parameter and with
@@ -36,6 +37,10 @@ public class PacManWalls extends PacManDecoratorImpl {
         this.walls = new ArrayList<>(Objects.requireNonNull(walls));
         final CollisionCheckerFactory checkerFactory = new CollisionCheckerFactoryImpl();
         this.collisionChecker = checkerFactory.gameObjectChecker();
+        this.lastPos = super.getPosition();
+        if (this.isInWalls()) {
+            throw new IllegalStateException("Should not spawn inside a wall");
+        }
     }
 
     /**
@@ -45,44 +50,9 @@ public class PacManWalls extends PacManDecoratorImpl {
     @Override
     public void correctPosition() {
         if (this.isInWalls()) {
-            this.setPosition(new Point(this.correctX(), this.correctY()));
+            this.setPosition(this.lastPos);
         }
-    }
-
-    private int correctY() {
-        if (this.getDirection().isEmpty()) {
-            return (int) this.getPosition().getY();
-        }
-        final GameObject closestWall = closestWall();
-        return switch (this.getDirection().get()) {
-            case RIGHT, LEFT -> (int) this.getPosition().getY();
-            case UP -> (int) (closestWall.getPosition().getY() - closestWall.getDimension().getHeight());
-            case DOWN -> (int) (closestWall.getPosition().getY() + this.getDimension().getHeight());
-        };
-    }
-
-    private int correctX() {
-        if (this.getDirection().isEmpty()) {
-            return (int) this.getPosition().getX();
-        }
-        final GameObject closestWall = closestWall();
-        return switch (this.getDirection().get()) {
-            case UP, DOWN -> (int) this.getPosition().getX();
-            case RIGHT -> (int) (closestWall.getPosition().getX() - this.getDimension().getWidth());
-            case LEFT -> (int) (closestWall.getPosition().getX() + closestWall.getDimension().getWidth());
-        };
-    }
-
-    private GameObject closestWall() {
-        return this.walls.stream()
-            .filter(wall -> collisionChecker.areColliding(wall, this))
-            .min((w1, w2) -> Double.compare(wallDistance(w1), wallDistance(w2)))
-            .get();
-    }
-
-    private double wallDistance(final GameObject wall) {
-        return Math.hypot(this.getPosition().getX() - wall.getPosition().getX(),
-                this.getPosition().getY() - wall.getPosition().getY());
+        lastPos = this.getPosition();
     }
 
     /**
