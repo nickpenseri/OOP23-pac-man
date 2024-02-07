@@ -10,6 +10,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.awt.Point;
 import java.util.Objects;
 
 import org.jgrapht.Graph;
@@ -70,7 +71,7 @@ public class GraphDirectionSelector implements DirectionSelector {
         if (path.getVertexList().size() >= 2) {
 
            if (state == State.SELECTED) {
-                if (!toMove.getPosition().equals(selected.getPosition()))  {
+                if (!isPositionCloseEnough(toMove.getPosition(), selected.getPosition(), 5))  {
                     selectDir.setDirection(toMove, selected, elapsedTime);
                 } else {
                     state =  State.NOT_SELECTED;
@@ -81,8 +82,23 @@ public class GraphDirectionSelector implements DirectionSelector {
                 state = State.SELECTED;
            }
         } else {
+
+            if (state == State.SELECTED){
+                if (!isPositionCloseEnough(toMove.getPosition(), selected.getPosition(), 5))  {
+                    selectDir.setDirection(toMove, selected, elapsedTime);
+                } else {
+                    state =  State.NOT_SELECTED;
+                }
+            } else {
             selectDir.setDirection(toMove, target, elapsedTime);
+            }
         }
 
+    }
+
+
+    private boolean isPositionCloseEnough(Point pos1, Point pos2, double tolerance) {
+        double distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
+        return distance <= tolerance;
     }
 }

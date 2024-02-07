@@ -40,7 +40,7 @@ public class GameScene implements Model {
     private final DirectionSelector directionSelector2;
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
-    private static final int SPEED = 50;
+    private static final int SPEED = 200;
 
     /**
      * Constructor of a generic scene.
@@ -141,7 +141,7 @@ public class GameScene implements Model {
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
         directionSelector.setDirection(ghost, pacman, elapsed);
-        ghost.setState(GhostState.SCARED);
+        ghost.setState(GhostState.NORMAL);
         directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
         ghost2.setState(GhostState.DEAD);
     }
