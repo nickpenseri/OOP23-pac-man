@@ -71,7 +71,10 @@ public class GameScene implements Model {
         final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
-        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), SPEED, 3);
+        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), 
+            SPEED, 
+            3, 
+            mapBuilder.getWallsPath());
         final List<GameObject> pacMan = new ArrayList<>();
         pacMan.add(pacman);
         this.gameObjects.add(pacMan);
