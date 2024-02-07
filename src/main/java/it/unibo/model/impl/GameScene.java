@@ -1,6 +1,5 @@
 package it.unibo.model.impl;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import org.jgrapht.Graph;
@@ -33,14 +32,14 @@ public class GameScene implements Model {
     private final List<List<GameObject>> gameObjects;
     private final PacMan pacman;
     private final PickableGenerator pickableGenerator;
-    //private final GameObjectImpl[][] objectsMap;
+    // private final GameObjectImpl[][] objectsMap;
     private final Ghost ghost;
     private final Ghost ghost2;
     private final DirectionSelector directionSelector;
     private final DirectionSelector directionSelector2;
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
-    private static final int SPEED = 50;
+    private static final int SPEED = 100;
 
     /**
      * Constructor of a generic scene.
@@ -58,7 +57,7 @@ public class GameScene implements Model {
         // dimension = new Dimension(width, height);
 
         // Creo il mapReader passandogli la mappa
-        final MapReader map = new MapReaderImpl("src/main/resources/map1.txt");
+        final MapReader map = new MapReaderImpl("map4.txt");
 
         final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
@@ -72,7 +71,10 @@ public class GameScene implements Model {
         final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
-        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), SPEED, 3);
+        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), 
+            SPEED, 
+            3, 
+            mapBuilder.getWallsPath());
         final List<GameObject> pacMan = new ArrayList<>();
         pacMan.add(pacman);
         this.gameObjects.add(pacMan);
@@ -140,12 +142,10 @@ public class GameScene implements Model {
 
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
-        directionSelector.setDirection(ghost, pacman);
-        ghost.setState(GhostState.SCARED);
-        ghost.updateState(elapsed);
-        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2));
-        ghost2.setState(GhostState.DEAD);
-        ghost2.updateState(elapsed);
+        directionSelector.setDirection(ghost, pacman, elapsed);
+        ghost.setState(GhostState.NORMAL);
+        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
+        ghost2.setState(GhostState.NORMAL);
     }
 
     /**

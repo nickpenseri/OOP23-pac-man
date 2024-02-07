@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.model.map.impl.MapReaderImpl;
+
 /**
  * this class is used to test the MapReader.java.
  */
@@ -14,14 +15,14 @@ class TestMapReader {
     private static final int W = 5;
     private static final int O = 0;
 
-    /**method that creates a MapReader object for testing. */
+    /** method that creates a MapReader object for testing. */
     TestMapReader() {
-        final String filePath = "src/main/resources/map1.txt";
+        final String filePath = "map1.txt";
         final MapReaderImpl mapReader = new MapReaderImpl(filePath);
         this.actualMap = mapReader.getMap();
     }
 
-    /**method that checks whether the map has been read correctly. */
+    /** method that checks whether the map has been read correctly. */
     @Test
     void testGetMap() {
         assertNotNull(this.actualMap, "actualMap was not initialized");

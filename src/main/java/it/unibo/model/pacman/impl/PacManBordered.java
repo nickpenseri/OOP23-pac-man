@@ -2,7 +2,6 @@ package it.unibo.model.pacman.impl;
 
 import java.awt.Point;
 
-
 import it.unibo.model.pacman.api.PacMan;
 
 /**
@@ -28,7 +27,7 @@ public class PacManBordered extends PacManDecoratorImpl {
      * @param borderRight the borderRight of the bordered space
      * @throws NullPointerException     if the PacMan to be decorated is null.
      * @throws IllegalArgumentException if borderRight or borderUp are less or equal
-     *                                  to zero.
+     *                                  to zero or if decorated is outside borders
      */
     public PacManBordered(final PacMan decorated, final int borderUp, final int borderRight) {
         super(decorated);
@@ -40,6 +39,9 @@ public class PacManBordered extends PacManDecoratorImpl {
         }
         this.borderUp = borderUp;
         this.borderRight = borderRight;
+        if (!isInBorders(decorated.getPosition())) {
+            throw new IllegalArgumentException("Should not spawn outside the borders");
+        }
     }
 
     /**

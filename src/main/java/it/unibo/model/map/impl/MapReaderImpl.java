@@ -16,17 +16,19 @@ import it.unibo.model.map.api.MapReader;
  */
 public class MapReaderImpl implements MapReader {
 
-    private int[][] map; 
+    private int[][] map;
 
     /**
      * creates a map given its file path.
+     * 
      * @param pathFileName file path.
      */
     public MapReaderImpl(final String pathFileName) {
         final Logger log = LoggerFactory.getLogger(MapReaderImpl.class);
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
-                        new FileInputStream(pathFileName), StandardCharsets.UTF_8))) {
+                        new FileInputStream(ClassLoader.getSystemResource(pathFileName).getPath()),
+                        StandardCharsets.UTF_8))) {
             final String dimensionsLine = reader.readLine();
             if (dimensionsLine != null) {
                 final String[] dimensions = dimensionsLine.split(" ");

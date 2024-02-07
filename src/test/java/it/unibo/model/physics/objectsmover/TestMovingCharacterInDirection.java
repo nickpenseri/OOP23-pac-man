@@ -19,6 +19,7 @@ class TestMovingCharacterInDirection {
     private static final int GAME_OBJ_SIZE = 10;
     private static final int MAP_SIZE = 1;
     private static final int INIT_POSITION = 10;
+    private static final long ELAPSED = 20;
 
     private final GameObjectImpl.Type type = GameObjectImpl.Type.FLOR;
     private final DirectionSelector selector = new EuclideanDirectionSelector();
@@ -29,7 +30,7 @@ class TestMovingCharacterInDirection {
         final Character ghost = factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObject target =  factory.createGameObject(new Point(INIT_POSITION, INIT_POSITION + 1), type);
         final int yDiff = ghost.getPosition().y - target.getPosition().y;
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         ghost.updateState(1000);
         final int yDiffAfter = ghost.getPosition().y - target.getPosition().y;
         assertTrue(Math.abs(yDiffAfter) < Math.abs(yDiff));
@@ -40,7 +41,7 @@ class TestMovingCharacterInDirection {
         final Character ghost = factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObject target =  factory.createGameObject(new Point(INIT_POSITION, INIT_POSITION - 1), type);
         final int yDiff = ghost.getPosition().y - target.getPosition().y;
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         ghost.updateState(1000);
         final int yDiffAfter = ghost.getPosition().y - target.getPosition().y;
         assertTrue(Math.abs(yDiffAfter) < Math.abs(yDiff));
@@ -51,7 +52,7 @@ class TestMovingCharacterInDirection {
         final Character ghost = factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObject target =  factory.createGameObject(new Point(INIT_POSITION + 1, INIT_POSITION), type);
         final int xDiff = ghost.getPosition().x - target.getPosition().x;
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         ghost.updateState(1000);
         final int xDiffAfter = ghost.getPosition().x - target.getPosition().x;
         assertTrue(Math.abs(xDiffAfter) < Math.abs(xDiff));
@@ -62,7 +63,7 @@ class TestMovingCharacterInDirection {
         final Character ghost = factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObject target =  factory.createGameObject(new Point(INIT_POSITION - 1, INIT_POSITION), type);
         final int xDiff = ghost.getPosition().x - target.getPosition().x;
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         ghost.updateState(1000);
         final int xDiffAfter = ghost.getPosition().x - target.getPosition().x;
         assertTrue(Math.abs(xDiffAfter) < Math.abs(xDiff));
@@ -72,7 +73,7 @@ class TestMovingCharacterInDirection {
     void noMove() {
         final Character ghost = factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObject target =  factory.createGameObject(new Point(INIT_POSITION, INIT_POSITION), type);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         ghost.updateState(1000);
         assertEquals(target.getPosition(), ghost.getPosition());
     }

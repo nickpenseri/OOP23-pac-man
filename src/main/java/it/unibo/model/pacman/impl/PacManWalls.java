@@ -16,7 +16,7 @@ import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
  * cannot be passed.
  * It decorates an object of PacMan, changing respawn and updateState.
  * 
- * @see PacMan
+ * @see PacManDecorator
  */
 public class PacManWalls extends PacManDecoratorImpl {
 
@@ -30,7 +30,8 @@ public class PacManWalls extends PacManDecoratorImpl {
      * 
      * @param decorated the PacMan to be decorated
      * @param walls     the list of walls
-     * @throws NullPointerException if the list passed is null
+     * @throws NullPointerException     if the list passed is null
+     * @throws IllegalArgumentException if the decorated object is inside a wall
      */
     public PacManWalls(final PacMan decorated, final List<GameObject> walls) {
         super(decorated);
@@ -39,13 +40,13 @@ public class PacManWalls extends PacManDecoratorImpl {
         this.collisionChecker = checkerFactory.gameObjectChecker();
         this.lastPos = super.getPosition();
         if (this.isInWalls()) {
-            throw new IllegalStateException("Should not spawn inside a wall");
+            throw new IllegalArgumentException("Should not spawn inside a wall");
         }
     }
 
     /**
-     * If pacman hit a wall, it returns in the position closest to the wall but not
-     * colliding with it.
+     * If pacman hit a wall, it returns in the position before the movement.
+     * This method also updates the last position.
      */
     @Override
     public void correctPosition() {

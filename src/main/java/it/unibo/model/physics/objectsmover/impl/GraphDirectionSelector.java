@@ -45,16 +45,16 @@ public class GraphDirectionSelector implements DirectionSelector {
      * {@inheritDoc}
      */
     @Override
-    public void setDirection(final Character toMove, final GameObject target) {
+    public void setDirection(final Character toMove, final GameObject target, final long elapsedTime) {
         Objects.requireNonNull(toMove);
         Objects.requireNonNull(target);
 
-        final var sourceVertex = approximator.getApproximatedPosition(toMove, graph.vertexSet());
+        final var sourceVertex = approximator.getApproximatedTarget(toMove, graph.vertexSet());
         if (!sourceVertex.isPresent()) {
             throw new IllegalArgumentException("The source is not in the graph");
         }
 
-        final var targetVertex = approximator.getApproximatedPosition(target, graph.vertexSet());
+        final var targetVertex = approximator.getApproximatedTarget(target, graph.vertexSet());
         if (!targetVertex.isPresent()) {
             throw new IllegalArgumentException("The target is not in the graph");
         }
@@ -67,22 +67,36 @@ public class GraphDirectionSelector implements DirectionSelector {
 
         final SingleSourcePaths<GameObject, DefaultEdge> aPaths = aStarAlg.getPaths(sourceVertex.get());
         final var path = aPaths.getPath(targetVertex.get());
-        if (path.getVertexList().size() >= 2) {
 
-           if (state == State.SELECTED) {
-                if (!toMove.getPosition().equals(selected.getPosition()))  {
-                    selectDir.setDirection(toMove, selected);
+        switch (state) {
+            case SELECTED:
+            if (path.getVertexList().size() >= 2) {
+                if (!approximator.isPositionCloseEnough(toMove, selected, 2.0)) {
+                    selectDir.setDirection(toMove, selected, elapsedTime);
                 } else {
+                    toMove.setPosition(selected.getPosition()); 
                     state =  State.NOT_SELECTED;
                 }
-           } else if (state == State.NOT_SELECTED) {
-                selected =  path.getVertexList().get(1);
-                selectDir.setDirection(toMove, selected);
-                state = State.SELECTED;
-           }
-        } else {
-            selectDir.setDirection(toMove, target);
+            } else {
+                if (!approximator.isPositionCloseEnough(toMove, selected, 2.0)) {
+                    selectDir.setDirection(toMove, selected, elapsedTime);
+                } else {
+                    toMove.setPosition(selected.getPosition()); 
+                    state =  State.NOT_SELECTED;
+                }
+            }
+                break;
+            case NOT_SELECTED:
+                    if (path.getVertexList().size() >= 2) {
+                        selected =  path.getVertexList().get(1);
+                        selectDir.setDirection(toMove, selected, elapsedTime);
+                        state = State.SELECTED;
+                    } else {
+                        selectDir.setDirection(toMove, target, elapsedTime);
+                    }
+                break;
+            default:
+                break;
         }
-
     }
 }
