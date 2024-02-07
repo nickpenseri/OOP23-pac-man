@@ -37,8 +37,8 @@ public class MalusSpeedGhost extends EffectPickableImpl {
     public void doEffect(final PacMan pacman, final List<Ghost> ghosts) {
         boolean passed = true;
 
-        for (Ghost ghost : ghosts) {
-            boolean passedSingle = ghost.decreaseSpeed();
+        for (final Ghost ghost : ghosts) {
+            final boolean passedSingle = ghost.decreaseSpeed();
             if (passed && !passedSingle) {
                 passed = false;
             }

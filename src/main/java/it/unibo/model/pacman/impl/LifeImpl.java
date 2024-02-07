@@ -22,13 +22,15 @@ public class LifeImpl implements Life {
      * @param dimension the dimension of the life.
      */
     public LifeImpl(final int numLife, final Dimension dimension) {
-        this.numLife = numLife;
+        final int numLifeExternal = numLife;
+        this.numLife = numLifeExternal;
         this.dimension = new Dimension(dimension);
     }
 
     /**
      * Decrease the life of the player.
      */
+    @Override
     public void decreaseLife() {
         this.numLife--;
     }
@@ -36,6 +38,7 @@ public class LifeImpl implements Life {
     /**
      * Increase the life of the player.
      */
+    @Override
     public void increaseLife() {
         this.numLife++;
     }
@@ -45,6 +48,7 @@ public class LifeImpl implements Life {
      * 
      * @return the current life.
      */
+    @Override
     public int getNumLife() {
         return this.numLife;
     }
@@ -70,7 +74,7 @@ public class LifeImpl implements Life {
      */
     @Override
     public Dimension2D getDimension() {
-        return dimension;
+        return new Dimension(dimension);
     }
 
 }

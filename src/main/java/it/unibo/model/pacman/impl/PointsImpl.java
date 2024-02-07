@@ -1,8 +1,9 @@
 package it.unibo.model.pacman.impl;
 
 import java.awt.Point;
-import java.awt.geom.Dimension2D;
 import java.net.URL;
+import java.awt.geom.Dimension2D;
+import java.awt.Dimension;
 
 import it.unibo.model.pacman.api.Points;
 
@@ -12,7 +13,7 @@ import it.unibo.model.pacman.api.Points;
  */
 public class PointsImpl implements Points {
     private int points;
-    private final Dimension2D dimension;
+    private final Dimension dimension;
 
     /**
      * Constructor of the PointsImpl.
@@ -20,9 +21,10 @@ public class PointsImpl implements Points {
      * @param points    the points of the pickable.
      * @param dimension the dimension of the pickable.
      */
-    public PointsImpl(final int points, final Dimension2D dimension) {
-        this.points = points;
-        this.dimension = dimension;
+    public PointsImpl(final int points, final Dimension dimension) {
+        final int pointsExternal = points;
+        this.points = pointsExternal;
+        this.dimension = new Dimension(dimension);
     }
 
     /**
@@ -52,7 +54,7 @@ public class PointsImpl implements Points {
      */
     @Override
     public Dimension2D getDimension() {
-        return dimension;
+        return new Dimension(dimension);
     }
 
     /**

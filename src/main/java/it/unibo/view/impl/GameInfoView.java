@@ -26,9 +26,9 @@ public class GameInfoView extends ViewImpl {
     static final long serialVersionUID = 1L;
     private final transient Logger log = LoggerFactory.getLogger(ViewImpl.class);
     private static final int DIMENSION = 30;
-    private final List<GameObject> pacmanInfo;
-    private int numLife = 0;
-    private int points = 0;
+    private final transient List<GameObject> pacmanInfo;
+    private int numLife;
+    private int points;
 
     /**
      * Constructor of the ViewImpl.
@@ -64,7 +64,7 @@ public class GameInfoView extends ViewImpl {
             } catch (IOException e) {
                 log.error("error during image reading" + e.getMessage());
             }
-            var pacmanInfo0 = this.pacmanInfo.get(0);
+            final var pacmanInfo0 = this.pacmanInfo.get(0);
             if (pacmanInfo0 instanceof Life) {
                 numLife = ((Life) pacmanInfo0).getNumLife();
                 for (int i = 0; i < numLife; i++) {

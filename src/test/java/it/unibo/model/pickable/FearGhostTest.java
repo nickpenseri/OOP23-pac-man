@@ -15,10 +15,8 @@ import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.ghost.impl.GhostImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
-import it.unibo.model.pickable.impl.BonusSpeed;
 import it.unibo.model.pickable.impl.FearGhost;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FearGhostTest {
     private static final int POSITION = 5;
@@ -54,18 +52,18 @@ class FearGhostTest {
         final List<Ghost> ghosts = new ArrayList<>();
         ghosts.add(ghost1);
         ghosts.add(ghost2);
-        FearGhost fearGhost = new FearGhost(position, DIMENSION);
+        final FearGhost fearGhost = new FearGhost(position, DIMENSION);
 
         fearGhost.doEffect(pacman, ghosts);
-        for (Ghost ghost : ghosts) {
-            assertEquals(ghost.getStatus(), GhostState.SCARED);
+        for (final Ghost ghost : ghosts) {
+            assertEquals(ghost.getState(), GhostState.SCARED);
         }
 
         final TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                for (Ghost ghost : ghosts) {
-                    assertEquals(ghost.getStatus(), GhostState.NORMAL);
+                for (final Ghost ghost : ghosts) {
+                    assertEquals(ghost.getState(), GhostState.NORMAL);
                 }
             }
         };

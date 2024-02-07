@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
-import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.ghost.impl.GhostImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pickable.impl.MalusSpeedGhost;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MalusSpeedGhostTest {
     private static final int POSITION = 5;
@@ -53,22 +53,22 @@ class MalusSpeedGhostTest {
         final List<Ghost> ghosts = new ArrayList<>();
         ghosts.add(ghost1);
         ghosts.add(ghost2);
-        MalusSpeedGhost malusSpeedGhost = new MalusSpeedGhost(position, DIMENSION);
+        final MalusSpeedGhost malusSpeedGhost = new MalusSpeedGhost(position, DIMENSION);
 
         final List<Integer> initialSpeed = new ArrayList<>();
-        for (Ghost ghost : ghosts) {
+        for (final Ghost ghost : ghosts) {
             initialSpeed.add(ghost.getSpeedLevel());
         }
-        
+
         malusSpeedGhost.doEffect(pacman, ghosts);
-        for (Ghost ghost : ghosts) {
+        for (final Ghost ghost : ghosts) {
             assertTrue(ghost.getSpeedLevel() < initialSpeed.get(ghosts.indexOf(ghost)));
         }
 
         final TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                for (Ghost ghost : ghosts) {
+                for (final Ghost ghost : ghosts) {
                     assertEquals(ghost.getSpeedLevel(), initialSpeed.get(ghosts.indexOf(ghost)));
                 }
             }
