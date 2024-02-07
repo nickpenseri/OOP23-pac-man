@@ -140,12 +140,10 @@ public class GameScene implements Model {
 
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
-        directionSelector.setDirection(ghost, pacman);
+        directionSelector.setDirection(ghost, pacman, elapsed);
         ghost.setState(GhostState.SCARED);
-        ghost.updateState(elapsed);
-        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2));
+        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
         ghost2.setState(GhostState.DEAD);
-        ghost2.updateState(elapsed);
     }
 
     /**

@@ -45,7 +45,7 @@ public class GraphDirectionSelector implements DirectionSelector {
      * {@inheritDoc}
      */
     @Override
-    public void setDirection(final Character toMove, final GameObject target) {
+    public void setDirection(final Character toMove, final GameObject target, final long elapsedTime) {
         Objects.requireNonNull(toMove);
         Objects.requireNonNull(target);
 
@@ -71,17 +71,17 @@ public class GraphDirectionSelector implements DirectionSelector {
 
            if (state == State.SELECTED) {
                 if (!toMove.getPosition().equals(selected.getPosition()))  {
-                    selectDir.setDirection(toMove, selected);
+                    selectDir.setDirection(toMove, selected, elapsedTime);
                 } else {
                     state =  State.NOT_SELECTED;
                 }
            } else if (state == State.NOT_SELECTED) {
                 selected =  path.getVertexList().get(1);
-                selectDir.setDirection(toMove, selected);
+                selectDir.setDirection(toMove, selected, elapsedTime);
                 state = State.SELECTED;
            }
         } else {
-            selectDir.setDirection(toMove, target);
+            selectDir.setDirection(toMove, target, elapsedTime);
         }
 
     }
