@@ -1,6 +1,5 @@
 package it.unibo.model.impl;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import org.jgrapht.Graph;
@@ -33,7 +32,7 @@ public class GameScene implements Model {
     private final List<List<GameObject>> gameObjects;
     private final PacMan pacman;
     private final PickableGenerator pickableGenerator;
-    //private final GameObjectImpl[][] objectsMap;
+    // private final GameObjectImpl[][] objectsMap;
     private final Ghost ghost;
     private final Ghost ghost2;
     private final DirectionSelector directionSelector;
@@ -58,7 +57,7 @@ public class GameScene implements Model {
         // dimension = new Dimension(width, height);
 
         // Creo il mapReader passandogli la mappa
-        final MapReader map = new MapReaderImpl("src/main/resources/map1.txt");
+        final MapReader map = new MapReaderImpl("map1.txt");
 
         final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
