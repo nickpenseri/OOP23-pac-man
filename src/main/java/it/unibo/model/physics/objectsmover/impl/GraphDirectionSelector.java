@@ -50,12 +50,12 @@ public class GraphDirectionSelector implements DirectionSelector {
         Objects.requireNonNull(toMove);
         Objects.requireNonNull(target);
 
-        final var sourceVertex = approximator.getApproximatedPosition(toMove, graph.vertexSet());
+        final var sourceVertex = approximator.getApproximatedTarget(toMove, graph.vertexSet());
         if (!sourceVertex.isPresent()) {
             throw new IllegalArgumentException("The source is not in the graph");
         }
 
-        final var targetVertex = approximator.getApproximatedPosition(target, graph.vertexSet());
+        final var targetVertex = approximator.getApproximatedTarget(target, graph.vertexSet());
         if (!targetVertex.isPresent()) {
             throw new IllegalArgumentException("The target is not in the graph");
         }

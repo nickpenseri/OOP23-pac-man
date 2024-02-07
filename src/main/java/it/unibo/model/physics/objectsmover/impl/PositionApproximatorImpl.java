@@ -17,7 +17,7 @@ public class PositionApproximatorImpl implements PositionApproximator {
      * {@inheritDoc}
      */
     @Override
-    public Optional<GameObject> getApproximatedPosition(final GameObject target, final Set<GameObject> list) {
+    public Optional<GameObject> getApproximatedTarget(final GameObject target, final Set<GameObject> list) {
         Objects.requireNonNull(target);
         Objects.requireNonNull(list);
 
@@ -30,7 +30,11 @@ public class PositionApproximatorImpl implements PositionApproximator {
     }
 
 
-    private double getDistance(final GameObject target, final GameObject object) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Double getDistance(final GameObject target, final GameObject object) {
         final var targetPos = Objects.requireNonNull(target.getPosition());
         final var objPos = Objects.requireNonNull(object.getPosition());
         return Math.sqrt(Math.pow(targetPos.x - objPos.x, 2) + Math.pow(targetPos.y - objPos.y, 2));

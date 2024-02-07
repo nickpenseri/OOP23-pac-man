@@ -15,5 +15,13 @@ public interface PositionApproximator {
      * @param list the list of game objects
      * @return the game object that approximates the position of the target
      */
-    Optional<GameObject> getApproximatedPosition(GameObject target, Set<GameObject> list);
+    Optional<GameObject> getApproximatedTarget(GameObject target, Set<GameObject> list);
+
+    /**
+     * Returns the distance between two game objects.
+     * @param object1  the first game object 
+     * @param object2  the second game object
+     * @return the distance between the two game objects
+     */
+    Double getDistance(GameObject object1, GameObject object2);
 }
