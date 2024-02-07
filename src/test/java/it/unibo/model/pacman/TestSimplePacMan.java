@@ -19,17 +19,25 @@ import it.unibo.model.pacman.impl.PacManImpl;
  */
 class TestSimplePacMan {
 
+    private static final int SPEED_DECREASED_2 = -2;
+    private static final int SPEED_DECREASED_3 = -3;
     private static final int STARTING_LIVES = 2;
     private static final int HEIGHTH = 100;
     private static final int WIDTH = 100;
     private static final long ELAPSED = 20;
     private static final Point STARTING_POS = new Point(0, 0);
     private static final Dimension DIMENSION = new Dimension(WIDTH, HEIGHTH);
-    private static final double BASE_SPEED = 100.0;
+    private static final double BASE_SPEED = 1000.0;
     private static final int POINTS = 100;
     private static final int MOVEMENT = (int) (BASE_SPEED * (ELAPSED / 1000.0));
     private static final Point RESPAWN_POINT = new Point(500, 500);
-
+    private static final double SPEED_MULTIPLIER = 0.10;
+    private static final int MOVEMENT_1_PLUS = MOVEMENT + (int) (MOVEMENT * SPEED_MULTIPLIER);
+    private static final int MOVEMENT_2_PLUS = MOVEMENT + (int) (MOVEMENT * SPEED_MULTIPLIER * 2);
+    private static final int MOVEMENT_3_PLUS = MOVEMENT + (int) (MOVEMENT * SPEED_MULTIPLIER * 3);
+    private static final int MOVEMENT_1_MIN = MOVEMENT + (int) (MOVEMENT * SPEED_MULTIPLIER * (-1));
+    private static final int MOVEMENT_2_MIN = MOVEMENT + (int) (MOVEMENT * SPEED_MULTIPLIER * SPEED_DECREASED_2);
+    private static final int MOVEMENT_3_MIN = MOVEMENT + (int) (MOVEMENT * SPEED_MULTIPLIER * SPEED_DECREASED_3);
     private PacMan pacman;
 
     /**
@@ -167,5 +175,59 @@ class TestSimplePacMan {
         assertEquals(RESPAWN_POINT, pacman.getPosition());
         pacman.updateState(ELAPSED);
         assertEquals(RESPAWN_POINT, pacman.getPosition());
+    }
+
+    /**
+     * Test for movement with increased speed.
+     */
+    @Test
+    void testMovementIncreased() {
+        assertEquals(0, pacman.getSpeedLevel());
+        pacman.increaseSpeed();
+        pacman.setDirection(Direction.RIGHT);
+        pacman.updateState(ELAPSED);
+        assertEquals(1, pacman.getSpeedLevel());
+        assertEquals(new Point(MOVEMENT_1_PLUS, 0), pacman.getPosition());
+        pacman.respawn(STARTING_POS);
+        pacman.increaseSpeed();
+        pacman.setDirection(Direction.RIGHT);
+        pacman.updateState(ELAPSED);
+        assertEquals(2, pacman.getSpeedLevel());
+        assertEquals(new Point(MOVEMENT_2_PLUS, 0), pacman.getPosition());
+        pacman.respawn(STARTING_POS);
+        pacman.increaseSpeed();
+        pacman.setDirection(Direction.RIGHT);
+        pacman.updateState(ELAPSED);
+        assertEquals(3, pacman.getSpeedLevel());
+        assertEquals(new Point(MOVEMENT_3_PLUS, 0), pacman.getPosition());
+        pacman.increaseSpeed();
+        assertEquals(3, pacman.getSpeedLevel());
+    }
+
+    /**
+     * Test for movement with decreased speed.
+     */
+    @Test
+    void testMovementDecreased() {
+        assertEquals(0, pacman.getSpeedLevel());
+        pacman.decreaseSpeed();
+        pacman.setDirection(Direction.UP);
+        pacman.updateState(ELAPSED);
+        assertEquals(-1, pacman.getSpeedLevel());
+        assertEquals(new Point(0, MOVEMENT_1_MIN), pacman.getPosition());
+        pacman.respawn(STARTING_POS);
+        pacman.decreaseSpeed();
+        pacman.setDirection(Direction.DOWN);
+        pacman.updateState(ELAPSED);
+        assertEquals(SPEED_DECREASED_2, pacman.getSpeedLevel());
+        assertEquals(new Point(0, -MOVEMENT_2_MIN), pacman.getPosition());
+        pacman.respawn(STARTING_POS);
+        pacman.decreaseSpeed();
+        pacman.setDirection(Direction.UP);
+        pacman.updateState(ELAPSED);
+        assertEquals(SPEED_DECREASED_3, pacman.getSpeedLevel());
+        assertEquals(new Point(0, MOVEMENT_3_MIN), pacman.getPosition());
+        pacman.decreaseSpeed();
+        assertEquals(SPEED_DECREASED_3, pacman.getSpeedLevel());
     }
 }

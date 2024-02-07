@@ -11,6 +11,7 @@ public interface DirectionSelector {
      * Sets the direction of a character to move to reach a target.
      * @param toMove the object to move
      * @param target the object to reach
+     * @param elapsedTime the time elapsed since the last update
      */
-    void setDirection(Character toMove, GameObject target);
+    void setDirection(Character toMove, GameObject target, long elapsedTime);
 }

@@ -39,7 +39,7 @@ public class GameScene implements Model {
     private final DirectionSelector directionSelector2;
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
-    private static final int SPEED = 50;
+    private static final int SPEED = 100;
 
     /**
      * Constructor of a generic scene.
@@ -71,7 +71,10 @@ public class GameScene implements Model {
         final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
-        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), SPEED, 3);
+        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), 
+            SPEED, 
+            3, 
+            mapBuilder.getWallsPath());
         final List<GameObject> pacMan = new ArrayList<>();
         pacMan.add(pacman);
         this.gameObjects.add(pacMan);
@@ -139,12 +142,10 @@ public class GameScene implements Model {
 
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
-        directionSelector.setDirection(ghost, pacman);
-        ghost.setState(GhostState.SCARED);
-        ghost.updateState(elapsed);
-        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2));
-        ghost2.setState(GhostState.DEAD);
-        ghost2.updateState(elapsed);
+        directionSelector.setDirection(ghost, pacman, elapsed);
+        ghost.setState(GhostState.NORMAL);
+        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
+        ghost2.setState(GhostState.NORMAL);
     }
 
     /**

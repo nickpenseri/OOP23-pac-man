@@ -50,16 +50,16 @@ class TestPositionApproximator {
             .createGameObject(new Point(i * GAME_OBJ_DISTANCE, i * GAME_OBJ_DISTANCE), Type.FLOR))
             .collect(Collectors.toList());
 
-      assertNotEquals(list.get(0), approximator.getApproximatedPosition(target, new HashSet<>(list)).get());
-      assertEquals(list.get(1), approximator.getApproximatedPosition(target,  new HashSet<>(list)).get());
+      assertNotEquals(list.get(0), approximator.getApproximatedTarget(target, new HashSet<>(list)).get());
+      assertEquals(list.get(1), approximator.getApproximatedTarget(target,  new HashSet<>(list)).get());
 
       target = factory.createGameObject(new Point(TARGET_SECOND_POSITION, TARGET_SECOND_POSITION), Type.FLOR);
-      assertNotEquals(list.get(4), approximator.getApproximatedPosition(target, new HashSet<>(list)).get());
-      assertEquals(list.get(3), approximator.getApproximatedPosition(target,  new HashSet<>(list)).get());
+      assertNotEquals(list.get(4), approximator.getApproximatedTarget(target, new HashSet<>(list)).get());
+      assertEquals(list.get(3), approximator.getApproximatedTarget(target,  new HashSet<>(list)).get());
 
       target =  factory.createGameObject(new Point(TARGET_THIRD_POSITION, TARGET_THIRD_POSITION), Type.FLOR);
-      assertFalse(approximator.getApproximatedPosition(target,  new HashSet<>(list)).isEmpty());
-      assertEquals(list.get(list.size() - 1), approximator.getApproximatedPosition(target,  new HashSet<>(list)).get());
+      assertFalse(approximator.getApproximatedTarget(target,  new HashSet<>(list)).isEmpty());
+      assertEquals(list.get(list.size() - 1), approximator.getApproximatedTarget(target,  new HashSet<>(list)).get());
 
    }
 
@@ -67,7 +67,7 @@ class TestPositionApproximator {
    void checkEmptyList() {
       final var target = factory.createGameObject(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR);
       final Set<GameObject> list = Set.of();
-      assertFalse(approximator.getApproximatedPosition(target, list).isPresent());
+      assertFalse(approximator.getApproximatedTarget(target, list).isPresent());
    }
 
    @Test
@@ -77,7 +77,7 @@ class TestPositionApproximator {
             .mapToObj(i -> factory
             .createGameObject(new Point(TARGET_INIT_POSITION, TARGET_INIT_POSITION), Type.FLOR))
             .collect(Collectors.toList());
-      assertTrue(list.contains(approximator.getApproximatedPosition(target,  new HashSet<>(list)).get()));
+      assertTrue(list.contains(approximator.getApproximatedTarget(target,  new HashSet<>(list)).get()));
    }
 
 }
