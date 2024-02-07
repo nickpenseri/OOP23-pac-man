@@ -11,4 +11,10 @@ public interface Ghost extends Character {
      * @param state the state to set
      */
     void setState(GhostState state);
+
+    /**
+     * gets the state of the ghost.
+     * @return the state of the ghost
+     */
+    GhostState getState();
 }
