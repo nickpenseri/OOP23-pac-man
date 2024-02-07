@@ -1,18 +1,17 @@
 package it.unibo.model.physics.objectsmover.impl;
 
-
-import java.awt.Point;
-
 import it.unibo.model.api.Character;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
+import it.unibo.model.physics.objectsmover.api.PositionApproximator;
  
  /**
   * Implementation of the interface DirectionSelector, sets the direction of a character to move to reach a target.
   */
   public class EuclideanDirectionSelector implements DirectionSelector {
 
+    private final PositionApproximator approximator = new PositionApproximatorImpl();
     /**
      * {@inheritDoc}
      * the longhest distance has always the priority.
@@ -22,7 +21,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
         final int diffX = target.getPosition().x - toMove.getPosition().x;
         final int diffY = target.getPosition().y - toMove.getPosition().y;
 
-        if (isPositionCloseEnough(toMove.getPosition(), target.getPosition(), 0)) {
+        if (approximator.isPositionCloseEnough(toMove, target, 0.0)) {
            toMove.resetDirection();
         } else {
             if (Math.abs(diffX) >= Math.abs(diffY)) {
@@ -40,11 +39,6 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
             }
         }
         toMove.updateState(elapsedTime);
-    }
-
-    private boolean isPositionCloseEnough(final Point pos1, final Point pos2, final double tolerance) {
-        final double distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
-        return distance <= tolerance;
     }
 }
  
