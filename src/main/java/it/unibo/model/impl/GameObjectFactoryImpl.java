@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
 
+import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
@@ -14,6 +15,7 @@ import it.unibo.model.map.impl.MapImageImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.impl.PacManBordered;
 import it.unibo.model.pacman.impl.PacManImpl;
+import it.unibo.model.pacman.impl.PacManWalls;
 import it.unibo.model.pickable.api.PickableGenerator;
 import it.unibo.model.pickable.impl.PickableGeneratorImpl;
 
@@ -74,8 +76,13 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public PacMan createPacMan(final Point position, final double speed, final int startingLives) {
-        return new PacManBordered(new PacManImpl(3, dimension, speed, position), mapHeigth, mapWidth);
+    public PacMan createPacMan(final Point position, final double speed, final int startingLives,
+            final List<GameObject> walls) {
+        return new PacManWalls(
+                new PacManBordered(
+                        new PacManImpl(3, dimension, speed, position),
+                        mapHeigth, mapWidth),
+                walls);
     }
 
     /**
