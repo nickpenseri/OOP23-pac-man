@@ -35,5 +35,10 @@ public enum MapTypes {
     /**
      * walls.
      */
-    WALL;
+    WALL,
+
+    /**
+     * object behind walls.
+     */
+    BEHIND_WALL;
 }

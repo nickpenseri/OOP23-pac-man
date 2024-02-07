@@ -48,7 +48,7 @@ public class MapBuilderImpl implements MapBuilder {
                 switch (maptype) {
                     case PICKABLE:
                         this.spawnCollectibleItems.add(
-                            new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)));
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)));
                         final var object1 = gameFactory.createGameObject(
                                 new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
                         this.paintMap.add(object1);
@@ -89,6 +89,13 @@ public class MapBuilderImpl implements MapBuilder {
                                 new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
                         this.paintMap.add(object6);
                         this.objectsMap[x][y] = object6;
+                        break;
+                    case BEHIND_WALL:
+                        final var object7 = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
+                        this.paintMap.add(object7);
+                        this.objectsMap[x][y] = gameFactory.createGameObject(
+                                new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.WALL);
                         break;
                     default:
                         break;
