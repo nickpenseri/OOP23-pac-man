@@ -18,9 +18,8 @@ public class MapSelectorImpl implements MapSelector {
      * initializes the class fields.
      */
     public MapSelectorImpl() {
-        this.mapList = List.of("map1.txt", "map2.txt", "map3.txt", "map4.txt");
+        this.mapList = List.of("/map1.txt", "/map2.txt", "/map3.txt", "/map4.txt");
         this.rand = new Random();
-        // this.checkList = List.of(true, true, true, true);
         this.checkList = new ArrayList<>();
         for (int i = 0; i < this.mapList.size(); i++) {
             this.checkList.add(true);
