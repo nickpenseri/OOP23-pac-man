@@ -2,11 +2,25 @@ package it.unibo.model.pacman.api;
 
 import it.unibo.model.api.GameObject;
 
-public interface Life extends GameObject{
+/**
+ * This interface models the life of the game.
+ */
+public interface Life extends GameObject {
 
-    public void decreaseLife();
+    /**
+     * Decrease the life of the player.
+     */
+    void decreaseLife();
 
-    public void increaseLife();
+    /**
+     * Increase the life of the player.
+     */
+    void increaseLife();
 
-    public int getNumLife();
+    /**
+     * Return the current life.
+     * 
+     * @return the current life.
+     */
+    int getNumLife();
 }
