@@ -34,7 +34,10 @@ public class TimerImpl implements Timer {
             throw new IllegalArgumentException("Elapsed time cannot be negative");
         }
         currentTime += elapsedTime;
-        return currentTime <= duration;
+        if (currentTime > 0) {
+            return currentTime >= duration;
+        }
+        return false;
     }
     /**
      * {@inheritDoc}
