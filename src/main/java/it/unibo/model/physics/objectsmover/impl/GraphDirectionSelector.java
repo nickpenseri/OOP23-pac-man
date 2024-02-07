@@ -59,11 +59,8 @@ public class GraphDirectionSelector implements DirectionSelector {
             throw new IllegalArgumentException("The target is not in the graph");
         }
 
-        final AStarShortestPath<GameObject, DefaultEdge> aStarAlg = new AStarShortestPath<>(this.graph, (s, t) -> {
-            final double dx = s.getPosition().x - t.getPosition().x;
-            final double dy = s.getPosition().y - t.getPosition().y;
-            return Math.sqrt(dx * dx + dy * dy);
-        });
+        final AStarShortestPath<GameObject, DefaultEdge> aStarAlg = new AStarShortestPath<>(this.graph, approximator::getDistance);
+        
 
         final SingleSourcePaths<GameObject, DefaultEdge> aPaths = aStarAlg.getPaths(sourceVertex.get());
         final var path = aPaths.getPath(targetVertex.get());

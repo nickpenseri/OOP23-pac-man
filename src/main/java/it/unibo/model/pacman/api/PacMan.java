@@ -49,12 +49,6 @@ public interface PacMan extends Character {
     void removePoints(int points);
 
     /**
-     * Getter for the speed level.
-     * @return the actual speed level of pacman
-     */
-    int getSpeedLevel();
-
-    /**
      * Changes PacMan's position to the given Point and resets the direction.
      * @param spawnPoint new PacMan's position
      */
