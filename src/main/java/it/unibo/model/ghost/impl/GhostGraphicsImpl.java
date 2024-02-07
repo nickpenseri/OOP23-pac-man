@@ -15,7 +15,7 @@ import it.unibo.model.ghost.api.GhostState;
  */
 public class GhostGraphicsImpl implements GhostGraphics {
 
-    private static final String BASE_PATH = "image/ghost/";
+    private static final String BASE_PATH = "/image/ghost/";
 
     private final String stopped;
     private final String upTailExtended;
@@ -65,10 +65,13 @@ public class GhostGraphicsImpl implements GhostGraphics {
      */
     @Override
     public URL actualImageUrl(final Optional<Direction> dir) {
+
+    
+
         return switch (state) {
-            case NORMAL ->  ClassLoader.getSystemResource(select(dir));
-            case DEAD ->  ClassLoader.getSystemResource(dead);
-            case SCARED -> ClassLoader.getSystemResource(this.tailExtended ? fear : select(dir));
+            case NORMAL ->  getClass().getResource(select(dir));
+            case DEAD ->  getClass().getResource(dead);
+            case SCARED -> getClass().getResource(this.tailExtended ? fear : select(dir));
             default -> null;
         };
     }

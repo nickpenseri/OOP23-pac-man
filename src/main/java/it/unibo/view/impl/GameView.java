@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,7 @@ public class GameView extends ViewImpl {
     private static final long serialVersionUID = 1L;
     private final transient Logger log = LoggerFactory.getLogger(GameView.class);
     private transient List<GameObject> gameObjects;
-    private final transient Map<String, Image> scaledImages;
+    private final transient Map<URL, Image> scaledImages;
     /**
      * Constructor of the GameView.
      */
@@ -43,14 +44,15 @@ public class GameView extends ViewImpl {
     /**
      * {@inheritDoc}
      */
+   
     @Override
     public void updateView(final List<GameObject> gameObjects) {
         this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
         gameObjects.forEach(obj -> {
-            final var url = obj.getImageUrl().getPath();
+            final var url = obj.getImageUrl();
             if (!scaledImages.containsKey(url)) {
                 try {
-                    final Image img = ImageIO.read(new File(url)).getScaledInstance(
+                    final Image img = ImageIO.read(url).getScaledInstance(
                                 (int) obj.getDimension().getHeight(), (int) obj.getDimension().getWidth(), SCALE_DEFAULT);
                     scaledImages.put(url, img);
                 } catch (IOException e) {
@@ -73,7 +75,7 @@ public class GameView extends ViewImpl {
 
              this.gameObjects.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
-                final var img = scaledImages.get(obj.getImageUrl().getPath());
+                final var img = scaledImages.get(obj.getImageUrl());
                 g2.drawImage(img, pos.x, (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y), this);
             });
         }

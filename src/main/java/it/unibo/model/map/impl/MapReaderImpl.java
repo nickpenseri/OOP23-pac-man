@@ -27,7 +27,7 @@ public class MapReaderImpl implements MapReader {
         final Logger log = LoggerFactory.getLogger(MapReaderImpl.class);
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
-                        new FileInputStream(ClassLoader.getSystemResource(pathFileName).getPath()),
+                        getClass().getResourceAsStream(pathFileName),
                         StandardCharsets.UTF_8))) {
             final String dimensionsLine = reader.readLine();
             if (dimensionsLine != null) {

@@ -57,7 +57,7 @@ public class GameScene implements Model {
         // dimension = new Dimension(width, height);
 
         // Creo il mapReader passandogli la mappa
-        final MapReader map = new MapReaderImpl("map4.txt");
+        final MapReader map = new MapReaderImpl("/map4.txt");
 
         final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
