@@ -1,5 +1,6 @@
 package it.unibo.model.map.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -19,7 +20,11 @@ public class MapSelectorImpl implements MapSelector {
     public MapSelectorImpl() {
         this.mapList = List.of("map1.txt", "map2.txt", "map3.txt", "map4.txt");
         this.rand = new Random();
-        this.checkList = List.of(true, true, true, true);
+        // this.checkList = List.of(true, true, true, true);
+        this.checkList = new ArrayList<>();
+        for (int i = 0; i < this.mapList.size(); i++) {
+            this.checkList.add(true);
+        }
     }
 
     /**
@@ -29,9 +34,11 @@ public class MapSelectorImpl implements MapSelector {
     public String getMapName() {
         do {
             if (this.count == 0) {
-                this.count = 4;
+                this.count = this.mapList.size() - 1;
                 this.checkList.clear();
-                this.checkList.addAll(List.of(true, true, true, true));
+                for (int i = 0; i < this.mapList.size(); i++) {
+                    this.checkList.add(true);
+                }
             }
             final int index = this.rand.nextInt(this.mapList.size() - 1);
             if (this.checkList.get(index).equals(true)) {
