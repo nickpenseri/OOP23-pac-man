@@ -84,7 +84,7 @@ public class GraphDirectionSelector implements DirectionSelector {
            }
         } else {
 
-            if (state == State.SELECTED){
+            if (state == State.SELECTED) {
                 if (!isPositionCloseEnough(toMove.getPosition(), selected.getPosition(), 2))  {
                     selectDir.setDirection(toMove, selected, elapsedTime);
                 } else {
@@ -99,8 +99,8 @@ public class GraphDirectionSelector implements DirectionSelector {
     }
 
 
-    private boolean isPositionCloseEnough(Point pos1, Point pos2, double tolerance) {
-        double distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
+    private boolean isPositionCloseEnough(final Point pos1, final Point pos2, final double tolerance) {
+        final double distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
         return distance <= tolerance;
     }
 }

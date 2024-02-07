@@ -22,8 +22,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
         final int diffX = target.getPosition().x - toMove.getPosition().x;
         final int diffY = target.getPosition().y - toMove.getPosition().y;
 
-        if (isPositionCloseEnough(toMove.getPosition(), target.getPosition(), 2)) {
-           toMove.setPosition(target.getPosition()); 
+        if (isPositionCloseEnough(toMove.getPosition(), target.getPosition(), 0)) {
            toMove.resetDirection();
         } else {
             if (Math.abs(diffX) >= Math.abs(diffY)) {
@@ -43,8 +42,8 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
         toMove.updateState(elapsedTime);
     }
 
-    private boolean isPositionCloseEnough(Point pos1, Point pos2, double tolerance) {
-        double distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
+    private boolean isPositionCloseEnough(final Point pos1, final Point pos2, final double tolerance) {
+        final double distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
         return distance <= tolerance;
     }
 }
