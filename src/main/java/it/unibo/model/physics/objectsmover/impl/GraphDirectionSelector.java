@@ -71,9 +71,10 @@ public class GraphDirectionSelector implements DirectionSelector {
         if (path.getVertexList().size() >= 2) {
 
            if (state == State.SELECTED) {
-                if (!isPositionCloseEnough(toMove.getPosition(), selected.getPosition(), 5))  {
+                if (!isPositionCloseEnough(toMove.getPosition(), selected.getPosition(), 2))  {
                     selectDir.setDirection(toMove, selected, elapsedTime);
                 } else {
+                    toMove.setPosition(selected.getPosition()); 
                     state =  State.NOT_SELECTED;
                 }
            } else if (state == State.NOT_SELECTED) {
@@ -84,13 +85,14 @@ public class GraphDirectionSelector implements DirectionSelector {
         } else {
 
             if (state == State.SELECTED){
-                if (!isPositionCloseEnough(toMove.getPosition(), selected.getPosition(), 5))  {
+                if (!isPositionCloseEnough(toMove.getPosition(), selected.getPosition(), 2))  {
                     selectDir.setDirection(toMove, selected, elapsedTime);
                 } else {
+                   toMove.setPosition(selected.getPosition()); 
                     state =  State.NOT_SELECTED;
                 }
             } else {
-            selectDir.setDirection(toMove, target, elapsedTime);
+                 selectDir.setDirection(toMove, target, elapsedTime);
             }
         }
 

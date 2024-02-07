@@ -40,7 +40,7 @@ public class GameScene implements Model {
     private final DirectionSelector directionSelector2;
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
-    private static final int SPEED = 200;
+    private static final int SPEED = 50;
 
     /**
      * Constructor of a generic scene.

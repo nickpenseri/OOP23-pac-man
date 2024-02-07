@@ -23,6 +23,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
         final int diffY = target.getPosition().y - toMove.getPosition().y;
 
         if (isPositionCloseEnough(toMove.getPosition(), target.getPosition(), 2)) {
+           toMove.setPosition(target.getPosition()); 
            toMove.resetDirection();
         } else {
             if (Math.abs(diffX) >= Math.abs(diffY)) {
