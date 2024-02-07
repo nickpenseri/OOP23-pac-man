@@ -17,7 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import it.unibo.core.api.Window;
+import it.unibo.view.api.InfoView;
 import it.unibo.view.api.View;
+import it.unibo.view.impl.GameInfoView;
 
 /** Implementation of a Swing window. */
 public class WindowImpl implements Window {
@@ -27,7 +29,7 @@ public class WindowImpl implements Window {
 
     private final Dimension dimension;
     private View gameViewPanel;
-    private final View infoViewInfo;
+    private final GameInfoView infoViewInfo;
     private static final float INFO_PROPORTION = 0.05f;
     private static final float GAME_PROPORTION = 1 - INFO_PROPORTION;
 
@@ -40,7 +42,7 @@ public class WindowImpl implements Window {
      * @param weight        the weight of the window
      * @param height        the height of the window
      */
-    public WindowImpl(final View gameViewPanel, final View gameViewInfo, final String gameName, final int weight,
+    public WindowImpl(final View gameViewPanel, final InfoView gameViewInfo, final String gameName, final int weight,
             final int height) {
 
         if (weight <= 0 || height <= 0) {
@@ -53,7 +55,7 @@ public class WindowImpl implements Window {
         frame.setResizable(true);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         this.gameViewPanel = gameViewPanel;
-        this.infoViewInfo = gameViewInfo;
+        this.infoViewInfo = (GameInfoView) gameViewInfo;
         frame.setLayout(new GridBagLayout());
         final GridBagConstraints constraints = new GridBagConstraints();
 
@@ -81,6 +83,7 @@ public class WindowImpl implements Window {
         });
         frame.pack();
         frame.setVisible(true);
+        this.infoViewInfo.setImageDim(this.getInfoPanelDimension());
         ((Component) this.gameViewPanel).requestFocusInWindow();
     }
 
@@ -136,7 +139,7 @@ public class WindowImpl implements Window {
      * {@inheritDoc}
      */
     @Override
-    public Dimension getInfoPanelDimension() {
+    public final Dimension getInfoPanelDimension() {
         final int width = (int) this.infoViewInfo.getDimension().getWidth();
         final int height = (int) this.infoViewInfo.getDimension().getHeight();
         return new Dimension(width, height);

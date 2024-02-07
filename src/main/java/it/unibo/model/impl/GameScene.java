@@ -161,7 +161,7 @@ public class GameScene implements Model {
      */
     @Override
     public int getPacManLifes() {
-        return SPEED;
+        return pacman.getRemainingLives();
     }
 
     /**
@@ -169,7 +169,7 @@ public class GameScene implements Model {
      */
     @Override
     public int getPacManScores() {
-        return SPEED;
+        return pacman.getPoints();
     }
 
 }

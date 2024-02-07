@@ -3,24 +3,26 @@ package it.unibo.controller.impl;
 import java.util.Objects;
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Model;
-import it.unibo.view.api.View;
+import it.unibo.view.api.GameView;
 
 /** The class is the implementation of the Controller Interface. */
 public class ControllerImpl implements Controller {
 
-    private final  Model model;
-    private final View view;
+    private final Model model;
+    private final GameView view;
 
     /**
      * When Controller is created, it needs a model and a view to manage.
+     * 
      * @param model the model of the gameScene
-     * @param view the view of the gameScene
+     * @param view  the view of the gameScene
      */
-    public ControllerImpl(final Model model, final View view) {
+    public ControllerImpl(final Model model, final GameView view) {
         this.model = Objects.requireNonNull(model);
         this.view = Objects.requireNonNull(view);
     }
-     /**
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -28,15 +30,15 @@ public class ControllerImpl implements Controller {
         model.processInput(view.getListCommands());
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
     public void updateState(final long elapsed) {
-       model.updateState(elapsed);
+        model.updateState(elapsed);
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
