@@ -17,7 +17,7 @@ class TestMapReader {
 
     /** method that creates a MapReader object for testing. */
     TestMapReader() {
-        final String filePath = "map1.txt";
+        final String filePath = "/map1.txt";
         final MapReaderImpl mapReader = new MapReaderImpl(filePath);
         this.actualMap = mapReader.getMap();
     }

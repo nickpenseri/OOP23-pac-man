@@ -65,16 +65,13 @@ public class GhostGraphicsImpl implements GhostGraphics {
      */
     @Override
     public URL actualImageUrl(final Optional<Direction> dir) {
-
-    
-
-        return switch (state) {
-            case NORMAL ->  getClass().getResource(select(dir));
-            case DEAD ->  getClass().getResource(dead);
-            case SCARED -> getClass().getResource(this.tailExtended ? fear : select(dir));
-            default -> null;
-        };
-    }
+    return switch (state) {
+        case NORMAL ->  GhostGraphicsImpl.class.getResource(select(dir));
+        case DEAD ->  GhostGraphicsImpl.class.getResource(dead);
+        case SCARED -> GhostGraphicsImpl.class.getResource(this.tailExtended ? fear : select(dir));
+        default -> null;
+    };
+}
 
     private String select(final Optional<Direction> dir) {
         if (dir.isEmpty()) {

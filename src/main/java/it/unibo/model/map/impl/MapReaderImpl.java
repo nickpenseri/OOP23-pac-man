@@ -1,7 +1,6 @@
 package it.unibo.model.map.impl;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.stream.IntStream;
 import java.io.InputStreamReader;
@@ -27,7 +26,7 @@ public class MapReaderImpl implements MapReader {
         final Logger log = LoggerFactory.getLogger(MapReaderImpl.class);
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
-                        getClass().getResourceAsStream(pathFileName),
+                        MapReaderImpl.class.getResourceAsStream(pathFileName),
                         StandardCharsets.UTF_8))) {
             final String dimensionsLine = reader.readLine();
             if (dimensionsLine != null) {

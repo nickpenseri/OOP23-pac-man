@@ -11,8 +11,7 @@ import it.unibo.model.pickable.api.EffectPickable;
  * Is a basic Pickable with the bonus effect and give you 50 points.
  */
 public abstract class EffectPickableImpl extends PickableImpl implements EffectPickable {
-   
-    final URL IMAGE_URL = getClass().getResource("/image/pickable/PickableEffect.png");
+    private final URL imageUrl = EffectPickable.class.getResource("/image/pickable/PickableEffect.png");
     static final int POINTS = 50;
 
     /**
@@ -32,7 +31,7 @@ public abstract class EffectPickableImpl extends PickableImpl implements EffectP
      */
     @Override
     public URL getImageUrl() {
-        return IMAGE_URL;
+        return imageUrl;
     }
 
     /**
