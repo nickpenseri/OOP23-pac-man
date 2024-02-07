@@ -18,6 +18,7 @@ public class GhostImpl extends CharacterImpl implements Ghost {
 
     private final GhostGraphics imagePack;
     private GhostState state;
+    private int speedLevel;
     /**
      * Creates a ghost.
      * @param initialPos the initial position of the ghost
@@ -29,6 +30,7 @@ public class GhostImpl extends CharacterImpl implements Ghost {
         super(initialPos, dimension, initialSpeed);
         this.imagePack =  new GhostGraphicsImpl(ghostColor);
         state = GhostState.NORMAL;
+        this.speedLevel = (int) initialSpeed;
     }
 
     /**
@@ -49,12 +51,20 @@ public class GhostImpl extends CharacterImpl implements Ghost {
         this.imagePack.update();
     }
 
+     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getSpeedLevel() {
+        return this.speedLevel;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean increaseSpeed() {
-        return false;
+        return true;
     }
 
     /**
@@ -62,7 +72,7 @@ public class GhostImpl extends CharacterImpl implements Ghost {
      */
     @Override
     public boolean decreaseSpeed() {
-        return false;
+        return true;
     }
 
     /**
@@ -71,5 +81,14 @@ public class GhostImpl extends CharacterImpl implements Ghost {
     @Override
     public void setState(final GhostState state) {
         this.state = state;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public GhostState getState() {
+        return this.state;
     }
 }

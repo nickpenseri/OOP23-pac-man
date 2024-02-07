@@ -37,6 +37,12 @@ public interface Character extends GameObject {
     void updateState(long elapsed);
 
     /**
+     * Getter for the speed level.
+     * @return the actual speed level of pacman
+     */
+    int getSpeedLevel();
+
+    /**
      * Increase the speed of the Character, unless it is already at maximum.
      * @return true if the speed is changed 
      */
