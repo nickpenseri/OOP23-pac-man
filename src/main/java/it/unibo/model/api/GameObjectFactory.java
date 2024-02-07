@@ -40,9 +40,10 @@ public interface GameObjectFactory {
      * @param position      the position of pacman
      * @param speed         the base speed of pacman
      * @param startingLives the initial number of lives
+     * @param walls         the list of walls
      * @return the created pac-man
      */
-    PacMan createPacMan(Point position, double speed, int startingLives);
+    PacMan createPacMan(Point position, double speed, int startingLives, List<GameObject> walls);
 
     /**
      * Creates the pickable object with the given effect.
