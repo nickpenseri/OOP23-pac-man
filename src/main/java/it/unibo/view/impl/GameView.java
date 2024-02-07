@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,12 +46,12 @@ public class GameView extends ViewImpl {
     public void updateView(final List<GameObject> gameObjects) {
         this.gameObjects = new ArrayList<>(Objects.requireNonNull(gameObjects));
         gameObjects.forEach(obj -> {
-            final var url = obj.getImageUrl().getPath();
-            if (!scaledImages.containsKey(url)) {
+            final var url = obj.getImageUrl();
+            if (!scaledImages.containsKey(url.toString())) {
                 try {
-                    final Image img = ImageIO.read(new File(url)).getScaledInstance(
+                    final Image img = ImageIO.read(url).getScaledInstance(
                                 (int) obj.getDimension().getHeight(), (int) obj.getDimension().getWidth(), SCALE_DEFAULT);
-                    scaledImages.put(url, img);
+                    scaledImages.put(url.toString(), img);
                 } catch (IOException e) {
                     log.error("error during image reading" + e.getMessage());
                 }
@@ -73,7 +72,7 @@ public class GameView extends ViewImpl {
 
              this.gameObjects.stream().forEach(obj -> {
                 final Point pos = obj.getPosition();
-                final var img = scaledImages.get(obj.getImageUrl().getPath());
+                final var img = scaledImages.get(obj.getImageUrl().toString());
                 g2.drawImage(img, pos.x, (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y), this);
             });
         }

@@ -15,7 +15,7 @@ import it.unibo.model.pickable.api.Pickable;
 public class PickableImpl implements Pickable {
     private final Point position;
     private final Dimension dimension;
-    static final URL IMAGE_URL = ClassLoader.getSystemResource("image/pickable/Pickable.png");
+    private final URL imageUrl = PickableImpl.class.getResource("/image/pickable/Pickable.png");
     static final int POINTS = 10;
 
     /**
@@ -56,7 +56,7 @@ public class PickableImpl implements Pickable {
      */
     @Override
     public URL getImageUrl() {
-        return IMAGE_URL;
+        return imageUrl;
     }
 
     /**

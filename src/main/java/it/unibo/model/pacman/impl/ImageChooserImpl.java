@@ -11,7 +11,7 @@ import it.unibo.model.api.ImageChooser;
  * the actual image.
  */
 public class ImageChooserImpl implements ImageChooser {
-    private static final String COMMON_NAME = "image/pac_man/";
+    private static final String COMMON_NAME = "/image/pac_man/";
     private static final String STOPPED = COMMON_NAME + "PacMan.png";
     private static final String UP_OPEN = COMMON_NAME + "PacManUp2.png";
     private static final String UP_CLOSED = COMMON_NAME + "PacManUp.png";
@@ -43,7 +43,7 @@ public class ImageChooserImpl implements ImageChooser {
      */
     @Override
     public URL actualImageUrl(final Optional<Direction> dir) {
-        return ClassLoader.getSystemResource(this.select(dir));
+        return ImageChooserImpl.class.getResource(this.select(dir));
     }
 
     private String select(final Optional<Direction> dir) {
