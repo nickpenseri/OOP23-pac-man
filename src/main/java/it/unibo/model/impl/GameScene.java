@@ -2,6 +2,7 @@ package it.unibo.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.slf4j.Logger;
@@ -17,9 +18,11 @@ import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
+import it.unibo.model.map.api.MapSelector;
 import it.unibo.model.map.impl.MapBuilderImpl;
 import it.unibo.model.map.impl.MapGraphImpl;
 import it.unibo.model.map.impl.MapReaderImpl;
+import it.unibo.model.map.impl.MapSelectorImpl;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
 import it.unibo.model.pacman.api.PacMan;
@@ -55,9 +58,9 @@ public class GameScene implements Model {
 
         this.gameObjects = new ArrayList<>();
         // dimension = new Dimension(width, height);
-
+        final MapSelector mapChooser = new MapSelectorImpl();
         // Creo il mapReader passandogli la mappa
-        final MapReader map = new MapReaderImpl("map1.txt");
+        final MapReader map = new MapReaderImpl(mapChooser.getMapName());
 
         final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
