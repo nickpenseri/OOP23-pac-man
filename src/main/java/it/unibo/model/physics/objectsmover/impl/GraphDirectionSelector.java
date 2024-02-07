@@ -10,7 +10,6 @@ import org.jgrapht.graph.DefaultEdge;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import java.awt.Point;
 import java.util.Objects;
 
 import org.jgrapht.Graph;
@@ -68,33 +67,29 @@ public class GraphDirectionSelector implements DirectionSelector {
 
         final SingleSourcePaths<GameObject, DefaultEdge> aPaths = aStarAlg.getPaths(sourceVertex.get());
         final var path = aPaths.getPath(targetVertex.get());
-        if (path.getVertexList().size() >= 2) {
 
-           if (state == State.SELECTED) {
+        switch (state) {
+            case SELECTED:
+            if (path.getVertexList().size() >= 2) {
                 if (!approximator.isPositionCloseEnough(toMove, selected, 2.0)) {
                     selectDir.setDirection(toMove, selected, elapsedTime);
                 } else {
                     toMove.setPosition(selected.getPosition()); 
                     state =  State.NOT_SELECTED;
                 }
-           } else if (state == State.NOT_SELECTED) {
-                selected =  path.getVertexList().get(1);
-                selectDir.setDirection(toMove, selected, elapsedTime);
-                state = State.SELECTED;
-           }
-        } else {
-
-            if (state == State.SELECTED) {
-                if (!approximator.isPositionCloseEnough(toMove, selected, 2.0)) {
-                    selectDir.setDirection(toMove, selected, elapsedTime);
-                } else {
-                   toMove.setPosition(selected.getPosition()); 
-                    state =  State.NOT_SELECTED;
-                }
-            } else {
-                 selectDir.setDirection(toMove, target, elapsedTime);
             }
+                break;
+            case NOT_SELECTED:
+                    if (path.getVertexList().size() >= 2) {
+                        selected =  path.getVertexList().get(1);
+                        selectDir.setDirection(toMove, selected, elapsedTime);
+                        state = State.SELECTED;
+                    } else {
+                        selectDir.setDirection(toMove, target, elapsedTime);
+                    }
+                break;
+            default:
+                break;
         }
-
     }
 }
