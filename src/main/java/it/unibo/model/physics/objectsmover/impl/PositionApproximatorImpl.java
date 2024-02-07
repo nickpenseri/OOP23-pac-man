@@ -40,4 +40,16 @@ public class PositionApproximatorImpl implements PositionApproximator {
         return Math.sqrt(Math.pow(targetPos.x - objPos.x, 2) + Math.pow(targetPos.y - objPos.y, 2));
     }
 
+     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isPositionCloseEnough(final GameObject object1, final GameObject object2, final Double tolerance) {
+        Objects.requireNonNull(object1);
+        Objects.requireNonNull(object2);
+        final var pos1 = Objects.requireNonNull(object1.getPosition());
+        final var pos2 = Objects.requireNonNull(object2.getPosition());
+        final double distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
+        return distance <= tolerance;
+    }
 }

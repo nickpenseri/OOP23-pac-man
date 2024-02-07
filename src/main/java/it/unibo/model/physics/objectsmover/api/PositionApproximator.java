@@ -24,4 +24,13 @@ public interface PositionApproximator {
      * @return the distance between the two game objects
      */
     Double getDistance(GameObject object1, GameObject object2);
+
+    /**
+     * Returns true if the distance between two game objects is close enough.
+     * @param object1  the first game object 
+     * @param object2  the second game object
+     * @param tollerance the tollerance to consider
+     * @return true if the distance between the two game objects is close enough
+     */
+    Boolean isPositionCloseEnough(GameObject object1, GameObject object2, Double tollerance);
 }
