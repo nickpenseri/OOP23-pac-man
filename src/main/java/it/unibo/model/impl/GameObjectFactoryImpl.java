@@ -28,6 +28,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     private final GhostFactory ghostFactory;
     private final int mapWidth;
     private final int mapHeigth;
+    private static final double PACMAN_SIZE_OFFSET = 0.9;
 
     /**
      * sets the size of objects based on map size and screen window size.
@@ -78,6 +79,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public PacMan createPacMan(final Point position, final double speed, final int startingLives,
             final List<GameObject> walls) {
+        final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_OFFSET), 
+                                    (int) (this.dimension.getHeight() * PACMAN_SIZE_OFFSET));
         return new PacManWalls(
                 new PacManBordered(
                         new PacManImpl(3, dimension, speed, position),
