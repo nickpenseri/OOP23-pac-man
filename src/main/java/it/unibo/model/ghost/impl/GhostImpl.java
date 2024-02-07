@@ -16,9 +16,11 @@ import it.unibo.model.impl.CharacterImpl;
  */
 public class GhostImpl extends CharacterImpl implements Ghost {
 
+    private static final int MAX_SPEED_LEVEL = 1000;
+    private static final int MIN_SPEED_LEVEL = -3;
     private final GhostGraphics imagePack;
     private GhostState state;
-    private final int speedLevel;
+    private int speedLevel;
     /**
      * Creates a ghost.
      * @param initialPos the initial position of the ghost
@@ -64,7 +66,12 @@ public class GhostImpl extends CharacterImpl implements Ghost {
      */
     @Override
     public boolean increaseSpeed() {
-        return true;
+        if (this.speedLevel < MAX_SPEED_LEVEL) {
+            this.speedLevel++;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -72,7 +79,12 @@ public class GhostImpl extends CharacterImpl implements Ghost {
      */
     @Override
     public boolean decreaseSpeed() {
-        return true;
+        if (this.speedLevel > MIN_SPEED_LEVEL) {
+            this.speedLevel--;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
