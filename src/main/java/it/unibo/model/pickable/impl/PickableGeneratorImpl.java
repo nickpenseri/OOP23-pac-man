@@ -17,8 +17,8 @@ import it.unibo.model.pickable.api.PickableGenerator;
 /** Is a Map Generetor of Pickable. */
 public class PickableGeneratorImpl implements PickableGenerator {
     private final Map<Point, Pickable> pickableMap = new HashMap<>();
-    private static final int PERCENTAGE = 10;
-    private static final int PERCENTAGE_NORMAL_PICKABLE = 8;
+    private static final int PERCENTAGE = 100;
+    private static final int PERCENTAGE_NORMAL_PICKABLE = 90;
     private static final int NUMBER_OF_ALL_EFFECT = EffectChose.values().length;
 
     /**
@@ -47,6 +47,9 @@ public class PickableGeneratorImpl implements PickableGenerator {
                     case BONUS_SPEED:
                         pickableMap.put(point, new BonusSpeed(point, dimension));
                         break;
+                    case FEAR_GHOST:
+                        pickableMap.put(point, new FearGhost(point, dimension));
+                        break;
                     case MALUS_LIFE:
                         pickableMap.put(point, new MalusLife(point, dimension));
                         break;
@@ -55,6 +58,9 @@ public class PickableGeneratorImpl implements PickableGenerator {
                         break;
                     case MALUS_SPEED:
                         pickableMap.put(point, new MalusSpeed(point, dimension));
+                        break;
+                    case MALUS_SPEED_GHOST:
+                        pickableMap.put(point, new MalusSpeedGhost(point, dimension));
                         break;
                     default:
                         break;

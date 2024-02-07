@@ -17,6 +17,10 @@ public enum EffectChose {
      */
     BONUS_SPEED,
     /**
+     * Effect of FearGhost.
+     */
+    FEAR_GHOST,
+    /**
      * Effect of MalusLife.
      */
     MALUS_LIFE,
@@ -27,5 +31,9 @@ public enum EffectChose {
     /**
      * Effect of MalusSpeed.
      */
-    MALUS_SPEED;
+    MALUS_SPEED,
+    /**
+     * Effect of MalusSpeedGhost.
+     */
+    MALUS_SPEED_GHOST;
 }
