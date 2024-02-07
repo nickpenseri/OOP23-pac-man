@@ -85,7 +85,6 @@ public class GraphDirectionSelector implements DirectionSelector {
                     state =  State.NOT_SELECTED;
                 }
             }
-    
                 break;
             case NOT_SELECTED:
                     if (path.getVertexList().size() >= 2) {
