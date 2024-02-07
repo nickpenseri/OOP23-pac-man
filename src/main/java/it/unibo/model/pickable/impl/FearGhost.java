@@ -10,7 +10,11 @@ import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.pacman.api.PacMan;
 
-public class FearGhost  extends EffectPickableImpl{
+/**
+ * This class is used to create a pickable that will fear the ghosts for 10
+ * seconds.
+ */
+public class FearGhost extends EffectPickableImpl {
 
     private static final int DELAY = 10_000;
 
@@ -52,5 +56,5 @@ public class FearGhost  extends EffectPickableImpl{
         new Timer().schedule(task, DELAY);
 
     }
-    
+
 }

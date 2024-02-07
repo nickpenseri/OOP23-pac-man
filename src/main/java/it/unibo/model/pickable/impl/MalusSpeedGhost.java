@@ -9,7 +9,11 @@ import java.util.TimerTask;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.pacman.api.PacMan;
 
-public class MalusSpeedGhost extends EffectPickableImpl{
+/**
+ * This class is used to create a pickable that will decrease the speed of the
+ * ghosts for 10 seconds.
+ */
+public class MalusSpeedGhost extends EffectPickableImpl {
 
     private static final int DELAY = 10_000;
 
@@ -30,7 +34,7 @@ public class MalusSpeedGhost extends EffectPickableImpl{
      * @param ghosts the list of ghosts that will be affected by the effect.
      */
     @Override
-    public void doEffect(PacMan pacman, List<Ghost> ghosts) {
+    public void doEffect(final PacMan pacman, final List<Ghost> ghosts) {
         boolean passed = true;
 
         for (Ghost ghost : ghosts) {
@@ -51,11 +55,12 @@ public class MalusSpeedGhost extends EffectPickableImpl{
         };
 
         /*
-         * Create new Timer and Schedule the task to reset the state after 10 seconds if the effect was applied
+         * Create new Timer and Schedule the task to reset the state after 10 seconds if
+         * the effect was applied
          */
         if (passed) {
             new Timer().schedule(task, DELAY);
         }
     }
-    
+
 }

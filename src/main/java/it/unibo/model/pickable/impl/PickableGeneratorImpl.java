@@ -22,7 +22,8 @@ public class PickableGeneratorImpl implements PickableGenerator {
     private static final int NUMBER_OF_ALL_EFFECT = EffectChose.values().length;
 
     /**
-     * Generate a Map of Pickable at 80% of probability of neutral pickable and 20%
+     * Generate a Map of Pickable at PERCENTAGE_NORMAL_PICKABLE% of probability of
+     * neutral pickable and the 100%-PERCENTAGE_NORMAL_PICKABLE%
      * of Bonus or Malus pickable.
      * 
      * @param pickableSpawnPoints is a list of Point where the pickable can spawn.
