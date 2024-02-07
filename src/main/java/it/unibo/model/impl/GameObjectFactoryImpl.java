@@ -24,8 +24,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     private final Dimension dimension;
     private final MapImageImpl mapImage = new MapImageImpl();
     private final GhostFactory ghostFactory;
-    private final int screenHeight;
-    private final int screenWidth;
+    private final int mapWidth;
+    private final int mapHeigth;
 
     /**
      * sets the size of objects based on map size and screen window size.
@@ -38,9 +38,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     public GameObjectFactoryImpl(final int height, final int width, final int sizeX, final int sizeY) {
         final int minDimension = Math.min(width / sizeY, height / sizeX);
         this.dimension = new Dimension(minDimension, minDimension);
-        this.screenHeight = height;
-        this.screenWidth = width;
         ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
+        this.mapWidth = (int) (sizeY * dimension.getWidth());
+        this.mapHeigth = (int) (sizeX * dimension.getHeight());
     }
 
     /**
@@ -75,7 +75,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public PacMan createPacMan(final Point position, final double speed, final int startingLives) {
-        return new PacManBordered(new PacManImpl(3, dimension, speed, position), screenHeight, screenWidth);
+        return new PacManBordered(new PacManImpl(3, dimension, speed, position), mapHeigth, mapWidth);
     }
 
     /**
