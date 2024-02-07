@@ -17,7 +17,7 @@ public class PositionApproximatorImpl implements PositionApproximator {
      * {@inheritDoc}
      */
     @Override
-    public Optional<GameObject> getApproximatedPosition(final GameObject target, final Set<GameObject> list) {
+    public Optional<GameObject> getApproximatedTarget(final GameObject target, final Set<GameObject> list) {
         Objects.requireNonNull(target);
         Objects.requireNonNull(list);
 
@@ -25,15 +25,31 @@ public class PositionApproximatorImpl implements PositionApproximator {
             return Optional.empty();
         }
 
-        return Optional.of(list.stream()
-        .min(Comparator.comparingDouble(o -> getDistance(target, o)))).get();
+        return list.stream()
+        .min(Comparator.comparingDouble(o -> getDistance(target, o)));
     }
 
 
-    private double getDistance(final GameObject target, final GameObject object) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Double getDistance(final GameObject target, final GameObject object) {
         final var targetPos = Objects.requireNonNull(target.getPosition());
         final var objPos = Objects.requireNonNull(object.getPosition());
         return Math.sqrt(Math.pow(targetPos.x - objPos.x, 2) + Math.pow(targetPos.y - objPos.y, 2));
     }
 
+     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isPositionCloseEnough(final GameObject object1, final GameObject object2, final Double tolerance) {
+        Objects.requireNonNull(object1);
+        Objects.requireNonNull(object2);
+        final var pos1 = Objects.requireNonNull(object1.getPosition());
+        final var pos2 = Objects.requireNonNull(object2.getPosition());
+        final double distance = Math.sqrt(Math.pow(pos1.x - pos2.x, 2) + Math.pow(pos1.y - pos2.y, 2));
+        return distance <= tolerance;
+    }
 }

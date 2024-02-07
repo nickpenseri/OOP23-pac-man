@@ -25,6 +25,7 @@ class TestDirectionSelector {
     private static final int GAME_OBJ_SIZE = 10;
     private static final int MAP_SIZE = 1;
     private static final int INIT_POSITION = 10;
+    private static final long ELAPSED = 20;
 
     private final GameObjectImpl.Type type = GameObjectImpl.Type.FLOR;
     private final DirectionSelector selector = new EuclideanDirectionSelector();
@@ -34,7 +35,7 @@ class TestDirectionSelector {
     void upDirection() {
         final Character ghost =  factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObjectImpl target = factory.createGameObject(new Point(INIT_POSITION, INIT_POSITION + 1), type);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertEquals(Direction.UP, ghost.getDirection().get());
     }
 
@@ -42,7 +43,7 @@ class TestDirectionSelector {
     void downDirection() {
         final Character ghost =  factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObject target = factory.createGameObject(new Point(INIT_POSITION, INIT_POSITION - 1), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertEquals(Direction.DOWN, ghost.getDirection().get());
     }
 
@@ -50,7 +51,7 @@ class TestDirectionSelector {
     void leftDirection() {
         final Character ghost =  factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObject target = factory.createGameObject(new Point(INIT_POSITION - 1, INIT_POSITION), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertEquals(Direction.LEFT, ghost.getDirection().get());
     }
 
@@ -58,7 +59,7 @@ class TestDirectionSelector {
     void rightDirection() {
         final Character ghost =  factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         final GameObject target = factory.createGameObject(new Point(INIT_POSITION + 1, INIT_POSITION), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertEquals(Direction.RIGHT, ghost.getDirection().get());
     }
 
@@ -66,15 +67,15 @@ class TestDirectionSelector {
     void twoDirections() {
         final Character ghost =  factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         GameObject target = factory.createGameObject(new Point(INIT_POSITION + 1, INIT_POSITION + 1), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertEquals(Direction.RIGHT, ghost.getDirection().get());
 
         target = factory.createGameObject(new Point(INIT_POSITION + 2, INIT_POSITION + 1), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertEquals(Direction.RIGHT, ghost.getDirection().get());
 
         target =  factory.createGameObject(new Point(INIT_POSITION + 1, INIT_POSITION + 2), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertEquals(Direction.UP, ghost.getDirection().get());
     }
 
@@ -82,15 +83,15 @@ class TestDirectionSelector {
     void noDirection() {
         final Character ghost =  factory.createGhost(new Point(INIT_POSITION, INIT_POSITION), 1, GhostColor.BLUE);
         GameObject target = factory.createGameObject(new Point(INIT_POSITION, INIT_POSITION), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertFalse(ghost.getDirection().isPresent());
 
         target =  factory.createGameObject(new Point(INIT_POSITION + 2, INIT_POSITION + 1), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertTrue(ghost.getDirection().isPresent());
 
         target =  factory.createGameObject(new Point(INIT_POSITION + 2, INIT_POSITION + 1), GameObjectImpl.Type.FLOR);
-        selector.setDirection(ghost, target);
+        selector.setDirection(ghost, target, ELAPSED);
         assertTrue(ghost.getDirection().isPresent());
     }
 }
