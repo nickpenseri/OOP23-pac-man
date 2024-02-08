@@ -20,7 +20,7 @@ import it.unibo.view.api.InfoView;
 /**
  * Swing Implementation of View Interface for life and score.
  */
-public class GameInfoView extends ViewImpl implements InfoView {
+public class GameInfoView extends ViewImpl implements InfoView, Cloneable {
     static final long serialVersionUID = 1L;
     private int singleDimension;
     private final List<Integer> pacmanInfo = new ArrayList<>();
@@ -75,6 +75,19 @@ public class GameInfoView extends ViewImpl implements InfoView {
             g2.setColor(Color.WHITE);
             g2.drawString("Score: " + this.pacmanInfo.get(1), singleDimension * this.pacmanInfo.get(0),
                     singleDimension);
+        }
+    }
+
+    /**
+     * Clonation metod for the GameInfoView.
+     */
+    @Override
+    public GameInfoView clone() {
+        try {
+            return (GameInfoView) super.clone();
+        } catch (CloneNotSupportedException e) {
+            log.error("error during cloning" + e.getMessage());
+            return null;
         }
     }
 }

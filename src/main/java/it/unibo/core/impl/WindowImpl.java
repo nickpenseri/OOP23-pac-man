@@ -55,7 +55,7 @@ public class WindowImpl implements Window {
         frame.setResizable(true);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         this.gameViewPanel = gameViewPanel;
-        this.infoViewInfo = (GameInfoView) gameViewInfo;
+        this.infoViewInfo = ((GameInfoView) gameViewInfo).clone();
         frame.setLayout(new GridBagLayout());
         final GridBagConstraints constraints = new GridBagConstraints();
 
