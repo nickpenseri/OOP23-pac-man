@@ -67,7 +67,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
     @Override
     public void updateState(final long elapsed) {
         super.updateState(elapsed);
-        this.imageManager.update();
+        this.imageManager.update(elapsed);
     }
 
     /**

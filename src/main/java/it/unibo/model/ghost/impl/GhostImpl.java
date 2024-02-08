@@ -50,7 +50,7 @@ public class GhostImpl extends CharacterImpl implements Ghost {
     @Override
     public void updateState(final long elapsed) {
         super.updateState(elapsed);
-        this.imagePack.update();
+        this.imagePack.update(elapsed);
     }
 
      /**
