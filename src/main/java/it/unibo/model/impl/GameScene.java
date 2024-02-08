@@ -23,6 +23,9 @@ import it.unibo.model.map.impl.MapBuilderImpl;
 import it.unibo.model.map.impl.MapGraphImpl;
 import it.unibo.model.map.impl.MapReaderImpl;
 import it.unibo.model.map.impl.MapSelectorImpl;
+import it.unibo.model.physics.collisions.api.CollisionChecker;
+import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
+import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
 import it.unibo.model.pacman.api.PacMan;
@@ -35,6 +38,7 @@ public class GameScene implements Model {
     private final List<List<GameObject>> gameObjects;
     private final PacMan pacman;
     private final PickableGenerator pickableGenerator;
+    private final CollisionChecker<GameObject> checker;
     // private final GameObjectImpl[][] objectsMap;
     private final Ghost ghost;
     private final Ghost ghost2;
@@ -90,6 +94,8 @@ public class GameScene implements Model {
         directionSelector2 = new GraphDirectionSelector(graph);
         cammini = new ArrayList<>(graph.vertexSet());
 
+        final CollisionCheckerFactory factory = new CollisionCheckerFactoryImpl();
+        this.checker = factory.gameObjectChecker();
     }
 
     /**
@@ -149,6 +155,15 @@ public class GameScene implements Model {
         ghost.setState(GhostState.NORMAL);
         directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
         ghost2.setState(GhostState.NORMAL);
+        pickUp();
+    }
+
+    private void pickUp() {
+        pickableGenerator.getPickableList().forEach(pickable -> {
+            if (checker.areColliding(pickable, pacman)) {
+                pickableGenerator.takePickable(pickable.getPosition(), pacman, List.of(ghost, ghost2));
+            }
+        });
     }
 
     /**
