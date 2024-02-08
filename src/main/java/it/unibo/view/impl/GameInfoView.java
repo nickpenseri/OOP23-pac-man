@@ -68,11 +68,12 @@ public class GameInfoView extends ViewImpl implements InfoView, Cloneable {
             } catch (IOException e) {
                 log.error("error during image reading" + e.getMessage());
             }
-            for (int i = 0; i < this.pacmanInfo.get(0); i++) {
+            final int lifenum = this.pacmanInfo.get(0);
+            for (int i = 0; i < lifenum; i++) {
                 g2.drawImage(imgLife, 0 + i * singleDimension, singleDimension / 2, this);
             }
             g2.setColor(Color.WHITE);
-            g2.drawString("Score: " + this.pacmanInfo.get(1), singleDimension * this.pacmanInfo.get(0),
+            g2.drawString("Score: " + this.pacmanInfo.get(1), singleDimension * lifenum,
                     singleDimension);
         }
     }
