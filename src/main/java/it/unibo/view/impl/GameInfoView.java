@@ -61,7 +61,7 @@ public class GameInfoView extends ViewImpl implements InfoView, Cloneable {
 
             SetupGraphics2D.setupGraphics2DStatic(g2, this.getWidth(), this.getHeight());
 
-            final var url = ClassLoader.getSystemResource("image/life/Life.png").getPath();
+            final var url = ClassLoader.getSystemResource("/image/life/Life.png").getPath();
             Image imgLife = null;
             try {
                 imgLife = ImageIO.read(new File(url)).getScaledInstance(singleDimension, singleDimension,

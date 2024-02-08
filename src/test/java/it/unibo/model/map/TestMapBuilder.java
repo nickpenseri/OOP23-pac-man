@@ -48,9 +48,6 @@ class TestMapBuilder {
     void testGetSpawnGhost() {
         final List<Point> spawnGhost = mapBuilder.getSpawnGhost();
         assertEquals(3, spawnGhost.size());
-        // assertEquals(new Point(3, 1), spawnGhost.get(O));
-        // assertEquals(new Point(3, 2), spawnGhost.get(1));
-        // assertEquals(new Point(3, 3), spawnGhost.get(2));
         assertEquals(List.of(new Point(X_FIRST_SPAWN, Y), new Point(X_SECOND_SPAWN, Y), new Point(X_THIRD_SPAWN, Y)),
                 spawnGhost);
     }
