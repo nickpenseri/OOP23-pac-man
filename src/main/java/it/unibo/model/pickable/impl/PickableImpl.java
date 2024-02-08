@@ -15,6 +15,8 @@ import it.unibo.model.pickable.api.Pickable;
 public class PickableImpl implements Pickable {
     private final Point position;
     private final Dimension dimension;
+    private final Dimension collisionDimension;
+    private final Point collisionPoint;
     private final URL imageUrl = PickableImpl.class.getResource("/image/pickable/Pickable.png");
     static final int POINTS = 10;
 
@@ -27,6 +29,8 @@ public class PickableImpl implements Pickable {
     public PickableImpl(final Point position, final Dimension dimension) {
         this.position = new Point(position);
         this.dimension = new Dimension(dimension);
+        this.collisionDimension = new Dimension(dimension.width / 2, dimension.height / 2);
+        this.collisionPoint = new Point(position.x + collisionDimension.width / 2, position.y + collisionDimension.height / 2);
     }
 
     /**
@@ -67,5 +71,25 @@ public class PickableImpl implements Pickable {
     @Override
     public Dimension2D getDimension() {
         return (Dimension2D) dimension.clone();
+    }
+
+    /**
+     * Return the position of the pickable for collision.
+     * 
+     * @return the position of the pickable for collision.
+     */
+    @Override
+    public Dimension getCollisionDimension() {
+        return (Dimension) collisionDimension.clone();
+    }
+
+    /**
+     * Return the position of the pickable for collision.
+     * 
+     * @return the position of the pickable for collision.
+     */
+    @Override
+    public Point getCollisionPoint() {
+        return new Point(collisionPoint);
     }
 }
