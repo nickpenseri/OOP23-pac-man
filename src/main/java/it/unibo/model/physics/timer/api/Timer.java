@@ -11,8 +11,8 @@ public interface Timer {
      */
     boolean update(Long elapsedTime);
 
-    /** 
-     *@return if the timer is on
+    /**
+     * @return if the timer is on
      */
     boolean isOn();
 

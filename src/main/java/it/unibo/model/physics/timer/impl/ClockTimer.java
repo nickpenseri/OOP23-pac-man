@@ -1,15 +1,17 @@
 package it.unibo.model.physics.timer.impl;
 
 import it.unibo.model.physics.timer.api.Timer;
-public class ClockTimer implements Timer{
+
+/** implementation of a clock. */
+public class ClockTimer implements Timer {
 
     private final Timer timerOn;
     private final Timer timerOff;
 
     /**
-     * Creates a timer with the given duration.
+     * Creates a Clock with the given duration.
      * 
-     * @param duration the duration of the timer
+     * @param duration the duration of the Clock
      * @throws IllegalArgumentException if the duration is negative
      */
     public ClockTimer(final long duration) {
@@ -21,38 +23,38 @@ public class ClockTimer implements Timer{
     }
 
     /**
-     * {@ineritDoc}
+     * {@inheritDoc}
      * @throws IllegalArgumentException if the elapsed time is negative
      */
     @Override
-    public boolean update(Long elapsedTime) {
+    public boolean update(final Long elapsedTime) {
         if (elapsedTime < 0) {
             throw new IllegalArgumentException("Elapsed time cannot be negative");
         }
-       
-        if (timerOn.update(elapsedTime)) {
-            
-            if (timerOff.update(elapsedTime)) {
-                timerOn.reset();
-                timerOff.reset();
-            }
+        timerOn.update(elapsedTime);
+        if (timerOn.isOn() && timerOff.update(elapsedTime)) {
+            timerOn.reset();
+            timerOff.reset();
         }
-        
+
         return isOn();
     }
 
     /**
-     * {@ineritDoc}
+     * {@inheritDoc}
      */
     @Override
     public boolean isOn() {
         return timerOn.isOn();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reset() {
         timerOn.reset();
         timerOff.reset();
     }
-    
+
 }
