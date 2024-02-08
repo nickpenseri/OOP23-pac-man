@@ -7,6 +7,8 @@ import it.unibo.model.api.Direction;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostGraphics;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.physics.timer.api.Timer;
+import it.unibo.model.physics.timer.impl.ClockTimer;
 
 /**
  * This class represents an implementation of ImageChooser, which can be updated
@@ -30,6 +32,7 @@ public class GhostGraphicsImpl implements GhostGraphics {
     private final String dead;
     private boolean tailExtended;
     private GhostState state;
+    private final Timer clock = new ClockTimer(100);
 
     /**
      * Creates an object of this class which initial state is closed.
@@ -56,8 +59,8 @@ public class GhostGraphicsImpl implements GhostGraphics {
      * {@inheritDoc}
      */
     @Override
-    public void update() {
-        this.tailExtended = !this.tailExtended;
+    public void update(final long elapsedTime) {
+        this.tailExtended = clock.update(elapsedTime);
     }
 
     /**

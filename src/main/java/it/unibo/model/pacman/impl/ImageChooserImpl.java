@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.Optional;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.ImageChooser;
+import it.unibo.model.physics.timer.api.Timer;
+import it.unibo.model.physics.timer.impl.ClockTimer;
 
 /**
  * This class represents an implementation of ImageChooser, which can be updated
@@ -22,6 +24,7 @@ public class ImageChooserImpl implements ImageChooser {
     private static final String LEFT_OPEN = COMMON_NAME + "PacManLeft2.png";
     private static final String LEFT_CLOSED = COMMON_NAME + "PacManLeft.png";
     private boolean closed;
+    private final Timer clock = new ClockTimer(100);
 
     /**
      * Creates an object of this class which initial state is closed.
@@ -34,8 +37,8 @@ public class ImageChooserImpl implements ImageChooser {
      * {@inheritDoc}
      */
     @Override
-    public void update() {
-        this.closed = !this.closed;
+    public void update(final long elapsedTime) {
+        this.closed = clock.update(elapsedTime);
     }
 
     /**
