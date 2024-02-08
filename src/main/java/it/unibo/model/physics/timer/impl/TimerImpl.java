@@ -29,16 +29,25 @@ public class TimerImpl implements Timer {
      * @throws IllegalArgumentException if the elapsed time is negative
      */
     @Override
-    public boolean isOn(final Long elapsedTime) {
+    public boolean update(final Long elapsedTime) {
         if (elapsedTime < 0) {
             throw new IllegalArgumentException("Elapsed time cannot be negative");
         }
         currentTime += elapsedTime;
-        if (currentTime > 0) {
-            return currentTime >= duration;
-        }
-        return false;
+        return isOn();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isOn() {
+        if (currentTime == 0) {
+            return false;
+        }
+        return currentTime >= duration;
+    }
+
     /**
      * {@inheritDoc}
      */

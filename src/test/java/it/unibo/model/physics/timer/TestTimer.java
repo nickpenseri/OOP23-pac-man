@@ -18,13 +18,18 @@ class TestTimer {
     @Test
     void testTimer() {
         final Timer timer = new TimerImpl(DURATION);
-        assertTrue(timer.isOn(DURATION));
+        assertTrue(timer.update(DURATION));
+        assertTrue(timer.isOn());
         timer.reset();
-        assertFalse(timer.isOn(0L));
-        assertFalse(timer.isOn(HALF_DURATION));
-        assertTrue(timer.isOn(HALF_DURATION));
+        assertFalse(timer.update(0L));
+        assertFalse(timer.isOn());
+        assertFalse(timer.update(HALF_DURATION));
+        assertFalse(timer.isOn());
+        assertTrue(timer.update(HALF_DURATION));
+        assertTrue(timer.isOn());
         timer.reset();
-        assertTrue(timer.isOn(DURATION + 1));
+        assertTrue(timer.update(DURATION + 1));
+        assertTrue(timer.isOn());
     }
 
 }
