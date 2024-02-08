@@ -30,6 +30,13 @@ public class ClockTimer implements Timer{
             throw new IllegalArgumentException("Elapsed time cannot be negative");
         }
        
+        if (timerOn.update(elapsedTime)) {
+            
+            if (timerOff.update(elapsedTime)) {
+                timerOn.reset();
+                timerOff.reset();
+            }
+        }
         
         return isOn();
     }

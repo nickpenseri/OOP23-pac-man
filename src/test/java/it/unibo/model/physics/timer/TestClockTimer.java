@@ -38,14 +38,14 @@ class TestClockTimer {
         final Timer timer = new ClockTimer(DURATION);
         assertFalse(timer.update(DURATION-1));
         assertFalse(timer.isOn());
-        assertFalse(timer.update(1L));
-        assertFalse(timer.isOn());
-        assertFalse(timer.update(HALF_DURATION));
-        assertFalse(timer.isOn());
-        assertFalse(timer.update(HALF_DURATION -1));
-        assertFalse(timer.isOn());
         assertTrue(timer.update(1L));
         assertTrue(timer.isOn());
+        assertTrue(timer.update(HALF_DURATION));
+        assertTrue(timer.isOn());
+        assertTrue(timer.update(HALF_DURATION - 2));
+        assertTrue(timer.isOn());
+        assertFalse(timer.update(1L));
+        assertFalse(timer.isOn());
     }
 
 }
