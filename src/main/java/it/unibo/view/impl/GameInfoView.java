@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +60,10 @@ public class GameInfoView extends ViewImpl implements InfoView, Cloneable {
 
             SetupGraphics2D.setupGraphics2DStatic(g2, this.getWidth(), this.getHeight());
 
-            final var url = ClassLoader.getSystemResource("/image/life/Life.png").getPath();
+            final var url = GameInfoView.class.getResource("/image/life/Life.png");
             Image imgLife = null;
             try {
-                imgLife = ImageIO.read(new File(url)).getScaledInstance(singleDimension, singleDimension,
+                imgLife = ImageIO.read(url).getScaledInstance(singleDimension, singleDimension,
                         Image.SCALE_DEFAULT);
             } catch (IOException e) {
                 log.error("error during image reading" + e.getMessage());
