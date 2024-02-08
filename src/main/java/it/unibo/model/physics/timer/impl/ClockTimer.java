@@ -2,26 +2,24 @@ package it.unibo.model.physics.timer.impl;
 
 import it.unibo.model.physics.timer.api.Timer;
 
+/** implementation of a clock. */
+public class ClockTimer implements Timer {
 
-/**
- * This class models a timer.
- */
-public class TimerImpl implements Timer {
-
-    private final long duration;
-    private long currentTime;
+    private final Timer timerOn;
+    private final Timer timerOff;
 
     /**
-     * Creates a timer with the given duration.
+     * Creates a Clock with the given duration.
      * 
-     * @param duration the duration of the timer
+     * @param duration the duration of the Clock
      * @throws IllegalArgumentException if the duration is negative
      */
-    public TimerImpl(final long duration) {
+    public ClockTimer(final long duration) {
         if (duration < 0) {
             throw new IllegalArgumentException("Duration cannot be negative");
         }
-        this.duration = duration;
+        timerOn = new TimerImpl(duration);
+        timerOff = new TimerImpl(duration);
     }
 
     /**
@@ -33,7 +31,12 @@ public class TimerImpl implements Timer {
         if (elapsedTime < 0) {
             throw new IllegalArgumentException("Elapsed time cannot be negative");
         }
-        currentTime += elapsedTime;
+        timerOn.update(elapsedTime);
+        if (timerOn.isOn() && timerOff.update(elapsedTime)) {
+            timerOn.reset();
+            timerOff.reset();
+        }
+
         return isOn();
     }
 
@@ -42,10 +45,7 @@ public class TimerImpl implements Timer {
      */
     @Override
     public boolean isOn() {
-        if (currentTime == 0) {
-            return false;
-        }
-        return currentTime >= duration;
+        return timerOn.isOn();
     }
 
     /**
@@ -53,6 +53,8 @@ public class TimerImpl implements Timer {
      */
     @Override
     public void reset() {
-        currentTime = 0;
+        timerOn.reset();
+        timerOff.reset();
     }
+
 }
