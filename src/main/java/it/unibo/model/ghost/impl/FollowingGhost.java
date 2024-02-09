@@ -6,16 +6,23 @@ import java.net.URL;
 import java.util.Optional;
 
 import it.unibo.model.api.Direction;
+import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 
 public class FollowingGhost implements Ghost{
 
     final private Ghost ghost;
+    final private DirectionSelector directionSelector;
+    final private GameObject target;
     private GhostState state = GhostState.NORMAL;
 
-    public FollowingGhost(Ghost ghost) {
+    public FollowingGhost(Ghost ghost, DirectionSelector directionSelector, GameObject target) {
         this.ghost = ghost;
+        this.directionSelector = directionSelector;
+        this.target = target;
+
     }
 
     @Override
@@ -31,6 +38,12 @@ public class FollowingGhost implements Ghost{
     @Override
     public GhostState getState() {
         return ghost.getState();
+    }
+
+    @Override
+    public void updateState(long elapsed) {
+        ghost.setState(this.state);
+        directionSelector.setDirection(ghost, target, elapsed);
     }
 
     @Override
@@ -68,11 +81,6 @@ public class FollowingGhost implements Ghost{
         ghost.resetDirection();
     }
 
-    @Override
-    public void updateState(long elapsed) {
-        ghost.setState(this.state);
-        ghost.updateState(elapsed);
-    }
 
     @Override
     public Point getPosition() {

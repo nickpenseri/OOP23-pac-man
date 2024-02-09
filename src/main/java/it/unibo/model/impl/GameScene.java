@@ -16,6 +16,7 @@ import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.ghost.impl.FollowingGhost;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
@@ -90,16 +91,18 @@ public class GameScene implements Model {
         final var objectsMap = mapBuilder.getObjectsMap();
 
         final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.RED);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.BLUE);
-        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK);
-        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.ORANGE);
-        this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
         directionSelector = new GraphDirectionSelector(graph);
         directionSelector2 = new GraphDirectionSelector(graph);
         directionSelector3 = new GraphDirectionSelector(graph);
         directionSelector4 = new GraphDirectionSelector(graph);
         cammini = new ArrayList<>(graph.vertexSet());
+
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.RED);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.BLUE);
+        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK);
+        ghost4 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.ORANGE),directionSelector4 ,pacman);
+        this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
+    
 
         final CollisionCheckerFactory factory = new CollisionCheckerFactoryImpl();
         this.checker = factory.gameObjectChecker();
@@ -164,10 +167,10 @@ public class GameScene implements Model {
         ghost.setState(GhostState.NORMAL);
         directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
         directionSelector3.setDirection(ghost3, pacman, elapsed);
-        directionSelector4.setDirection(ghost4, pacman, elapsed);
         ghost2.setState(GhostState.NORMAL);
+        ghost4.updateState(elapsed);
         pickUp();
-    }
+    }   
 
     private void pickUp() {
         pickableGenerator.getPickableList().forEach(pickable -> {
