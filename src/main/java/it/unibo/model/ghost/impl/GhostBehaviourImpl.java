@@ -48,6 +48,7 @@ public class GhostBehaviourImpl implements GhostBehaviour {
      */
     @Override
     public boolean normalBehaviour(final Ghost character, final long elapsed) {
+        timer.reset();
         directionSelector.setDirection(character, normalTarget, elapsed);
         return false;
     }
@@ -57,6 +58,7 @@ public class GhostBehaviourImpl implements GhostBehaviour {
      */
     @Override
     public boolean deadBehaviour(final Ghost character, final long elapsed) {
+        timer.reset();
         directionSelector.setDirection(character, deadTarget, elapsed);
         return approximator.isPositionCloseEnough(character, deadTarget, 2.0);
     }
@@ -79,6 +81,7 @@ public class GhostBehaviourImpl implements GhostBehaviour {
      */
     @Override
     public void resetBehaviour() {
+        timer.reset();
         directionSelector.reset();
     }
 }

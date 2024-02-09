@@ -122,6 +122,7 @@ public class FollowingGhost implements Ghost {
      */
     @Override
     public void setPosition(final Point position) {
+        setState(GhostState.NORMAL);
         ghost.setPosition(position);
         behaviour.resetBehaviour();
     }
