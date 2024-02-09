@@ -46,7 +46,6 @@ public class GameScene implements Model {
     private final DirectionSelector directionSelector2;
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
-    private static final int SPEED = 100;
 
     /**
      * Constructor of a generic scene.
@@ -79,7 +78,6 @@ public class GameScene implements Model {
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
         this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
-                SPEED,
                 3,
                 mapBuilder.getWallsPath());
         // final List<GameObject> pacMan = new ArrayList<>();
@@ -88,8 +86,8 @@ public class GameScene implements Model {
         final var objectsMap = mapBuilder.getObjectsMap();
 
         final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), SPEED, GhostColor.RED);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), SPEED, GhostColor.BLUE);
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.RED);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.BLUE);
         this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
         directionSelector = new GraphDirectionSelector(graph);
         directionSelector2 = new GraphDirectionSelector(graph);
