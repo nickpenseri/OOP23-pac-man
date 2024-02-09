@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,19 +56,5 @@ class FearGhostTest {
         for (final Ghost ghost : ghosts) {
             assertEquals(ghost.getState(), GhostState.SCARED);
         }
-
-        final TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                for (final Ghost ghost : ghosts) {
-                    assertEquals(ghost.getState(), GhostState.NORMAL);
-                }
-            }
-        };
-
-        /*
-         * Create new Timer and Schedule the task to check status after 11 seconds
-         */
-        new Timer().schedule(task, DELAY);
     }
 }
