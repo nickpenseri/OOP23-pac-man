@@ -7,11 +7,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 import it.unibo.model.api.Direction;
-import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostState;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 
 public class FollowingGhost implements Ghost{
 
@@ -33,6 +31,8 @@ public class FollowingGhost implements Ghost{
     @Override
     public void setState(GhostState state) {
       this.state = state;
+      ghost.setState(this.state);
+      System.out.println("State: " + state);
     }   
 
     @Override
@@ -48,10 +48,15 @@ public class FollowingGhost implements Ghost{
                 behaviour.normalBehaviour(ghost, elapsed);
                 break;
             case DEAD:
-                behaviour.deadBehaviour(ghost, elapsed);
+                if (behaviour.deadBehaviour(ghost, elapsed)){
+                    setState(GhostState.NORMAL);
+                }
+
                 break;
             case SCARED:
-                behaviour.scaredBehaviour(ghost, elapsed);
+                if (behaviour.scaredBehaviour(ghost, elapsed)){
+                    setState(GhostState.NORMAL);
+                }
                 break;
             default:
                 break;

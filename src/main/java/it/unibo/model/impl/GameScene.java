@@ -53,7 +53,7 @@ public class GameScene implements Model {
     private final DirectionSelector directionSelector2;
     private final DirectionSelector directionSelector3;
     private final DirectionSelector directionSelector4;
-    private final Timer timer = new TimerImpl(10000);
+    private final Timer timer = new TimerImpl(5000);
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
 
@@ -178,8 +178,12 @@ public class GameScene implements Model {
         ghost4.updateState(elapsed);
         ghost3.updateState(elapsed);
         ghost.updateState(elapsed);
-        if (timer.update(elapsed)){
+        if (!timer.isOn() && timer.update(elapsed)){
             ghost2.setState(GhostState.DEAD);
+            ghost3.setState(GhostState.SCARED);
+            ghost4.setState(GhostState.SCARED);
+            ghost.setState(GhostState.SCARED);
+            System.out.println("dead2");
         }
         ghost2.updateState(elapsed);
         pickUp();
