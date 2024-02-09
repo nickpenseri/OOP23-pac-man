@@ -15,7 +15,7 @@ import it.unibo.model.pacman.api.PacMan;
  * ghosts for 10 seconds.
  */
 public class MalusSpeedGhost extends EffectPickableImpl {
-    private static final String EFFECT_STRING = "The ghosts are scared for 10 seconds!";
+    private static final String EFFECT_STRING = "The ghosts are slower for 10 seconds!";
     private static final int DELAY = 10_000;
 
     /**
