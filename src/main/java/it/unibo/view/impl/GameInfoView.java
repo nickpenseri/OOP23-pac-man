@@ -8,6 +8,9 @@ import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -20,10 +23,13 @@ import it.unibo.view.api.InfoView;
  * Swing Implementation of View Interface for life and score.
  */
 public class GameInfoView extends ViewImpl implements InfoView, Cloneable {
-    static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private int singleDimension;
     private final List<Integer> pacmanInfo = new ArrayList<>();
     private final transient Logger log = LoggerFactory.getLogger(ViewImpl.class);
+    private final List<String> effectText = new ArrayList<>();
+    private static final int DELAY = 3_000;
+    private static final int OFFSET_EFFECT_TEXT = 10;
 
     /**
      * Constructor of the GameInfoView.
@@ -34,6 +40,7 @@ public class GameInfoView extends ViewImpl implements InfoView, Cloneable {
 
     /**
      * Set the dimension of the image.
+     * 
      * @param dim the dimension of image.
      */
     public void setImageDim(final Dimension dim) {
@@ -45,9 +52,14 @@ public class GameInfoView extends ViewImpl implements InfoView, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public final void updateView(final List<Integer> info) {
+    public final void updateView(final List<Integer> info, final Optional<String> s) {
         this.pacmanInfo.clear();
         this.pacmanInfo.addAll(info);
+        if (s != null && s.isPresent()) {
+            effectText.clear();
+            effectText.add(s.orElse(""));
+            resetText();
+        }
     }
 
     /**
@@ -73,9 +85,28 @@ public class GameInfoView extends ViewImpl implements InfoView, Cloneable {
                 g2.drawImage(imgLife, 0 + i * singleDimension, singleDimension / 2, this);
             }
             g2.setColor(Color.WHITE);
-            g2.drawString("Score: " + this.pacmanInfo.get(1), singleDimension * lifenum,
+            g2.drawString("Score: " + this.pacmanInfo.get(1), singleDimension * lifenum + 1,
                     singleDimension);
+            if (!effectText.isEmpty()) {
+                final String text = this.effectText.get(0);
+                g2.drawString(text, singleDimension * lifenum + OFFSET_EFFECT_TEXT, singleDimension * 2);
+            }
         }
+    }
+
+    private void resetText() {
+        final TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                // Do the action to decrease the speed
+                effectText.clear();
+            }
+        };
+
+        /*
+         * Create new Timer and Schedule the task to reset the text after DELAY seconds
+         */
+        new Timer().schedule(task, DELAY);
     }
 
     /**

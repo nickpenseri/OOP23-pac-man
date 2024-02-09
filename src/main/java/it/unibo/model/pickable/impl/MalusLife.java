@@ -2,6 +2,7 @@ package it.unibo.model.pickable.impl;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Optional;
 import java.util.List;
 
 import it.unibo.model.pacman.api.PacMan;
@@ -13,6 +14,7 @@ import it.unibo.model.ghost.api.Ghost;
  * points.
  */
 public class MalusLife extends EffectPickableImpl {
+    private static final String EFFECT_STRING = "You have lost a life!";
 
     /**
      * Constructor of the MalusLife.
@@ -33,5 +35,14 @@ public class MalusLife extends EffectPickableImpl {
     @Override
     public void doEffect(final PacMan pacman, final List<Ghost> ghosts) {
         pacman.removeLife();
+    }
+
+    /**
+     * Get the effect text.
+     * @return the effect text.
+     */
+    @Override
+    public Optional<String> getEffectText() {
+        return Optional.of(EFFECT_STRING);
     }
 }

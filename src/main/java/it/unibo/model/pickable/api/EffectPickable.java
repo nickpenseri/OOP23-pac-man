@@ -1,6 +1,7 @@
 package it.unibo.model.pickable.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.ghost.api.Ghost;
@@ -14,4 +15,11 @@ public interface EffectPickable extends Pickable {
      * @param ghosts the list of ghosts that will be affected by the effect.
      */
     void doEffect(PacMan pacman, List<Ghost> ghosts);
+
+    /**
+     * Get the effect text of the pickable item.
+     * 
+     * @return the effect text of the pickable item.
+     */
+    Optional<String> getEffectText();
 }

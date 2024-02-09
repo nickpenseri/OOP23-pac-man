@@ -3,6 +3,8 @@ package it.unibo.controller.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
 import it.unibo.controller.api.Controller;
 import it.unibo.model.api.Model;
 import it.unibo.view.api.GameView;
@@ -53,7 +55,8 @@ public class ControllerImplGame implements Controller {
         final List<Integer> pacmanInfo = new ArrayList<>();
         pacmanInfo.add(model.getPacManLifes());
         pacmanInfo.add(model.getPacManScores());
-        gameViewInfo.updateView(pacmanInfo);
+        final Optional<String> effectText = model.getEffectText();
+        gameViewInfo.updateView(pacmanInfo, effectText);
     }
 
 }

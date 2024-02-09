@@ -3,6 +3,7 @@ package it.unibo.model.pickable.api;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.pacman.api.PacMan;
@@ -30,8 +31,9 @@ public interface PickableGenerator {
      * @param point  is the point where the pickable is.
      * @param pacman is the pacman that take the pickable.
      * @param ghosts is the list of ghosts that take the pickable.
+     * @return the effect text of the pickable.
      */
-    void takePickable(Point point, PacMan pacman, List<Ghost> ghosts);
+    Optional<String> takePickable(Point point, PacMan pacman, List<Ghost> ghosts);
 
     /**
      * Is for know if the pickable is finished.

@@ -2,6 +2,7 @@ package it.unibo.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
@@ -47,6 +48,7 @@ public class GameScene implements Model {
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
     private static final int SPEED = 100;
+    private Optional<String> effectText;
 
     /**
      * Constructor of a generic scene.
@@ -164,7 +166,7 @@ public class GameScene implements Model {
     private void pickUp() {
         pickableGenerator.getPickableList().forEach(pickable -> {
             if (checker.areColliding(pickable, pacman)) {
-                pickableGenerator.takePickable(pickable.getPosition(), pacman, List.of(ghost, ghost2));
+                effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman, List.of(ghost, ghost2));
             }
         });
     }
@@ -191,6 +193,14 @@ public class GameScene implements Model {
     @Override
     public int getPacManScores() {
         return pacman.getPoints();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<String> getEffectText() {
+        return effectText;
     }
 
 }
