@@ -18,6 +18,7 @@ import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.ghost.impl.GhostBehaviourImpl;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
@@ -28,8 +29,8 @@ import it.unibo.model.map.impl.MapSelectorImpl;
 import it.unibo.model.physics.collisions.api.CollisionChecker;
 import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
+import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
 
@@ -149,10 +150,16 @@ public class GameScene implements Model {
 
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
-        directionSelector.setDirection(ghost, pacman, elapsed);
-        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
-        directionSelector3.setDirection(ghost3, pacman, elapsed);
-        directionSelector4.setDirection(ghost4, pacman, elapsed);
+        ghost4.updateState(elapsed);
+        ghost3.updateState(elapsed);
+        ghost.updateState(elapsed);
+        if (!timer.isOn() && timer.update(elapsed)) {
+            ghost2.setState(GhostState.DEAD);
+            ghost3.setState(GhostState.SCARED);
+            ghost4.setState(GhostState.SCARED);
+            ghost.setState(GhostState.SCARED);
+        }
+        ghost2.updateState(elapsed);
         pickUp();
         ghostCollision();
         finishedLevel();
@@ -213,7 +220,7 @@ public class GameScene implements Model {
                     pacman.respawn(mapBuilder.getPacManSpawn());
                     for (final Ghost g : ghosts) {
                         g.setPosition(
-                                mapBuilder.getSpawnGhost().get(random.nextInt(mapBuilder.getSpawnGhost().size())));
+                                mapBuilder.getSpawnGhost().get(random.nextInt(mapBuilder.getSpawnGhost().size())).getPosition());
                     }
                 } else if (ghost.getState().equals(GhostState.SCARED)) {
                     ghost.setState(GhostState.DEAD);
