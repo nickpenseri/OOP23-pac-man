@@ -12,6 +12,7 @@ import it.unibo.model.ghost.api.GhostState;
 public class FollowingGhost implements Ghost{
 
     final private Ghost ghost;
+    private GhostState state = GhostState.NORMAL;
 
     public FollowingGhost(Ghost ghost) {
         this.ghost = ghost;
@@ -24,7 +25,7 @@ public class FollowingGhost implements Ghost{
 
     @Override
     public void setState(GhostState state) {
-      ghost.setState(state);
+      this.state = state;
     }   
 
     @Override
@@ -69,6 +70,7 @@ public class FollowingGhost implements Ghost{
 
     @Override
     public void updateState(long elapsed) {
+        ghost.setState(this.state);
         ghost.updateState(elapsed);
     }
 
