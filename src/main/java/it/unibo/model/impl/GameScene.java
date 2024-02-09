@@ -31,6 +31,8 @@ import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
+import it.unibo.model.physics.timer.api.Timer;
+import it.unibo.model.physics.timer.impl.TimerImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
 
@@ -51,6 +53,7 @@ public class GameScene implements Model {
     private final DirectionSelector directionSelector2;
     private final DirectionSelector directionSelector3;
     private final DirectionSelector directionSelector4;
+    private final Timer timer = new TimerImpl(10000);
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
 
@@ -175,7 +178,9 @@ public class GameScene implements Model {
         ghost4.updateState(elapsed);
         ghost3.updateState(elapsed);
         ghost.updateState(elapsed);
-      
+        if (timer.update(elapsed)){
+            ghost2.setState(GhostState.DEAD);
+        }
         ghost2.updateState(elapsed);
         pickUp();
     }   
