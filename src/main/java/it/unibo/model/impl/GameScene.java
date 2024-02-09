@@ -30,7 +30,7 @@ import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
-import it.unibo.model.pacman.api.PacMan;
+import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
 
 /** Basic Implementation of a model of a scene. */
@@ -39,22 +39,25 @@ public class GameScene implements Model {
     private static final int GHOST_DEATH_POINTS = 200;
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
-    private final PacMan pacman;
-    private final PickableGenerator pickableGenerator;
+    private final GamePacMan pacman;
+    private PickableGenerator pickableGenerator;
     private final CollisionChecker<GameObject> checker;
     // private final GameObjectImpl[][] objectsMap;
-    private final Ghost ghost;
-    private final Ghost ghost2;
-    private final Ghost ghost3;
-    private final Ghost ghost4;
-    private final DirectionSelector directionSelector;
-    private final DirectionSelector directionSelector2;
-    private final DirectionSelector directionSelector3;
-    private final DirectionSelector directionSelector4;
-    private final List<GameObject> cammini;
+    private Ghost ghost;
+    private Ghost ghost2;
+    private Ghost ghost3;
+    private Ghost ghost4;
+    private DirectionSelector directionSelector;
+    private DirectionSelector directionSelector2;
+    private DirectionSelector directionSelector3;
+    private DirectionSelector directionSelector4;
+    private List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
     private Optional<String> effectText;
-    private final MapBuilder mapBuilder;
+    private MapBuilder mapBuilder;
+    private final MapSelector mapChooser;
+    private MapReader map;
+    private final GameObjectFactory gameObjectFactory;
     private final Random random;
 
     /**
@@ -71,45 +74,24 @@ public class GameScene implements Model {
 
         this.gameObjects = new ArrayList<>();
         // dimension = new Dimension(width, height);
-        final MapSelector mapChooser = new MapSelectorImpl();
+        mapChooser = new MapSelectorImpl();
         // Creo il mapReader passandogli la mappa
-        final MapReader map = new MapReaderImpl(mapChooser.getMapName());
 
-        final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
+        map = new MapReaderImpl(mapChooser.getMapName());
+
+        gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
         // Creo il mapBuilder con la mappa che ha letto il mapReader
         mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
-        final List<GameObject> walls = mapBuilder.getWallsPath();
-        this.gameObjects.add(walls);
-
-        // Creao il pickable generator e creo la mappa dei pickable
-        pickableGenerator = gameObjectFactory.createPickableGenerator(mapBuilder.getSpawnCollectibleItems());
-        final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
-        // Prendo la mappa dei pickable dal pickableGenerator
-        this.gameObjects.add(pickable);
         this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
                 3,
                 mapBuilder.getWallsPath());
-        // final List<GameObject> pacMan = new ArrayList<>();
-        // pacMan.add(pacman);
         this.gameObjects.add(new ArrayList<>(List.of(pacman)));
-        final var objectsMap = mapBuilder.getObjectsMap();
-
-        final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.RED);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.BLUE);
-        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK);
-        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.ORANGE);
-        this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
-        directionSelector = new GraphDirectionSelector(graph);
-        directionSelector2 = new GraphDirectionSelector(graph);
-        directionSelector3 = new GraphDirectionSelector(graph);
-        directionSelector4 = new GraphDirectionSelector(graph);
-        cammini = new ArrayList<>(graph.vertexSet());
 
         final CollisionCheckerFactory factory = new CollisionCheckerFactoryImpl();
         this.checker = factory.gameObjectChecker();
         this.random = new Random();
+        initializeMap();
     }
 
     /**
@@ -173,6 +155,44 @@ public class GameScene implements Model {
         directionSelector4.setDirection(ghost4, pacman, elapsed);
         pickUp();
         ghostCollision();
+        finishedLevel();
+    }
+
+    private void finishedLevel() {
+        if (pickableGenerator.finishedPickable()) {
+            initializeMap();
+        }
+    }
+
+    private void initializeMap() {
+        map = new MapReaderImpl(mapChooser.getMapName());
+        // Creo il mapBuilder con la mappa che ha letto il mapReader
+        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
+        final List<GameObject> walls = mapBuilder.getWallsPath();
+        gameObjects.clear();
+        this.gameObjects.add(walls);
+
+        pickableGenerator = gameObjectFactory.createPickableGenerator(mapBuilder.getSpawnCollectibleItems());
+        final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
+        // Prendo la mappa dei pickable dal pickableGenerator
+        this.gameObjects.add(pickable);
+        this.pacman.changeMap(walls, mapBuilder.getPacManSpawn());
+
+        this.gameObjects.add(new ArrayList<>(List.of(pacman)));
+        final var objectsMap = mapBuilder.getObjectsMap();
+
+        final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.RED);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.BLUE);
+        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK);
+        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.ORANGE);
+        this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4)));
+
+        directionSelector = new GraphDirectionSelector(graph);
+        directionSelector2 = new GraphDirectionSelector(graph);
+        directionSelector3 = new GraphDirectionSelector(graph);
+        directionSelector4 = new GraphDirectionSelector(graph);
+        cammini = new ArrayList<>(graph.vertexSet());
     }
 
     private void pickUp() {
@@ -209,7 +229,7 @@ public class GameScene implements Model {
      */
     @Override
     public boolean isSceneOver() {
-        return false;
+        return this.pacman.getRemainingLives() <= 0;
     }
 
     /**
