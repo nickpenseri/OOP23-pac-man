@@ -24,7 +24,6 @@ public class GhostImpl extends CharacterImpl implements Ghost {
 
     private final GhostGraphics imagePack;
     private GhostState state;
-   
     /**
      * Creates a ghost.
      * @param initialPos the initial position of the ghost
