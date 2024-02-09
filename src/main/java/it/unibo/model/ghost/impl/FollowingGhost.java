@@ -3,25 +3,25 @@ package it.unibo.model.ghost.impl;
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 
 public class FollowingGhost implements Ghost{
 
     final private Ghost ghost;
-    final private DirectionSelector directionSelector;
-    final private GameObject target;
     private GhostState state = GhostState.NORMAL;
+    final private GhostBehaviour behaviour;
 
-    public FollowingGhost(Ghost ghost, DirectionSelector directionSelector, GameObject target) {
+    public FollowingGhost(Ghost ghost, GhostBehaviour behaviour) {
         this.ghost = ghost;
-        this.directionSelector = directionSelector;
-        this.target = target;
+        this.behaviour = Objects.requireNonNull(behaviour);
 
     }
 
@@ -43,7 +43,19 @@ public class FollowingGhost implements Ghost{
     @Override
     public void updateState(long elapsed) {
         ghost.setState(this.state);
-        directionSelector.setDirection(ghost, target, elapsed);
+        switch (state) {
+            case NORMAL:
+                behaviour.normalBehaviour(ghost, elapsed);
+                break;
+            case DEAD:
+                behaviour.deadBehaviour(ghost, elapsed);
+                break;
+            case SCARED:
+                behaviour.scaredBehaviour(ghost, elapsed);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

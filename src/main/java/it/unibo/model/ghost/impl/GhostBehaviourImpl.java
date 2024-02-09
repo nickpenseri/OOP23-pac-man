@@ -7,14 +7,14 @@ import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.api.Character;
 
-public class GhostBehaviuorImpl implements GhostBehaviour{
+public class GhostBehaviourImpl implements GhostBehaviour{
 
     final private DirectionSelector directionSelector;
     final private GameObject normalTarget;
     final private GameObject deadTarget;
     final private GameObject scaredTarget;
 
-    public GhostBehaviuorImpl(DirectionSelector directionSelector, GameObject normalTarget, GameObject deadTarget, GameObject scaredTarget) {
+    public GhostBehaviourImpl(DirectionSelector directionSelector, GameObject normalTarget, GameObject deadTarget, GameObject scaredTarget) {
         this.directionSelector = Objects.requireNonNull(directionSelector);
         this.normalTarget = Objects.requireNonNull(normalTarget);
         this.deadTarget = Objects.requireNonNull(deadTarget);

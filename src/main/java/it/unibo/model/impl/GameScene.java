@@ -14,9 +14,11 @@ import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.ghost.impl.FollowingGhost;
+import it.unibo.model.ghost.impl.GhostBehaviourImpl;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
@@ -97,10 +99,15 @@ public class GameScene implements Model {
         directionSelector4 = new GraphDirectionSelector(graph);
         cammini = new ArrayList<>(graph.vertexSet());
 
-        ghost = new FollowingGhost(gameObjectFactory.createGhost(cammini.get(0).getPosition(), GhostColor.RED),directionSelector ,pacman);
-        ghost2 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.BLUE),directionSelector2 ,pacman);
-        ghost3 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK),directionSelector3 ,pacman);
-        ghost4 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.ORANGE),directionSelector4 ,pacman);
+        GhostBehaviour behaviour = new GhostBehaviourImpl(directionSelector, pacman, pacman, pacman);
+        GhostBehaviour behaviour2 = new GhostBehaviourImpl(directionSelector2, pacman, pacman, pacman);
+        GhostBehaviour behaviour3 = new GhostBehaviourImpl(directionSelector3, pacman, pacman, pacman);
+        GhostBehaviour behaviour4 = new GhostBehaviourImpl(directionSelector4, pacman, pacman, pacman);
+
+        ghost = new FollowingGhost(gameObjectFactory.createGhost(cammini.get(0).getPosition(), GhostColor.RED),behaviour);
+        ghost2 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.BLUE) ,behaviour2);
+        ghost3 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK),behaviour3);
+        ghost4 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.ORANGE), behaviour4);
         this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
     
 
