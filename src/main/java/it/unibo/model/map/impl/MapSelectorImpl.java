@@ -39,7 +39,7 @@ public class MapSelectorImpl implements MapSelector {
                     this.checkList.add(true);
                 }
             }
-            final int index = this.rand.nextInt(this.mapList.size() - 1);
+            final int index = this.rand.nextInt(this.mapList.size());
             if (this.checkList.get(index).equals(true)) {
                 this.checkList.add(index, false);
                 return this.mapList.get(index);
