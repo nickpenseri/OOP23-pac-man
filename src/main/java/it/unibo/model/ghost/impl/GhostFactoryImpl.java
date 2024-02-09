@@ -40,8 +40,8 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createRedGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
-        Ghost ghost = createRedGhost(pos, initialSpeed);
-        return new FollowingGhost( ghost, behaviour);
+        final Ghost ghost = createRedGhost(pos, initialSpeed);
+        return new FollowingGhost(ghost, behaviour);
     }
 
     /**
@@ -57,8 +57,8 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createBlueGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
-        Ghost ghost = createBlueGhost(pos, initialSpeed);
-        return new FollowingGhost( ghost, behaviour);
+        final Ghost ghost = createBlueGhost(pos, initialSpeed);
+        return new FollowingGhost(ghost, behaviour);
     }
 
     /**
@@ -74,8 +74,8 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createPinkGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
-        Ghost ghost = createPinkGhost(pos, initialSpeed);
-        return new FollowingGhost( ghost, behaviour);
+        final Ghost ghost = createPinkGhost(pos, initialSpeed);
+        return new FollowingGhost(ghost, behaviour);
     }
 
     /**
@@ -91,7 +91,7 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createOrangeGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
-        Ghost ghost = createOrangeGhost(pos, initialSpeed);
-        return new FollowingGhost( ghost, behaviour);
+        final Ghost ghost = createOrangeGhost(pos, initialSpeed);
+        return new FollowingGhost(ghost, behaviour);
     }
 }

@@ -84,7 +84,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createGhost(final Point position, final GhostColor color, GhostBehaviour behaviour) {
+    public Ghost createGhost(final Point position, final GhostColor color, final GhostBehaviour behaviour) {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:

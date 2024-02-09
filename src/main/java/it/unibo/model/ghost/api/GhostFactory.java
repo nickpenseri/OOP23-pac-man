@@ -30,7 +30,6 @@ public interface GhostFactory {
      * @return the new ghost
      */
     Ghost createBlueGhost(Point pos, double initialSpeed);
-    
 
     /**
      * Create a new blue ghost with a specific behaviour.
@@ -49,7 +48,6 @@ public interface GhostFactory {
      */
     Ghost createPinkGhost(Point pos, double initialSpeed);
 
-
     /**
      * Create a new pink ghost with a specific behaviour.
      * @param pos the position of the ghost
@@ -60,7 +58,7 @@ public interface GhostFactory {
     Ghost createPinkGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
 
     /**
-     * Create a new orange ghost
+     * Create a new orange ghost.
      * @param pos the position of the ghost
      * @param initialSpeed the initial speed of the ghost
      * @return the new ghost
