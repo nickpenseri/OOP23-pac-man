@@ -42,7 +42,7 @@ public class GameScene implements Model {
     // private final GameObjectImpl[][] objectsMap;
     private final Ghost ghost;
     private final Ghost ghost2;
-    private final Ghost ghost3; 
+    private final Ghost ghost3;
     private final Ghost ghost4;
     private final DirectionSelector directionSelector;
     private final DirectionSelector directionSelector2;
@@ -171,7 +171,8 @@ public class GameScene implements Model {
     private void pickUp() {
         pickableGenerator.getPickableList().forEach(pickable -> {
             if (checker.areColliding(pickable, pacman)) {
-                effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman, List.of(ghost, ghost2, ghost3, ghost4));
+                effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
+                        List.of(ghost, ghost2, ghost3, ghost4));
             }
         });
     }
