@@ -16,7 +16,6 @@ import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
-import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
@@ -43,11 +42,14 @@ public class GameScene implements Model {
     // private final GameObjectImpl[][] objectsMap;
     private final Ghost ghost;
     private final Ghost ghost2;
+    private final Ghost ghost3; 
+    private final Ghost ghost4;
     private final DirectionSelector directionSelector;
     private final DirectionSelector directionSelector2;
+    private final DirectionSelector directionSelector3;
+    private final DirectionSelector directionSelector4;
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
-    private static final int SPEED = 100;
     private Optional<String> effectText;
 
     /**
@@ -81,7 +83,6 @@ public class GameScene implements Model {
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
         this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
-                SPEED,
                 3,
                 mapBuilder.getWallsPath());
         // final List<GameObject> pacMan = new ArrayList<>();
@@ -90,11 +91,15 @@ public class GameScene implements Model {
         final var objectsMap = mapBuilder.getObjectsMap();
 
         final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), SPEED, GhostColor.RED);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), SPEED, GhostColor.BLUE);
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.RED);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.BLUE);
+        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK);
+        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.ORANGE);
         this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
         directionSelector = new GraphDirectionSelector(graph);
         directionSelector2 = new GraphDirectionSelector(graph);
+        directionSelector3 = new GraphDirectionSelector(graph);
+        directionSelector4 = new GraphDirectionSelector(graph);
         cammini = new ArrayList<>(graph.vertexSet());
 
         final CollisionCheckerFactory factory = new CollisionCheckerFactoryImpl();
@@ -111,7 +116,7 @@ public class GameScene implements Model {
         gameObjects.get(2).clear();
         gameObjects.get(2).addAll(new ArrayList<>(List.of(pacman)));
         gameObjects.get(3).clear();
-        gameObjects.get(3).addAll(new ArrayList<>(List.of(ghost, ghost2)));
+        gameObjects.get(3).addAll(new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4)));
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
             gameObjectsFlat.addAll(list);
@@ -157,16 +162,16 @@ public class GameScene implements Model {
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
         directionSelector.setDirection(ghost, pacman, elapsed);
-        ghost.setState(GhostState.NORMAL);
         directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
-        ghost2.setState(GhostState.NORMAL);
+        directionSelector3.setDirection(ghost3, pacman, elapsed);
+        directionSelector4.setDirection(ghost4, pacman, elapsed);
         pickUp();
     }
 
     private void pickUp() {
         pickableGenerator.getPickableList().forEach(pickable -> {
             if (checker.areColliding(pickable, pacman)) {
-                effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman, List.of(ghost, ghost2));
+                effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman, List.of(ghost, ghost2, ghost3, ghost4));
             }
         });
     }

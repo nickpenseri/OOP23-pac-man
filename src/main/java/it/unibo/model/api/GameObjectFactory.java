@@ -28,22 +28,20 @@ public interface GameObjectFactory {
      * creates a ghost with the given parameters.
      * 
      * @param position the position of the ghost
-     * @param speed    the speed of the ghost
      * @param color    the color of the ghost
      * @return the created ghost
      */
-    Ghost createGhost(Point position, double speed, GhostColor color);
+    Ghost createGhost(Point position, GhostColor color);
 
     /**
      * Creates a pacman object ready for the game.
      * 
      * @param position      the position of pacman
-     * @param speed         the base speed of pacman
      * @param startingLives the initial number of lives
      * @param walls         the list of walls
      * @return the created pac-man
      */
-    PacMan createPacMan(Point position, double speed, int startingLives, List<GameObject> walls);
+    PacMan createPacMan(Point position, int startingLives, List<GameObject> walls);
 
     /**
      * Creates the pickable object with the given effect.
