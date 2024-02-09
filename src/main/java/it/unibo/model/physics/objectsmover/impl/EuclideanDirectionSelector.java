@@ -45,6 +45,6 @@ import it.unibo.model.physics.objectsmover.api.PositionApproximator;
      * {@inheritDoc}
      */
     @Override
-    public void reset() {}
+    public void reset() { }
 }
  
