@@ -30,8 +30,6 @@ import it.unibo.model.physics.collisions.api.CollisionChecker;
 import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
-import it.unibo.model.physics.timer.api.Timer;
-import it.unibo.model.physics.timer.impl.TimerImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
 
