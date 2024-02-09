@@ -44,13 +44,13 @@ public class PickableGeneratorImpl implements PickableGenerator {
                 final EffectChose effect = EffectChose.values()[(int) doubleRandomNumberForEffectChose];
                 switch (effect) {
                     case BONUS_LIFE:
-                        pickableMap.put(point, new BonusLife(point, dimension));
+                        pickableMap.put(point, new FearGhost(point, dimension));
                         break;
                     case BONUS_POINTS:
-                        pickableMap.put(point, new BonusPoints(point, dimension));
+                        pickableMap.put(point,new FearGhost(point, dimension));
                         break;
                     case BONUS_SPEED:
-                        pickableMap.put(point, new BonusSpeed(point, dimension));
+                        pickableMap.put(point, new FearGhost(point, dimension));
                         break;
                     case FEAR_GHOST:
                         pickableMap.put(point, new FearGhost(point, dimension));
