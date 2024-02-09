@@ -104,9 +104,9 @@ public class GameScene implements Model {
 
         
         GhostBehaviour behaviour = new GhostBehaviourImpl(directionSelector, pacman, mapBuilder.getSpawnGhost().get(0), pacman);
-        GhostBehaviour behaviour2 = new GhostBehaviourImpl(directionSelector2, pacman, mapBuilder.getSpawnGhost().get(0), pacman);
-        GhostBehaviour behaviour3 = new GhostBehaviourImpl(directionSelector3, pacman, mapBuilder.getSpawnGhost().get(0), pacman);
-        GhostBehaviour behaviour4 = new GhostBehaviourImpl(directionSelector4, pacman, mapBuilder.getSpawnGhost().get(0), pacman);
+        GhostBehaviour behaviour2 = new GhostBehaviourImpl(directionSelector2, pacman, mapBuilder.getSpawnGhost().get(0), cammini.get(30));
+        GhostBehaviour behaviour3 = new GhostBehaviourImpl(directionSelector3, pacman, mapBuilder.getSpawnGhost().get(0), cammini.get(23));
+        GhostBehaviour behaviour4 = new GhostBehaviourImpl(directionSelector4, pacman, mapBuilder.getSpawnGhost().get(0), cammini.get(46));
 
         ghost = new FollowingGhost(gameObjectFactory.createGhost(cammini.get(0).getPosition(), GhostColor.RED),behaviour);
         ghost2 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.BLUE) ,behaviour2);

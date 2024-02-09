@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
 
@@ -38,8 +39,26 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
+    public Ghost createRedGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
+        Ghost ghost = createRedGhost(pos, initialSpeed);
+        return new FollowingGhost( ghost, behaviour);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Ghost createBlueGhost(final Point pos, final double initialSpeed) {
         return new GhostImpl(pos, dimension, initialSpeed, GhostColor.BLUE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Ghost createBlueGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
+        Ghost ghost = createBlueGhost(pos, initialSpeed);
+        return new FollowingGhost( ghost, behaviour);
     }
 
     /**
@@ -54,7 +73,25 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
+    public Ghost createPinkGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
+        Ghost ghost = createPinkGhost(pos, initialSpeed);
+        return new FollowingGhost( ghost, behaviour);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Ghost createOrangeGhost(final Point pos, final double initialSpeed) {
         return new GhostImpl(pos, dimension, initialSpeed, GhostColor.ORANGE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Ghost createOrangeGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
+        Ghost ghost = createOrangeGhost(pos, initialSpeed);
+        return new FollowingGhost( ghost, behaviour);
     }
 }
