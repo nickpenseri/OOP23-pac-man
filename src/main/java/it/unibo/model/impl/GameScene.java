@@ -3,6 +3,7 @@ package it.unibo.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
@@ -16,6 +17,7 @@ import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
+import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
@@ -34,6 +36,7 @@ import it.unibo.model.pickable.api.PickableGenerator;
 /** Basic Implementation of a model of a scene. */
 public class GameScene implements Model {
 
+    private static final int GHOST_DEATH_POINTS = 200;
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
     private final PacMan pacman;
@@ -51,6 +54,8 @@ public class GameScene implements Model {
     private final List<GameObject> cammini;
     private static final int RANDOMPOS2 = 59;
     private Optional<String> effectText;
+    private final MapBuilder mapBuilder;
+    private final Random random;
 
     /**
      * Constructor of a generic scene.
@@ -73,7 +78,7 @@ public class GameScene implements Model {
         final GameObjectFactory gameObjectFactory = new GameObjectFactoryImpl(width, height, map.getMap().length,
                 map.getMap()[0].length);
         // Creo il mapBuilder con la mappa che ha letto il mapReader
-        final MapBuilder mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
+        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
         final List<GameObject> walls = mapBuilder.getWallsPath();
         this.gameObjects.add(walls);
 
@@ -104,6 +109,7 @@ public class GameScene implements Model {
 
         final CollisionCheckerFactory factory = new CollisionCheckerFactoryImpl();
         this.checker = factory.gameObjectChecker();
+        this.random = new Random();
     }
 
     /**
@@ -166,6 +172,7 @@ public class GameScene implements Model {
         directionSelector3.setDirection(ghost3, pacman, elapsed);
         directionSelector4.setDirection(ghost4, pacman, elapsed);
         pickUp();
+        ghostCollision();
     }
 
     private void pickUp() {
@@ -173,6 +180,26 @@ public class GameScene implements Model {
             if (checker.areColliding(pickable, pacman)) {
                 effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
                         List.of(ghost, ghost2, ghost3, ghost4));
+            }
+        });
+    }
+
+    private void ghostCollision() {
+        final List<Ghost> ghosts = new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4));
+        ghosts.forEach(ghost -> {
+            if (checker.areColliding(ghost, pacman)) {
+                if (ghost.getState().equals(GhostState.NORMAL)) {
+                    pacman.removeLife();
+                    pacman.respawn(mapBuilder.getPacManSpawn());
+                    for (final Ghost g : ghosts) {
+                        g.setPosition(
+                                mapBuilder.getSpawnGhost().get(random.nextInt(mapBuilder.getSpawnGhost().size())));
+                    }
+                } else if (ghost.getState().equals(GhostState.SCARED)) {
+                    ghost.setState(GhostState.DEAD);
+                    pacman.addPoints(GHOST_DEATH_POINTS);
+                }
+
             }
         });
     }

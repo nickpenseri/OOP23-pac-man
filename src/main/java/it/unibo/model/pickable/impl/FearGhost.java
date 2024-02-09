@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostState;
@@ -17,7 +15,6 @@ import it.unibo.model.pacman.api.PacMan;
  */
 public class FearGhost extends EffectPickableImpl {
     private static final String EFFECT_STRING = "The ghosts are scared for 10 seconds!";
-    private static final int DELAY = 10_000;
 
     /**
      * Constructor of the BonusLife.
@@ -38,30 +35,15 @@ public class FearGhost extends EffectPickableImpl {
     @Override
     public void doEffect(final PacMan pacman, final List<Ghost> ghosts) {
         for (final Ghost ghost : ghosts) {
-            ghost.setState(GhostState.SCARED);
-        }
-
-        final TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                // Do the action to reset the state
-                for (final Ghost ghost : ghosts) {
-                    if (ghost.getState() == GhostState.SCARED) {
-                        ghost.setState(GhostState.NORMAL);
-                    }
-                }
+            if (ghost.getState().equals(GhostState.NORMAL)) {
+                ghost.setState(GhostState.SCARED);
             }
-        };
-
-        /*
-         * Create new Timer and Schedule the task to reset the state after 10 seconds
-         */
-        new Timer().schedule(task, DELAY);
-
+        }
     }
 
     /**
      * Get the effect text.
+     * 
      * @return the effect text.
      */
     @Override
