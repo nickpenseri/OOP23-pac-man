@@ -29,7 +29,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     private final int mapWidth;
     private final int mapHeigth;
     private final double baseSpeed;
-    private static final double PACMAN_SIZE_OFFSET = 0.9;
+    private static final double PACMAN_SIZE_MULTIPLIER = 0.75;
     private static final int CELLS_PER_SECOND = 4;
     private static final double GHOST_SPEED_MULTIPLIER = 0.5;
 
@@ -84,8 +84,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public PacMan createPacMan(final Point position, final int startingLives,
             final List<GameObject> walls) {
-        final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_OFFSET), 
-                                    (int) (this.dimension.getHeight() * PACMAN_SIZE_OFFSET));
+        final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_MULTIPLIER), 
+                                    (int) (this.dimension.getHeight() * PACMAN_SIZE_MULTIPLIER));
         return new PacManWalls(
                 new PacManBordered(
                         new PacManImpl(3, dimension, this.baseSpeed, position),
