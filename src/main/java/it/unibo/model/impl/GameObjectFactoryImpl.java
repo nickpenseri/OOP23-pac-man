@@ -31,6 +31,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     private final double baseSpeed;
     private static final double PACMAN_SIZE_OFFSET = 0.9;
     private static final int CELLS_PER_SECOND = 4;
+    private static final double GHOST_SPEED_MULTIPLIER = 0.5;
 
     /**
      * sets the size of objects based on map size and screen window size.
@@ -62,17 +63,18 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public Ghost createGhost(final Point position, final GhostColor color) {
+        final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(position, this.baseSpeed);
+                return ghostFactory.createRedGhost(position, ghostSpeed);
             case PINK:
-                return ghostFactory.createPinkGhost(position, this.baseSpeed);
+                return ghostFactory.createPinkGhost(position, ghostSpeed);
             case BLUE:
-                return ghostFactory.createBlueGhost(position, this.baseSpeed);
+                return ghostFactory.createBlueGhost(position, ghostSpeed);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(position, this.baseSpeed);
+                return ghostFactory.createOrangeGhost(position, ghostSpeed);
             default:
-                return ghostFactory.createRedGhost(position, this.baseSpeed);
+                return ghostFactory.createRedGhost(position, ghostSpeed);
         }
     }
 
