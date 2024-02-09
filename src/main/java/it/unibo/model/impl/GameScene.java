@@ -108,10 +108,10 @@ public class GameScene implements Model {
         GhostBehaviour behaviour3 = new GhostBehaviourImpl(directionSelector3, pacman, mapBuilder.getSpawnGhost().get(0), cammini.get(23));
         GhostBehaviour behaviour4 = new GhostBehaviourImpl(directionSelector4, pacman, mapBuilder.getSpawnGhost().get(0), cammini.get(46));
 
-        ghost = new FollowingGhost(gameObjectFactory.createGhost(cammini.get(0).getPosition(), GhostColor.RED),behaviour);
-        ghost2 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.BLUE) ,behaviour2);
-        ghost3 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.PINK),behaviour3);
-        ghost4 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2).getPosition(), GhostColor.ORANGE), behaviour4);
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(),  GhostColor.RED, behaviour);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.BLUE, behaviour2);
+        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2).getPosition(), GhostColor.PINK, behaviour3);
+        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.ORANGE, behaviour4);
         this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
     
 

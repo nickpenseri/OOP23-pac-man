@@ -7,6 +7,7 @@ import java.util.List;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
@@ -75,6 +76,27 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
                 return ghostFactory.createOrangeGhost(position, ghostSpeed);
             default:
                 return ghostFactory.createRedGhost(position, ghostSpeed);
+        }
+    }
+
+
+     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Ghost createGhost(final Point position, final GhostColor color, GhostBehaviour behaviour) {
+        final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
+        switch (color) {
+            case RED:
+                return ghostFactory.createRedGhost(position, ghostSpeed, behaviour);
+            case PINK:
+                return ghostFactory.createPinkGhost(position, ghostSpeed, behaviour);
+            case BLUE:
+                return ghostFactory.createBlueGhost(position, ghostSpeed, behaviour);
+            case ORANGE:
+                return ghostFactory.createOrangeGhost(position, ghostSpeed, behaviour);
+            default:
+                return ghostFactory.createRedGhost(position, ghostSpeed, behaviour);
         }
     }
 
