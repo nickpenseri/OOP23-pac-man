@@ -49,7 +49,6 @@ public class GameScene implements Model {
     private final Ghost ghost2;
     private final Ghost ghost3;
     private final Ghost ghost4;
-    private final Timer timer = new TimerImpl(5000);
     private static final int RANDOMPOS2 = 59;
     private Optional<String> effectText;
     private final MapBuilder mapBuilder;
@@ -174,12 +173,6 @@ public class GameScene implements Model {
         ghost4.updateState(elapsed);
         ghost3.updateState(elapsed);
         ghost.updateState(elapsed);
-        if (!timer.isOn() && timer.update(elapsed)) {
-            ghost2.setState(GhostState.DEAD);
-            ghost3.setState(GhostState.SCARED);
-            ghost4.setState(GhostState.SCARED);
-            ghost.setState(GhostState.SCARED);
-        }
         ghost2.updateState(elapsed);
         pickUp();
         ghostCollision();
