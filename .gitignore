@@ -15,3 +15,6 @@ bin/
 
 # Ignore vscode settings
 .vscode/
+
+# ignore mac-os settings
+*DS_Store*
