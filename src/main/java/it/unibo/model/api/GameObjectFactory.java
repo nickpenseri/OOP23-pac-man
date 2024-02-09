@@ -7,7 +7,7 @@ import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
-import it.unibo.model.pacman.api.PacMan;
+import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
 
 /**
@@ -41,7 +41,7 @@ public interface GameObjectFactory {
      * @param walls         the list of walls
      * @return the created pac-man
      */
-    PacMan createPacMan(Point position, int startingLives, List<GameObject> walls);
+    GamePacMan createPacMan(Point position, int startingLives, List<GameObject> walls);
 
     /**
      * Creates the pickable object with the given effect.
