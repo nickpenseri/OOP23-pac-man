@@ -7,6 +7,8 @@ import it.unibo.model.api.Direction;
 import it.unibo.model.api.ImageChooser;
 import it.unibo.model.impl.CharacterImpl;
 import it.unibo.model.pacman.api.PacMan;
+import it.unibo.view.api.SoundsEffect;
+import it.unibo.view.impl.SoundsEffectImpl;
 
 /**
  * This class models an entity of a pac-man character that moves in a free space.
@@ -23,6 +25,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
     private int speedLevel;
     private final double baseSpeed;
     private final ImageChooser imageManager;
+    private final SoundsEffect  sound; 
 
     /**
      * Create an instamce of the class PacManImpl.
@@ -51,6 +54,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
         this.baseSpeed = baseSpeed;
         this.computeSpeed();
         this.imageManager = new ImageChooserImpl();
+        this.sound = new SoundsEffectImpl("/sound/death.wav");
     }
 
     private void computeSpeed() {
@@ -148,6 +152,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
             throw new IllegalStateException("Cannot remove life from an object with no lives");
         } else {
             this.lives--;
+            this.sound.playSound();
         }
     }
 
