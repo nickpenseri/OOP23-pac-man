@@ -28,7 +28,6 @@ public interface GameObjectFactory {
      * creates a ghost with the given parameters.
      * 
      * @param position the position of the ghost
-     * @param speed    the speed of the ghost
      * @param color    the color of the ghost
      * @return the created ghost
      */
