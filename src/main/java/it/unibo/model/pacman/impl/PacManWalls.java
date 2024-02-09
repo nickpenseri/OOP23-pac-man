@@ -64,13 +64,13 @@ public class PacManWalls extends PacManDecoratorImpl {
      */
     @Override
     public void respawn(final Point spawnPoint) {
-        final Point initialPos = this.getPosition();
         this.setPosition(spawnPoint);
         if (this.isInWalls()) {
-            this.setPosition(initialPos);
+            this.setPosition(lastPos);
             throw new IllegalArgumentException("Cannor respawn inside walls");
         }
         super.respawn(spawnPoint);
+        this.lastPos = this.getPosition();
     }
 
     private boolean isInWalls() {
