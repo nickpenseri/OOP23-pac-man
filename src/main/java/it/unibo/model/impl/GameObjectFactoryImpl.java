@@ -28,7 +28,9 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     private final GhostFactory ghostFactory;
     private final int mapWidth;
     private final int mapHeigth;
+    private final double baseSpeed;
     private static final double PACMAN_SIZE_OFFSET = 0.9;
+    private static final int CELLS_PER_SECOND = 4;
 
     /**
      * sets the size of objects based on map size and screen window size.
@@ -44,6 +46,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
         this.mapWidth = (int) (sizeY * dimension.getWidth());
         this.mapHeigth = (int) (sizeX * dimension.getHeight());
+        this.baseSpeed = CELLS_PER_SECOND * minDimension;
     }
 
     /**
@@ -58,18 +61,18 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createGhost(final Point position, final double speed, final GhostColor color) {
+    public Ghost createGhost(final Point position, final GhostColor color) {
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(position, speed);
+                return ghostFactory.createRedGhost(position, this.baseSpeed);
             case PINK:
-                return ghostFactory.createPinkGhost(position, speed);
+                return ghostFactory.createPinkGhost(position, this.baseSpeed);
             case BLUE:
-                return ghostFactory.createBlueGhost(position, speed);
+                return ghostFactory.createBlueGhost(position, this.baseSpeed);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(position, speed);
+                return ghostFactory.createOrangeGhost(position, this.baseSpeed);
             default:
-                return ghostFactory.createRedGhost(position, speed);
+                return ghostFactory.createRedGhost(position, this.baseSpeed);
         }
     }
 
@@ -77,13 +80,13 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public PacMan createPacMan(final Point position, final double speed, final int startingLives,
+    public PacMan createPacMan(final Point position, final int startingLives,
             final List<GameObject> walls) {
         final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_OFFSET), 
                                     (int) (this.dimension.getHeight() * PACMAN_SIZE_OFFSET));
         return new PacManWalls(
                 new PacManBordered(
-                        new PacManImpl(3, dimension, speed, position),
+                        new PacManImpl(3, dimension, this.baseSpeed, position),
                         mapHeigth, mapWidth),
                 walls);
     }
