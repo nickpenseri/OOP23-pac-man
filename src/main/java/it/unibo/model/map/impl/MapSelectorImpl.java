@@ -45,7 +45,7 @@ public class MapSelectorImpl implements MapSelector {
                 return this.mapList.get(index);
             }
         } while (this.count > 0);
-        return "map1.txt";
+        return "/map1.txt";
     }
 
 }
