@@ -23,4 +23,9 @@ public interface GhostBehaviour {
      * @return true if the ghost has to change state
      */
     boolean scaredBehaviour(Ghost ghost, long elapsed);
+
+    /**
+     * Method that resets the behaviour of the ghost.
+     */
+    void resetBehaviour();
 }

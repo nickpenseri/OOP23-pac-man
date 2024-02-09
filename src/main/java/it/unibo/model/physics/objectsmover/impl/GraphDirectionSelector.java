@@ -99,4 +99,13 @@ public class GraphDirectionSelector implements DirectionSelector {
                 break;
         }
     }
+
+        /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void reset() {
+        selectDir.reset();
+        state = State.NOT_SELECTED;
+    }
 }

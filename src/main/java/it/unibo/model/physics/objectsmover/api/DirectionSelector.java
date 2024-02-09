@@ -14,4 +14,9 @@ public interface DirectionSelector {
      * @param elapsedTime the time elapsed since the last update
      */
     void setDirection(Character toMove, GameObject target, long elapsedTime);
+
+    /**
+     * Resets the direction selector.
+     */
+    void reset();
 }
