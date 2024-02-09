@@ -97,10 +97,10 @@ public class GameScene implements Model {
         directionSelector4 = new GraphDirectionSelector(graph);
         cammini = new ArrayList<>(graph.vertexSet());
 
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.RED);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.BLUE);
-        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK);
-        ghost4 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.ORANGE),directionSelector4 ,pacman);
+        ghost = new FollowingGhost(gameObjectFactory.createGhost(cammini.get(0).getPosition(), GhostColor.RED),directionSelector ,pacman);
+        ghost2 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.BLUE),directionSelector2 ,pacman);
+        ghost3 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK),directionSelector3 ,pacman);
+        ghost4 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.ORANGE),directionSelector4 ,pacman);
         this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
     
 
@@ -163,12 +163,11 @@ public class GameScene implements Model {
 
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
-        directionSelector.setDirection(ghost, pacman, elapsed);
-        ghost.setState(GhostState.NORMAL);
-        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
-        directionSelector3.setDirection(ghost3, pacman, elapsed);
-        ghost2.setState(GhostState.NORMAL);
+       
         ghost4.updateState(elapsed);
+        ghost3.updateState(elapsed);
+        ghost.updateState(elapsed);
+        ghost2.updateState(elapsed);
         pickUp();
     }   
 
