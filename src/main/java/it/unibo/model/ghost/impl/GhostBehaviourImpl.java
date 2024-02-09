@@ -73,4 +73,12 @@ public class GhostBehaviourImpl implements GhostBehaviour {
         }
         return false;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetBehaviour() {
+        directionSelector.reset();
+    }
 }
