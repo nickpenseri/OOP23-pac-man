@@ -82,7 +82,9 @@ public class FollowingGhost implements Ghost {
                     setState(GhostState.NORMAL);
                     for (int i = 0; i < SPEED_INCREASE; i++) {
                         ghost.decreaseSpeed();
+                        
                     }
+                    interlock = false;
                 }
 
                 break;
