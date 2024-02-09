@@ -100,10 +100,10 @@ public class GameScene implements Model {
         cammini = new ArrayList<>(graph.vertexSet());
 
         
-        GhostBehaviour behaviour = new GhostBehaviourImpl(directionSelector, pacman, pacman, pacman);
-        GhostBehaviour behaviour2 = new GhostBehaviourImpl(directionSelector2, pacman, pacman, pacman);
-        GhostBehaviour behaviour3 = new GhostBehaviourImpl(directionSelector3, pacman, pacman, pacman);
-        GhostBehaviour behaviour4 = new GhostBehaviourImpl(directionSelector4, pacman, pacman, pacman);
+        GhostBehaviour behaviour = new GhostBehaviourImpl(directionSelector, pacman, mapBuilder.getSpawnGhost().get(0), pacman);
+        GhostBehaviour behaviour2 = new GhostBehaviourImpl(directionSelector2, pacman, mapBuilder.getSpawnGhost().get(0), pacman);
+        GhostBehaviour behaviour3 = new GhostBehaviourImpl(directionSelector3, pacman, mapBuilder.getSpawnGhost().get(0), pacman);
+        GhostBehaviour behaviour4 = new GhostBehaviourImpl(directionSelector4, pacman, mapBuilder.getSpawnGhost().get(0), pacman);
 
         ghost = new FollowingGhost(gameObjectFactory.createGhost(cammini.get(0).getPosition(), GhostColor.RED),behaviour);
         ghost2 = new FollowingGhost(gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.BLUE) ,behaviour2);
@@ -175,6 +175,7 @@ public class GameScene implements Model {
         ghost4.updateState(elapsed);
         ghost3.updateState(elapsed);
         ghost.updateState(elapsed);
+      
         ghost2.updateState(elapsed);
         pickUp();
     }   
