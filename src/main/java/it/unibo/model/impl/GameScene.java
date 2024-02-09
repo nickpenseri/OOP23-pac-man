@@ -203,7 +203,7 @@ public class GameScene implements Model {
                     pacman.respawn(mapBuilder.getPacManSpawn());
                     for (final Ghost g : ghosts) {
                         g.setPosition(
-                                mapBuilder.getSpawnGhost().get(random.nextInt(mapBuilder.getSpawnGhost().size())));
+                                mapBuilder.getSpawnGhost().get(random.nextInt(mapBuilder.getSpawnGhost().size())).getPosition());
                     }
                 } else if (ghost.getState().equals(GhostState.SCARED)) {
                     ghost.setState(GhostState.DEAD);
