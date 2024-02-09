@@ -46,7 +46,9 @@ public class FearGhost extends EffectPickableImpl {
             public void run() {
                 // Do the action to reset the state
                 for (final Ghost ghost : ghosts) {
-                    ghost.setState(GhostState.NORMAL);
+                    if (ghost.getState() == GhostState.SCARED) {
+                        ghost.setState(GhostState.NORMAL);
+                    }
                 }
             }
         };
