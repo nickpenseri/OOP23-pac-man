@@ -18,6 +18,7 @@ import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.ghost.impl.GhostBehaviourImpl;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
@@ -28,8 +29,9 @@ import it.unibo.model.map.impl.MapSelectorImpl;
 import it.unibo.model.physics.collisions.api.CollisionChecker;
 import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
+import it.unibo.model.physics.timer.api.Timer;
+import it.unibo.model.physics.timer.impl.TimerImpl;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
 
@@ -47,11 +49,7 @@ public class GameScene implements Model {
     private final Ghost ghost2;
     private final Ghost ghost3;
     private final Ghost ghost4;
-    private final DirectionSelector directionSelector;
-    private final DirectionSelector directionSelector2;
-    private final DirectionSelector directionSelector3;
-    private final DirectionSelector directionSelector4;
-    private final List<GameObject> cammini;
+    private final Timer timer = new TimerImpl(5000);
     private static final int RANDOMPOS2 = 59;
     private Optional<String> effectText;
     private final MapBuilder mapBuilder;
@@ -96,17 +94,23 @@ public class GameScene implements Model {
         final var objectsMap = mapBuilder.getObjectsMap();
 
         final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), GhostColor.RED);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.BLUE);
-        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1), GhostColor.PINK);
-        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), GhostColor.ORANGE);
-        this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
-        directionSelector = new GraphDirectionSelector(graph);
-        directionSelector2 = new GraphDirectionSelector(graph);
-        directionSelector3 = new GraphDirectionSelector(graph);
-        directionSelector4 = new GraphDirectionSelector(graph);
-        cammini = new ArrayList<>(graph.vertexSet());
+        final var directionSelector = new GraphDirectionSelector(graph);
+        final var directionSelector2 = new GraphDirectionSelector(graph);
+        final var directionSelector3 = new GraphDirectionSelector(graph);
+        final var directionSelector4 = new GraphDirectionSelector(graph);
+        final var cammini = new ArrayList<>(graph.vertexSet());
 
+        final var pos = mapBuilder.getSpawnGhost().get(0);
+        final var behaviour = new GhostBehaviourImpl(directionSelector, pacman, pos, pacman);
+        final var behaviour2 = new GhostBehaviourImpl(directionSelector2, pacman, pos, cammini.get(RANDOMPOS2));
+        final var behaviour3 = new GhostBehaviourImpl(directionSelector3, pacman, pos, cammini.get(RANDOMPOS2));
+        final var behaviour4 = new GhostBehaviourImpl(directionSelector4, pacman, pos, cammini.get(RANDOMPOS2));
+
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(),  GhostColor.RED, behaviour);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.BLUE, behaviour2);
+        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2).getPosition(), GhostColor.PINK, behaviour3);
+        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.ORANGE, behaviour4);
+        this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
         final CollisionCheckerFactory factory = new CollisionCheckerFactoryImpl();
         this.checker = factory.gameObjectChecker();
         this.random = new Random();
@@ -167,10 +171,16 @@ public class GameScene implements Model {
 
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
-        directionSelector.setDirection(ghost, pacman, elapsed);
-        directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
-        directionSelector3.setDirection(ghost3, pacman, elapsed);
-        directionSelector4.setDirection(ghost4, pacman, elapsed);
+        ghost4.updateState(elapsed);
+        ghost3.updateState(elapsed);
+        ghost.updateState(elapsed);
+        if (!timer.isOn() && timer.update(elapsed)) {
+            ghost2.setState(GhostState.DEAD);
+            ghost3.setState(GhostState.SCARED);
+            ghost4.setState(GhostState.SCARED);
+            ghost.setState(GhostState.SCARED);
+        }
+        ghost2.updateState(elapsed);
         pickUp();
         ghostCollision();
     }

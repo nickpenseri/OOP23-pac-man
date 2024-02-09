@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.List;
 import java.awt.Point;
 import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
@@ -32,6 +33,17 @@ public interface GameObjectFactory {
      * @return the created ghost
      */
     Ghost createGhost(Point position, GhostColor color);
+
+    /**
+     * creates a ghost with the given parameters.
+     * 
+     * @param position the position of the ghost
+     * @param color    the color of the ghost
+     * @param behaviour the behaviour of the ghost
+     * @return the created ghost
+     */
+    Ghost createGhost(Point position, GhostColor color, GhostBehaviour behaviour);
+
 
     /**
      * Creates a pacman object ready for the game.

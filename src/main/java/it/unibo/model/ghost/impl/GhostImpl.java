@@ -40,7 +40,6 @@ public class GhostImpl extends CharacterImpl implements Ghost {
      */
     @Override
     public URL getImageUrl() {
-        imagePack.setState(state);
         return imagePack.actualImageUrl(super.getDirection());
     }
 
@@ -93,6 +92,7 @@ public class GhostImpl extends CharacterImpl implements Ghost {
     @Override
     public void setState(final GhostState state) {
         this.state = state;
+        imagePack.setState(state);
     }
 
 

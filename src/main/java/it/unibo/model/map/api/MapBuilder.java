@@ -19,9 +19,9 @@ public interface MapBuilder {
 
     /**
      * method to obtain the ghost spawn.
-     * @return returns a list of Points that represent the ghost spawn.
+     * @return returns a list of objects representing the spawn points of the ghosts.
      */
-    List<Point> getSpawnGhost();
+    List<GameObject> getSpawnGhost();
 
     /**
      * Method to get Pac-Man's location at the start of the game.

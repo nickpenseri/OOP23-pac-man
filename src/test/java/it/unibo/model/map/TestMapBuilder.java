@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +47,9 @@ class TestMapBuilder {
     /** method that tests ghost spawning. */
     @Test
     void testGetSpawnGhost() {
-        final List<Point> spawnGhost = mapBuilder.getSpawnGhost();
+
+        final List<Point> spawnGhost = new ArrayList<>();
+        mapBuilder.getSpawnGhost().forEach(obj -> spawnGhost.add(obj.getPosition()));
         assertEquals(3, spawnGhost.size());
         assertEquals(List.of(new Point(X_FIRST_SPAWN, Y), new Point(X_SECOND_SPAWN, Y), new Point(X_THIRD_SPAWN, Y)),
                 spawnGhost);
