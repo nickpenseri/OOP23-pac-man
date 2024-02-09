@@ -14,7 +14,7 @@ import it.unibo.model.pacman.api.PacMan;
  */
 public class PacManImpl extends CharacterImpl implements PacMan {
 
-    private static final int MAX_SPEED_LEVEL = 3;
+    private static final int MAX_SPEED_LEVEL = 1000;
     private static final int MIN_SPEED_LEVEL = -3;
     private static final double SPEED_MULTIPLIER = 0.10;
 

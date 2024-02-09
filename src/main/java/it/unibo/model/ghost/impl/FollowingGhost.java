@@ -19,7 +19,9 @@ public class FollowingGhost implements Ghost {
 
     private final Ghost ghost;
     private GhostState state = GhostState.NORMAL;
+    private boolean interlock = false;
     private final GhostBehaviour behaviour;
+    private final static int SPEED_INCREASE = 20;
 
     /**
      * Create a new following ghost.
@@ -70,13 +72,24 @@ public class FollowingGhost implements Ghost {
                 behaviour.normalBehaviour(ghost, elapsed);
                 break;
             case DEAD:
+            if (!interlock){
+                for (int i = 0 ; i < SPEED_INCREASE; i++){
+                    ghost.increaseSpeed();
+                }
+                interlock = true;
+            }
                 if (behaviour.deadBehaviour(ghost, elapsed)) {
                     setState(GhostState.NORMAL);
+                    for (int i = 0 ; i < SPEED_INCREASE; i++){
+                        ghost.decreaseSpeed();
+                    }
                 }
 
                 break;
             case SCARED:
+              
                 if (behaviour.scaredBehaviour(ghost, elapsed)) {
+                   
                     setState(GhostState.NORMAL);
                 }
                 break;

@@ -18,9 +18,13 @@ public class GhostImpl extends CharacterImpl implements Ghost {
 
     private static final int MAX_SPEED_LEVEL = 1000;
     private static final int MIN_SPEED_LEVEL = -3;
+    private static final double SPEED_MULTIPLIER = 0.10;
+    private final double baseSpeed;
+    private int speedLevel;
+
     private final GhostGraphics imagePack;
     private GhostState state;
-    private int speedLevel;
+   
     /**
      * Creates a ghost.
      * @param initialPos the initial position of the ghost
@@ -32,7 +36,8 @@ public class GhostImpl extends CharacterImpl implements Ghost {
         super(initialPos, dimension, initialSpeed);
         this.imagePack =  new GhostGraphicsImpl(ghostColor);
         state = GhostState.NORMAL;
-        this.speedLevel = (int) initialSpeed;
+        this.speedLevel = 0;
+        this.baseSpeed = initialSpeed;
     }
 
     /**
@@ -67,6 +72,7 @@ public class GhostImpl extends CharacterImpl implements Ghost {
     public boolean increaseSpeed() {
         if (this.speedLevel < MAX_SPEED_LEVEL) {
             this.speedLevel++;
+            this.computeSpeed();
             return true;
         } else {
             return false;
@@ -80,6 +86,7 @@ public class GhostImpl extends CharacterImpl implements Ghost {
     public boolean decreaseSpeed() {
         if (this.speedLevel > MIN_SPEED_LEVEL) {
             this.speedLevel--;
+            this.computeSpeed();
             return true;
         } else {
             return false;
@@ -102,5 +109,13 @@ public class GhostImpl extends CharacterImpl implements Ghost {
     @Override
     public GhostState getState() {
         return this.state;
+    }
+
+    private void computeSpeed() {
+        if (super.getDirection().isEmpty()) {
+            super.setSpeed(0);
+        } else {
+            super.setSpeed(this.baseSpeed + this.baseSpeed * SPEED_MULTIPLIER * this.speedLevel);
+        }
     }
 }
