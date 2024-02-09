@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import it.unibo.model.api.GameObject;
+import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.physics.collisions.api.CollisionChecker;
 import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
@@ -18,7 +19,7 @@ import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
  * 
  * @see PacManDecorator
  */
-public class PacManWalls extends PacManDecoratorImpl {
+public class PacManWalls extends PacManDecoratorImpl implements GamePacMan {
 
     private final List<GameObject> walls;
     private final CollisionChecker<GameObject> collisionChecker;
@@ -76,6 +77,14 @@ public class PacManWalls extends PacManDecoratorImpl {
     private boolean isInWalls() {
         return walls.stream()
                 .anyMatch(wall -> collisionChecker.areColliding(this, wall));
+    }
+
+    /**{@inheritDoc} */
+    @Override
+    public void changeMap(final List<GameObject> walls, final Point spawnPoint) {
+        this.walls.clear();
+        this.walls.addAll(walls);
+        this.respawn(spawnPoint);
     }
 
 }

@@ -12,7 +12,7 @@ import it.unibo.model.ghost.api.GhostFactory;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.map.impl.MapImageImpl;
-import it.unibo.model.pacman.api.PacMan;
+import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pacman.impl.PacManBordered;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pacman.impl.PacManWalls;
@@ -82,7 +82,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public PacMan createPacMan(final Point position, final int startingLives,
+    public GamePacMan createPacMan(final Point position, final int startingLives,
             final List<GameObject> walls) {
         final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_MULTIPLIER), 
                                     (int) (this.dimension.getHeight() * PACMAN_SIZE_MULTIPLIER));
