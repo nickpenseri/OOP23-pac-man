@@ -78,18 +78,19 @@ public class GameScene implements Model {
         final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
-        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(), 
-            SPEED, 
-            3, 
-            mapBuilder.getWallsPath());
-        final List<GameObject> pacMan = new ArrayList<>();
-        pacMan.add(pacman);
-        this.gameObjects.add(pacMan);
+        this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
+                SPEED,
+                3,
+                mapBuilder.getWallsPath());
+        // final List<GameObject> pacMan = new ArrayList<>();
+        // pacMan.add(pacman);
+        this.gameObjects.add(new ArrayList<>(List.of(pacman)));
         final var objectsMap = mapBuilder.getObjectsMap();
 
         final Graph<GameObject, DefaultEdge> graph = new MapGraphImpl(objectsMap).getGraph();
         ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0), SPEED, GhostColor.RED);
         ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2), SPEED, GhostColor.BLUE);
+        this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2)));
         directionSelector = new GraphDirectionSelector(graph);
         directionSelector2 = new GraphDirectionSelector(graph);
         cammini = new ArrayList<>(graph.vertexSet());
@@ -106,7 +107,9 @@ public class GameScene implements Model {
         gameObjects.get(1).clear();
         gameObjects.get(1).addAll(pickableGenerator.getPickableList());
         gameObjects.get(2).clear();
-        gameObjects.get(2).addAll(List.of(pacman, ghost, ghost2));
+        gameObjects.get(2).addAll(new ArrayList<>(List.of(pacman)));
+        gameObjects.get(3).clear();
+        gameObjects.get(3).addAll(new ArrayList<>(List.of(ghost, ghost2)));
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
             gameObjectsFlat.addAll(list);
