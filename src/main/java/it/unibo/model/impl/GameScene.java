@@ -15,7 +15,6 @@ import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
-import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
@@ -161,18 +160,16 @@ public class GameScene implements Model {
         // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
         directionSelector.setDirection(ghost, pacman, elapsed);
-        ghost.setState(GhostState.NORMAL);
         directionSelector2.setDirection(ghost2, cammini.get(RANDOMPOS2), elapsed);
         directionSelector3.setDirection(ghost3, pacman, elapsed);
         directionSelector4.setDirection(ghost4, pacman, elapsed);
-        ghost2.setState(GhostState.NORMAL);
         pickUp();
     }
 
     private void pickUp() {
         pickableGenerator.getPickableList().forEach(pickable -> {
             if (checker.areColliding(pickable, pacman)) {
-                pickableGenerator.takePickable(pickable.getPosition(), pacman, List.of(ghost, ghost2));
+                pickableGenerator.takePickable(pickable.getPosition(), pacman, List.of(ghost, ghost2, ghost3, ghost4));
             }
         });
     }
