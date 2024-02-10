@@ -1,8 +1,7 @@
-package it.unibo.model.ghost.api.ghostBehaviour;
+package it.unibo.model.ghost.api.ghostbehaviour;
 
-import java.util.List;
+
 import java.util.Optional;
-
 import it.unibo.model.api.GameObject;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 

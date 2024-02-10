@@ -10,7 +10,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 
 import it.unibo.model.api.GameObject;
-import it.unibo.model.ghost.api.ghostBehaviour.GhostCoordinates;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
 

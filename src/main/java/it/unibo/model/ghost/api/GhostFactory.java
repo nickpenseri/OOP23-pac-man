@@ -2,9 +2,9 @@ package it.unibo.model.ghost.api;
 
 import java.awt.Point;
 
-import it.unibo.model.ghost.api.ghostBehaviour.FollowingGhost;
-import it.unibo.model.ghost.api.ghostBehaviour.GhostBehaviours;
-import it.unibo.model.ghost.api.ghostBehaviour.GhostCoordinates;
+import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 /**
  * This interface models an entity of GhostFactory, an object that is responsible of
  * creating ghosts.

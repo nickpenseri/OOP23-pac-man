@@ -1,4 +1,4 @@
-package it.unibo.model.ghost.api.ghostBehaviour;
+package it.unibo.model.ghost.api.ghostbehaviour;
 
 import it.unibo.model.ghost.api.Ghost;
 

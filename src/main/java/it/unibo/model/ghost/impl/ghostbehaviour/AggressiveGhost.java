@@ -5,7 +5,7 @@ import java.util.Objects;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostState;
-import it.unibo.model.ghost.api.ghostBehaviour.GhostCoordinates;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.api.PositionApproximator;
 import it.unibo.model.physics.objectsmover.impl.PositionApproximatorImpl;
@@ -18,17 +18,11 @@ import it.unibo.model.physics.timer.impl.TimerImpl;
  */
 public class AggressiveGhost extends FollowingGhostImpl {
 
-    private GameObject deadTargetSelected;
-    private GameObject randomTargetSelected;
+    private final GameObject deadTargetSelected;
     private final DirectionSelector directionSelector;
     private final PositionApproximator approximator = new PositionApproximatorImpl();
     private final Timer scaredTimer = new TimerImpl(9999);
     private final Timer randomTimer = new ClockTimer(9999);
-    private static final int SPEED_INCREASE = 20;
-    private boolean interlock;
-    private boolean normalinterlock;
-
-
     /**
      * Create a new normal ghost.
      * @param ghost the ghost to follow
@@ -37,31 +31,7 @@ public class AggressiveGhost extends FollowingGhostImpl {
     public AggressiveGhost(final Ghost ghost, final GhostCoordinates mapCoordinates) {
         super(ghost, mapCoordinates);
         this.directionSelector = Objects.requireNonNull(mapCoordinates.getDirectionSelector().get());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void deadBehaviour(final long elapsed) {
-       scaredTimer.reset();
-       randomTimer.reset();
-       if (!interlock) {
-            for (int i = 0; i < SPEED_INCREASE; i++) {
-                super.increaseSpeed();
-            }
-            deadTargetSelected = super.getBehaviour().getDeadTarget();
-            interlock = true;
-        }
-
-        this.directionSelector.setDirection(super.getGhost(), deadTargetSelected, elapsed);
-        if (approximator.isPositionCloseEnough(this, deadTargetSelected, 2.0)) {
-            super.setState(GhostState.NORMAL);
-            for (int i = 0; i < SPEED_INCREASE; i++) {
-                super.decreaseSpeed();
-            }
-            interlock = false;
-        }
+        deadTargetSelected = super.getBehaviour().getDeadTarget();
     }
 
     /**
@@ -73,6 +43,20 @@ public class AggressiveGhost extends FollowingGhostImpl {
         this.directionSelector.setDirection(super.getGhost(), super.getBehaviour().getDeadTarget(), elapsed);
         if (scaredTimer.update(elapsed)) {
             scaredTimer.reset();
+            super.setState(GhostState.NORMAL);
+        }
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void deadBehaviour(final long elapsed) {
+        scaredTimer.reset();
+        randomTimer.reset();
+        this.directionSelector.setDirection(super.getGhost(), deadTargetSelected, elapsed);
+        if (approximator.isPositionCloseEnough(this, deadTargetSelected, 4.0)) {
             super.setState(GhostState.NORMAL);
         }
     }

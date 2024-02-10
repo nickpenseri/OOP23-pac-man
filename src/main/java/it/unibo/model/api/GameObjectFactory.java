@@ -5,10 +5,10 @@ import java.util.List;
 import java.awt.Point;
 
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.ghostBehaviour.FollowingGhost;
-import it.unibo.model.ghost.api.ghostBehaviour.GhostBehaviours;
-import it.unibo.model.ghost.api.ghostBehaviour.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostColor;
+import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.pacman.api.GamePacMan;
