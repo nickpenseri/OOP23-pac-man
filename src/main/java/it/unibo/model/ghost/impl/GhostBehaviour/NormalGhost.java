@@ -17,6 +17,7 @@ import it.unibo.model.physics.timer.impl.TimerImpl;
 public class NormalGhost extends FollowingGhostImpl{
 
     private GameObject deadTargetSelected;
+    private final DirectionSelector directionSelector;
     private final PositionApproximator approximator = new PositionApproximatorImpl();
 
     private final Timer timer = new TimerImpl(100_00);
@@ -26,6 +27,7 @@ public class NormalGhost extends FollowingGhostImpl{
 
     public NormalGhost(final Ghost ghost, final GhostBehaviour behaviour) {
         super(ghost,behaviour);
+        this.directionSelector = Objects.requireNonNull(behaviour.getDirectionSelector());
       
     }
 
@@ -42,7 +44,7 @@ public class NormalGhost extends FollowingGhostImpl{
             interlock = true;
         }
 
-        super.getBehaviour().getDirectionSelector().setDirection(super.getGhost(), deadTargetSelected, elapsed);
+        this.directionSelector.setDirection(super.getGhost(), deadTargetSelected, elapsed);
 
         if (approximator.isPositionCloseEnough(this , deadTargetSelected, 2.0)) {
             super.setState(GhostState.NORMAL);
@@ -55,7 +57,7 @@ public class NormalGhost extends FollowingGhostImpl{
 
     @Override
     protected void scaredBehaviour(final long elapsed) {
-        super.getBehaviour().getDirectionSelector().setDirection(super.getGhost(), super.getBehaviour().getDeadTarget(), elapsed);
+        this.directionSelector.setDirection(super.getGhost(), super.getBehaviour().getDeadTarget(), elapsed);
         if (timer.update(elapsed)) {
             timer.reset();
             super.setState(GhostState.NORMAL);
@@ -65,7 +67,7 @@ public class NormalGhost extends FollowingGhostImpl{
     @Override
     protected void normalBehaviour(final long elapsed) {
         timer.reset();
-        super.getBehaviour().getDirectionSelector().setDirection(super.getGhost(),  super.getBehaviour().getNormalTarget(), elapsed);
+        this.directionSelector.setDirection(super.getGhost(),  super.getBehaviour().getNormalTarget(), elapsed);
     }
 
     /**
@@ -74,7 +76,7 @@ public class NormalGhost extends FollowingGhostImpl{
     @Override
     public void resetBehaviour() {
         timer.reset();
-        super.getBehaviour().getDirectionSelector().reset();
+        this.directionSelector.reset();
     }
 
     

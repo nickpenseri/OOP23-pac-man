@@ -1,14 +1,15 @@
 package it.unibo.model.ghost.impl.GhostBehaviour;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
 import it.unibo.model.api.GameObject;
-import it.unibo.model.ghost.api.GhostBehaviour;
+import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 
-public class GhostBehaviourOnGraph implements GhostBehaviour {
+public class GhostCoordinatesOnGraph implements GhostCoordinates {
 
     private final DirectionSelector directionSelector;
     private final GameObject normalTarget;
@@ -16,7 +17,7 @@ public class GhostBehaviourOnGraph implements GhostBehaviour {
     private final List<GameObject> GameVertex;
     private final Random random = new Random();
 
-    public GhostBehaviourOnGraph( final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex) {
+    public GhostCoordinatesOnGraph( final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex) {
         this.directionSelector = Objects.requireNonNull(directionSelector);
         this.normalTarget = Objects.requireNonNull(normalTarget);
         this.deadTargets = Objects.requireNonNull(deadTargets);
@@ -38,8 +39,8 @@ public class GhostBehaviourOnGraph implements GhostBehaviour {
     }
 
     @Override
-    public GameObject getScaredTarget() {
-       return GameVertex.get(random.nextInt(0,GameVertex.size()));
+    public List<GameObject> getScaredTarget() {
+       return new ArrayList<GameObject>(GameVertex);
     }
 
     @Override
