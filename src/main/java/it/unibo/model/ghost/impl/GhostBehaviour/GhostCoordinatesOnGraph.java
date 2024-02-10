@@ -1,21 +1,25 @@
-package it.unibo.model.ghost.impl.ghostBehaviour;
+package it.unibo.model.ghost.impl.ghostbehaviour;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
+
 import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
+import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
 
 /**
  * This class models the coordinates of a ghost on a graph.
  */
 public class GhostCoordinatesOnGraph implements GhostCoordinates {
 
-    private final DirectionSelector directionSelector;
+    private final Optional<DirectionSelector> directionSelector;
     private final GameObject normalTarget;
     private final List<GameObject> deadTargets;
     private final List<GameObject> gameVertex;
@@ -24,27 +28,26 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
     /**
      * Create a new ghost coordinates on a graph.
      * 
-     * @param directionSelector the direction selector of the ghost
+     * @param graph             the graph of the game
      * @param normalTarget      the normal target of the ghost
      * @param deadTargets       the dead targets of the ghost
-     * @param gameVertex        the vertex of the game
      */
-     @SuppressFBWarnings(value = {
-            "EI_EXPOSE_REP2"
-    }, justification = "Is ok to expose the object, i don't need a copy and is ok if they are changed from outside")
-    public GhostCoordinatesOnGraph(final DirectionSelector directionSelector, final GameObject normalTarget, 
-            final List<GameObject> deadTargets, final  List<GameObject> gameVertex) {
-        this.directionSelector = Objects.requireNonNull(directionSelector);
+    public GhostCoordinatesOnGraph(final Optional<Graph<GameObject, DefaultEdge>> graph, final GameObject normalTarget,
+            final List<GameObject> deadTargets) {
+        if (graph.isEmpty()) {
+            throw new IllegalArgumentException("The graph is empty");
+        }
+        this.directionSelector = Optional.of(new GraphDirectionSelector(graph.get()));
         this.normalTarget = Objects.requireNonNull(normalTarget);
-        this.deadTargets = Objects.requireNonNull(deadTargets);
-        this.gameVertex = Objects.requireNonNull(gameVertex);
+        this.deadTargets = new ArrayList<>(Objects.requireNonNull(deadTargets));
+        this.gameVertex = new ArrayList<>(Objects.requireNonNull(graph.get().vertexSet()));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public DirectionSelector getDirectionSelector() {
+    public Optional<DirectionSelector> getDirectionSelector() {
         return this.directionSelector;
     }
 
@@ -69,6 +72,6 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
      */
     @Override
     public List<GameObject> getScaredTarget() {
-       return new ArrayList<GameObject>(gameVertex);
+        return new ArrayList<GameObject>(gameVertex);
     }
 }

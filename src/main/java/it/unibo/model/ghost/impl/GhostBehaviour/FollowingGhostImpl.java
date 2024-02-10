@@ -1,4 +1,4 @@
-package it.unibo.model.ghost.impl.ghostBehaviour;
+package it.unibo.model.ghost.impl.ghostbehaviour;
 
 import java.awt.Point;
 import java.awt.geom.Dimension2D;

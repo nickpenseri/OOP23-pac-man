@@ -1,4 +1,4 @@
-package it.unibo.model.ghost.impl.ghostBehaviour;
+package it.unibo.model.ghost.impl.ghostbehaviour;
 
 
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class NormalGhost extends FollowingGhostImpl {
     private GameObject deadTargetSelected;
     private final DirectionSelector directionSelector;
     private final PositionApproximator approximator = new PositionApproximatorImpl();
-    private final Timer timer = new TimerImpl(1_000_0);
+    private final Timer timer = new TimerImpl(1_000_0L);
     private static final int SPEED_INCREASE = 20;
     private boolean interlock;
 
@@ -32,7 +32,7 @@ public class NormalGhost extends FollowingGhostImpl {
      */
     public NormalGhost(final Ghost ghost, final GhostCoordinates mapCoordinates) {
         super(ghost, mapCoordinates);
-        this.directionSelector = Objects.requireNonNull(mapCoordinates.getDirectionSelector());
+        this.directionSelector = Objects.requireNonNull(mapCoordinates.getDirectionSelector().get());
     }
 
     /**
@@ -50,7 +50,6 @@ public class NormalGhost extends FollowingGhostImpl {
         }
 
         this.directionSelector.setDirection(super.getGhost(), deadTargetSelected, elapsed);
-
         if (approximator.isPositionCloseEnough(this, deadTargetSelected, 2.0)) {
             super.setState(GhostState.NORMAL);
             for (int i = 0; i < SPEED_INCREASE; i++) {
