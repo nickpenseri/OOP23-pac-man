@@ -1,4 +1,4 @@
-package it.unibo.model.ghost.impl;
+package it.unibo.model.ghost.impl.GhostBehaviour;
 
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
@@ -9,14 +9,15 @@ import java.util.Optional;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.api.Direction;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 
 /**
  * This class models a ghost that follows a specific behaviour.
  */
 public abstract class FollowingGhost implements Ghost {
-
+    
+    private final DirectionSelector directionSelector;
     private final Ghost ghost;
     /**
      * Create a new following ghost.
@@ -26,7 +27,8 @@ public abstract class FollowingGhost implements Ghost {
     @SuppressFBWarnings(value = {
             "EI_EXPOSE_REP2"
     }, justification = "Changings of the decorated object should also affect this object")
-    public FollowingGhost(final Ghost ghost) {
+    public FollowingGhost(final Ghost ghost, final DirectionSelector directionSelector) {
+        this.directionSelector = Objects.requireNonNull(directionSelector);
         this.ghost = ghost;
     }
 
@@ -140,6 +142,10 @@ public abstract class FollowingGhost implements Ghost {
         return ghost.getDimension();
     }
 
+    protected DirectionSelector getDirectionSelector() {
+        return directionSelector;
+    }
+    
     protected abstract void deadBehaviour(final Ghost character, final long elapsed);
     protected abstract void scaredBehaviour(final Ghost character, final long elapsed);
     protected abstract void normalBehaviour(final Ghost character, final long elapsed);
