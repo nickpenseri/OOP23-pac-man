@@ -4,9 +4,13 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
+import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
+import it.unibo.model.ghost.impl.ghostbehaviour.AggressiveGhost;
+import it.unibo.model.ghost.impl.ghostbehaviour.NormalGhost;
 
 /**
  * This class represents an implementation of {@link GhostFactory}.
@@ -16,16 +20,16 @@ public class GhostFactoryImpl implements GhostFactory {
 
     /**
      * Creates an object of this class.
-     * @param width the width of the ghost
+     * 
+     * @param width  the width of the ghost
      * @param height the height of the ghost
      */
     public GhostFactoryImpl(final int width, final int height) {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width and Height must be positive");
-        } 
-       dimension = new Dimension(width, height);
+        }
+        dimension = new Dimension(width, height);
     }
-
 
     /**
      * {@inheritDoc}
@@ -39,9 +43,11 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createRedGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
+    public FollowingGhost createRedGhost(final Point pos, final double initialSpeed,
+            final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createRedGhost(pos, initialSpeed);
-        return new FollowingGhost(ghost, behaviour);
+        return createBehaviourGhost(ghost, mapCoordinates, behaviour);
+
     }
 
     /**
@@ -56,9 +62,10 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createBlueGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
+    public FollowingGhost createBlueGhost(final Point pos, final double initialSpeed,
+            final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createBlueGhost(pos, initialSpeed);
-        return new FollowingGhost(ghost, behaviour);
+        return createBehaviourGhost(ghost, mapCoordinates, behaviour);
     }
 
     /**
@@ -73,9 +80,10 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createPinkGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
+    public FollowingGhost createPinkGhost(final Point pos, final double initialSpeed,
+            final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createPinkGhost(pos, initialSpeed);
-        return new FollowingGhost(ghost, behaviour);
+        return createBehaviourGhost(ghost, mapCoordinates, behaviour);
     }
 
     /**
@@ -90,8 +98,18 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createOrangeGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
+    public FollowingGhost createOrangeGhost(final Point pos, final double initialSpeed,
+            final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createOrangeGhost(pos, initialSpeed);
-        return new FollowingGhost(ghost, behaviour);
+        return createBehaviourGhost(ghost, mapCoordinates, behaviour);
     }
+
+    private FollowingGhost createBehaviourGhost(final Ghost ghost, final GhostCoordinates mapCoordinates,
+            final GhostBehaviours behaviour) {
+        return switch (behaviour) {
+            case AGGRESSIVE -> new AggressiveGhost(ghost, mapCoordinates);
+            case NORMAL -> new NormalGhost(ghost, mapCoordinates);
+        };
+    }
+
 }

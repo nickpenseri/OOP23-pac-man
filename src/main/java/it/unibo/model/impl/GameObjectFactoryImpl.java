@@ -7,9 +7,11 @@ import java.util.List;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
+import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.map.impl.MapImageImpl;
@@ -84,19 +86,20 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createGhost(final Point position, final GhostColor color, final GhostBehaviour behaviour) {
+    public FollowingGhost createGhost(final Point position, final GhostColor color, final GhostCoordinates mapCoordinates, 
+            final GhostBehaviours behaviour) {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createRedGhost(position, ghostSpeed, mapCoordinates, behaviour);
             case PINK:
-                return ghostFactory.createPinkGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createPinkGhost(position, ghostSpeed, mapCoordinates, behaviour);
             case BLUE:
-                return ghostFactory.createBlueGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createBlueGhost(position, ghostSpeed, mapCoordinates, behaviour);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createOrangeGhost(position, ghostSpeed, mapCoordinates, behaviour);
             default:
-                return ghostFactory.createRedGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createRedGhost(position, ghostSpeed, mapCoordinates, behaviour);
         }
     }
 

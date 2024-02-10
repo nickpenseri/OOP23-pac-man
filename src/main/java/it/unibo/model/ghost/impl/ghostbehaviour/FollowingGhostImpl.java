@@ -1,4 +1,4 @@
-package it.unibo.model.ghost.impl;
+package it.unibo.model.ghost.impl.ghostbehaviour;
 
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
@@ -9,20 +9,17 @@ import java.util.Optional;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.api.Direction;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 
 /**
  * This class models a ghost that follows a specific behaviour.
  */
-public class FollowingGhost implements Ghost {
+public abstract class FollowingGhostImpl implements FollowingGhost {
 
+    private final GhostCoordinates behaviour;
     private final Ghost ghost;
-    private GhostState state = GhostState.NORMAL;
-    private boolean interlock;
-    private final GhostBehaviour behaviour;
-    private static final int SPEED_INCREASE = 20;
-
     /**
      * Create a new following ghost.
      * @param ghost the ghost to follow
@@ -31,7 +28,7 @@ public class FollowingGhost implements Ghost {
     @SuppressFBWarnings(value = {
             "EI_EXPOSE_REP2"
     }, justification = "Changings of the decorated object should also affect this object")
-    public FollowingGhost(final Ghost ghost, final GhostBehaviour behaviour) {
+    public FollowingGhostImpl(final Ghost ghost, final GhostCoordinates behaviour) {
         this.ghost = ghost;
         this.behaviour = Objects.requireNonNull(behaviour);
     }
@@ -49,8 +46,7 @@ public class FollowingGhost implements Ghost {
      */
     @Override
     public void setState(final GhostState state) {
-      this.state = state;
-      ghost.setState(this.state);
+      ghost.setState(state);
     }
 
     /**
@@ -66,34 +62,12 @@ public class FollowingGhost implements Ghost {
      */
     @Override
     public void updateState(final long elapsed) {
-        ghost.setState(this.state);
-        switch (state) {
-            case NORMAL:
-                behaviour.normalBehaviour(ghost, elapsed);
-                break;
-            case DEAD:
-            if (!interlock) {
-                for (int i = 0; i < SPEED_INCREASE; i++) {
-                    ghost.increaseSpeed();
-                }
-                interlock = true;
-            }
-                if (behaviour.deadBehaviour(ghost, elapsed)) {
-                    setState(GhostState.NORMAL);
-                    for (int i = 0; i < SPEED_INCREASE; i++) {
-                        ghost.decreaseSpeed();
-                    }
-                    interlock = false;
-                }
-
-                break;
-            case SCARED:
-                if (behaviour.scaredBehaviour(ghost, elapsed)) {
-                    setState(GhostState.NORMAL);
-                }
-                break;
-            default:
-                break;
+        if (this.ghost.getState() == GhostState.NORMAL) {
+            normalBehaviour(elapsed);
+        } else if (this.ghost.getState() == GhostState.DEAD) {
+            deadBehaviour(elapsed);
+        } else if (this.ghost.getState() == GhostState.SCARED) {
+            scaredBehaviour(elapsed);
         }
     }
 
@@ -136,7 +110,6 @@ public class FollowingGhost implements Ghost {
     public void setPosition(final Point position) {
         setState(GhostState.NORMAL);
         ghost.setPosition(position);
-        behaviour.resetBehaviour();
     }
 
     /**
@@ -169,4 +142,43 @@ public class FollowingGhost implements Ghost {
     public Dimension2D getDimension() {
         return ghost.getDimension();
     }
+
+
+    /**
+     * @return the behaviour of the ghost
+     */
+    protected GhostCoordinates getBehaviour() {
+        return this.behaviour;
+    }
+
+    /**
+     * @return the ghost instance
+     */
+    protected Ghost getGhost() {
+        return ghost;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract void resetBehaviour();
+
+    /**
+     * In this method must be implemented the behaviour of the ghost when it is dead.
+     * @param elapsed
+     */
+    protected abstract void deadBehaviour(long elapsed);
+
+    /**
+     * In this method must be implemented the behaviour of the ghost when it is scared.
+     * @param elapsed
+     */
+    protected abstract void scaredBehaviour(long elapsed);
+
+    /**
+     * In this method must be implemented the behaviour of the ghost when it is normal.
+     * @param elapsed
+     */
+    protected abstract void normalBehaviour(long elapsed);
 }

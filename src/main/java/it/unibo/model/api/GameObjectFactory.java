@@ -3,9 +3,12 @@ package it.unibo.model.api;
 import java.awt.Dimension;
 import java.util.List;
 import java.awt.Point;
+
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
+import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.pacman.api.GamePacMan;
@@ -39,10 +42,11 @@ public interface GameObjectFactory {
      * 
      * @param position the position of the ghost
      * @param color    the color of the ghost
+     * @param coordinates the coordinates of the map for the ghost
      * @param behaviour the behaviour of the ghost
      * @return the created ghost
      */
-    Ghost createGhost(Point position, GhostColor color, GhostBehaviour behaviour);
+    FollowingGhost createGhost(Point position,  GhostColor color,  GhostCoordinates coordinates, GhostBehaviours behaviour);
 
 
     /**
