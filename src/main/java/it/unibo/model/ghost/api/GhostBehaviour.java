@@ -7,6 +7,6 @@ public interface GhostBehaviour {
     DirectionSelector getDirectionSelector();
     GameObject getNormalTarget();
     GameObject getDeadTarget();
-    GameObject getScatedTarget();
+    GameObject getScaredTarget();
     void resetBehaviour();
 }
