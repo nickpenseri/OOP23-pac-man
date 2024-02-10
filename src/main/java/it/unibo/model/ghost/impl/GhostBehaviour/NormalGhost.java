@@ -6,7 +6,7 @@ import java.util.Random;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
+import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.api.PositionApproximator;
@@ -25,7 +25,7 @@ public class NormalGhost extends FollowingGhostImpl{
     private boolean interlock;
 
 
-    public NormalGhost(final Ghost ghost, final GhostBehaviour behaviour) {
+    public NormalGhost(final Ghost ghost, final GhostCoordinates behaviour) {
         super(ghost,behaviour);
         this.directionSelector = Objects.requireNonNull(behaviour.getDirectionSelector());
       

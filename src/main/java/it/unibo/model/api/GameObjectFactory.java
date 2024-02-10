@@ -6,12 +6,11 @@ import java.awt.Point;
 
 import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
+import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.pacman.api.GamePacMan;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.pickable.api.PickableGenerator;
 
 /**
@@ -42,10 +41,10 @@ public interface GameObjectFactory {
      * 
      * @param position the position of the ghost
      * @param color    the color of the ghost
-     * @param behaviour the behaviour of the ghost
+     * @param coordinates the coordinates of the map for the ghost
      * @return the created ghost
      */
-    FollowingGhost createGhost(Point pos,  GhostColor color,  GhostBehaviour behaviour);
+    FollowingGhost createGhost(Point position,  GhostColor color,  GhostCoordinates coordinates);
 
 
     /**

@@ -42,11 +42,4 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
     public List<GameObject> getScaredTarget() {
        return new ArrayList<GameObject>(GameVertex);
     }
-
-    @Override
-    public void resetBehaviour() {
-       this.directionSelector.reset();
-    }
-    
-
 }

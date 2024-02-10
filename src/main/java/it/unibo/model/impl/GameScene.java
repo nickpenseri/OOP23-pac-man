@@ -17,10 +17,10 @@ import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
 import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
+import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
-import it.unibo.model.ghost.impl.GhostBehaviour.GhostBehaviourOnGraph;
+import it.unibo.model.ghost.impl.GhostBehaviour.GhostCoordinatesOnGraph;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
@@ -183,10 +183,10 @@ public class GameScene implements Model {
         final DirectionSelector directionSelector4 = new GraphDirectionSelector(graph);
         final List<GameObject> cammini = new ArrayList<>(graph.vertexSet());
 
-        final GhostBehaviour ghostBehaviour = new GhostBehaviourOnGraph(directionSelector, pacman,mapBuilder.getSpawnGhost(), cammini );
-        final GhostBehaviour ghostBehaviour2 = new GhostBehaviourOnGraph(directionSelector2, pacman,mapBuilder.getSpawnGhost(), cammini );
-        final GhostBehaviour ghostBehaviour3 = new GhostBehaviourOnGraph(directionSelector3, pacman,mapBuilder.getSpawnGhost(), cammini );
-        final GhostBehaviour ghostBehaviour4 = new GhostBehaviourOnGraph(directionSelector4, pacman,mapBuilder.getSpawnGhost(), cammini );
+        final GhostCoordinates ghostBehaviour = new GhostCoordinatesOnGraph(directionSelector, pacman,mapBuilder.getSpawnGhost(), cammini );
+        final GhostCoordinates ghostBehaviour2 = new GhostCoordinatesOnGraph(directionSelector2, pacman,mapBuilder.getSpawnGhost(), cammini );
+        final GhostCoordinates ghostBehaviour3 = new GhostCoordinatesOnGraph(directionSelector3, pacman,mapBuilder.getSpawnGhost(), cammini );
+        final GhostCoordinates ghostBehaviour4 = new GhostCoordinatesOnGraph(directionSelector4, pacman,mapBuilder.getSpawnGhost(), cammini );
         final var pos = mapBuilder.getSpawnGhost().get(0);
     
         ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.RED, ghostBehaviour);

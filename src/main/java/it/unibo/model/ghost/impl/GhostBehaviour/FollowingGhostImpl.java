@@ -10,7 +10,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.api.Direction;
 import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
+import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 
@@ -19,7 +19,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
  */
 public abstract class FollowingGhostImpl implements FollowingGhost {
     
-    private final GhostBehaviour behaviour;
+    private final GhostCoordinates behaviour;
     private final Ghost ghost;
     /**
      * Create a new following ghost.
@@ -29,7 +29,7 @@ public abstract class FollowingGhostImpl implements FollowingGhost {
     @SuppressFBWarnings(value = {
             "EI_EXPOSE_REP2"
     }, justification = "Changings of the decorated object should also affect this object")
-    public FollowingGhostImpl(final Ghost ghost, final GhostBehaviour behaviour) {
+    public FollowingGhostImpl(final Ghost ghost, final GhostCoordinates behaviour) {
         this.ghost = ghost;
         this.behaviour = Objects.requireNonNull(behaviour);
     }
@@ -144,7 +144,7 @@ public abstract class FollowingGhostImpl implements FollowingGhost {
         return ghost.getDimension();
     }
 
-    protected GhostBehaviour getBehaviour() {
+    protected GhostCoordinates getBehaviour() {
         return this.behaviour;
     }
 
