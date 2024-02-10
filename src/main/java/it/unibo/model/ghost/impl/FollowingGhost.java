@@ -15,14 +15,11 @@ import it.unibo.model.ghost.api.GhostState;
 /**
  * This class models a ghost that follows a specific behaviour.
  */
-public class FollowingGhost implements Ghost {
+public abstract class FollowingGhost implements Ghost {
 
     private final Ghost ghost;
     private GhostState state = GhostState.NORMAL;
-    private boolean interlock;
     private final GhostBehaviour behaviour;
-    private static final int SPEED_INCREASE = 20;
-
     /**
      * Create a new following ghost.
      * @param ghost the ghost to follow
@@ -67,33 +64,12 @@ public class FollowingGhost implements Ghost {
     @Override
     public void updateState(final long elapsed) {
         ghost.setState(this.state);
-        switch (state) {
-            case NORMAL:
-                behaviour.normalBehaviour(ghost, elapsed);
-                break;
-            case DEAD:
-            if (!interlock) {
-                for (int i = 0; i < SPEED_INCREASE; i++) {
-                    ghost.increaseSpeed();
-                }
-                interlock = true;
-            }
-                if (behaviour.deadBehaviour(ghost, elapsed)) {
-                    setState(GhostState.NORMAL);
-                    for (int i = 0; i < SPEED_INCREASE; i++) {
-                        ghost.decreaseSpeed();
-                    }
-                    interlock = false;
-                }
-
-                break;
-            case SCARED:
-                if (behaviour.scaredBehaviour(ghost, elapsed)) {
-                    setState(GhostState.NORMAL);
-                }
-                break;
-            default:
-                break;
+        if (this.state == GhostState.NORMAL) {
+            normalBehaviour(this.ghost, elapsed);
+        } else if (this.state == GhostState.DEAD) {
+            deadBehaviour(this.ghost, elapsed);
+        } else if (this.state == GhostState.SCARED) {
+            scaredBehaviour(this.ghost, elapsed);
         }
     }
 
@@ -169,4 +145,9 @@ public class FollowingGhost implements Ghost {
     public Dimension2D getDimension() {
         return ghost.getDimension();
     }
+
+    protected abstract void deadBehaviour(final Ghost character, final long elapsed);
+    protected abstract void scaredBehaviour(final Ghost character, final long elapsed);
+    protected abstract void normalBehaviour(final Ghost character, final long elapsed);
+    
 }
