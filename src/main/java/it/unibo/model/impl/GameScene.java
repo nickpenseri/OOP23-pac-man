@@ -181,19 +181,11 @@ public class GameScene implements Model {
         final List<GameObject> cammini = new ArrayList<>(graph.vertexSet());
 
         final var pos = mapBuilder.getSpawnGhost().get(0);
-        final var behaviour = new GhostBehaviourImpl(directionSelector, pacman, pos, pacman);
-        final var behaviour2 = new GhostBehaviourImpl(directionSelector2, pacman, pos, cammini.get(RANDOMPOS2));
-        final var behaviour3 = new GhostBehaviourImpl(directionSelector3, pacman, pos, cammini.get(RANDOMPOS2));
-        final var behaviour4 = new GhostBehaviourImpl(directionSelector4, pacman, pos, cammini.get(RANDOMPOS2));
-
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.RED,
-                behaviour);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.BLUE,
-                behaviour2);
-        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2).getPosition(), GhostColor.PINK,
-                behaviour3);
-        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.ORANGE,
-                behaviour4);
+    
+        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.RED, directionSelector, pacman, mapBuilder.getSpawnGhost(), cammini);
+        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.BLUE, directionSelector2, pacman, mapBuilder.getSpawnGhost(), cammini);
+        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2).getPosition(), GhostColor.PINK, directionSelector3, pacman, mapBuilder.getSpawnGhost(), cammini);
+        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.ORANGE, directionSelector4, pacman, mapBuilder.getSpawnGhost(), cammini);
         this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4)));
 
     }
