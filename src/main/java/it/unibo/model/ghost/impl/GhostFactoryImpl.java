@@ -95,7 +95,7 @@ public class GhostFactoryImpl implements GhostFactory {
      */
     @Override
     public Ghost createOrangeGhost(final Point pos, final double initialSpeed,final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex) {
-        final Ghost ghost = createPinkGhost(pos, initialSpeed);
+        final Ghost ghost = createOrangeGhost(pos, initialSpeed);
         return new NormalGhost(ghost, directionSelector, normalTarget, deadTargets, GameVertex);
     }
 
