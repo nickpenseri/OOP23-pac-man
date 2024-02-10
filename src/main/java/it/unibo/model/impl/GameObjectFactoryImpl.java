@@ -18,7 +18,6 @@ import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pacman.impl.PacManBordered;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pacman.impl.PacManWalls;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.pickable.api.PickableGenerator;
 import it.unibo.model.pickable.impl.PickableGeneratorImpl;
 

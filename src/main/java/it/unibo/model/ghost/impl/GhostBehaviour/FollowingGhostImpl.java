@@ -12,13 +12,12 @@ import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostState;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 
 /**
  * This class models a ghost that follows a specific behaviour.
  */
 public abstract class FollowingGhostImpl implements FollowingGhost {
-    
+
     private final GhostCoordinates behaviour;
     private final Ghost ghost;
     /**
@@ -144,17 +143,41 @@ public abstract class FollowingGhostImpl implements FollowingGhost {
         return ghost.getDimension();
     }
 
+
+    /**
+     * @return the behaviour of the ghost
+     */
     protected GhostCoordinates getBehaviour() {
         return this.behaviour;
     }
 
+    /**
+     * @return the ghost instance
+     */
     protected Ghost getGhost() {
         return ghost;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public abstract void resetBehaviour();
-    protected abstract void deadBehaviour(final long elapsed);
-    protected abstract void scaredBehaviour(final long elapsed);
-    protected abstract void normalBehaviour(final long elapsed);
-    
+
+    /**
+     * In this method must be implemented the behaviour of the ghost when it is dead.
+     * @param elapsed
+     */
+    protected abstract void deadBehaviour(long elapsed);
+
+    /**
+     * In this method must be implemented the behaviour of the ghost when it is scared.
+     * @param elapsed
+     */
+    protected abstract void scaredBehaviour(long elapsed);
+
+    /**
+     * In this method must be implemented the behaviour of the ghost when it is normal.
+     * @param elapsed
+     */
+    protected abstract void normalBehaviour(long elapsed);
 }

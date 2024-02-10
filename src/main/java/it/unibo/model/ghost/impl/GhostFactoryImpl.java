@@ -2,17 +2,13 @@ package it.unibo.model.ghost.impl;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.List;
-
-import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
-import it.unibo.model.ghost.impl.GhostBehaviour.FollowingGhostImpl;
 import it.unibo.model.ghost.impl.GhostBehaviour.NormalGhost;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
+
 
 /**
  * This class represents an implementation of {@link GhostFactory}.
@@ -47,7 +43,7 @@ public class GhostFactoryImpl implements GhostFactory {
     @Override
     public FollowingGhost createRedGhost(final Point pos, final double initialSpeed, final GhostCoordinates behaviour) {
         final Ghost ghost = createRedGhost(pos, initialSpeed);
-        return new NormalGhost(ghost,behaviour);
+        return new NormalGhost(ghost, behaviour);
     }
 
     /**
@@ -96,7 +92,7 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createOrangeGhost(final Point pos, final double initialSpeed,final GhostCoordinates behaviour) {
+    public FollowingGhost createOrangeGhost(final Point pos, final double initialSpeed, final GhostCoordinates behaviour) {
         final Ghost ghost = createOrangeGhost(pos, initialSpeed);
         return new NormalGhost(ghost, behaviour);
     }
