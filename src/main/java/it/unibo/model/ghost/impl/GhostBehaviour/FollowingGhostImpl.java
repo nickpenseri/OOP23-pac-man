@@ -1,4 +1,4 @@
-package it.unibo.model.ghost.impl.GhostBehaviour;
+package it.unibo.model.ghost.impl.ghostBehaviour;
 
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
@@ -161,6 +161,7 @@ public abstract class FollowingGhostImpl implements FollowingGhost {
     /**
      * {@inheritDoc}
      */
+    @Override
     public abstract void resetBehaviour();
 
     /**

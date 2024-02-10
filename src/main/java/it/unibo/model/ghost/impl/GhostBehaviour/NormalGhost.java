@@ -1,4 +1,4 @@
-package it.unibo.model.ghost.impl.GhostBehaviour;
+package it.unibo.model.ghost.impl.ghostBehaviour;
 
 
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class NormalGhost extends FollowingGhostImpl {
     private GameObject deadTargetSelected;
     private final DirectionSelector directionSelector;
     private final PositionApproximator approximator = new PositionApproximatorImpl();
-    private final Timer timer = new TimerImpl(100_00);
+    private final Timer timer = new TimerImpl(1_000_0);
     private static final int SPEED_INCREASE = 20;
     private boolean interlock;
 

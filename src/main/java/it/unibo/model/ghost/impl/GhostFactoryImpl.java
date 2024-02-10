@@ -7,7 +7,7 @@ import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
-import it.unibo.model.ghost.impl.GhostBehaviour.NormalGhost;
+import it.unibo.model.ghost.impl.ghostBehaviour.NormalGhost;
 
 
 /**

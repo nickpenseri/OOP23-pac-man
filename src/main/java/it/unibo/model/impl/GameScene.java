@@ -19,7 +19,7 @@ import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
-import it.unibo.model.ghost.impl.GhostBehaviour.GhostCoordinatesOnGraph;
+import it.unibo.model.ghost.impl.ghostBehaviour.GhostCoordinatesOnGraph;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
 import it.unibo.model.map.api.MapSelector;
