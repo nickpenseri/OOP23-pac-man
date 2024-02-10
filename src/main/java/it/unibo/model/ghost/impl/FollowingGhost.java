@@ -18,8 +18,6 @@ import it.unibo.model.ghost.api.GhostState;
 public abstract class FollowingGhost implements Ghost {
 
     private final Ghost ghost;
-    private GhostState state = GhostState.NORMAL;
-    private final GhostBehaviour behaviour;
     /**
      * Create a new following ghost.
      * @param ghost the ghost to follow
@@ -28,9 +26,8 @@ public abstract class FollowingGhost implements Ghost {
     @SuppressFBWarnings(value = {
             "EI_EXPOSE_REP2"
     }, justification = "Changings of the decorated object should also affect this object")
-    public FollowingGhost(final Ghost ghost, final GhostBehaviour behaviour) {
+    public FollowingGhost(final Ghost ghost) {
         this.ghost = ghost;
-        this.behaviour = Objects.requireNonNull(behaviour);
     }
 
     /**
@@ -46,8 +43,7 @@ public abstract class FollowingGhost implements Ghost {
      */
     @Override
     public void setState(final GhostState state) {
-      this.state = state;
-      ghost.setState(this.state);
+      ghost.setState(state);
     }
 
     /**
@@ -63,12 +59,11 @@ public abstract class FollowingGhost implements Ghost {
      */
     @Override
     public void updateState(final long elapsed) {
-        ghost.setState(this.state);
-        if (this.state == GhostState.NORMAL) {
+        if (this.ghost.getState() == GhostState.NORMAL) {
             normalBehaviour(this.ghost, elapsed);
-        } else if (this.state == GhostState.DEAD) {
+        } else if (this.ghost.getState() == GhostState.DEAD) {
             deadBehaviour(this.ghost, elapsed);
-        } else if (this.state == GhostState.SCARED) {
+        } else if (this.ghost.getState() == GhostState.SCARED) {
             scaredBehaviour(this.ghost, elapsed);
         }
     }
@@ -112,7 +107,6 @@ public abstract class FollowingGhost implements Ghost {
     public void setPosition(final Point position) {
         setState(GhostState.NORMAL);
         ghost.setPosition(position);
-        behaviour.resetBehaviour();
     }
 
     /**
