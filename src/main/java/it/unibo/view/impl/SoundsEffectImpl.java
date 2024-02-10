@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.URL;
 
-/** vfdevefvevbfe. */
+/** class that manages the sounds of the game. */
 public class SoundsEffectImpl implements SoundsEffect {
 
     private final Logger logger = LoggerFactory.getLogger(SoundsEffectImpl.class);

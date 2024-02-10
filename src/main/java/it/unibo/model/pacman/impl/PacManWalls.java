@@ -11,6 +11,7 @@ import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.physics.collisions.api.CollisionChecker;
 import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
+import it.unibo.view.impl.PacManSound;
 
 /**
  * This class models an entity of pacman which moves in a space with walls, that
@@ -24,6 +25,7 @@ public class PacManWalls extends PacManDecoratorImpl implements GamePacMan {
     private final List<GameObject> walls;
     private final CollisionChecker<GameObject> collisionChecker;
     private Point lastPos;
+    private PacManSound sound;
 
     /**
      * Creates an object that decorates the PacMan passed as a parameter and with
@@ -40,6 +42,7 @@ public class PacManWalls extends PacManDecoratorImpl implements GamePacMan {
         final CollisionCheckerFactory checkerFactory = new CollisionCheckerFactoryImpl();
         this.collisionChecker = checkerFactory.gameObjectChecker();
         this.lastPos = super.getPosition();
+        this.sound = new PacManSound("/sound/pac-man.wav");
         if (this.isInWalls()) {
             throw new IllegalArgumentException("Should not spawn inside a wall");
         }
@@ -54,7 +57,13 @@ public class PacManWalls extends PacManDecoratorImpl implements GamePacMan {
         if (this.isInWalls()) {
             this.setPosition(this.lastPos);
         }
-        lastPos = this.getPosition();
+        if (!this.getPosition().equals(this.lastPos)) {
+            lastPos = this.getPosition();
+            if (!this.sound.isChecker()) {
+                this.sound = new PacManSound("/sound/pac-man.wav");
+            }
+            this.sound.playSound();
+        }
     }
 
     /**
@@ -71,6 +80,7 @@ public class PacManWalls extends PacManDecoratorImpl implements GamePacMan {
             throw new IllegalArgumentException("Cannor respawn inside walls");
         }
         super.respawn(spawnPoint);
+        this.sound.closeAudio();
         this.lastPos = this.getPosition();
     }
 
@@ -79,7 +89,7 @@ public class PacManWalls extends PacManDecoratorImpl implements GamePacMan {
                 .anyMatch(wall -> collisionChecker.areColliding(this, wall));
     }
 
-    /**{@inheritDoc} */
+    /** {@inheritDoc} */
     @Override
     public void changeMap(final List<GameObject> walls, final Point spawnPoint) {
         this.walls.clear();
