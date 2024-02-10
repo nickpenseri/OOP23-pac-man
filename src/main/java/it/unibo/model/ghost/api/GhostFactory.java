@@ -1,6 +1,10 @@
 package it.unibo.model.ghost.api;
 
 import java.awt.Point;
+
+import it.unibo.model.ghost.api.ghostBehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostBehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostBehaviour.GhostCoordinates;
 /**
  * This interface models an entity of GhostFactory, an object that is responsible of
  * creating ghosts.
@@ -18,10 +22,11 @@ public interface GhostFactory {
      * Create a new red ghost with a specific behaviour.
      * @param pos the position of the ghost
      * @param initialSpeed the initial speed of the ghost
+     * @param mapCoordinates the coordinates of the map for the ghost
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createRedGhost(Point pos, double initialSpeed, GhostCoordinates behaviour);
+    FollowingGhost createRedGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
 
     /**
      * Create a new blue ghost.
@@ -35,10 +40,11 @@ public interface GhostFactory {
      * Create a new blue ghost with a specific behaviour.
      * @param pos the position of the ghost
      * @param initialSpeed the initial speed of the ghost
+     * @param mapCoordinates the coordinates of the map for the ghost
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createBlueGhost(Point pos, double initialSpeed, GhostCoordinates behaviour);
+    FollowingGhost createBlueGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
 
     /**
      * Create a new pink ghost.
@@ -52,10 +58,11 @@ public interface GhostFactory {
      * Create a new pink ghost with a specific behaviour.
      * @param pos the position of the ghost
      * @param initialSpeed the initial speed of the ghost
+     * @param mapCoordinates the coordinates of the map for the ghost
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createPinkGhost(Point pos, double initialSpeed, GhostCoordinates behaviour);
+    FollowingGhost createPinkGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
 
     /**
      * Create a new orange ghost.
@@ -69,10 +76,11 @@ public interface GhostFactory {
      * Create a new orange ghost with a specific behaviour.
      * @param pos the position of the ghost
      * @param initialSpeed the initial speed of the ghost
+     * @param mapCoordinates the coordinates of the map for the ghost
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createOrangeGhost(Point pos, double initialSpeed, GhostCoordinates behaviour);
+    FollowingGhost createOrangeGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
 }
 
 

@@ -1,4 +1,4 @@
-package it.unibo.model.ghost.api;
+package it.unibo.model.ghost.api.ghostBehaviour;
 
 import java.util.List;
 import java.util.Optional;

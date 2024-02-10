@@ -8,10 +8,10 @@ import java.util.Optional;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.api.Direction;
-import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.ghost.api.ghostBehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostBehaviour.GhostCoordinates;
 
 /**
  * This class models a ghost that follows a specific behaviour.

@@ -2,11 +2,14 @@ package it.unibo.model.ghost.impl;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import it.unibo.model.ghost.api.FollowingGhost;
+
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
+import it.unibo.model.ghost.api.ghostBehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostBehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostBehaviour.GhostCoordinates;
+import it.unibo.model.ghost.impl.ghostbehaviour.AggressiveGhost;
 import it.unibo.model.ghost.impl.ghostbehaviour.NormalGhost;
 
 
@@ -41,9 +44,10 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createRedGhost(final Point pos, final double initialSpeed, final GhostCoordinates behaviour) {
+    public FollowingGhost createRedGhost(final Point pos, final double initialSpeed, final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createRedGhost(pos, initialSpeed);
-        return new NormalGhost(ghost, behaviour);
+        return createBehaviourGhost(ghost, mapCoordinates, behaviour);
+ 
     }
 
     /**
@@ -58,9 +62,9 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createBlueGhost(final Point pos, final double initialSpeed, final GhostCoordinates behaviour) {
+    public FollowingGhost createBlueGhost(final Point pos, final double initialSpeed, final GhostCoordinates mapCoordinates,final GhostBehaviours behaviour) {
         final Ghost ghost = createBlueGhost(pos, initialSpeed);
-        return new NormalGhost(ghost, behaviour);
+        return createBehaviourGhost(ghost, mapCoordinates, behaviour);
     }
 
     /**
@@ -75,9 +79,9 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createPinkGhost(final Point pos, final double initialSpeed, final GhostCoordinates behaviour) {
+    public FollowingGhost createPinkGhost(final Point pos, final double initialSpeed, final GhostCoordinates mapCoordinates,final GhostBehaviours behaviour) {
         final Ghost ghost = createPinkGhost(pos, initialSpeed);
-        return new NormalGhost(ghost, behaviour);
+        return createBehaviourGhost(ghost, mapCoordinates, behaviour);
     }
 
     /**
@@ -92,9 +96,17 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createOrangeGhost(final Point pos, final double initialSpeed, final GhostCoordinates behaviour) {
+    public FollowingGhost createOrangeGhost(final Point pos, final double initialSpeed, final GhostCoordinates mapCoordinates,final GhostBehaviours behaviour) {
         final Ghost ghost = createOrangeGhost(pos, initialSpeed);
-        return new NormalGhost(ghost, behaviour);
+        return createBehaviourGhost(ghost, mapCoordinates, behaviour);
+    }
+
+
+    private FollowingGhost createBehaviourGhost(final Ghost ghost, final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
+        return switch (behaviour) {
+            case AGGRESSIVE -> new AggressiveGhost(ghost, mapCoordinates);
+            case NORMAL -> new NormalGhost(ghost, mapCoordinates);
+        };
     }
 
 }

@@ -15,10 +15,11 @@ import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
-import it.unibo.model.ghost.api.FollowingGhost;
-import it.unibo.model.ghost.api.GhostCoordinates;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
+import it.unibo.model.ghost.api.ghostBehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostBehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostBehaviour.GhostCoordinates;
 import it.unibo.model.ghost.impl.ghostbehaviour.GhostCoordinatesOnGraph;
 import it.unibo.model.map.api.MapBuilder;
 import it.unibo.model.map.api.MapReader;
@@ -178,13 +179,13 @@ public class GameScene implements Model {
         final GhostCoordinates ghostCoord4 = new GhostCoordinatesOnGraph(graph, pacman, mapBuilder.getSpawnGhost());
 
         ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.RED,
-            ghostCoord);
+            ghostCoord, GhostBehaviours.AGGRESSIVE);
         ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.BLUE,
-                ghostCoord2);
+                ghostCoord2, GhostBehaviours.NORMAL);
         ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2).getPosition(), GhostColor.PINK,
-                ghostCoord3);
+                ghostCoord3, GhostBehaviours.NORMAL);
         ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.ORANGE,
-                ghostCoord4);
+                ghostCoord4, GhostBehaviours.NORMAL);
         this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4)));
 
     }

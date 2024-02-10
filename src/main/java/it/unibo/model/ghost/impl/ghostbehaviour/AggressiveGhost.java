@@ -16,7 +16,7 @@ import it.unibo.model.physics.timer.impl.TimerImpl;
 /**
  * This class models a normal ghost, the mapCoordinates is like in the normal game.
  */
-public class NormalGhost extends FollowingGhostImpl {
+public class AggressiveGhost extends FollowingGhostImpl {
 
     private GameObject deadTargetSelected;
     private GameObject randomTargetSelected;
@@ -34,7 +34,7 @@ public class NormalGhost extends FollowingGhostImpl {
      * @param ghost the ghost to follow
      * @param mapCoordinates the coordinates of the map for the ghost
      */
-    public NormalGhost(final Ghost ghost, final GhostCoordinates mapCoordinates) {
+    public AggressiveGhost(final Ghost ghost, final GhostCoordinates mapCoordinates) {
         super(ghost, mapCoordinates);
         this.directionSelector = Objects.requireNonNull(mapCoordinates.getDirectionSelector().get());
     }
@@ -83,22 +83,7 @@ public class NormalGhost extends FollowingGhostImpl {
     @Override
     protected void normalBehaviour(final long elapsed) {
         scaredTimer.reset();
-
-        if (!randomTimer.update(elapsed)) {
-            if (!normalinterlock) {
-                randomTargetSelected = super.getBehaviour().getRandomTarget();
-                normalinterlock = true;
-            }
-
-            this.directionSelector.setDirection(super.getGhost(), randomTargetSelected,elapsed);
-            if (approximator.isPositionCloseEnough(this, randomTargetSelected, 2.0)) {
-                normalinterlock = false;
-            }
-         
-        } else {
-            normalinterlock = false;
-            this.directionSelector.setDirection(super.getGhost(), super.getBehaviour().getNormalTarget(), elapsed);
-        }
+        this.directionSelector.setDirection(super.getGhost(), super.getBehaviour().getNormalTarget(), elapsed);
     }
 
     /**
