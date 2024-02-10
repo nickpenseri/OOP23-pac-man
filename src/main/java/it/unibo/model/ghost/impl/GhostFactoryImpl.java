@@ -7,6 +7,7 @@ import java.util.List;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
 import it.unibo.model.ghost.impl.GhostBehaviour.FollowingGhostImpl;
@@ -44,9 +45,9 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createRedGhost(final Point pos, final double initialSpeed, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex) {
+    public FollowingGhost createRedGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
         final Ghost ghost = createRedGhost(pos, initialSpeed);
-        return new NormalGhost(ghost, directionSelector, normalTarget, deadTargets, GameVertex);
+        return new NormalGhost(ghost,behaviour);
     }
 
     /**
@@ -61,9 +62,9 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createBlueGhost(final Point pos, final double initialSpeed, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex) {
+    public FollowingGhost createBlueGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
         final Ghost ghost = createBlueGhost(pos, initialSpeed);
-        return new NormalGhost(ghost, directionSelector, normalTarget, deadTargets, GameVertex);
+        return new NormalGhost(ghost, behaviour);
     }
 
     /**
@@ -78,9 +79,9 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createPinkGhost(final Point pos, final double initialSpeed,final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex) {
+    public FollowingGhost createPinkGhost(final Point pos, final double initialSpeed, final GhostBehaviour behaviour) {
         final Ghost ghost = createPinkGhost(pos, initialSpeed);
-        return new NormalGhost(ghost, directionSelector, normalTarget, deadTargets, GameVertex);
+        return new NormalGhost(ghost, behaviour);
     }
 
     /**
@@ -95,9 +96,9 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createOrangeGhost(final Point pos, final double initialSpeed,final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex) {
+    public FollowingGhost createOrangeGhost(final Point pos, final double initialSpeed,final GhostBehaviour behaviour) {
         final Ghost ghost = createOrangeGhost(pos, initialSpeed);
-        return new NormalGhost(ghost, directionSelector, normalTarget, deadTargets, GameVertex);
+        return new NormalGhost(ghost, behaviour);
     }
 
 }

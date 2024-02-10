@@ -1,10 +1,6 @@
 package it.unibo.model.ghost.api;
 
 import java.awt.Point;
-import java.util.List;
-
-import it.unibo.model.api.GameObject;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 /**
  * This interface models an entity of GhostFactory, an object that is responsible of
  * creating ghosts.
@@ -25,7 +21,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createRedGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createRedGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
 
     /**
      * Create a new blue ghost.
@@ -42,7 +38,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createBlueGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createBlueGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
 
     /**
      * Create a new pink ghost.
@@ -59,7 +55,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createPinkGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createPinkGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
 
     /**
      * Create a new orange ghost.
@@ -76,7 +72,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createOrangeGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createOrangeGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
 }
 
 

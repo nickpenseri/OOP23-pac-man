@@ -8,6 +8,7 @@ import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
+import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
@@ -85,19 +86,19 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createGhost(final Point position, final GhostColor color, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex ) {
+    public FollowingGhost createGhost(final Point position, final GhostColor color, final GhostBehaviour behaviour) {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
+                return ghostFactory.createRedGhost(position, ghostSpeed, behaviour);
             case PINK:
-                return ghostFactory.createPinkGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
+                return ghostFactory.createPinkGhost(position, ghostSpeed, behaviour);
             case BLUE:
-                return ghostFactory.createBlueGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
+                return ghostFactory.createBlueGhost(position, ghostSpeed, behaviour);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
+                return ghostFactory.createOrangeGhost(position, ghostSpeed, behaviour);
             default:
-                return ghostFactory.createRedGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
+                return ghostFactory.createRedGhost(position, ghostSpeed, behaviour);
         }
     }
 
