@@ -2,6 +2,7 @@ package it.unibo.model.ghost.impl.GhostBehaviour;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.Ghost;
@@ -15,18 +16,20 @@ import it.unibo.model.physics.timer.impl.TimerImpl;
 public class NormalGhost extends FollowingGhost{
 
     private final GameObject normalTarget;
-    private final List<GameObject> deadTarget;
+    private final List<GameObject> deadTargets;
+    private GameObject deadTargetSelected;
     private final List<GameObject> GameVertex;
     private final PositionApproximator approximator = new PositionApproximatorImpl();
+    private final Random random = new Random();
     private final Timer timer = new TimerImpl(100_00);
     private static final int SPEED_INCREASE = 20;
     private boolean interlock;
 
 
-    public NormalGhost(final Ghost ghost, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTarget, final  List<GameObject> GameVertex) {
+    public NormalGhost(final Ghost ghost, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex) {
         super(ghost,directionSelector);
         this.normalTarget = Objects.requireNonNull(normalTarget);
-        this.deadTarget = Objects.requireNonNull(deadTarget);
+        this.deadTargets = Objects.requireNonNull(deadTargets);
         this.GameVertex = Objects.requireNonNull(GameVertex);
     }
 
@@ -34,16 +37,18 @@ public class NormalGhost extends FollowingGhost{
     @Override
     protected void deadBehaviour(final long elapsed) {
        timer.reset();
-       super.getDirectionSelector().setDirection(super.getGhost(), deadTarget, elapsed);
-
+     
        if (!interlock) {
             for (int i = 0; i < SPEED_INCREASE; i++) {
                 super.increaseSpeed();
             }
+            deadTargetSelected = deadTargets.get(random.nextInt(0,deadTargets.size()));
             interlock = true;
         }
 
-        if (approximator.isPositionCloseEnough( deadTarget, 2.0)) {
+        super.getDirectionSelector().setDirection(super.getGhost(), deadTargetSelected, elapsed);
+
+        if (approximator.isPositionCloseEnough(this , deadTargetSelected, 2.0)) {
             super.setState(GhostState.NORMAL);
             for (int i = 0; i < SPEED_INCREASE; i++) {
                 super.decreaseSpeed();
@@ -54,7 +59,7 @@ public class NormalGhost extends FollowingGhost{
 
     @Override
     protected void scaredBehaviour(final long elapsed) {
-        super.getDirectionSelector().setDirection(super.getGhost(), scaredTarget, elapsed);
+        super.getDirectionSelector().setDirection(super.getGhost(), normalTarget, elapsed);
         if (timer.update(elapsed)) {
             timer.reset();
             super.setState(GhostState.NORMAL);
