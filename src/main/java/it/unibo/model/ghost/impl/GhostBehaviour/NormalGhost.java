@@ -20,9 +20,9 @@ public class NormalGhost extends FollowingGhost{
         super(ghost,directionSelector);
     }
 
-    
+
     @Override
-    protected void deadBehaviour(final Ghost character, final long elapsed) {
+    protected void deadBehaviour(final long elapsed) {
        timer.reset();
        super.getDirectionSelector().setDirection(super.getGhost(), deadTarget, elapsed);
 
@@ -33,7 +33,7 @@ public class NormalGhost extends FollowingGhost{
             interlock = true;
         }
 
-        if (approximator.isPositionCloseEnough(character, deadTarget, 2.0)) {
+        if (approximator.isPositionCloseEnough( deadTarget, 2.0)) {
             super.setState(GhostState.NORMAL);
             for (int i = 0; i < SPEED_INCREASE; i++) {
                 super.decreaseSpeed();
@@ -43,7 +43,7 @@ public class NormalGhost extends FollowingGhost{
     }
 
     @Override
-    protected void scaredBehaviour(final Ghost character, final long elapsed) {
+    protected void scaredBehaviour(final long elapsed) {
         super.getDirectionSelector().setDirection(super.getGhost(), scaredTarget, elapsed);
         if (timer.update(elapsed)) {
             timer.reset();
@@ -52,7 +52,7 @@ public class NormalGhost extends FollowingGhost{
     }
 
     @Override
-    protected void normalBehaviour(final Ghost character, final long elapsed) {
+    protected void normalBehaviour(final long elapsed) {
         timer.reset();
         super.getDirectionSelector().setDirection(super.getGhost(), normalTarget, elapsed);
     }

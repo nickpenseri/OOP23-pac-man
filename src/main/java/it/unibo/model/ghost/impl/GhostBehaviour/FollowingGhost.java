@@ -62,11 +62,11 @@ public abstract class FollowingGhost implements Ghost {
     @Override
     public void updateState(final long elapsed) {
         if (this.ghost.getState() == GhostState.NORMAL) {
-            normalBehaviour(this.ghost, elapsed);
+            normalBehaviour(elapsed);
         } else if (this.ghost.getState() == GhostState.DEAD) {
-            deadBehaviour(this.ghost, elapsed);
+            deadBehaviour(elapsed);
         } else if (this.ghost.getState() == GhostState.SCARED) {
-            scaredBehaviour(this.ghost, elapsed);
+            scaredBehaviour(elapsed);
         }
     }
 
@@ -150,8 +150,8 @@ public abstract class FollowingGhost implements Ghost {
         return ghost;
     }
 
-    protected abstract void deadBehaviour(final Ghost character, final long elapsed);
-    protected abstract void scaredBehaviour(final Ghost character, final long elapsed);
-    protected abstract void normalBehaviour(final Ghost character, final long elapsed);
+    protected abstract void deadBehaviour(final long elapsed);
+    protected abstract void scaredBehaviour(final long elapsed);
+    protected abstract void normalBehaviour(final long elapsed);
     
 }
