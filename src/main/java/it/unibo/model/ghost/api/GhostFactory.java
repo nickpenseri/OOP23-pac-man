@@ -1,6 +1,10 @@
 package it.unibo.model.ghost.api;
 
 import java.awt.Point;
+import java.util.List;
+
+import it.unibo.model.api.GameObject;
+import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 /**
  * This interface models an entity of GhostFactory, an object that is responsible of
  * creating ghosts.
@@ -21,7 +25,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    Ghost createRedGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
+    Ghost createRedGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 
     /**
      * Create a new blue ghost.
@@ -38,7 +42,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    Ghost createBlueGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
+    Ghost createBlueGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 
     /**
      * Create a new pink ghost.
@@ -55,7 +59,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    Ghost createPinkGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
+    Ghost createPinkGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 
     /**
      * Create a new orange ghost.
@@ -72,7 +76,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    Ghost createOrangeGhost(Point pos, double initialSpeed, GhostBehaviour behaviour);
+    Ghost createOrangeGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 }
 
 

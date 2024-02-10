@@ -7,7 +7,6 @@ import java.util.List;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
@@ -17,6 +16,7 @@ import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pacman.impl.PacManBordered;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pacman.impl.PacManWalls;
+import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.pickable.api.PickableGenerator;
 import it.unibo.model.pickable.impl.PickableGeneratorImpl;
 
@@ -84,19 +84,19 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createGhost(final Point position, final GhostColor color, final GhostBehaviour behaviour) {
+    public Ghost createGhost(final Point position, final GhostColor color, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex ) {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createRedGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
             case PINK:
-                return ghostFactory.createPinkGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createPinkGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
             case BLUE:
-                return ghostFactory.createBlueGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createBlueGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createOrangeGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
             default:
-                return ghostFactory.createRedGhost(position, ghostSpeed, behaviour);
+                return ghostFactory.createRedGhost(position, ghostSpeed, directionSelector, normalTarget, deadTargets, GameVertex);
         }
     }
 

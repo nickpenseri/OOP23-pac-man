@@ -4,11 +4,11 @@ import java.awt.Dimension;
 import java.util.List;
 import java.awt.Point;
 import it.unibo.model.ghost.api.Ghost;
-import it.unibo.model.ghost.api.GhostBehaviour;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.pacman.api.GamePacMan;
+import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.pickable.api.PickableGenerator;
 
 /**
@@ -42,7 +42,7 @@ public interface GameObjectFactory {
      * @param behaviour the behaviour of the ghost
      * @return the created ghost
      */
-    Ghost createGhost(Point position, GhostColor color, GhostBehaviour behaviour);
+    Ghost createGhost(Point pos,  GhostColor color,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 
 
     /**
