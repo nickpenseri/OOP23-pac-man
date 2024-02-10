@@ -13,7 +13,7 @@ import it.unibo.model.physics.objectsmover.impl.PositionApproximatorImpl;
 import it.unibo.model.physics.timer.api.Timer;
 import it.unibo.model.physics.timer.impl.TimerImpl;
 
-public class NormalGhost extends FollowingGhost{
+public class NormalGhost extends FollowingGhostImpl{
 
     private final GameObject normalTarget;
     private final List<GameObject> deadTargets;
@@ -70,6 +70,15 @@ public class NormalGhost extends FollowingGhost{
     protected void normalBehaviour(final long elapsed) {
         timer.reset();
         super.getDirectionSelector().setDirection(super.getGhost(), normalTarget, elapsed);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetBehaviour() {
+        timer.reset();
+        super.getDirectionSelector().reset();
     }
 
     

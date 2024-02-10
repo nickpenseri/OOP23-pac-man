@@ -25,7 +25,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    Ghost createRedGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createRedGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 
     /**
      * Create a new blue ghost.
@@ -42,7 +42,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    Ghost createBlueGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createBlueGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 
     /**
      * Create a new pink ghost.
@@ -59,7 +59,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    Ghost createPinkGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createPinkGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 
     /**
      * Create a new orange ghost.
@@ -76,7 +76,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    Ghost createOrangeGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createOrangeGhost(Point pos, double initialSpeed,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 }
 
 

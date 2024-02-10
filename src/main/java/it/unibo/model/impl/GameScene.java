@@ -15,6 +15,7 @@ import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
+import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
@@ -43,10 +44,10 @@ public class GameScene implements Model {
     private PickableGenerator pickableGenerator;
     private final CollisionChecker<GameObject> checker;
     // private final GameObjectImpl[][] objectsMap;
-    private Ghost ghost;
-    private Ghost ghost2;
-    private Ghost ghost3;
-    private Ghost ghost4;
+    private FollowingGhost ghost;
+    private FollowingGhost ghost2;
+    private FollowingGhost ghost3;
+    private FollowingGhost ghost4;
     private static final int RANDOMPOS2 = 59;
     private Optional<String> effectText;
     private MapBuilder mapBuilder;
@@ -200,16 +201,17 @@ public class GameScene implements Model {
     }
 
     private void ghostCollision() {
-        final List<Ghost> ghosts = new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4));
+        final List<FollowingGhost> ghosts = new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4));
         ghosts.forEach(ghost -> {
             if (checker.areColliding(ghost, pacman)) {
                 if (ghost.getState().equals(GhostState.NORMAL)) {
                     pacman.removeLife();
                     pacman.respawn(mapBuilder.getPacManSpawn());
-                    for (final Ghost g : ghosts) {
+                    for (final var g : ghosts) {
                         g.setPosition(
                                 mapBuilder.getSpawnGhost().get(random.nextInt(mapBuilder.getSpawnGhost().size()))
                                         .getPosition());
+                        g.resetBehaviour();
                     }
                 } else if (ghost.getState().equals(GhostState.SCARED)) {
                     ghost.setState(GhostState.DEAD);

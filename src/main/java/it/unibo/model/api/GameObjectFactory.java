@@ -3,6 +3,8 @@ package it.unibo.model.api;
 import java.awt.Dimension;
 import java.util.List;
 import java.awt.Point;
+
+import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.impl.GameObjectImpl;
@@ -42,7 +44,7 @@ public interface GameObjectFactory {
      * @param behaviour the behaviour of the ghost
      * @return the created ghost
      */
-    Ghost createGhost(Point pos,  GhostColor color,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
+    FollowingGhost createGhost(Point pos,  GhostColor color,  DirectionSelector directionSelector, GameObject normalTarget, List<GameObject> deadTargets, List<GameObject> GameVertex);
 
 
     /**

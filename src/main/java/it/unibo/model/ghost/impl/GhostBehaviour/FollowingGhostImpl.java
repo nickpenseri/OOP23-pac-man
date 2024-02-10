@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.api.Direction;
+import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
@@ -15,7 +16,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 /**
  * This class models a ghost that follows a specific behaviour.
  */
-public abstract class FollowingGhost implements Ghost {
+public abstract class FollowingGhostImpl implements FollowingGhost {
     
     private final DirectionSelector directionSelector;
     private final Ghost ghost;
@@ -27,7 +28,7 @@ public abstract class FollowingGhost implements Ghost {
     @SuppressFBWarnings(value = {
             "EI_EXPOSE_REP2"
     }, justification = "Changings of the decorated object should also affect this object")
-    public FollowingGhost(final Ghost ghost, final DirectionSelector directionSelector) {
+    public FollowingGhostImpl(final Ghost ghost, final DirectionSelector directionSelector) {
         this.directionSelector = Objects.requireNonNull(directionSelector);
         this.ghost = ghost;
     }
@@ -150,6 +151,7 @@ public abstract class FollowingGhost implements Ghost {
         return ghost;
     }
 
+    public abstract void resetBehaviour();
     protected abstract void deadBehaviour(final long elapsed);
     protected abstract void scaredBehaviour(final long elapsed);
     protected abstract void normalBehaviour(final long elapsed);

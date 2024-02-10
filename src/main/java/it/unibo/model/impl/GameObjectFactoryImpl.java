@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
+import it.unibo.model.ghost.api.FollowingGhost;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
@@ -84,7 +85,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createGhost(final Point position, final GhostColor color, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex ) {
+    public FollowingGhost createGhost(final Point position, final GhostColor color, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTargets, final  List<GameObject> GameVertex ) {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
