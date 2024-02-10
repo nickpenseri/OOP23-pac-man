@@ -71,7 +71,7 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
      * {@inheritDoc}
      */
     @Override
-    public List<GameObject> getScaredTarget() {
-        return new ArrayList<GameObject>(gameVertex);
+    public GameObject getRandomTarget() {
+        return gameVertex.get(random.nextInt(0, gameVertex.size()));
     }
 }

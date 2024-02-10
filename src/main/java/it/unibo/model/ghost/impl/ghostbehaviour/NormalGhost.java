@@ -10,6 +10,7 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 import it.unibo.model.physics.objectsmover.api.PositionApproximator;
 import it.unibo.model.physics.objectsmover.impl.PositionApproximatorImpl;
 import it.unibo.model.physics.timer.api.Timer;
+import it.unibo.model.physics.timer.impl.ClockTimer;
 import it.unibo.model.physics.timer.impl.TimerImpl;
 
 /**
@@ -18,11 +19,14 @@ import it.unibo.model.physics.timer.impl.TimerImpl;
 public class NormalGhost extends FollowingGhostImpl {
 
     private GameObject deadTargetSelected;
+    private GameObject randomTargetSelected;
     private final DirectionSelector directionSelector;
     private final PositionApproximator approximator = new PositionApproximatorImpl();
-    private final Timer timer = new TimerImpl(1_000_0L);
+    private final Timer scaredTimer = new TimerImpl(9999);
+    private final Timer randomTimer = new ClockTimer(9999);
     private static final int SPEED_INCREASE = 20;
     private boolean interlock;
+    private boolean normalinterlock;
 
 
     /**
@@ -40,7 +44,8 @@ public class NormalGhost extends FollowingGhostImpl {
      */
     @Override
     protected void deadBehaviour(final long elapsed) {
-       timer.reset();
+       scaredTimer.reset();
+       randomTimer.reset();
        if (!interlock) {
             for (int i = 0; i < SPEED_INCREASE; i++) {
                 super.increaseSpeed();
@@ -64,9 +69,10 @@ public class NormalGhost extends FollowingGhostImpl {
      */
     @Override
     protected void scaredBehaviour(final long elapsed) {
+        randomTimer.reset();
         this.directionSelector.setDirection(super.getGhost(), super.getBehaviour().getDeadTarget(), elapsed);
-        if (timer.update(elapsed)) {
-            timer.reset();
+        if (scaredTimer.update(elapsed)) {
+            scaredTimer.reset();
             super.setState(GhostState.NORMAL);
         }
     }
@@ -76,8 +82,23 @@ public class NormalGhost extends FollowingGhostImpl {
      */
     @Override
     protected void normalBehaviour(final long elapsed) {
-        timer.reset();
-        this.directionSelector.setDirection(super.getGhost(),  super.getBehaviour().getNormalTarget(), elapsed);
+        scaredTimer.reset();
+
+        if (!randomTimer.update(elapsed)) {
+            if (!normalinterlock) {
+                randomTargetSelected = super.getBehaviour().getRandomTarget();
+                normalinterlock = true;
+            }
+
+            this.directionSelector.setDirection(super.getGhost(), randomTargetSelected,elapsed);
+            if (approximator.isPositionCloseEnough(this, randomTargetSelected, 2.0)) {
+                normalinterlock = false;
+            }
+         
+        } else {
+            normalinterlock = false;
+            this.directionSelector.setDirection(super.getGhost(), super.getBehaviour().getNormalTarget(), elapsed);
+        }
     }
 
     /**
@@ -85,7 +106,8 @@ public class NormalGhost extends FollowingGhostImpl {
      */
     @Override
     public void resetBehaviour() {
-        timer.reset();
+        scaredTimer.reset();
+        randomTimer.reset();
         this.directionSelector.reset();
     }
 }

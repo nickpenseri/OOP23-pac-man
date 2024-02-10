@@ -28,7 +28,7 @@ public interface GhostCoordinates {
     GameObject getDeadTarget();
 
     /**
-     * @return a List of possible targets for the ghost when it is scared
+     * @return a Random target for the ghost
      */
-    List<GameObject> getScaredTarget();
+    GameObject getRandomTarget();
 }
