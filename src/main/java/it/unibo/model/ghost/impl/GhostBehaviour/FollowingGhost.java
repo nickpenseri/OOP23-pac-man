@@ -145,7 +145,11 @@ public abstract class FollowingGhost implements Ghost {
     protected DirectionSelector getDirectionSelector() {
         return directionSelector;
     }
-    
+
+    protected Ghost getGhost() {
+        return ghost;
+    }
+
     protected abstract void deadBehaviour(final Ghost character, final long elapsed);
     protected abstract void scaredBehaviour(final Ghost character, final long elapsed);
     protected abstract void normalBehaviour(final Ghost character, final long elapsed);
