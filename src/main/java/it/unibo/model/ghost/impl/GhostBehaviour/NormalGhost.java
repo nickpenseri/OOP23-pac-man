@@ -1,5 +1,9 @@
 package it.unibo.model.ghost.impl.GhostBehaviour;
 
+import java.util.List;
+import java.util.Objects;
+
+import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.physics.objectsmover.api.DirectionSelector;
@@ -10,14 +14,20 @@ import it.unibo.model.physics.timer.impl.TimerImpl;
 
 public class NormalGhost extends FollowingGhost{
 
+    private final GameObject normalTarget;
+    private final List<GameObject> deadTarget;
+    private final List<GameObject> GameVertex;
     private final PositionApproximator approximator = new PositionApproximatorImpl();
     private final Timer timer = new TimerImpl(100_00);
     private static final int SPEED_INCREASE = 20;
     private boolean interlock;
 
 
-    public NormalGhost(final Ghost ghost, final DirectionSelector directionSelector) {
+    public NormalGhost(final Ghost ghost, final DirectionSelector directionSelector, final GameObject normalTarget, final List<GameObject> deadTarget, final  List<GameObject> GameVertex) {
         super(ghost,directionSelector);
+        this.normalTarget = Objects.requireNonNull(normalTarget);
+        this.deadTarget = Objects.requireNonNull(deadTarget);
+        this.GameVertex = Objects.requireNonNull(GameVertex);
     }
 
 
