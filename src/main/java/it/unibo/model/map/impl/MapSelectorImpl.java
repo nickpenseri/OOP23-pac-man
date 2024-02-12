@@ -12,13 +12,13 @@ public class MapSelectorImpl implements MapSelector {
     private final List<String> mapList;
     private final Random rand;
     private final List<Boolean> checkList;
-    private int count = 4;
+    private int count = 3;
 
     /**
      * initializes the class fields.
      */
     public MapSelectorImpl() {
-        this.mapList = List.of("/map1.txt", "/map2.txt", "/map3.txt", "/map4.txt");
+        this.mapList = List.of("/map1.txt", "/map2.txt", "/map3.txt");
         this.rand = new Random();
         this.checkList = new ArrayList<>();
         for (int i = 0; i < this.mapList.size(); i++) {
@@ -39,13 +39,13 @@ public class MapSelectorImpl implements MapSelector {
                     this.checkList.add(true);
                 }
             }
-            final int index = this.rand.nextInt(this.mapList.size() - 1);
+            final int index = this.rand.nextInt(this.mapList.size());
             if (this.checkList.get(index).equals(true)) {
                 this.checkList.add(index, false);
                 return this.mapList.get(index);
             }
         } while (this.count > 0);
-        return "map1.txt";
+        return "/map1.txt";
     }
 
 }

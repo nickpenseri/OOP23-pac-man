@@ -18,7 +18,7 @@ import it.unibo.model.map.api.MapTypes;
  */
 public class MapBuilderImpl implements MapBuilder {
     // 0 pickable 1 no-pickable 2 spawn-pac-man 3-spawn-ghost 4-gate-ghost 5 wall
-    private final List<Point> spawnGhosts;
+    private final List<GameObject> spawnGhosts;
     private final Point spawnPacMan;
     private final List<Point> spawnCollectibleItems;
     private final List<GameObject> spawnWalls;
@@ -65,7 +65,7 @@ public class MapBuilderImpl implements MapBuilder {
                     case SPAWN_GHOST:
                         final var object3 = gameFactory.createGameObject(
                                 new Point(getCordinateY(dimension, y), getCordinateX(dimension, x)), Type.FLOR);
-                        this.spawnGhosts.add(object3.getPosition());
+                        this.spawnGhosts.add(object3);
                         this.paintMap.add(object3);
                         this.objectsMap[x][y] = object3;
                         break;
@@ -110,7 +110,7 @@ public class MapBuilderImpl implements MapBuilder {
      * @return returns the list of coordinate (x,y).
      */
     @Override
-    public List<Point> getSpawnGhost() {
+    public List<GameObject> getSpawnGhost() {
 
         return new ArrayList<>(this.spawnGhosts);
     }

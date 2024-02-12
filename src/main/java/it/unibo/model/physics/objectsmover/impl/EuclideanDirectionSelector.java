@@ -40,5 +40,11 @@ import it.unibo.model.physics.objectsmover.api.PositionApproximator;
         }
         toMove.updateState(elapsedTime);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void reset() { }
 }
  

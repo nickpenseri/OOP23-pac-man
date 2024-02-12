@@ -37,7 +37,9 @@ public class GraphDirectionSelector implements DirectionSelector {
      * 
      * @param graph the graph of the gameMap
      */
-    @SuppressFBWarnings("EI_EXPOSE_REP2")
+    @SuppressFBWarnings(value = {
+        "EI_EXPOSE_REP2"
+    }, justification = "Don't want to create a new object, don't use other memory and is ok if the graph is modified")
     public GraphDirectionSelector(final Graph<GameObject, DefaultEdge> graph) {
         this.graph = Objects.requireNonNull(graph);
         this.approximator = new PositionApproximatorImpl();
@@ -98,5 +100,14 @@ public class GraphDirectionSelector implements DirectionSelector {
             default:
                 break;
         }
+    }
+
+        /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void reset() {
+        selectDir.reset();
+        state = State.NOT_SELECTED;
     }
 }

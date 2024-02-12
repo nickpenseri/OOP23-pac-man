@@ -3,11 +3,15 @@ package it.unibo.model.api;
 import java.awt.Dimension;
 import java.util.List;
 import java.awt.Point;
+
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
+import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.impl.GameObjectImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
-import it.unibo.model.pacman.api.PacMan;
+import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
 
 /**
@@ -28,22 +32,32 @@ public interface GameObjectFactory {
      * creates a ghost with the given parameters.
      * 
      * @param position the position of the ghost
-     * @param speed    the speed of the ghost
      * @param color    the color of the ghost
      * @return the created ghost
      */
-    Ghost createGhost(Point position, double speed, GhostColor color);
+    Ghost createGhost(Point position, GhostColor color);
+
+    /**
+     * creates a ghost with the given parameters.
+     * 
+     * @param position the position of the ghost
+     * @param color    the color of the ghost
+     * @param coordinates the coordinates of the map for the ghost
+     * @param behaviour the behaviour of the ghost
+     * @return the created ghost
+     */
+    FollowingGhost createGhost(Point position,  GhostColor color,  GhostCoordinates coordinates, GhostBehaviours behaviour);
+
 
     /**
      * Creates a pacman object ready for the game.
      * 
      * @param position      the position of pacman
-     * @param speed         the base speed of pacman
      * @param startingLives the initial number of lives
      * @param walls         the list of walls
      * @return the created pac-man
      */
-    PacMan createPacMan(Point position, double speed, int startingLives, List<GameObject> walls);
+    GamePacMan createPacMan(Point position, int startingLives, List<GameObject> walls);
 
     /**
      * Creates the pickable object with the given effect.

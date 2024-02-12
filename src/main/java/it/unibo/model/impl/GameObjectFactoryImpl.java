@@ -9,10 +9,13 @@ import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
+import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
+import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
 import it.unibo.model.impl.GameObjectImpl.Type;
 import it.unibo.model.map.impl.MapImageImpl;
-import it.unibo.model.pacman.api.PacMan;
+import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pacman.impl.PacManBordered;
 import it.unibo.model.pacman.impl.PacManImpl;
 import it.unibo.model.pacman.impl.PacManWalls;
@@ -28,7 +31,10 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     private final GhostFactory ghostFactory;
     private final int mapWidth;
     private final int mapHeigth;
-    private static final double PACMAN_SIZE_OFFSET = 0.9;
+    private final double baseSpeed;
+    private static final double PACMAN_SIZE_MULTIPLIER = 0.75;
+    private static final int CELLS_PER_SECOND = 4;
+    private static final double GHOST_SPEED_MULTIPLIER = 0.5;
 
     /**
      * sets the size of objects based on map size and screen window size.
@@ -44,6 +50,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
         this.mapWidth = (int) (sizeY * dimension.getWidth());
         this.mapHeigth = (int) (sizeX * dimension.getHeight());
+        this.baseSpeed = CELLS_PER_SECOND * minDimension;
     }
 
     /**
@@ -58,18 +65,41 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public Ghost createGhost(final Point position, final double speed, final GhostColor color) {
+    public Ghost createGhost(final Point position, final GhostColor color) {
+        final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(position, speed);
+                return ghostFactory.createRedGhost(position, ghostSpeed);
             case PINK:
-                return ghostFactory.createPinkGhost(position, speed);
+                return ghostFactory.createPinkGhost(position, ghostSpeed);
             case BLUE:
-                return ghostFactory.createBlueGhost(position, speed);
+                return ghostFactory.createBlueGhost(position, ghostSpeed);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(position, speed);
+                return ghostFactory.createOrangeGhost(position, ghostSpeed);
             default:
-                return ghostFactory.createRedGhost(position, speed);
+                return ghostFactory.createRedGhost(position, ghostSpeed);
+        }
+    }
+
+
+     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FollowingGhost createGhost(final Point position, final GhostColor color, final GhostCoordinates mapCoordinates, 
+            final GhostBehaviours behaviour) {
+        final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
+        switch (color) {
+            case RED:
+                return ghostFactory.createRedGhost(position, ghostSpeed, mapCoordinates, behaviour);
+            case PINK:
+                return ghostFactory.createPinkGhost(position, ghostSpeed, mapCoordinates, behaviour);
+            case BLUE:
+                return ghostFactory.createBlueGhost(position, ghostSpeed, mapCoordinates, behaviour);
+            case ORANGE:
+                return ghostFactory.createOrangeGhost(position, ghostSpeed, mapCoordinates, behaviour);
+            default:
+                return ghostFactory.createRedGhost(position, ghostSpeed, mapCoordinates, behaviour);
         }
     }
 
@@ -77,13 +107,13 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public PacMan createPacMan(final Point position, final double speed, final int startingLives,
+    public GamePacMan createPacMan(final Point position, final int startingLives,
             final List<GameObject> walls) {
-        final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_OFFSET), 
-                                    (int) (this.dimension.getHeight() * PACMAN_SIZE_OFFSET));
+        final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_MULTIPLIER), 
+                                    (int) (this.dimension.getHeight() * PACMAN_SIZE_MULTIPLIER));
         return new PacManWalls(
                 new PacManBordered(
-                        new PacManImpl(3, dimension, speed, position),
+                        new PacManImpl(startingLives, dimension, this.baseSpeed, position),
                         mapHeigth, mapWidth),
                 walls);
     }

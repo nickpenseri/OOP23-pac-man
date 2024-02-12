@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.model.pacman.api.PacMan;
 import it.unibo.model.ghost.api.Ghost;
@@ -14,7 +15,8 @@ import it.unibo.model.ghost.api.Ghost;
  * seconds and 50 points.
  */
 public class BonusSpeed extends EffectPickableImpl {
-    static final int DELAY = 10_000;
+    private static final int DELAY = 10_000;
+    private static final String EFFECT_STRING = "You have more speed for 10 seconds!";
 
     /**
      * Constructor of the BonusSpeed.
@@ -52,5 +54,15 @@ public class BonusSpeed extends EffectPickableImpl {
         if (effectApplied) {
             new Timer().schedule(task, DELAY);
         }
+    }
+
+    /**
+     * Get the effect text.
+     * 
+     * @return the effect text.
+     */
+    @Override
+    public Optional<String> getEffectText() {
+        return Optional.of(EFFECT_STRING);
     }
 }

@@ -13,8 +13,9 @@ public interface ImageChooser {
 
     /**
      * Updates the image correctly based on its previous state.
+     * @param elapsedTime the time passed from the last update
      */
-    void update();
+    void update(long elapsedTime);
 
     /**
      * It is called to obtain the image related with the actual state of pac-man.

@@ -3,6 +3,7 @@ package it.unibo.model.pickable.impl;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,7 +15,7 @@ import it.unibo.model.pacman.api.PacMan;
  * ghosts for 10 seconds.
  */
 public class MalusSpeedGhost extends EffectPickableImpl {
-
+    private static final String EFFECT_STRING = "The ghosts are slower for 10 seconds!";
     private static final int DELAY = 10_000;
 
     /**
@@ -61,6 +62,15 @@ public class MalusSpeedGhost extends EffectPickableImpl {
         if (passed) {
             new Timer().schedule(task, DELAY);
         }
+    }
+
+    /**
+     * Get the effect text.
+     * @return the effect text.
+     */
+    @Override
+    public Optional<String> getEffectText() {
+        return Optional.of(EFFECT_STRING);
     }
 
 }
