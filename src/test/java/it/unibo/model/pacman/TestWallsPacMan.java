@@ -76,7 +76,7 @@ class TestWallsPacMan {
     }
 
     /**
-     * This method tests thre movement of pacman when it is surrounded by walls, the
+     * This method tests the movement of pacman when it is surrounded by walls, the
      * position should never change.
      */
     @Test
