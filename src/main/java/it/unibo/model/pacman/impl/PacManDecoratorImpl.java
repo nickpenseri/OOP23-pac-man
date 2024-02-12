@@ -13,7 +13,7 @@ import it.unibo.model.pacman.api.PacManDecorator;
 
 /**
  * This class represents an implementation of PacManDecorator, with methods
- * respawn. updateState and correctPosition left to subclasses.
+ * respawn, updateState and correctPosition left to subclasses.
  */
 public abstract class PacManDecoratorImpl implements PacManDecorator {
 
