@@ -77,7 +77,7 @@ public class PacManWalls extends PacManDecoratorImpl implements GamePacMan {
         this.setPosition(spawnPoint);
         if (this.isInWalls()) {
             this.setPosition(lastPos);
-            throw new IllegalArgumentException("Cannor respawn inside walls");
+            throw new IllegalArgumentException("Cannot respawn inside walls");
         }
         super.respawn(spawnPoint);
         this.sound.closeAudio();
@@ -93,7 +93,7 @@ public class PacManWalls extends PacManDecoratorImpl implements GamePacMan {
     @Override
     public void changeMap(final List<GameObject> walls, final Point spawnPoint) {
         this.walls.clear();
-        this.walls.addAll(walls);
+        this.walls.addAll(Objects.requireNonNull(walls));
         this.respawn(spawnPoint);
     }
 
