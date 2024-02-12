@@ -28,7 +28,7 @@ public class PacManImpl extends CharacterImpl implements PacMan {
     private final SoundsEffect  sound; 
 
     /**
-     * Create an instamce of the class PacManImpl.
+     * Create an instance of the class PacManImpl.
      * @param startingLives the initial amount of lives that PacMan has
      * @param dimension the dimension of the character
      * @param baseSpeed the speed of pac-man when it is not under special effects
