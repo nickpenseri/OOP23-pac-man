@@ -1,7 +1,7 @@
 package it.unibo.model.pacman.api;
 
 /**
- * This dìinterface models a PacMan that that decorates another pacman, changing
+ * This interface models a PacMan that decorates another pacman, changing
  * his movement and respawn.
  */
 public interface PacManDecorator extends PacMan {
