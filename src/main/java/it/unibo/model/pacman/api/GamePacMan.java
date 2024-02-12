@@ -14,6 +14,7 @@ public interface GamePacMan extends PacManDecorator {
      * Changes the map of the pacman and respawns it.
      * @param walls the walls of the new map
      * @param spawnPoint the spawnPoint of the new map
+     * @throws NullPointerException if the passed list is null
      */
     void changeMap(List<GameObject> walls, Point spawnPoint);
 }
