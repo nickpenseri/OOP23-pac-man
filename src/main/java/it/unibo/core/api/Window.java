@@ -24,8 +24,4 @@ public interface Window {
      */
     Dimension getGamePanelDimension();
 
-    /** Get the dimension of the info panel.
-     * @return the dimension of the window
-     */
-    Dimension getInfoPanelDimension();
 }

@@ -34,11 +34,9 @@ public class EngineImpl implements Engine {
         final int width = screenSize.width / PROPORTION;
         final GameInfoView gameViewInfo = new GameInfoView();
         final View gameView = new GamePanel();
-        this.window = new WindowImpl(gameView, gameViewInfo, "Pacman", width, height);
+        this.window = new WindowImpl(gameView, "Pacman", width, height);
         final var gamedim = this.window.getGamePanelDimension();
-        final var infodim = this.window.getInfoPanelDimension();
-        final Model gameScene = new GameScene((int) gamedim.getWidth(),
-                (int) gamedim.getHeight() - (int) infodim.getHeight());
+        final Model gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
         this.controller = new ControllerImplGame(gameScene, (GameView) gameView, gameViewInfo);
     }
 
