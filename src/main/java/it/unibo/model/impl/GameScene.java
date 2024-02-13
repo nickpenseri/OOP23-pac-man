@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
@@ -43,6 +45,7 @@ import it.unibo.model.ui.GameObjectText;
 public class GameScene implements Model {
 
     private static final int GHOST_DEATH_POINTS = 200;
+    private static final int DELAY = 10_000;
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
     private final GamePacMan pacman;
@@ -113,7 +116,8 @@ public class GameScene implements Model {
     private List<GameObject> uiInfo() {
 
         final Dimension panelDimension = sceneBuilder.getUiDimension();
-        final Dimension dimension = new Dimension((int) panelDimension.getHeight() / 2, (int) panelDimension.getHeight() / 2);
+        final Dimension dimension = new Dimension((int) panelDimension.getHeight() / 2,
+                (int) panelDimension.getHeight() / 2);
         final List<GameObject> ui = new ArrayList<>();
         final var lives = pacman.getRemainingLives();
         final var points = pacman.getPoints();
@@ -123,8 +127,10 @@ public class GameScene implements Model {
             ui.add(new GameObjectLife(new Point((int) ((dimension.getWidth() * i)), y), dimension));
         }
         ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * lives), y), dimension, "Score: " + points));
-        // ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * (lives *
-        // 2)), y), dimension, effectText.orElse("Mario")));
+        if (effectText != null) {
+            ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * (lives * 2)), y), dimension,
+                    effectText.orElse("")));
+        }
         return ui;
     }
 
@@ -222,8 +228,24 @@ public class GameScene implements Model {
             if (checker.areColliding(pickable, pacman)) {
                 effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
                         List.of(ghost, ghost2, ghost3, ghost4));
+                resetText();
             }
         });
+    }
+
+    private void resetText() {
+        final TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                // Do the action to decrease the speed
+                effectText = Optional.empty();
+            }
+        };
+
+        /*
+         * Create new Timer and Schedule the task to reset the text after DELAY seconds
+         */
+        new Timer().schedule(task, DELAY);
     }
 
     private void ghostCollision() {
