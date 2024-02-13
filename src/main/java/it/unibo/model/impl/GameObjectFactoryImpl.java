@@ -130,7 +130,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return new PacManWalls(
                 new PacManBordered(
                         new PacManImpl(startingLives, dimension, this.baseSpeed, traslatePosition(position)),
-                        (int) mapDimension.getHeight(), (int) (mapDimension.getWidth() + offsetX)),
+                        (int) mapDimension.getHeight(), (int) (mapDimension.getWidth() + offsetX), 0, (int) offsetX),
                 walls);
     }
 
