@@ -125,11 +125,11 @@ public class GameScene implements Model {
         final var y = (int) (sceneBuilder.getGameWorldDimension().getHeight()
                 + (sceneBuilder.getUiDimension().getHeight() / 4));
         for (int i = 0; i < lives; i++) {
-            ui.add(new GameObjectLife(new Point((int) ((dimension.getWidth() * i)), y), dimension));
+            ui.add(new GameObjectLife(new Point((int) (panelDimension.getWidth() - (dimension.getWidth() * (i + 2))), y), dimension));
         }
-        ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * lives), y), dimension, "Score: " + points));
+        ui.add(new GameObjectText(new Point((int) dimension.getWidth(), y), dimension, "Score: " + points));
         if (effectText != null) {
-            ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * (lives * 2)), y), dimension,
+            ui.add(new GameObjectText(new Point((int) (dimension.getWidth() + (panelDimension.getWidth() / 4)), y), dimension,
                     effectText.orElse("")));
         }
         return ui;
