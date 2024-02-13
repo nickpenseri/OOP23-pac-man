@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import it.unibo.controller.api.Controller;
+import it.unibo.controller.impl.ControllerImpl;
 import it.unibo.controller.impl.ControllerImplGame;
 import it.unibo.core.api.Engine;
 import it.unibo.core.api.Window;
@@ -14,7 +15,6 @@ import it.unibo.model.api.Model;
 import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.GameView;
 import it.unibo.view.api.View;
-import it.unibo.view.impl.GameInfoView;
 import it.unibo.view.impl.GamePanel;
 
 /** Implementation of a game engine. */
@@ -32,12 +32,11 @@ public class EngineImpl implements Engine {
         final Dimension screenSize = toolkit.getScreenSize();
         final int height = screenSize.width / PROPORTION;
         final int width = screenSize.width / PROPORTION;
-        final GameInfoView gameViewInfo = new GameInfoView();
         final View gameView = new GamePanel();
         this.window = new WindowImpl(gameView, "Pacman", width, height);
         final var gamedim = this.window.getGamePanelDimension();
         final Model gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-        this.controller = new ControllerImplGame(gameScene, (GameView) gameView, gameViewInfo);
+        this.controller = new ControllerImpl(gameScene,(GameView) gameView);
     }
 
     /**

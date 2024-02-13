@@ -124,10 +124,10 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
             final List<GameObject> walls) {
         final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_MULTIPLIER), 
                                     (int) (this.dimension.getHeight() * PACMAN_SIZE_MULTIPLIER));
-        return new PacManWalls(
+        return new PacManWalls( 
                 new PacManBordered(
                         new PacManImpl(startingLives, dimension, this.baseSpeed, traslatePosition(position)),
-                       (int) mapDimension.getHeight(), (int) mapDimension.getWidth()),
+                       (int) mapDimension.getHeight(), (int) (mapDimension.getWidth())),
                 walls);
     }
 

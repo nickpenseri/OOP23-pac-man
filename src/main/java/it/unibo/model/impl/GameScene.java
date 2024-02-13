@@ -1,5 +1,7 @@
 package it.unibo.model.impl;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,7 @@ import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.Model;
+import it.unibo.model.api.SceneBuilder;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
@@ -33,9 +36,12 @@ import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
 import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
+import it.unibo.model.ui.GameObjectLife;
+import it.unibo.model.ui.GameObjectText;
 
 /** Basic Implementation of a model of a scene. */
 public class GameScene implements Model {
+
 
     private static final int GHOST_DEATH_POINTS = 200;
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
@@ -54,6 +60,7 @@ public class GameScene implements Model {
     private MapReader map;
     private final GameObjectFactory gameObjectFactory;
     private final Random random;
+    private final SceneBuilder sceneBuilder;
 
     /**
      * Constructor of a generic scene.
@@ -66,12 +73,11 @@ public class GameScene implements Model {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
-
         this.gameObjects = new ArrayList<>();
         mapChooser = new MapSelectorImpl();
         map = new MapReaderImpl(mapChooser.getMapName());
 
-        final var sceneBuilder = new SceneBuilderImpl(width, height, map.getMap().length, map.getMap()[0].length);
+        sceneBuilder = new SceneBuilderImpl(width, height, map.getMap().length, map.getMap()[0].length);
         gameObjectFactory = new GameObjectFactoryImpl(sceneBuilder);
         mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
         this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
@@ -96,11 +102,29 @@ public class GameScene implements Model {
         gameObjects.get(2).addAll(new ArrayList<>(List.of(pacman)));
         gameObjects.get(3).clear();
         gameObjects.get(3).addAll(new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4)));
+        gameObjects.get(4).clear();
+        gameObjects.get(4).addAll(uiInfo());
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
         for (final List<GameObject> list : gameObjects) {
             gameObjectsFlat.addAll(list);
         }
         return gameObjectsFlat;
+    }
+
+    private List<GameObject> uiInfo() {
+
+        final Dimension panelDimension = sceneBuilder.getUiDimension();
+        Dimension dimension = new Dimension((int) panelDimension.getHeight() / 2, (int) panelDimension.getHeight() / 2);
+        final List<GameObject> ui = new ArrayList<>();
+        var lives = pacman.getRemainingLives();
+        var points = pacman.getPoints();
+        var y = (int) (sceneBuilder.getGameWorldDimension().getHeight() + (sceneBuilder.getUiDimension().getHeight() / 4));
+        for (int i = 0; i < lives; i++) {
+            ui.add(new GameObjectLife(new Point((int) ((dimension.getWidth() * i)), y), dimension));
+        }
+        ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * lives), y), dimension, "Score: " + points));
+        //ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * (lives * 2)), y), dimension, effectText.orElse("Mario")));
+        return ui;
     }
 
     /**
@@ -188,6 +212,7 @@ public class GameScene implements Model {
         ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.ORANGE,
                 ghostCoord4, GhostBehaviours.NORMAL);
         this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4)));
+        this.gameObjects.add(uiInfo());
 
     }
 

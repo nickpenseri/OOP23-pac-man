@@ -2,6 +2,7 @@ package it.unibo.view.impl;
 
 import static java.awt.Image.SCALE_DEFAULT;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
+import it.unibo.model.ui.GameObjectText;
 import it.unibo.view.api.GameView;
 
 /** View of the actual Game. */
@@ -54,7 +56,8 @@ public abstract class GameViewImpl extends ViewImpl implements KeyListener, Game
             if (!scaledImages.containsKey(url.toString())) {
                 try {
                     final Image img = ImageIO.read(url).getScaledInstance(
-                            (int) obj.getDimension().getHeight(), (int) obj.getDimension().getWidth(), SCALE_DEFAULT);
+                            (int) obj.getDimension().getHeight(), (int) obj.getDimension().getWidth(),
+                            SCALE_DEFAULT);
                     scaledImages.put(url.toString(), img);
                 } catch (IOException e) {
                     log.error("error during image reading" + e.getMessage());
@@ -121,10 +124,17 @@ public abstract class GameViewImpl extends ViewImpl implements KeyListener, Game
             SetupGraphics2D.setupGraphics2DStatic(g2, this.getWidth(), this.getHeight());
 
             this.gameObjects.stream().forEach(obj -> {
-                final Point pos = obj.getPosition();
-                final var img = scaledImages.get(obj.getImageUrl().toString());
-                g2.drawImage(img, pos.x, (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y),
-                        this);
+                if (obj instanceof GameObjectText) {
+                    g2.setColor(Color.WHITE);
+                    final GameObjectText text = (GameObjectText) obj;
+                    g2.drawString(text.getText(), text.getPosition().x, this.getHeight() - text.getPosition().y);
+                } else {
+                    final Point pos = obj.getPosition();
+                    final var img = scaledImages.get(obj.getImageUrl().toString());
+                    g2.drawImage(img, pos.x,
+                            (int) (this.getHeight() - obj.getDimension().getWidth() - obj.getPosition().y),
+                            this);
+                }
             });
         }
     }

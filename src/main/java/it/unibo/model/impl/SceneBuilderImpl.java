@@ -12,7 +12,7 @@ public class SceneBuilderImpl implements SceneBuilder {
     private final Dimension mapDimension;
     private final Dimension tileDimension;
 
-    private static final float SCREEN_PROPORTION = 0.1f;
+    private static final float SCREEN_PROPORTION = 0.15f;
 
     /**
      * sets the size of panels based on screen window size.
@@ -25,8 +25,8 @@ public class SceneBuilderImpl implements SceneBuilder {
     public SceneBuilderImpl(final int screenWidth, final int screenHeight, final int column, final int row) {
         uiDimension = new Dimension(screenWidth, (int) (screenHeight * SCREEN_PROPORTION));
         gameWorldDimension = new Dimension(screenWidth, screenHeight - uiDimension.height);
-        final int minDimension = Math.min((int) gameWorldDimension.getWidth() / column,
-                (int) gameWorldDimension.getHeight() / row);
+        final int minDimension = Math.min((int) gameWorldDimension.getWidth() / row,
+                (int) gameWorldDimension.getHeight() / column);
         tileDimension = new Dimension(minDimension, minDimension);
         mapDimension = new Dimension(minDimension * row, minDimension * column);
     }
