@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
+import it.unibo.model.api.SceneBuilder;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
@@ -44,7 +45,10 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * @param sizeX  row map size
      * @param sizeY  column map size
      */
-    public GameObjectFactoryImpl(final int height, final int width, final int sizeX, final int sizeY) {
+    public GameObjectFactoryImpl(final Dimension gameWorldDimension, final int sizeX, final int sizeY) {
+        final int width = gameWorldDimension.width;
+        final int height = gameWorldDimension.height;
+
         final int minDimension = Math.min(width / sizeY, height / sizeX);
         this.dimension = new Dimension(minDimension, minDimension);
         ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
