@@ -25,7 +25,7 @@ public class SceneBuilderImpl implements SceneBuilder {
         gameWorldDimension = new Dimension(screenWidth, screenHeight - uiDimension.height);
         final int minDimension = Math.min((int) gameWorldDimension.getWidth() / column, (int) gameWorldDimension.getHeight() / row);
         tileDimension = new Dimension(minDimension, minDimension);
-        mapDimension = new Dimension(minDimension * column, minDimension * row);
+        mapDimension = new Dimension(minDimension * row, minDimension * column);
     }
 
 
@@ -55,5 +55,11 @@ public class SceneBuilderImpl implements SceneBuilder {
     @Override
     public Dimension getTileDimension() {
         return new Dimension(tileDimension);
+    }
+
+
+    @Override
+    public double offsetX() {
+       return  (gameWorldDimension.getWidth() - mapDimension.getWidth()) / 2;
     }
 }

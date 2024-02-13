@@ -3,6 +3,7 @@ package it.unibo.model.impl;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
@@ -31,6 +32,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     private final Dimension mapDimension;
     private final MapImageImpl mapImage = new MapImageImpl();
     private final GhostFactory ghostFactory;
+    private final double offsetX;
    
     private final double baseSpeed;
     private static final double PACMAN_SIZE_MULTIPLIER = 0.75;
@@ -48,9 +50,10 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     public GameObjectFactoryImpl(final SceneBuilder sceneBuilder) {
     
         this.dimension = sceneBuilder.getTileDimension();
-        ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
         this.mapDimension = sceneBuilder.getMapDimension();
+        ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
         this.baseSpeed = CELLS_PER_SECOND * dimension.getWidth();
+        this.offsetX = sceneBuilder.offsetX();
     }
 
     /**
@@ -58,7 +61,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public GameObjectImpl createGameObject(final Point position, final Type type) {
-        return new GameObjectImpl(position, this.mapImage.getObjectUrl(type), dimension, type);
+        return new GameObjectImpl(traslatePosition(position), this.mapImage.getObjectUrl(type), dimension, type);
     }
 
     /**
@@ -69,15 +72,15 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(position, ghostSpeed);
+                return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed);
             case PINK:
-                return ghostFactory.createPinkGhost(position, ghostSpeed);
+                return ghostFactory.createPinkGhost(traslatePosition(position), ghostSpeed);
             case BLUE:
-                return ghostFactory.createBlueGhost(position, ghostSpeed);
+                return ghostFactory.createBlueGhost(traslatePosition(position), ghostSpeed);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(position, ghostSpeed);
+                return ghostFactory.createOrangeGhost(traslatePosition(position), ghostSpeed);
             default:
-                return ghostFactory.createRedGhost(position, ghostSpeed);
+                return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed);
         }
     }
 
@@ -91,15 +94,15 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(position, ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
             case PINK:
-                return ghostFactory.createPinkGhost(position, ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createPinkGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
             case BLUE:
-                return ghostFactory.createBlueGhost(position, ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createBlueGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(position, ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createOrangeGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
             default:
-                return ghostFactory.createRedGhost(position, ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
         }
     }
 
@@ -113,7 +116,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
                                     (int) (this.dimension.getHeight() * PACMAN_SIZE_MULTIPLIER));
         return new PacManWalls(
                 new PacManBordered(
-                        new PacManImpl(startingLives, dimension, this.baseSpeed, position),
+                        new PacManImpl(startingLives, dimension, this.baseSpeed, traslatePosition(position)),
                        (int) mapDimension.getHeight(), (int) mapDimension.getWidth()) ,
                 walls);
     }
@@ -132,8 +135,13 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public PickableGenerator createPickableGenerator(final List<Point> positions) {
         final PickableGenerator pickableGenerator = new PickableGeneratorImpl();
-        pickableGenerator.generateMap(positions, dimension);
+        var translatedList = positions.stream().map(this::traslatePosition).collect(Collectors.toList());
+        pickableGenerator.generateMap(translatedList, dimension);
         return pickableGenerator;
+    }
+
+    private Point traslatePosition(final Point position) {
+        return new Point((int) (position.getX() + offsetX), (int) (position.getY() ));
     }
 
 }

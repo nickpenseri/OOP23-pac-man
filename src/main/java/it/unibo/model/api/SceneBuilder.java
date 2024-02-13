@@ -28,4 +28,9 @@ public interface SceneBuilder {
      * @return the tile dimension
      */
     Dimension getTileDimension();
+
+    /**
+     * @return the offset for the x axis
+     */
+    double offsetX();
 }
