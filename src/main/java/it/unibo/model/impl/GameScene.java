@@ -37,6 +37,7 @@ import it.unibo.model.physics.collisions.api.CollisionChecker;
 import it.unibo.model.physics.collisions.api.CollisionCheckerFactory;
 import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
 import it.unibo.model.pacman.api.GamePacMan;
+import it.unibo.model.pickable.api.EffectPickable;
 import it.unibo.model.pickable.api.PickableGenerator;
 import it.unibo.model.ui.GameObjectLife;
 import it.unibo.model.ui.GameObjectText;
@@ -45,7 +46,7 @@ import it.unibo.model.ui.GameObjectText;
 public class GameScene implements Model {
 
     private static final int GHOST_DEATH_POINTS = 200;
-    private static final int DELAY = 10_000;
+    private static final int DELAY = 3_000;
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
     private final GamePacMan pacman;
@@ -226,9 +227,14 @@ public class GameScene implements Model {
     private void pickUp() {
         pickableGenerator.getPickableList().forEach(pickable -> {
             if (checker.areColliding(pickable, pacman)) {
-                effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
+                if (pickable instanceof EffectPickable) {
+                    effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
                         List.of(ghost, ghost2, ghost3, ghost4));
-                resetText();
+                        resetText();
+                } else {
+                    pickableGenerator.takePickable(pickable.getPosition(), pacman,
+                        List.of(ghost, ghost2, ghost3, ghost4));
+                }
             }
         });
     }
