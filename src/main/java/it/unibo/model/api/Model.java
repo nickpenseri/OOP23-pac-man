@@ -3,6 +3,7 @@ package it.unibo.model.api;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.core.api.SoundEvent;
 import it.unibo.input.api.Command;
 
 /** Is the container and executor of the GameObjects. */
@@ -56,4 +57,6 @@ public interface Model {
      * @return the effect text
      */
     Optional<String> getEffectText();
+
+    List<SoundEvent> getEvents();
 }

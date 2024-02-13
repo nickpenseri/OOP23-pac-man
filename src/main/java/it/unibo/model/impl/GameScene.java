@@ -14,6 +14,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.unibo.core.api.SoundEvent;
 import it.unibo.input.api.Command;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
@@ -42,6 +43,7 @@ import it.unibo.model.pickable.api.PickableGenerator;
 import it.unibo.model.ui.GameObjectLife;
 import it.unibo.model.ui.GameObjectText;
 import it.unibo.view.api.SoundsEffect;
+import it.unibo.view.impl.PacManSound;
 import it.unibo.view.impl.SoundsEffectImpl;
 
 /** Basic Implementation of a model of a scene. */
@@ -66,7 +68,10 @@ public class GameScene implements Model {
     private final GameObjectFactory gameObjectFactory;
     private final Random random;
     private final SceneBuilder sceneBuilder;
-    private final SoundsEffect sound;
+    private final List<SoundEvent> soundEvent;
+    private final SoundsEffect soundGhost;
+    private final SoundsEffect soundBonus;
+    private final PacManSound soundPacMan;
 
     /**
      * Constructor of a generic scene.
@@ -79,7 +84,10 @@ public class GameScene implements Model {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
-        this.sound = new SoundsEffectImpl("/sound/death.wav");
+        this.soundGhost = new SoundsEffectImpl("/sound/death.wav");
+        this.soundBonus = new SoundsEffectImpl("/sound/bonus.wav");
+        this.soundPacMan = new PacManSound("/sound/pac-man.wav");
+        this.soundEvent = new ArrayList<>();
         this.gameObjects = new ArrayList<>();
         mapChooser = new MapSelectorImpl();
         map = new MapReaderImpl(mapChooser.getMapName());
@@ -151,6 +159,7 @@ public class GameScene implements Model {
                 switch (c) {
                     case SET_DIR_UP:
                         pacman.setDirection(Direction.UP);
+                        this.soundPacMan.playSound();
                         break;
                     case SET_DIR_DOWN:
                         pacman.setDirection(Direction.DOWN);
@@ -234,6 +243,8 @@ public class GameScene implements Model {
                 if (pickable instanceof EffectPickable) {
                     effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
                         List.of(ghost, ghost2, ghost3, ghost4));
+                        this.soundBonus.playSound();
+                        this.soundEvent.add(SoundEvent.BONUS);
                         resetText();
                 } else {
                     pickableGenerator.takePickable(pickable.getPosition(), pacman,
@@ -264,7 +275,8 @@ public class GameScene implements Model {
             if (checker.areColliding(ghost, pacman)) {
                 if (ghost.getState().equals(GhostState.NORMAL)) {
                     pacman.removeLife();
-                    this.sound.playSound();
+                    this.soundGhost.playSound();
+                    this.soundEvent.add(SoundEvent.DEATH);
                     pacman.respawn(mapBuilder.getPacManSpawn());
                     for (final var g : ghosts) {
                         g.setPosition(
@@ -311,6 +323,11 @@ public class GameScene implements Model {
     @Override
     public Optional<String> getEffectText() {
         return effectText;
+    }
+
+    @Override
+    public List<SoundEvent> getEvents() {
+        return this.soundEvent;
     }
 
 }

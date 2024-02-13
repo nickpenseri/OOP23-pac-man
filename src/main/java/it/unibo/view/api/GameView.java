@@ -2,6 +2,7 @@ package it.unibo.view.api;
 
 import java.util.List;
 
+import it.unibo.core.api.SoundEvent;
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
 
@@ -24,4 +25,6 @@ public interface GameView {
      * @return the list of commands readed from the user
      */
     List<Command> getListCommands();
+
+    void playSounds(List<SoundEvent> soundEvent);
 }

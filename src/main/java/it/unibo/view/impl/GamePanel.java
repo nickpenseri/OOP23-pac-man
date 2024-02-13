@@ -1,14 +1,24 @@
 package it.unibo.view.impl;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 
+import it.unibo.core.api.SoundEvent;
 import it.unibo.input.api.Command;
+import it.unibo.view.api.SoundsEffect;
 
 /**
  * Swing Implementation of GameView Interface.
  */
 public class GamePanel extends GameViewImpl {
     private static final long serialVersionUID = 1L;
+    private final SoundsEffect soundBonus;
+    private final SoundsEffect soundDeath;
+
+    public GamePanel() {
+        this.soundBonus = new SoundsEffectImpl("/sound/bonus.wav");
+        this.soundDeath = new SoundsEffectImpl("/sound/death.wav");
+    }
 
     @Override
     public void keyTyped(final KeyEvent e) {
@@ -35,6 +45,22 @@ public class GamePanel extends GameViewImpl {
 
     @Override
     public void keyReleased(final KeyEvent e) {
+    }
+
+    @Override
+    public void playSounds(List<SoundEvent> soundEvent) {
+        soundEvent.forEach(ev -> {
+            switch (ev) {
+                case DEATH:
+                    this.soundDeath.playSound();
+                    break;
+                case BONUS:
+                    this.soundBonus.playSound();
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
 }
