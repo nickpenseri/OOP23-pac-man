@@ -19,22 +19,24 @@ public class SceneBuilderImpl implements SceneBuilder {
      * 
      * @param screenWidth  screen window width
      * @param screenHeight screen window height
+     * @param column       number of columns of the map
+     * @param row          number of rows of the map
      */
     public SceneBuilderImpl(final int screenWidth, final int screenHeight, final int column, final int row) {
         uiDimension = new Dimension(screenWidth, (int) (screenHeight * SCREEN_PROPORTION));
         gameWorldDimension = new Dimension(screenWidth, screenHeight - uiDimension.height);
-        final int minDimension = Math.min((int) gameWorldDimension.getWidth() / column, (int) gameWorldDimension.getHeight() / row);
+        final int minDimension = Math.min((int) gameWorldDimension.getWidth() / column,
+                (int) gameWorldDimension.getHeight() / row);
         tileDimension = new Dimension(minDimension, minDimension);
         mapDimension = new Dimension(minDimension * row, minDimension * column);
     }
-
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Dimension getGameWorldDimension() {
-        return  new Dimension(gameWorldDimension);
+        return new Dimension(gameWorldDimension);
     }
 
     /**
@@ -45,21 +47,27 @@ public class SceneBuilderImpl implements SceneBuilder {
         return new Dimension(uiDimension);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Dimension getMapDimension() {
         return new Dimension(mapDimension);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Dimension getTileDimension() {
         return new Dimension(tileDimension);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double offsetX() {
-       return  (gameWorldDimension.getWidth() - mapDimension.getWidth()) / 2;
+        return (gameWorldDimension.getWidth() - mapDimension.getWidth()) / 2;
     }
 }

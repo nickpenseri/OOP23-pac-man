@@ -67,7 +67,6 @@ public class GameScene implements Model {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
 
-       
         this.gameObjects = new ArrayList<>();
         mapChooser = new MapSelectorImpl();
         map = new MapReaderImpl(mapChooser.getMapName());

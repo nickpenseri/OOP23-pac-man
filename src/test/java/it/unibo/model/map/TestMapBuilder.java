@@ -32,10 +32,11 @@ class TestMapBuilder {
     private MapBuilderImpl mapBuilder;
     private Dimension dimension;
 
-    private static final int Y = 5;
-    private static final int X_FIRST_SPAWN = 5;
-    private static final int X_SECOND_SPAWN = 10;
-    private static final int X_THIRD_SPAWN = 15;
+    private static final int Y = 10;
+    private static final int X_FIRST_SPAWN = 10;
+    private static final int X_SECOND_SPAWN = 20;
+    private static final int X_THIRD_SPAWN = 30;
+    private static final int PACMAN_POSITION = 20;
 
     /** initialize mapbuilder. */
     @BeforeEach
@@ -59,7 +60,7 @@ class TestMapBuilder {
     @Test
     void testGetPacManSpawn() {
         final Point pacManSpawn = mapBuilder.getPacManSpawn();
-        assertEquals(new Point(10, 10), pacManSpawn);
+        assertEquals(new Point(PACMAN_POSITION, PACMAN_POSITION), pacManSpawn);
     }
 
     /** method that tests the path of collectible objects. */

@@ -33,7 +33,6 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     private final MapImageImpl mapImage = new MapImageImpl();
     private final GhostFactory ghostFactory;
     private final double offsetX;
-   
     private final double baseSpeed;
     private static final double PACMAN_SIZE_MULTIPLIER = 0.75;
     private static final int CELLS_PER_SECOND = 4;
@@ -41,19 +40,30 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
 
     /**
      * sets the size of objects based on map size and screen window size.
-     * 
-     * @param height screen window height
-     * @param width  screen window depth
-     * @param sizeX  row map size
-     * @param sizeY  column map size
+     * @param sceneBuilder scene builder with window and map size
      */
     public GameObjectFactoryImpl(final SceneBuilder sceneBuilder) {
-    
         this.dimension = sceneBuilder.getTileDimension();
         this.mapDimension = sceneBuilder.getMapDimension();
         ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
         this.baseSpeed = CELLS_PER_SECOND * dimension.getWidth();
         this.offsetX = sceneBuilder.offsetX();
+    }
+
+    /**
+     * sets the size of objects based on map size and screen window size.
+     * 
+     * @param objectWidth  object width
+     * @param objectHeigth object height
+     * @param mapWidth     map width
+     * @param mapHeight    map height
+     */
+    public GameObjectFactoryImpl(final int objectWidth, final int objectHeigth, final int mapWidth, final int mapHeight) {
+        this.dimension = new Dimension(objectWidth, objectHeigth);
+        this.mapDimension = new Dimension(mapWidth, mapHeight);
+        ghostFactory = new GhostFactoryImpl(objectWidth, objectHeigth);
+        this.baseSpeed = CELLS_PER_SECOND * objectWidth;
+        this.offsetX = 0;
     }
 
     /**
@@ -117,7 +127,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return new PacManWalls(
                 new PacManBordered(
                         new PacManImpl(startingLives, dimension, this.baseSpeed, traslatePosition(position)),
-                       (int) mapDimension.getHeight(), (int) mapDimension.getWidth()) ,
+                       (int) mapDimension.getHeight(), (int) mapDimension.getWidth()),
                 walls);
     }
 
@@ -135,13 +145,13 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public PickableGenerator createPickableGenerator(final List<Point> positions) {
         final PickableGenerator pickableGenerator = new PickableGeneratorImpl();
-        var translatedList = positions.stream().map(this::traslatePosition).collect(Collectors.toList());
+        final var translatedList = positions.stream().map(this::traslatePosition).collect(Collectors.toList());
         pickableGenerator.generateMap(translatedList, dimension);
         return pickableGenerator;
     }
 
     private Point traslatePosition(final Point position) {
-        return new Point((int) (position.getX() + offsetX), (int) (position.getY() ));
+        return new Point((int) (position.getX() + offsetX), (int) (position.getY()));
     }
 
 }
