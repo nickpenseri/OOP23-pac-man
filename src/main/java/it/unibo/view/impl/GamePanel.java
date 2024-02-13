@@ -12,8 +12,8 @@ import it.unibo.view.api.SoundsEffect;
  */
 public class GamePanel extends GameViewImpl {
     private static final long serialVersionUID = 1L;
-    private final SoundsEffect soundBonus;
-    private final SoundsEffect soundDeath;
+    private final transient SoundsEffect soundBonus;
+    private final transient SoundsEffect soundDeath;
 
     public GamePanel() {
         this.soundBonus = new SoundsEffectImpl("/sound/bonus.wav");
