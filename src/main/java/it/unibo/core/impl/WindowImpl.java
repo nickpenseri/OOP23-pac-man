@@ -6,8 +6,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
-
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -44,8 +42,7 @@ public class WindowImpl implements Window {
         dimension = new Dimension(weight, height);
         frame.setSize(weight, height);
         frame.setMinimumSize(new Dimension(weight, height));
-        frame.setResizable(true);
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        frame.setResizable(false);
         this.gameViewPanel = gameViewPanel;
         frame.add((Component) this.gameViewPanel);
 
