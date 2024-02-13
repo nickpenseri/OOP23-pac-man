@@ -137,11 +137,13 @@ public class GameScene implements Model {
         final var y = (int) (sceneBuilder.getGameWorldDimension().getHeight()
                 + (sceneBuilder.getUiDimension().getHeight() / 4));
         for (int i = 0; i < lives; i++) {
-            ui.add(new GameObjectLife(new Point((int) ((dimension.getWidth() * i)), y), dimension));
+            ui.add(new GameObjectLife(
+                    new Point((int) (panelDimension.getWidth() - (dimension.getWidth() * (i + 2))), y), dimension));
         }
-        ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * lives), y), dimension, "Score: " + points));
+        ui.add(new GameObjectText(new Point((int) dimension.getWidth(), y), dimension, "Score: " + points));
         if (effectText != null) {
-            ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * (lives * 2)), y), dimension,
+            ui.add(new GameObjectText(new Point((int) (dimension.getWidth() + (panelDimension.getWidth() / 4)), y),
+                    dimension,
                     effectText.orElse("")));
         }
         return ui;
@@ -242,13 +244,13 @@ public class GameScene implements Model {
             if (checker.areColliding(pickable, pacman)) {
                 if (pickable instanceof EffectPickable) {
                     effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
-                        List.of(ghost, ghost2, ghost3, ghost4));
+                            List.of(ghost, ghost2, ghost3, ghost4));
                         this.soundBonus.playSound();
                         this.soundEvent.add(SoundEvent.BONUS);
-                        resetText();
+                    resetText();
                 } else {
                     pickableGenerator.takePickable(pickable.getPosition(), pacman,
-                        List.of(ghost, ghost2, ghost3, ghost4));
+                            List.of(ghost, ghost2, ghost3, ghost4));
                 }
             }
         });
@@ -300,31 +302,6 @@ public class GameScene implements Model {
     public boolean isSceneOver() {
         return pacman.getRemainingLives() <= 0;
     }
-
-    /**
-     * Return the PacMan lifes.
-     */
-    @Override
-    public int getPacManLifes() {
-        return pacman.getRemainingLives();
-    }
-
-    /**
-     * Return the PacMan scores.
-     */
-    @Override
-    public int getPacManScores() {
-        return pacman.getPoints();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<String> getEffectText() {
-        return effectText;
-    }
-
     @Override
     public List<SoundEvent> getEvents() {
         return this.soundEvent;

@@ -3,6 +3,7 @@ package it.unibo.view.impl;
 import static java.awt.Image.SCALE_DEFAULT;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -126,6 +127,7 @@ public abstract class GameViewImpl extends ViewImpl implements KeyListener, Game
             this.gameObjects.stream().forEach(obj -> {
                 if (obj instanceof GameObjectText) {
                     g2.setColor(Color.WHITE);
+                    g2.setFont(new Font("Arial", Font.PLAIN, (int) ((GameObjectText) obj).getDimension().getHeight()));
                     final GameObjectText text = (GameObjectText) obj;
                     g2.drawString(text.getText(), text.getPosition().x, this.getHeight() - text.getPosition().y);
                 } else {

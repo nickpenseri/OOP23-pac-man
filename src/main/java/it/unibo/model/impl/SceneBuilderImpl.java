@@ -12,7 +12,7 @@ public class SceneBuilderImpl implements SceneBuilder {
     private final Dimension mapDimension;
     private final Dimension tileDimension;
 
-    private static final float SCREEN_PROPORTION = 0.15f;
+    private static final float SCREEN_PROPORTION = 0.05f;
 
     /**
      * sets the size of panels based on screen window size.
