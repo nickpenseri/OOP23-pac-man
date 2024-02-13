@@ -38,6 +38,8 @@ import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pickable.api.PickableGenerator;
 import it.unibo.model.ui.GameObjectLife;
 import it.unibo.model.ui.GameObjectText;
+import it.unibo.view.api.SoundsEffect;
+import it.unibo.view.impl.SoundsEffectImpl;
 
 /** Basic Implementation of a model of a scene. */
 public class GameScene implements Model {
@@ -60,6 +62,7 @@ public class GameScene implements Model {
     private final GameObjectFactory gameObjectFactory;
     private final Random random;
     private final SceneBuilder sceneBuilder;
+    private final SoundsEffect sound;
 
     /**
      * Constructor of a generic scene.
@@ -72,6 +75,7 @@ public class GameScene implements Model {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
+        this.sound = new SoundsEffectImpl("/sound/death.wav");
         this.gameObjects = new ArrayList<>();
         mapChooser = new MapSelectorImpl();
         map = new MapReaderImpl(mapChooser.getMapName());
@@ -232,6 +236,7 @@ public class GameScene implements Model {
             if (checker.areColliding(ghost, pacman)) {
                 if (ghost.getState().equals(GhostState.NORMAL)) {
                     pacman.removeLife();
+                    this.sound.playSound();
                     pacman.respawn(mapBuilder.getPacManSpawn());
                     for (final var g : ghosts) {
                         g.setPosition(
