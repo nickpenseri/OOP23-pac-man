@@ -28,10 +28,10 @@ import it.unibo.model.pickable.impl.PickableGeneratorImpl;
  */
 public class GameObjectFactoryImpl implements GameObjectFactory {
     private final Dimension dimension;
+    private final Dimension mapDimension;
     private final MapImageImpl mapImage = new MapImageImpl();
     private final GhostFactory ghostFactory;
-    private final int mapWidth;
-    private final int mapHeigth;
+   
     private final double baseSpeed;
     private static final double PACMAN_SIZE_MULTIPLIER = 0.75;
     private static final int CELLS_PER_SECOND = 4;
@@ -45,16 +45,12 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * @param sizeX  row map size
      * @param sizeY  column map size
      */
-    public GameObjectFactoryImpl(final Dimension gameWorldDimension, final int sizeX, final int sizeY) {
-        final int width = gameWorldDimension.width;
-        final int height = gameWorldDimension.height;
-
-        final int minDimension = Math.min(width / sizeY, height / sizeX);
-        this.dimension = new Dimension(minDimension, minDimension);
+    public GameObjectFactoryImpl(final SceneBuilder sceneBuilder) {
+    
+        this.dimension = sceneBuilder.getTileDimension();
         ghostFactory = new GhostFactoryImpl((int) dimension.getWidth(), (int) dimension.getHeight());
-        this.mapWidth = (int) (sizeY * dimension.getWidth());
-        this.mapHeigth = (int) (sizeX * dimension.getHeight());
-        this.baseSpeed = CELLS_PER_SECOND * minDimension;
+        this.mapDimension = sceneBuilder.getMapDimension();
+        this.baseSpeed = CELLS_PER_SECOND * dimension.getWidth();
     }
 
     /**
@@ -118,7 +114,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         return new PacManWalls(
                 new PacManBordered(
                         new PacManImpl(startingLives, dimension, this.baseSpeed, position),
-                        mapHeigth, mapWidth),
+                       (int) mapDimension.getHeight(), (int) mapDimension.getWidth()) ,
                 walls);
     }
 

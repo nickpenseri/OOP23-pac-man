@@ -67,13 +67,13 @@ public class GameScene implements Model {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
 
-        final var sceneBuilder = new SceneBuilderImpl(width, height);
+       
         this.gameObjects = new ArrayList<>();
         mapChooser = new MapSelectorImpl();
         map = new MapReaderImpl(mapChooser.getMapName());
-        final var worldDimensions = sceneBuilder.getGameWorldDimension();
-        gameObjectFactory = new GameObjectFactoryImpl(worldDimensions, map.getMap().length,
-                map.getMap()[0].length);
+
+        final var sceneBuilder = new SceneBuilderImpl(width, height, map.getMap().length, map.getMap()[0].length);
+        gameObjectFactory = new GameObjectFactoryImpl(sceneBuilder);
         mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
         this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
                 3,

@@ -18,4 +18,14 @@ public interface SceneBuilder {
      * @return the ui dimension
      */
     Dimension getUiDimension();
+
+    /**
+     * @return the map dimension
+     */
+    Dimension getMapDimension();
+
+    /**
+     * @return the tile dimension
+     */
+    Dimension getTileDimension();
 }
