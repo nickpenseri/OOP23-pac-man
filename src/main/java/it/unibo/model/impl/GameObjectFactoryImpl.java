@@ -40,6 +40,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
 
     /**
      * sets the size of objects based on map size and screen window size.
+     * 
      * @param sceneBuilder scene builder with window and map size
      */
     public GameObjectFactoryImpl(final SceneBuilder sceneBuilder) {
@@ -58,7 +59,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * @param mapWidth     map width
      * @param mapHeight    map height
      */
-    public GameObjectFactoryImpl(final int objectWidth, final int objectHeigth, final int mapWidth, final int mapHeight) {
+    public GameObjectFactoryImpl(final int objectWidth, final int objectHeigth, final int mapWidth,
+            final int mapHeight) {
         this.dimension = new Dimension(objectWidth, objectHeigth);
         this.mapDimension = new Dimension(mapWidth, mapHeight);
         ghostFactory = new GhostFactoryImpl(objectWidth, objectHeigth);
@@ -94,12 +96,12 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         }
     }
 
-
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createGhost(final Point position, final GhostColor color, final GhostCoordinates mapCoordinates, 
+    public FollowingGhost createGhost(final Point position, final GhostColor color,
+            final GhostCoordinates mapCoordinates,
             final GhostBehaviours behaviour) {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
@@ -110,7 +112,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
             case BLUE:
                 return ghostFactory.createBlueGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createOrangeGhost(traslatePosition(position), ghostSpeed, mapCoordinates,
+                        behaviour);
             default:
                 return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
         }
@@ -122,12 +125,12 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public GamePacMan createPacMan(final Point position, final int startingLives,
             final List<GameObject> walls) {
-        final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_MULTIPLIER), 
-                                    (int) (this.dimension.getHeight() * PACMAN_SIZE_MULTIPLIER));
-        return new PacManWalls( 
+        final Dimension dimension = new Dimension((int) (this.dimension.getWidth() * PACMAN_SIZE_MULTIPLIER),
+                (int) (this.dimension.getHeight() * PACMAN_SIZE_MULTIPLIER));
+        return new PacManWalls(
                 new PacManBordered(
                         new PacManImpl(startingLives, dimension, this.baseSpeed, traslatePosition(position)),
-                       (int) mapDimension.getHeight(), (int) (mapDimension.getWidth())),
+                        (int) mapDimension.getHeight(), (int) (mapDimension.getWidth() + offsetX)),
                 walls);
     }
 

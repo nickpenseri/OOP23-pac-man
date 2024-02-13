@@ -42,7 +42,6 @@ import it.unibo.model.ui.GameObjectText;
 /** Basic Implementation of a model of a scene. */
 public class GameScene implements Model {
 
-
     private static final int GHOST_DEATH_POINTS = 200;
     private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
@@ -114,16 +113,18 @@ public class GameScene implements Model {
     private List<GameObject> uiInfo() {
 
         final Dimension panelDimension = sceneBuilder.getUiDimension();
-        Dimension dimension = new Dimension((int) panelDimension.getHeight() / 2, (int) panelDimension.getHeight() / 2);
+        final Dimension dimension = new Dimension((int) panelDimension.getHeight() / 2, (int) panelDimension.getHeight() / 2);
         final List<GameObject> ui = new ArrayList<>();
-        var lives = pacman.getRemainingLives();
-        var points = pacman.getPoints();
-        var y = (int) (sceneBuilder.getGameWorldDimension().getHeight() + (sceneBuilder.getUiDimension().getHeight() / 4));
+        final var lives = pacman.getRemainingLives();
+        final var points = pacman.getPoints();
+        final var y = (int) (sceneBuilder.getGameWorldDimension().getHeight()
+                + (sceneBuilder.getUiDimension().getHeight() / 4));
         for (int i = 0; i < lives; i++) {
             ui.add(new GameObjectLife(new Point((int) ((dimension.getWidth() * i)), y), dimension));
         }
         ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * lives), y), dimension, "Score: " + points));
-        //ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * (lives * 2)), y), dimension, effectText.orElse("Mario")));
+        // ui.add(new GameObjectText(new Point((int) (dimension.getWidth() * (lives *
+        // 2)), y), dimension, effectText.orElse("Mario")));
         return ui;
     }
 
@@ -204,7 +205,7 @@ public class GameScene implements Model {
         final GhostCoordinates ghostCoord4 = new GhostCoordinatesOnGraph(graph, pacman, mapBuilder.getSpawnGhost());
 
         ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.RED,
-            ghostCoord, GhostBehaviours.AGGRESSIVE);
+                ghostCoord, GhostBehaviours.AGGRESSIVE);
         ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.BLUE,
                 ghostCoord2, GhostBehaviours.NORMAL);
         ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2).getPosition(), GhostColor.PINK,

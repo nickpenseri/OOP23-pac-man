@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
-import it.unibo.controller.impl.ControllerImplGame;
 import it.unibo.core.api.Engine;
 import it.unibo.core.api.Window;
 import it.unibo.model.api.Model;
@@ -36,7 +35,7 @@ public class EngineImpl implements Engine {
         this.window = new WindowImpl(gameView, "Pacman", width, height);
         final var gamedim = this.window.getGamePanelDimension();
         final Model gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-        this.controller = new ControllerImpl(gameScene,(GameView) gameView);
+        this.controller = new ControllerImpl(gameScene, (GameView) gameView);
     }
 
     /**
