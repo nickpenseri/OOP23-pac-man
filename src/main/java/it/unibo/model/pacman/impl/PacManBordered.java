@@ -16,29 +16,45 @@ public class PacManBordered extends PacManDecoratorImpl {
 
     private final int borderUp;
     private final int borderRight;
+    private final int borderLeft;
+    private final int borderDown;
 
     /**
      * Creates an object of this class which decorates the PacMan passed as a
      * parameter and which moves in a space with borderUp and borderRight passed as
-     * parameters.
+     * parameters and with 0 as borderLeft and borderDown.
      * 
      * @param decorated   the PacMan to be decorated
      * @param borderUp    the borderUp of the bordered space
      * @param borderRight the borderRight of the bordered space
      * @throws NullPointerException     if the PacMan to be decorated is null.
+     * @throws IllegalArgumentException if decorated is outside borders.
+     */
+    public PacManBordered(final PacMan decorated, final int borderUp, final int borderRight) {
+        this(decorated, borderUp, borderRight, 0, 0);
+    }
+
+    /**
+     * Creates an object of this class which decorates the PacMan passed as a
+     * parameter and which moves in a space with borderUp,borderRight, borderDown
+     * and borderLeft passed as parameters.
+     * 
+     * @param decorated   the PacMan to be decorated
+     * @param borderUp    the borderUp of the bordered space
+     * @param borderRight the borderRight of the bordered space
+     * @param borderDown  the borderDown of the bordered space
+     * @param borderLeft  the borderLeft of the bordered space
+     * @throws NullPointerException     if the PacMan to be decorated is null.
      * @throws IllegalArgumentException if borderRight or borderUp are less or equal
      *                                  to zero or if decorated is outside borders
      */
-    public PacManBordered(final PacMan decorated, final int borderUp, final int borderRight) {
+    public PacManBordered(final PacMan decorated, final int borderUp, final int borderRight, final int borderDown,
+            final int borderLeft) {
         super(decorated);
-        if (borderUp <= 0) {
-            throw new IllegalArgumentException("Cannot instantiate an object with negative borderUp");
-        }
-        if (borderRight <= 0) {
-            throw new IllegalArgumentException("Cannot instantiate an object with negative borderRight");
-        }
         this.borderUp = borderUp;
         this.borderRight = borderRight;
+        this.borderDown = borderDown;
+        this.borderLeft = borderLeft;
         if (!isInBorders(decorated.getPosition())) {
             throw new IllegalArgumentException("Should not spawn outside the borders");
         }
@@ -59,7 +75,7 @@ public class PacManBordered extends PacManDecoratorImpl {
     }
 
     private boolean isInBorders(final Point position) {
-        return position.getX() >= 0 && position.getX() < borderRight && position.getY() >= 0
+        return position.getX() >= borderLeft && position.getX() < borderRight && position.getY() >= borderDown
                 && position.getY() < borderUp;
     }
 
@@ -74,9 +90,9 @@ public class PacManBordered extends PacManDecoratorImpl {
     private int correctX() {
         final int actualX = (int) this.getPosition().getX();
         if (actualX >= borderRight) {
-            return actualX - borderRight;
-        } else if (actualX < 0) {
-            return borderRight + actualX;
+            return actualX - borderRight + borderLeft;
+        } else if (actualX < borderLeft) {
+            return borderRight + (actualX - borderLeft);
         } else {
             return actualX;
         }
@@ -85,9 +101,9 @@ public class PacManBordered extends PacManDecoratorImpl {
     private int correctY() {
         final int actualY = (int) this.getPosition().getY();
         if (actualY >= borderUp) {
-            return actualY - borderUp;
+            return actualY - borderUp + borderDown;
         } else if (actualY < 0) {
-            return borderUp + actualY;
+            return borderUp + (actualY - borderDown);
         } else {
             return actualY;
         }
