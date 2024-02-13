@@ -44,6 +44,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void updateView() {
         view.updateView(model.getObjects());
+        view.playSounds(model.getEvents());
     }
 
 }
