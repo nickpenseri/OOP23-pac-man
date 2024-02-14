@@ -14,8 +14,6 @@ import it.unibo.model.pickable.api.EffectChose;
 import it.unibo.model.pickable.api.EffectPickable;
 import it.unibo.model.pickable.api.Pickable;
 import it.unibo.model.pickable.api.PickableGenerator;
-//import it.unibo.view.api.SoundsEffect;
-//import it.unibo.view.impl.SoundsEffectImpl;
 
 /** Is a Map Generetor of Pickable. */
 public class PickableGeneratorImpl implements PickableGenerator {
@@ -23,7 +21,6 @@ public class PickableGeneratorImpl implements PickableGenerator {
     private static final int PERCENTAGE = 100;
     private static final int PERCENTAGE_NORMAL_PICKABLE = 90;
     private static final int NUMBER_OF_ALL_EFFECT = EffectChose.values().length;
-    //private final SoundsEffect sounds = new SoundsEffectImpl("/sound/bonus.wav");
 
     /**
      * Generate a Map of Pickable at PERCENTAGE_NORMAL_PICKABLE% of probability of
@@ -101,7 +98,6 @@ public class PickableGeneratorImpl implements PickableGenerator {
                 ((EffectPickable) pickableMap.get(point)).doEffect(pacman, ghosts);
                 final Optional<String> effectText = ((EffectPickable) pickableMap.get(point)).getEffectText();
                 pickableMap.remove(point);
-                //this.sounds.playSound();
                 return effectText;
             } else {
                 pickableMap.get(point).addPointsPickable(pacman);
@@ -109,7 +105,6 @@ public class PickableGeneratorImpl implements PickableGenerator {
                     ((EffectPickable) pickableMap.get(point)).doEffect(pacman, ghosts);
                     final Optional<String> effectText = ((EffectPickable) pickableMap.get(point)).getEffectText();
                     pickableMap.remove(point);
-                    //this.sounds.playSound();
                     return effectText;
                 }
             }
