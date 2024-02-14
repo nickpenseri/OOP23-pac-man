@@ -53,7 +53,6 @@ public class GameScene implements Model {
     private final GamePacMan pacman;
     private PickableGenerator pickableGenerator;
     private final CollisionChecker<GameObject> checker;
-    // private final GameObjectImpl[][] objectsMap;
     private FollowingGhost ghost;
     private FollowingGhost ghost2;
     private FollowingGhost ghost3;
@@ -120,7 +119,6 @@ public class GameScene implements Model {
     }
 
     private List<GameObject> uiInfo() {
-
         final Dimension panelDimension = sceneBuilder.getUiDimension();
         final Dimension dimension = new Dimension((int) panelDimension.getHeight() / 2,
                 (int) panelDimension.getHeight() / 2);
@@ -147,7 +145,6 @@ public class GameScene implements Model {
      */
     @Override
     public void processInput(final List<Command> commands) {
-
         if (!commands.isEmpty()) {
             log.info(commands.toString());
             commands.forEach(c -> {
@@ -176,8 +173,6 @@ public class GameScene implements Model {
      */
     @Override
     public void updateState(final long elapsed) {
-
-        // characters.forEach(c -> c.updateState());
         pacman.updateState(elapsed);
         ghost4.updateState(elapsed);
         ghost3.updateState(elapsed);
