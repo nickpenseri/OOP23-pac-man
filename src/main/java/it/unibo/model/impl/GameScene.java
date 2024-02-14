@@ -66,6 +66,7 @@ public class GameScene implements Model {
     private final Random random;
     private final SceneBuilder sceneBuilder;
     private final List<SoundEvent> soundEvent;
+    private Point lastPacManPos;
 
     /**
      * Constructor of a generic scene.
@@ -92,6 +93,7 @@ public class GameScene implements Model {
         this.gameObjects.add(new ArrayList<>(List.of(pacman)));
 
         final CollisionCheckerFactory factory = new CollisionCheckerFactoryImpl();
+        this.lastPacManPos = this.pacman.getPosition();
         this.checker = factory.gameObjectChecker();
         this.random = new Random();
         initializeMap();
@@ -184,6 +186,7 @@ public class GameScene implements Model {
         pickUp();
         ghostCollision();
         finishedLevel();
+        this.checkPacManPos();
     }
 
     private void finishedLevel() {
@@ -235,7 +238,7 @@ public class GameScene implements Model {
                 if (pickable instanceof EffectPickable) {
                     effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
                             List.of(ghost, ghost2, ghost3, ghost4));
-                        this.soundEvent.add(SoundEvent.BONUS);
+                    this.soundEvent.add(SoundEvent.BONUS);
                     resetText();
                 } else {
                     pickableGenerator.takePickable(pickable.getPosition(), pacman,
@@ -290,6 +293,7 @@ public class GameScene implements Model {
     public boolean isSceneOver() {
         return pacman.getRemainingLives() <= 0;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -298,6 +302,15 @@ public class GameScene implements Model {
         final List<SoundEvent> copy = new ArrayList<>(this.soundEvent);
         this.soundEvent.clear();
         return copy;
+    }
+
+    private void checkPacManPos() {
+        if (!this.lastPacManPos.equals(this.pacman.getPosition())) {
+            this.soundEvent.add(SoundEvent.PACMAN);
+        } else {
+            this.soundEvent.add(SoundEvent.PACMAN_STOP);
+        }
+        this.lastPacManPos = this.pacman.getPosition();
     }
 
 }

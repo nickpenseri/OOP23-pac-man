@@ -7,5 +7,9 @@ public enum SoundEvent {
     /**take bonus event. */
     BONUS,
     /**pac-man movement event. */
-    PACMAN;
+    PACMAN,
+    /**pac-man movement stop event. */
+    PACMAN_STOP;
+
+
 }

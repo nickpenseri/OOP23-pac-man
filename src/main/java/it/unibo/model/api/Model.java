@@ -38,7 +38,9 @@ public interface Model {
 
     /**
      * adds all the events that generate sounds.
-     * @return a list of a  sounds-events
+     * 
+     * @return a list of a sounds-events
      */
     List<SoundEvent> getEvents();
+
 }
