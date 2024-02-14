@@ -26,13 +26,11 @@ public class WindowImpl implements Window {
     /**
      * Constructor of a window.
      * 
-     * @param gameViewPanel the scene panel
      * @param gameName      the name of the game
      * @param weight        the weight of the window
      * @param height        the height of the window
      */
-    public WindowImpl(final String gameName, final int weight,
-            final int height) {
+    public WindowImpl(final String gameName, final int weight, final int height) {
 
         if (weight <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width and Height must be positive");
@@ -85,7 +83,6 @@ public class WindowImpl implements Window {
             frame.pack();
             frame.validate();
         }
-       
     }
 
     /**

@@ -15,12 +15,12 @@ public class ControllerImpl implements Controller {
 
     /**
      * When Controller is created, it needs a model and a view to manage.
-     * 
+     * @param sceneMediator the sceneMediator that manages the scenes off the game
      * @param model the model of the gameScene
      * @param view  the view of the gameScene
      */
-    public ControllerImpl(SceneMediator sceneMediator,final Model model, final GameView view) {
-        this.sceneMediator = Objects.requireNonNull(sceneMediator);    
+    public ControllerImpl(final SceneMediator sceneMediator, final Model model, final GameView view) {
+        this.sceneMediator = Objects.requireNonNull(sceneMediator);
         this.model = Objects.requireNonNull(model);
         this.view = Objects.requireNonNull(view);
     }
@@ -39,7 +39,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void updateState(final long elapsed) {
         model.updateState(elapsed);
-        if (model.isSceneOver()){
+        if (model.isSceneOver()) {
             sceneMediator.sceneFinished();
         }
     }

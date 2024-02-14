@@ -1,10 +1,9 @@
 package it.unibo.core.impl;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
 import it.unibo.core.api.SceneManager;
@@ -16,15 +15,22 @@ import it.unibo.view.api.GameView;
 import it.unibo.view.api.View;
 import it.unibo.view.impl.GamePanel;
 
+/**
+ * The class is the implementation of the SceneManager Interface.
+ */
 public class SceneManagerImpl implements SceneManager, SceneMediator {
-    
     private final Window window;
     private Controller controller;
-
-
     private int actualSceneIndex;
     private boolean sceneChanged;
 
+    /**
+     * Constructor of the SceneManager.
+     * @param window the window of the game
+     */
+     @SuppressFBWarnings(value = {
+            "EI_EXPOSE_REP2"
+    }, justification = "I need the window reference because i have to change its panel")
     public SceneManagerImpl(final Window window) {
         this.window = Objects.requireNonNull(window);
         this.actualSceneIndex = 0;
@@ -32,13 +38,18 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
     }
 
 
-
+    /**
+     * @{inheritDoc}
+     */
+    @Override
     public Controller getController() {
         return this.controller;
     }
 
 
-
+    /**
+     * @{inheritDoc}
+     */
     @Override
     public void sceneFinished() {
         this.sceneChanged = true;
@@ -47,8 +58,9 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
 
     }
 
-
-
+    /**
+     * @{inheritDoc}
+     */
     @Override
     public boolean sceneIsChanged() {
         if (this.sceneChanged) {
@@ -59,8 +71,7 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
         }
     }
 
-
-    private Controller selectScene(){
+    private Controller selectScene() {
         final View gameView;
         final Model gameScene;
         final Dimension gamedim;
@@ -81,8 +92,7 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
                 gamedim = this.window.getGamePanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
                 return new ControllerImpl(this, gameScene, (GameView) gameView);
-               
-        
+
             case 2:
                 this.actualSceneIndex = 0;
                 gameView = new GamePanel();
