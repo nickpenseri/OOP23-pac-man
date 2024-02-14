@@ -1,5 +1,6 @@
 package it.unibo.core.impl;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,30 +21,14 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
     private final Window window;
     private Controller controller;
 
-    private final List<Controller> scene;
-    
+
     private int actualSceneIndex;
     private boolean sceneChanged;
 
     public SceneManagerImpl(final Window window) {
         this.window = Objects.requireNonNull(window);
-        final View gameView = new GamePanel();
-        
-        this.scene = new ArrayList<>();
         this.actualSceneIndex = 0;
-
-        window.setPanelScene(gameView);
-        var gamedim = this.window.getGamePanelDimension();
-        Model gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-        var controller = new ControllerImpl(this, gameScene, (GameView) gameView);
-        this.scene.add(controller);
-
-        gamedim = this.window.getGamePanelDimension();
-        gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-        controller = new ControllerImpl(this, gameScene, (GameView) gameView);
-        this.scene.add(controller);
-
-        this.controller = this.scene.get(this.actualSceneIndex);
+        this.controller = selectScene();
     }
 
 
@@ -56,8 +41,9 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
 
     @Override
     public void sceneFinished() {
-        this.controller = this.scene.get(++this.actualSceneIndex);
         this.sceneChanged = true;
+        this.controller = selectScene();
+
 
     }
 
@@ -70,6 +56,43 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
             return true;
         } else {
             return false;
+        }
+    }
+
+
+    private Controller selectScene(){
+        final View gameView;
+        final Model gameScene;
+        final Dimension gamedim;
+        switch (actualSceneIndex) {
+
+            case 0:
+                this.actualSceneIndex = 1;
+                gameView = new GamePanel();
+                window.setPanelScene(gameView);
+                gamedim = this.window.getGamePanelDimension();
+                gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
+                return new ControllerImpl(this, gameScene, (GameView) gameView);
+
+            case 1:
+                this.actualSceneIndex = 2;
+                gameView = new GamePanel();
+                window.setPanelScene(gameView);
+                gamedim = this.window.getGamePanelDimension();
+                gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
+                return new ControllerImpl(this, gameScene, (GameView) gameView);
+               
+        
+            case 2:
+                this.actualSceneIndex = 0;
+                gameView = new GamePanel();
+                window.setPanelScene(gameView);
+                gamedim = this.window.getGamePanelDimension();
+                gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
+                return new ControllerImpl(this, gameScene, (GameView) gameView);
+
+            default:
+                return null;
         }
     }
 
