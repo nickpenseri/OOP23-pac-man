@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.core.api.Engine;
+import it.unibo.core.api.SceneManager;
 import it.unibo.core.api.Window;
 
 
@@ -18,6 +19,7 @@ public class EngineImpl implements Engine {
     private static final long PERIOD = 20; /* 20 ms = 50 frame for second */
     private final Window window;
     private final Controller controller;
+    private final SceneManager sceneManager;
     private static final int PROPORTION = 2;
 
     /** Constructor of the Engine, here is created the window of the game. */
@@ -27,7 +29,7 @@ public class EngineImpl implements Engine {
         final int height = screenSize.width / PROPORTION;
         final int width = screenSize.width / PROPORTION;
         this.window = new WindowImpl("Pacman", width, height);
-        SceneManagerImpl sceneManager = new SceneManagerImpl(window);
+        sceneManager = new SceneManagerImpl(window);
         this.controller = sceneManager.getController();
     }
 
