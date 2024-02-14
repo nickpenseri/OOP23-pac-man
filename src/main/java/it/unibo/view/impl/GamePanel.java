@@ -14,7 +14,7 @@ public class GamePanel extends GameViewImpl {
     private static final long serialVersionUID = 1L;
     private final transient SoundsEffect soundBonus;
     private final transient SoundsEffect soundDeath;
-
+    /**constructor that initializes the sounds. */
     public GamePanel() {
         this.soundBonus = new SoundsEffectImpl("/sound/bonus.wav");
         this.soundDeath = new SoundsEffectImpl("/sound/death.wav");
@@ -47,8 +47,11 @@ public class GamePanel extends GameViewImpl {
     public void keyReleased(final KeyEvent e) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void playSounds(List<SoundEvent> soundEvent) {
+    public void playSounds(final List<SoundEvent> soundEvent) {
         soundEvent.forEach(ev -> {
             switch (ev) {
                 case DEATH:

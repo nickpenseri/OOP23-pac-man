@@ -36,5 +36,9 @@ public interface Model {
      */
     boolean isSceneOver();
 
+    /**
+     * adds all the events that generate sounds.
+     * @return a list of a  sounds-events
+     */
     List<SoundEvent> getEvents();
 }

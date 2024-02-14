@@ -26,5 +26,9 @@ public interface GameView {
      */
     List<Command> getListCommands();
 
+    /**
+     * based on the event it creates the sound.
+     * @param soundEvent the type of sound passed.
+     */
     void playSounds(List<SoundEvent> soundEvent);
 }

@@ -290,6 +290,9 @@ public class GameScene implements Model {
     public boolean isSceneOver() {
         return pacman.getRemainingLives() <= 0;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<SoundEvent> getEvents() {
         final List<SoundEvent> copy = new ArrayList<>(this.soundEvent);
