@@ -85,7 +85,7 @@ public class GameScene implements Model {
 
         sceneBuilder = new SceneBuilderImpl(width, height, map.getMap().length, map.getMap()[0].length);
         gameObjectFactory = new GameObjectFactoryImpl(sceneBuilder);
-        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
+        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory, sceneBuilder.offsetX());
         this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
                 3,
                 mapBuilder.getWallsPath());
@@ -193,7 +193,7 @@ public class GameScene implements Model {
     private void initializeMap() {
         map = new MapReaderImpl(mapChooser.getMapName());
         // Creo il mapBuilder con la mappa che ha letto il mapReader
-        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
+        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory, sceneBuilder.offsetX());
         final List<GameObject> walls = mapBuilder.getWallsPath();
         gameObjects.clear();
         this.gameObjects.add(walls);

@@ -154,7 +154,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     }
 
     private Point traslatePosition(final Point position) {
-        return new Point((int) (position.getX() + offsetX), (int) (position.getY()));
+        return new Point((int) (position.getX()), (int) (position.getY()));
     }
 
 }

@@ -41,7 +41,7 @@ class TestMapBuilder {
     /** initialize mapbuilder. */
     @BeforeEach
     void setUp() {
-        mapBuilder = new MapBuilderImpl(SAMPLE_MAP, new GameObjectFactoryImpl(10, 10, 2, 2));
+        mapBuilder = new MapBuilderImpl(SAMPLE_MAP, new GameObjectFactoryImpl(10, 10, 2, 2),  0);
         this.dimension = new GameObjectFactoryImpl(10, 10, 2, 2).getStandardDimension();
     }
 

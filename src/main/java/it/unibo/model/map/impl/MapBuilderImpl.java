@@ -24,6 +24,7 @@ public class MapBuilderImpl implements MapBuilder {
     private final List<GameObject> spawnWalls;
     private final List<GameObject> paintMap;
     private final GameObjectImpl[][] objectsMap;
+    private final int offsetX;
 
     /**
      * constructor that given the map reads it and saves the coordinates in the
@@ -32,8 +33,9 @@ public class MapBuilderImpl implements MapBuilder {
      * @param map         the game map.
      * @param gameFactory factory for creating game object based on window size and
      *                    map size.
+     * @param offsetX     value to line up the coordinates with the centered map.
      */
-    public MapBuilderImpl(final int[][] map, final GameObjectFactory gameFactory) {
+    public MapBuilderImpl(final int[][] map, final GameObjectFactory gameFactory, final int offsetX) {
         this.paintMap = new ArrayList<>();
         this.spawnPacMan = new Point();
         this.spawnGhosts = new ArrayList<>();
@@ -41,6 +43,7 @@ public class MapBuilderImpl implements MapBuilder {
         this.spawnWalls = new ArrayList<>();
         this.objectsMap = new GameObjectImpl[map.length][map[0].length];
         final var dimension = gameFactory.getStandardDimension();
+        this.offsetX = offsetX;
         for (final var x : range(0, map.length - 1)) {
             for (final var y : range(0, map[x].length - 1)) {
                 final int ris = map[x][y];
@@ -174,7 +177,7 @@ public class MapBuilderImpl implements MapBuilder {
     }
 
     private int getCordinateY(final Dimension dimension, final int y) {
-        return y * dimension.height;
+        return y * dimension.height + this.offsetX;
     }
 
     private int getCordinateX(final Dimension dimension, final int x) {

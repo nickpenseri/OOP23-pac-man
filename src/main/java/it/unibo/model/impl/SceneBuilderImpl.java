@@ -67,7 +67,7 @@ public class SceneBuilderImpl implements SceneBuilder {
      * {@inheritDoc}
      */
     @Override
-    public double offsetX() {
-        return (gameWorldDimension.getWidth() - mapDimension.getWidth()) / 2;
+    public int offsetX() {
+        return (int) (gameWorldDimension.getWidth() - mapDimension.getWidth()) / 2;
     }
 }
