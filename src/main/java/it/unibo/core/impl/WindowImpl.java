@@ -20,9 +20,8 @@ public class WindowImpl implements Window {
 
     private final Logger log = LoggerFactory.getLogger(WindowImpl.class);
     private final JFrame frame;
-
+    private View actualPanel;
     private final Dimension dimension;
-    private View gameViewPanel;
 
     /**
      * Constructor of a window.
@@ -32,7 +31,7 @@ public class WindowImpl implements Window {
      * @param weight        the weight of the window
      * @param height        the height of the window
      */
-    public WindowImpl(final View gameViewPanel, final String gameName, final int weight,
+    public WindowImpl(final String gameName, final int weight,
             final int height) {
 
         if (weight <= 0 || height <= 0) {
@@ -43,8 +42,6 @@ public class WindowImpl implements Window {
         frame.setSize(weight, height);
         frame.setMinimumSize(new Dimension(weight, height));
         frame.setResizable(false);
-        this.gameViewPanel = gameViewPanel;
-        frame.add((Component) this.gameViewPanel);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -81,14 +78,14 @@ public class WindowImpl implements Window {
     @Override
     public void setPanelScene(final View scenePanel) {
 
-        if (!Objects.isNull(this.gameViewPanel)) {
-            frame.getContentPane().remove((Component) this.gameViewPanel);
+        if (!Objects.isNull(scenePanel)) {
+            frame.getContentPane().removeAll();
+            this.actualPanel = scenePanel;
+            frame.getContentPane().add((Component) this.actualPanel);
+            frame.pack();
+            frame.validate();
         }
-
-        this.gameViewPanel = scenePanel;
-        frame.getContentPane().add((Component) gameViewPanel);
-        frame.pack();
-        frame.validate();
+       
     }
 
     /**
@@ -104,8 +101,8 @@ public class WindowImpl implements Window {
      */
     @Override
     public Dimension getGamePanelDimension() {
-        final int width = (int) this.gameViewPanel.getDimension().getWidth();
-        final int height = (int) this.gameViewPanel.getDimension().getHeight();
+        final int width = (int) this.actualPanel.getDimension().getWidth();
+        final int height = (int) this.actualPanel.getDimension().getHeight();
         return new Dimension(width, height);
     }
 
