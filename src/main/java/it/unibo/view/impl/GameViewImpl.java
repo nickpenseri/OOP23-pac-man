@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
-import it.unibo.model.ui.GameObjectText;
+import it.unibo.model.ui.api.GameObjectText;
 import it.unibo.view.api.GameView;
 
 /** View of the actual Game. */

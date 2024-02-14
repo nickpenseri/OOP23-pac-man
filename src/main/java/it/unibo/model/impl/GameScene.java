@@ -39,8 +39,8 @@ import it.unibo.model.physics.collisions.impl.CollisionCheckerFactoryImpl;
 import it.unibo.model.pacman.api.GamePacMan;
 import it.unibo.model.pickable.api.EffectPickable;
 import it.unibo.model.pickable.api.PickableGenerator;
-import it.unibo.model.ui.GameObjectLife;
-import it.unibo.model.ui.GameObjectText;
+import it.unibo.model.ui.impl.GameObjectLife;
+import it.unibo.model.ui.impl.GameObjectTextImpl;
 
 /** Basic Implementation of a model of a scene. */
 public class GameScene implements Model {
@@ -128,9 +128,9 @@ public class GameScene implements Model {
             ui.add(new GameObjectLife(
                     new Point((int) (panelDimension.getWidth() - (dimension.getWidth() * (i + 2))), y), dimension));
         }
-        ui.add(new GameObjectText(new Point((int) dimension.getWidth(), y), dimension, "Score: " + points));
+        ui.add(new GameObjectTextImpl(new Point((int) dimension.getWidth(), y), dimension, "Score: " + points));
         if (effectText != null) {
-            ui.add(new GameObjectText(new Point((int) (dimension.getWidth() + (panelDimension.getWidth() / 4)), y),
+            ui.add(new GameObjectTextImpl(new Point((int) (dimension.getWidth() + (panelDimension.getWidth() / 4)), y),
                     dimension,
                     effectText.orElse("")));
         }
