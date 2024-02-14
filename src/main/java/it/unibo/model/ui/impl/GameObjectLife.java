@@ -1,4 +1,4 @@
-package it.unibo.model.ui;
+package it.unibo.model.ui.impl;
 
 import java.awt.Dimension;
 import java.awt.Point;

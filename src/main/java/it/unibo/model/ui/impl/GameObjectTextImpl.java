@@ -1,19 +1,19 @@
-package it.unibo.model.ui;
+package it.unibo.model.ui.impl;
 
 import java.awt.Point;
 import java.awt.geom.Dimension2D;
 import java.awt.Dimension;
 import java.net.URL;
 
-import it.unibo.model.api.GameObject;
+import it.unibo.model.ui.api.GameObjectText;
 
 /**
  * This class implements the GameObject interface and represents the text of the
  * game.
  */
-public class GameObjectText implements GameObject {
+public class GameObjectTextImpl implements GameObjectText {
     private final Point position;
-    private final URL imageUrl = GameObjectText.class.getResource("/image/map/flor/Flor.png");
+    private final URL imageUrl = GameObjectTextImpl.class.getResource("/image/map/flor/Flor.png");
     private final Dimension dimension;
     private String text;
 
@@ -24,7 +24,7 @@ public class GameObjectText implements GameObject {
      * @param dimension the dimension of the text.
      * @param text      the text of the game.
      */
-    public GameObjectText(final Point position, final Dimension dimension, final String text) {
+    public GameObjectTextImpl(final Point position, final Dimension dimension, final String text) {
         this.position = new Point(position);
         this.dimension = new Dimension(dimension);
         this.text = text;
@@ -35,6 +35,7 @@ public class GameObjectText implements GameObject {
      * 
      * @return the text of the game.
      */
+    @Override
     public String getText() {
         return text;
     }
@@ -44,6 +45,7 @@ public class GameObjectText implements GameObject {
      * 
      * @param text the text of the game.
      */
+    @Override
     public void setText(final String text) {
         this.text = text;
     }
