@@ -14,6 +14,7 @@ import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.GameView;
 import it.unibo.view.api.View;
 import it.unibo.view.impl.GamePanel;
+import it.unibo.view.impl.MenuView;
 
 /**
  * The class is the implementation of the SceneManager Interface.
@@ -72,7 +73,7 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
     }
 
     private Controller selectScene() {
-        final View gameView;
+        final GameView gameView;
         final Model gameScene;
         final Dimension gamedim;
         switch (actualSceneIndex) {
@@ -80,10 +81,11 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
             case 0:
                 this.actualSceneIndex = 1;
                 gameView = new GamePanel();
+                var menuView = new MenuView();
                 window.setPanelScene(gameView);
                 gamedim = this.window.getGamePanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-                return new ControllerImpl(this, gameScene, (GameView) gameView);
+                return new ControllerImpl(this, gameScene, gameView);
 
             case 1:
                 this.actualSceneIndex = 2;
@@ -91,7 +93,7 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
                 window.setPanelScene(gameView);
                 gamedim = this.window.getGamePanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-                return new ControllerImpl(this, gameScene, (GameView) gameView);
+                return new ControllerImpl(this, gameScene, gameView);
 
             case 2:
                 this.actualSceneIndex = 0;
@@ -99,7 +101,7 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
                 window.setPanelScene(gameView);
                 gamedim = this.window.getGamePanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-                return new ControllerImpl(this, gameScene, (GameView) gameView);
+                return new ControllerImpl(this, gameScene, gameView);
 
             default:
                 return null;

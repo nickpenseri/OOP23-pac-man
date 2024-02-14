@@ -10,7 +10,7 @@ import it.unibo.model.api.GameObject;
  * Once obtained, update the graphics and pass the command to the controller on
  * request.
  */
-public interface GameView {
+public interface GameView extends View{
     /**
      * Update the view with the new gameObjects.
      * 
