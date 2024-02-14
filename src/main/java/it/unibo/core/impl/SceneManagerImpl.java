@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
+import it.unibo.core.api.SceneManager;
+import it.unibo.core.api.SceneMediator;
 import it.unibo.core.api.Window;
 import it.unibo.model.api.Model;
 import it.unibo.model.impl.GameScene;
@@ -11,7 +13,7 @@ import it.unibo.view.api.GameView;
 import it.unibo.view.api.View;
 import it.unibo.view.impl.GamePanel;
 
-public class SceneManagerImpl {
+public class SceneManagerImpl implements SceneManager, SceneMediator {
     
     private final Window window;
     private final Controller controller;
@@ -30,5 +32,12 @@ public class SceneManagerImpl {
 
     public Controller getController() {
         return this.controller;
+    }
+
+
+
+    @Override
+    public void sceneFinished() {
+
     }
 }
