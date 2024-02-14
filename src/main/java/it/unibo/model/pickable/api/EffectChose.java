@@ -21,10 +21,6 @@ public enum EffectChose {
      */
     FEAR_GHOST,
     /**
-     * Effect of MalusLife.
-     */
-    MALUS_LIFE,
-    /**
      * Effect of MalusPoints.
      */
     MALUS_POINTS,
@@ -35,5 +31,9 @@ public enum EffectChose {
     /**
      * Effect of MalusSpeedGhost.
      */
-    MALUS_SPEED_GHOST;
+    MALUS_SPEED_GHOST,
+    /**
+     * Effect of MalusLife.
+     */
+    MALUS_LIFE;
 }

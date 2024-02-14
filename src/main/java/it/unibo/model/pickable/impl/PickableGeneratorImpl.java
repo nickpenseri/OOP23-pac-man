@@ -31,12 +31,18 @@ public class PickableGeneratorImpl implements PickableGenerator {
      */
     @Override
     public void generateMap(final List<Point> pickableSpawnPoints, final Dimension dimension) {
+        boolean malusLifeTake = false;
         for (final Point point : pickableSpawnPoints) {
             final double doubleRandomNumberForTypeOfPickable = Math.random() * PERCENTAGE;
             // convert double to integer
             final int randomNumberForTypeOfPickable = (int) doubleRandomNumberForTypeOfPickable;
             if (randomNumberForTypeOfPickable >= PERCENTAGE_NORMAL_PICKABLE) {
-                final double doubleRandomNumberForEffectChose = Math.random() * NUMBER_OF_ALL_EFFECT;
+                final double doubleRandomNumberForEffectChose;
+                if (malusLifeTake) {
+                    doubleRandomNumberForEffectChose = Math.random() * NUMBER_OF_ALL_EFFECT - 1;
+                } else {
+                    doubleRandomNumberForEffectChose = Math.random() * NUMBER_OF_ALL_EFFECT;
+                }
                 // convert double to integer and then into EffectChose
                 final EffectChose effect = EffectChose.values()[(int) doubleRandomNumberForEffectChose];
                 switch (effect) {
@@ -54,6 +60,7 @@ public class PickableGeneratorImpl implements PickableGenerator {
                         break;
                     case MALUS_LIFE:
                         pickableMap.put(point, new MalusLife(point, dimension));
+                        malusLifeTake = true;
                         break;
                     case MALUS_POINTS:
                         pickableMap.put(point, new MalusPoints(point, dimension));
