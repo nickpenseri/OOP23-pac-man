@@ -1,5 +1,7 @@
 package it.unibo.core.api;
 
+import it.unibo.controller.api.Controller;
+
 public interface SceneManager {
 
     /**
@@ -8,4 +10,8 @@ public interface SceneManager {
      * @return the controller of the game
      */
     Controller getController();
+
+
+    boolean sceneIsChanged();
 }
+

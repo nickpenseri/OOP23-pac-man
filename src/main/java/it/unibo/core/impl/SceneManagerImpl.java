@@ -1,5 +1,7 @@
 package it.unibo.core.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import it.unibo.controller.api.Controller;
@@ -16,16 +18,32 @@ import it.unibo.view.impl.GamePanel;
 public class SceneManagerImpl implements SceneManager, SceneMediator {
     
     private final Window window;
-    private final Controller controller;
+    private Controller controller;
+
+    private final List<Controller> scene;
+    
+    private int actualSceneIndex;
+    private boolean sceneChanged;
 
     public SceneManagerImpl(final Window window) {
         this.window = Objects.requireNonNull(window);
         final View gameView = new GamePanel();
-        window.setPanelScene(gameView);
+        
+        this.scene = new ArrayList<>();
+        this.actualSceneIndex = 0;
 
-        final var gamedim = this.window.getGamePanelDimension();
-        final Model gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-        this.controller = new ControllerImpl(gameScene, (GameView) gameView);
+        window.setPanelScene(gameView);
+        var gamedim = this.window.getGamePanelDimension();
+        Model gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
+        var controller = new ControllerImpl(this, gameScene, (GameView) gameView);
+        this.scene.add(controller);
+
+        gamedim = this.window.getGamePanelDimension();
+        gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
+        controller = new ControllerImpl(this, gameScene, (GameView) gameView);
+        this.scene.add(controller);
+
+        this.controller = this.scene.get(this.actualSceneIndex);
     }
 
 
@@ -38,6 +56,21 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
 
     @Override
     public void sceneFinished() {
+        this.controller = this.scene.get(++this.actualSceneIndex);
+        this.sceneChanged = true;
 
     }
+
+
+
+    @Override
+    public boolean sceneIsChanged() {
+        if (this.sceneChanged) {
+            this.sceneChanged = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

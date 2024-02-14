@@ -18,7 +18,7 @@ public class EngineImpl implements Engine {
     private final Logger log = LoggerFactory.getLogger(EngineImpl.class);
     private static final long PERIOD = 20; /* 20 ms = 50 frame for second */
     private final Window window;
-    private final Controller controller;
+    private Controller controller;
     private final SceneManager sceneManager;
     private static final int PROPORTION = 2;
 
@@ -67,6 +67,9 @@ public class EngineImpl implements Engine {
 
     private void updateGame(final int elapsed) {
         controller.updateState(elapsed);
+        if (sceneManager.sceneIsChanged()){
+            this.controller = sceneManager.getController();
+        }
     }
 
     private void render() {
