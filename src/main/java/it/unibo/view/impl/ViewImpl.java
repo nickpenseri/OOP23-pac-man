@@ -17,7 +17,9 @@ public abstract class ViewImpl extends JPanel implements View {
      * {@inheritDoc}
      */
     @Override
-    public abstract void paint(Graphics g);
+    public void paint(Graphics g){
+        super.paint(g);
+    }
 
     /**
      * {@inheritDoc}

@@ -6,15 +6,17 @@ import java.util.Objects;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.Controller;
 import it.unibo.controller.impl.ControllerImpl;
+import it.unibo.controller.impl.ControllerMenu;
 import it.unibo.core.api.SceneManager;
 import it.unibo.core.api.SceneMediator;
 import it.unibo.core.api.Window;
 import it.unibo.model.api.Model;
 import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.GameView;
+import it.unibo.view.api.MenuView;
 import it.unibo.view.api.View;
 import it.unibo.view.impl.GamePanel;
-import it.unibo.view.impl.MenuView;
+import it.unibo.view.impl.MenuViewImpl;
 
 /**
  * The class is the implementation of the SceneManager Interface.
@@ -81,11 +83,11 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
             case 0:
                 this.actualSceneIndex = 1;
                 gameView = new GamePanel();
-                var menuView = new MenuView();
-                window.setPanelScene(gameView);
+                MenuView menuView = new MenuViewImpl();
+                window.setPanelScene(menuView);
                 gamedim = this.window.getGamePanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-                return new ControllerImpl(this, gameScene, gameView);
+                return new ControllerMenu(this, menuView);
 
             case 1:
                 this.actualSceneIndex = 2;
