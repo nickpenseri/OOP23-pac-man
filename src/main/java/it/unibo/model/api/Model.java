@@ -2,6 +2,7 @@ package it.unibo.model.api;
 
 import java.util.List;
 
+import it.unibo.core.api.SoundEvent;
 import it.unibo.input.api.Command;
 
 /** Is the container and executor of the GameObjects. */
@@ -34,4 +35,12 @@ public interface Model {
      * @return true if the scene is over
      */
     boolean isSceneOver();
+
+    /**
+     * adds all the events that generate sounds.
+     * 
+     * @return a list of a sounds-events
+     */
+    List<SoundEvent> getEvents();
+
 }

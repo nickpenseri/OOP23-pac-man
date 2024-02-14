@@ -14,6 +14,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.unibo.core.api.SoundEvent;
 import it.unibo.input.api.Command;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
@@ -64,6 +65,8 @@ public class GameScene implements Model {
     private final GameObjectFactory gameObjectFactory;
     private final Random random;
     private final SceneBuilder sceneBuilder;
+    private final List<SoundEvent> soundEvent;
+    private Point lastPacManPos;
 
     /**
      * Constructor of a generic scene.
@@ -76,6 +79,7 @@ public class GameScene implements Model {
         if (width <= 0 || height <= 0) {
             throw new IllegalArgumentException("Width and Height must be positive");
         }
+        this.soundEvent = new ArrayList<>();
         this.gameObjects = new ArrayList<>();
         mapChooser = new MapSelectorImpl();
         map = new MapReaderImpl(mapChooser.getMapName());
@@ -89,6 +93,7 @@ public class GameScene implements Model {
         this.gameObjects.add(new ArrayList<>(List.of(pacman)));
 
         final CollisionCheckerFactory factory = new CollisionCheckerFactoryImpl();
+        this.lastPacManPos = this.pacman.getPosition();
         this.checker = factory.gameObjectChecker();
         this.random = new Random();
         initializeMap();
@@ -181,6 +186,7 @@ public class GameScene implements Model {
         pickUp();
         ghostCollision();
         finishedLevel();
+        this.checkPacManPos();
     }
 
     private void finishedLevel() {
@@ -232,6 +238,7 @@ public class GameScene implements Model {
                 if (pickable instanceof EffectPickable) {
                     effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
                             List.of(ghost, ghost2, ghost3, ghost4));
+                    this.soundEvent.add(SoundEvent.BONUS);
                     resetText();
                 } else {
                     pickableGenerator.takePickable(pickable.getPosition(), pacman,
@@ -262,6 +269,7 @@ public class GameScene implements Model {
             if (checker.areColliding(ghost, pacman)) {
                 if (ghost.getState().equals(GhostState.NORMAL)) {
                     pacman.removeLife();
+                    this.soundEvent.add(SoundEvent.DEATH);
                     pacman.respawn(mapBuilder.getPacManSpawn());
                     for (final var g : ghosts) {
                         g.setPosition(
@@ -285,4 +293,24 @@ public class GameScene implements Model {
     public boolean isSceneOver() {
         return pacman.getRemainingLives() <= 0;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<SoundEvent> getEvents() {
+        final List<SoundEvent> copy = new ArrayList<>(this.soundEvent);
+        this.soundEvent.clear();
+        return copy;
+    }
+
+    private void checkPacManPos() {
+        if (!this.lastPacManPos.equals(this.pacman.getPosition())) {
+            this.soundEvent.add(SoundEvent.PACMAN);
+        } else {
+            this.soundEvent.add(SoundEvent.PACMAN_STOP);
+        }
+        this.lastPacManPos = this.pacman.getPosition();
+    }
+
 }
