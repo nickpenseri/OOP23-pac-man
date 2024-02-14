@@ -85,8 +85,17 @@ public class GameScene implements Model {
         map = new MapReaderImpl(mapChooser.getMapName());
 
         sceneBuilder = new SceneBuilderImpl(width, height, map.getMap().length, map.getMap()[0].length);
+        mapBuilder = new MapBuilderImpl(map.getMap(), sceneBuilder);
+        mapBuilder.getObjectsMap();
+        mapBuilder.getSpawnCollectibleItems();
+        mapBuilder.getPacManSpawn();
+        mapBuilder.getSpawnGhost();
+        mapBuilder.getWallsPath();
+
+
         gameObjectFactory = new GameObjectFactoryImpl(sceneBuilder);
-        mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory);
+
+        
         this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
                 3,
                 mapBuilder.getWallsPath());

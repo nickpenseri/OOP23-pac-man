@@ -32,5 +32,5 @@ public interface SceneBuilder {
     /**
      * @return the offset for the x axis
      */
-    double offsetX();
+    int offsetX();
 }
