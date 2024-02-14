@@ -252,7 +252,6 @@ public class GameScene implements Model {
         final TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                // Do the action to decrease the speed
                 effectText = Optional.empty();
             }
         };
