@@ -1,7 +1,6 @@
 package it.unibo.view.impl;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import javax.swing.JPanel;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,14 +11,6 @@ import it.unibo.view.api.View;
 public abstract class ViewImpl extends JPanel implements View {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void paint(Graphics g){
-        super.paint(g);
-    }
 
     /**
      * {@inheritDoc}

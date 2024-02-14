@@ -6,11 +6,12 @@ import it.unibo.input.api.Command;
 import it.unibo.model.api.GameObject;
 
 /**
- * The GameView interface is used to obtain user commands and model object logic.
+ * The GameView interface is used to obtain user commands and model object
+ * logic.
  * Once obtained, update the graphics and pass the command to the controller on
  * request.
  */
-public interface GameView extends View{
+public interface GameView extends View {
     /**
      * Update the view with the new gameObjects.
      * 

@@ -16,5 +16,7 @@ public final class Pacman {
     public static void main(final String[] args) {
         final Engine engine = new EngineImpl();
         engine.mainLoop();
+
+        System.exit(0);
     }
 }

@@ -14,7 +14,6 @@ import it.unibo.model.api.Model;
 import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.GameView;
 import it.unibo.view.api.MenuView;
-import it.unibo.view.api.View;
 import it.unibo.view.impl.GamePanel;
 import it.unibo.view.impl.MenuViewImpl;
 
@@ -82,12 +81,9 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
 
             case 0:
                 this.actualSceneIndex = 1;
-                MenuView menuView = new MenuViewImpl();
+                final MenuView menuView = new MenuViewImpl();
                 window.setPanelScene(menuView);
-                gamedim = this.window.getGamePanelDimension();
-                gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
                 return new ControllerMenu(this, menuView);
-
             case 1:
                 this.actualSceneIndex = 0;
                 gameView = new GamePanel();
@@ -95,15 +91,8 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
                 gamedim = this.window.getGamePanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
                 return new ControllerImpl(this, gameScene, gameView);
-
             case 2:
-                this.actualSceneIndex = 0;
-                gameView = new GamePanel();
-                window.setPanelScene(gameView);
-                gamedim = this.window.getGamePanelDimension();
-                gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-                return new ControllerImpl(this, gameScene, gameView);
-
+                return null;
             default:
                 return null;
         }
