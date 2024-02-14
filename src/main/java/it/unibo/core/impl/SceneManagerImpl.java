@@ -82,7 +82,6 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
 
             case 0:
                 this.actualSceneIndex = 1;
-                gameView = new GamePanel();
                 MenuView menuView = new MenuViewImpl();
                 window.setPanelScene(menuView);
                 gamedim = this.window.getGamePanelDimension();
@@ -90,7 +89,7 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
                 return new ControllerMenu(this, menuView);
 
             case 1:
-                this.actualSceneIndex = 2;
+                this.actualSceneIndex = 0;
                 gameView = new GamePanel();
                 window.setPanelScene(gameView);
                 gamedim = this.window.getGamePanelDimension();
