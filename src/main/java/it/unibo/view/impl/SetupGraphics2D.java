@@ -28,7 +28,7 @@ public final class SetupGraphics2D {
         g.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
         g.clearRect(0, 0, width, height);
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(255, 223, 0));
         g.fillRect(0, 0, width, height);
 
     }

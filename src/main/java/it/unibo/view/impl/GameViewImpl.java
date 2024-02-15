@@ -126,7 +126,7 @@ public abstract class GameViewImpl extends ViewImpl implements KeyListener, Game
 
             this.gameObjects.stream().forEach(obj -> {
                 if (obj instanceof GameObjectText) {
-                    g2.setColor(Color.WHITE);
+                    g2.setColor(Color.BLACK);
                     g2.setFont(new Font("Arial", Font.PLAIN, (int) ((GameObjectText) obj).getDimension().getHeight()));
                     final GameObjectText text = (GameObjectText) obj;
                     g2.drawString(text.getText(), text.getPosition().x, this.getHeight() - text.getPosition().y);

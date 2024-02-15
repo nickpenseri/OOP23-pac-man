@@ -194,15 +194,15 @@ public class GameScene implements Model {
         map = new MapReaderImpl(mapChooser.getMapName());
         // Creo il mapBuilder con la mappa che ha letto il mapReader
         mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory, sceneBuilder.offsetX());
-        final List<GameObject> walls = mapBuilder.getWallsPath();
+        final List<GameObject> map = mapBuilder.getPaintMap();
         gameObjects.clear();
-        this.gameObjects.add(walls);
+        this.gameObjects.add(map);
 
         pickableGenerator = gameObjectFactory.createPickableGenerator(mapBuilder.getSpawnCollectibleItems());
         final List<GameObject> pickable = new ArrayList<>(pickableGenerator.getPickableList());
         // Prendo la mappa dei pickable dal pickableGenerator
         this.gameObjects.add(pickable);
-        this.pacman.changeMap(walls, mapBuilder.getPacManSpawn());
+        this.pacman.changeMap(mapBuilder.getWallsPath(), mapBuilder.getPacManSpawn());
 
         this.gameObjects.add(new ArrayList<>(List.of(pacman)));
         final var objectsMap = mapBuilder.getObjectsMap();
