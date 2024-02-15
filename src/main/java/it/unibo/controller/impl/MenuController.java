@@ -12,7 +12,7 @@ import it.unibo.view.api.MenuView;
  * It manages the input from the view and talk with the SceneMediator to change
  * the scene.
  */
-public class ControllerMenu implements Controller {
+public class MenuController implements Controller {
 
     private final MenuView view;
     private final SceneMediator sceneMediator;
@@ -23,7 +23,7 @@ public class ControllerMenu implements Controller {
      * @param sceneMediator the sceneMediator that manages the scenes off the game
      * @param view          the view of the gameScene
      */
-    public ControllerMenu(final SceneMediator sceneMediator, final MenuView view) {
+    public MenuController(final SceneMediator sceneMediator, final MenuView view) {
         this.sceneMediator = Objects.requireNonNull(sceneMediator);
         this.view = Objects.requireNonNull(view);
     }
