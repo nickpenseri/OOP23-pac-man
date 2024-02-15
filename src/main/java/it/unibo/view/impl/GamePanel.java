@@ -14,7 +14,7 @@ public class GamePanel extends GameViewImpl {
     private static final long serialVersionUID = 1L;
     private final transient SoundsEffect soundBonus;
     private final transient SoundsEffect soundDeath;
-    private transient PacManSound soundPacMan;
+    private final transient PacManSound soundPacMan;
 
     /** constructor that initializes the sounds. */
     public GamePanel() {
@@ -64,13 +64,10 @@ public class GamePanel extends GameViewImpl {
                     this.soundBonus.playSound();
                     break;
                 case PACMAN:
-                    if (!this.soundPacMan.isChecker()) {
-                        this.soundPacMan = new PacManSound("/sound/pac-man.wav");
-                    }
                     this.soundPacMan.playSound();
                     break;
                 case PACMAN_STOP:
-                    this.soundPacMan.closeAudio();
+                    this.soundPacMan.stopAudio();
                     break;
                 default:
                     break;

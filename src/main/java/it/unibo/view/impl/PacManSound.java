@@ -52,9 +52,9 @@ public class PacManSound implements SoundsEffect {
         });
     }
 
-    /** closes the clip's audio. */
-    public void closeAudio() {
-        this.clip.close();
+    /** stop the clip's audio. */
+    public void stopAudio() {
+        this.clip.stop();
         this.checker = false;
     }
 
