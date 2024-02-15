@@ -10,9 +10,9 @@ public interface Window {
     void render();
 
     /** Set the scene panel to render.
-     * @param scenePanel the scene panel
+     * @param panelScene the scene panel
      */
-    void setPanelScene(View scenePanel);
+    void setScenePanel(View panelScene);
 
     /** Get the dimension of the window.
      * @return the dimension of the window
@@ -22,6 +22,6 @@ public interface Window {
      /** Get the dimension og the game panel.
      * @return the dimension of the window
      */
-    Dimension getGamePanelDimension();
+    Dimension getActualPanelDimension();
 
 }

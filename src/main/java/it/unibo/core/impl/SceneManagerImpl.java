@@ -83,19 +83,19 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
             case 0:
                 this.actualSceneIndex = 1;
                 final MenuView menuView = new MenuViewImpl();
-                window.setPanelScene(menuView);
+                window.setScenePanel(menuView);
                 return new ControllerMenu(this, menuView);
             case 1:
                 this.actualSceneIndex = 2;
                 gameView = new GamePanel();
-                window.setPanelScene(gameView);
-                gamedim = this.window.getGamePanelDimension();
+                window.setScenePanel(gameView);
+                gamedim = this.window.getActualPanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
                 return new ControllerImpl(this, gameScene, gameView);
             case 2:
                 this.actualSceneIndex = 1;
                 final MenuView endGaMenuView = new EndGameViewImpl(this.score);
-                window.setPanelScene(endGaMenuView);
+                window.setScenePanel(endGaMenuView);
                 return new ControllerMenu(this, endGaMenuView);
             default:
                 return null;
