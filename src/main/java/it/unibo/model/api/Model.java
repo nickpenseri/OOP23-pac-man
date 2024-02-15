@@ -16,7 +16,7 @@ public interface Model {
     List<GameObject> getObjects();
 
     /**
-     * Get the list of command imput passed and do it.
+     * Get the list of command input passed and do it.
      * 
      * @param commands the command we need do
      */
