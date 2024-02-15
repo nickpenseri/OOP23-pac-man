@@ -9,6 +9,10 @@ import java.awt.RenderingHints;
  */
 public final class SetupGraphics2D {
 
+    private static final int BLUE = 0;
+    private static final int GREEN = 223;
+    private static final int RED = 255;
+
     /**
      * Private constructor.
      */
@@ -28,7 +32,7 @@ public final class SetupGraphics2D {
         g.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
         g.clearRect(0, 0, width, height);
-        g.setColor(new Color(255, 223, 0));
+        g.setColor(new Color(RED, GREEN, BLUE));
         g.fillRect(0, 0, width, height);
 
     }
