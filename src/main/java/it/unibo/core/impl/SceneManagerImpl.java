@@ -2,6 +2,7 @@ package it.unibo.core.impl;
 
 import java.awt.Dimension;
 import java.util.Objects;
+import java.util.Optional;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.Controller;
@@ -14,6 +15,7 @@ import it.unibo.model.api.Model;
 import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.GameView;
 import it.unibo.view.api.MenuView;
+import it.unibo.view.impl.EndGameViewImpl;
 import it.unibo.view.impl.GamePanel;
 import it.unibo.view.impl.MenuViewImpl;
 
@@ -25,12 +27,14 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
     private Controller controller;
     private int actualSceneIndex;
     private boolean sceneChanged;
+    private int score;
 
     /**
      * Constructor of the SceneManager.
+     * 
      * @param window the window of the game
      */
-     @SuppressFBWarnings(value = {
+    @SuppressFBWarnings(value = {
             "EI_EXPOSE_REP2"
     }, justification = "I need the window reference because i have to change its panel")
     public SceneManagerImpl(final Window window) {
@@ -38,7 +42,6 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
         this.actualSceneIndex = 0;
         this.controller = selectScene();
     }
-
 
     /**
      * @{inheritDoc}
@@ -48,16 +51,14 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
         return this.controller;
     }
 
-
     /**
      * @{inheritDoc}
      */
     @Override
-    public void sceneFinished() {
+    public void sceneFinished(final Optional<Integer> score) {
+        score.ifPresent(s -> this.score = s);
         this.sceneChanged = true;
         this.controller = selectScene();
-
-
     }
 
     /**
@@ -85,14 +86,17 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
                 window.setPanelScene(menuView);
                 return new ControllerMenu(this, menuView);
             case 1:
-                this.actualSceneIndex = 0;
+                this.actualSceneIndex = 2;
                 gameView = new GamePanel();
                 window.setPanelScene(gameView);
                 gamedim = this.window.getGamePanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
                 return new ControllerImpl(this, gameScene, gameView);
             case 2:
-                return null;
+                this.actualSceneIndex = 1;
+                final MenuView endGaMenuView = new EndGameViewImpl(this.score);
+                window.setPanelScene(endGaMenuView);
+                return new ControllerMenu(this, endGaMenuView);
             default:
                 return null;
         }

@@ -1,6 +1,8 @@
 package it.unibo.controller.impl;
 
 import java.util.Objects;
+import java.util.Optional;
+
 import it.unibo.controller.api.Controller;
 import it.unibo.core.api.SceneMediator;
 import it.unibo.model.api.Model;
@@ -40,7 +42,7 @@ public class ControllerImpl implements Controller {
     public void updateState(final long elapsed) {
         model.updateState(elapsed);
         if (model.isSceneOver()) {
-            sceneMediator.sceneFinished();
+            sceneMediator.sceneFinished(Optional.of(model.getGameScore()));
         }
     }
 

@@ -43,4 +43,11 @@ public interface Model {
      */
     List<SoundEvent> getEvents();
 
+    /**
+     * Get the score of the game.
+     * 
+     * @return the score of the game
+     */
+    int getGameScore();
+
 }

@@ -307,4 +307,12 @@ public class GameScene implements Model {
         this.lastPacManPos = this.pacman.getPosition();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getGameScore() {
+        return this.pacman.getPoints();
+    }
+
 }

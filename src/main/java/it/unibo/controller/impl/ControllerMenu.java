@@ -1,6 +1,7 @@
 package it.unibo.controller.impl;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.core.api.SceneMediator;
@@ -35,7 +36,7 @@ public class ControllerMenu implements Controller {
         view.getListCommands().forEach(c -> {
             switch (c) {
                 case START:
-                    sceneMediator.sceneFinished();
+                    sceneMediator.sceneFinished(Optional.empty());
                     break;
                 default:
                     break;
