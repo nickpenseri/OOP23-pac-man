@@ -5,9 +5,9 @@ import it.unibo.core.impl.EngineImpl;
 
 
 /** Main Class for start the game. */
-public final class Pacman {
+public final class Pacman2 {
 
-    private Pacman() { }
+    private Pacman2() { }
 
     /**
      * Main method for start the game.
