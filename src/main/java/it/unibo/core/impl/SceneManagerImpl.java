@@ -11,7 +11,7 @@ import it.unibo.controller.impl.ControllerMenu;
 import it.unibo.core.api.SceneManager;
 import it.unibo.core.api.SceneMediator;
 import it.unibo.core.api.Window;
-import it.unibo.model.api.Model;
+import it.unibo.model.api.GameModel;
 import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.GameView;
 import it.unibo.view.api.MenuView;
@@ -76,7 +76,7 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
 
     private Controller selectScene() {
         final GameView gameView;
-        final Model gameScene;
+        final GameModel gameScene;
         final Dimension gamedim;
         switch (actualSceneIndex) {
 
