@@ -26,7 +26,7 @@ public class CharacterMoverOnGraph implements CharacterMover {
     private final Graph<GameObject, DefaultEdge> graph;
     private final AStarShortestPath<GameObject, DefaultEdge> aStarAlg;
     private final PositionApproximator approximator;
-    private final CharacterMover selectDir;
+    private final CharacterMover characterMover;
     private State state = State.NOT_SELECTED;
     private GameObject selected;
 
@@ -38,14 +38,15 @@ public class CharacterMoverOnGraph implements CharacterMover {
      * Creates a new GraphDirectionSelector.
      * 
      * @param graph the graph of the gameMap
+     * @param characterMover the characterMover to use
      */
     @SuppressFBWarnings(value = {
         "EI_EXPOSE_REP2"
     }, justification = "Don't want to create a new object, don't use other memory and is ok if the graph is modified")
-    public CharacterMoverOnGraph(final Graph<GameObject, DefaultEdge> graph) {
+    public CharacterMoverOnGraph(final Graph<GameObject, DefaultEdge> graph, final CharacterMover characterMover) {
         this.graph = Objects.requireNonNull(graph);
         this.approximator = new PositionApproximatorImpl();
-        selectDir = new EuclideanCharacterMover();
+        this.characterMover = Objects.requireNonNull(characterMover);
         aStarAlg = new AStarShortestPath<>(this.graph, approximator::getDistance);
     }
 
@@ -63,14 +64,14 @@ public class CharacterMoverOnGraph implements CharacterMover {
         if (path.getVertexList().size() >= 2) {
             if (state == State.NOT_SELECTED) {
                 selected = path.getVertexList().get(1);
-                selectDir.moveCharacter(toMove, selected, elapsedTime);
+                characterMover.moveCharacter(toMove, selected, elapsedTime);
                 state = State.SELECTED;
             } else {
                 handleSelectedState(toMove, elapsedTime);
             }
         } else {
             if (state == State.NOT_SELECTED) {
-                selectDir.moveCharacter(toMove, target, elapsedTime);
+                characterMover.moveCharacter(toMove, target, elapsedTime);
             } else {
                 handleSelectedState(toMove, elapsedTime);
             }
@@ -82,13 +83,13 @@ public class CharacterMoverOnGraph implements CharacterMover {
      */
     @Override
     public void reset() {
-        selectDir.reset();
+        characterMover.reset();
         state = State.NOT_SELECTED;
     }
 
     private void handleSelectedState(final Character toMove, final long elapsedTime) {
         if (!approximator.isPositionCloseEnough(toMove, selected, 2.0)) {
-            selectDir.moveCharacter(toMove, selected, elapsedTime);
+            characterMover.moveCharacter(toMove, selected, elapsedTime);
         } else {
             toMove.setPosition(selected.getPosition());
             state = State.NOT_SELECTED;

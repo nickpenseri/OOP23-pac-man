@@ -13,6 +13,7 @@ import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.physics.objectsmover.api.CharacterMover;
 import it.unibo.model.physics.objectsmover.impl.CharacterMoverOnGraph;
+import it.unibo.model.physics.objectsmover.impl.EuclideanCharacterMover;
 
 /**
  * This class models the coordinates of a ghost on a graph.
@@ -37,7 +38,7 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
         if (graph.isEmpty()) {
             throw new IllegalArgumentException("The graph is empty");
         }
-        this.directionSelector = Optional.of(new CharacterMoverOnGraph(graph.get()));
+        this.directionSelector = Optional.of(new CharacterMoverOnGraph(graph.get(), new EuclideanCharacterMover()));
         this.normalTarget = Objects.requireNonNull(normalTarget);
         this.deadTargets = new ArrayList<>(Objects.requireNonNull(deadTargets));
         this.gameVertex = new ArrayList<>(Objects.requireNonNull(graph.get().vertexSet()));
