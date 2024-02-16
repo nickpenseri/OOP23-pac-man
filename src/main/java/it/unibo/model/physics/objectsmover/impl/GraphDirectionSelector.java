@@ -23,6 +23,7 @@ import org.jgrapht.alg.interfaces.ShortestPathAlgorithm.SingleSourcePaths;
 public class GraphDirectionSelector implements DirectionSelector {
 
     private final Graph<GameObject, DefaultEdge> graph;
+    private final AStarShortestPath<GameObject, DefaultEdge> aStarAlg;
     private final PositionApproximator approximator;
     private final DirectionSelector selectDir;
     private State state = State.NOT_SELECTED;
@@ -44,6 +45,7 @@ public class GraphDirectionSelector implements DirectionSelector {
         this.graph = Objects.requireNonNull(graph);
         this.approximator = new PositionApproximatorImpl();
         selectDir = new EuclideanDirectionSelector();
+        aStarAlg = new AStarShortestPath<>(this.graph, approximator::getDistance);
     }
 
     /**
@@ -63,9 +65,6 @@ public class GraphDirectionSelector implements DirectionSelector {
         if (!targetVertex.isPresent()) {
             throw new IllegalArgumentException("The target is not in the graph");
         }
-
-        final AStarShortestPath<GameObject, DefaultEdge> aStarAlg = new AStarShortestPath<>(this.graph,
-                approximator::getDistance);
 
         final SingleSourcePaths<GameObject, DefaultEdge> aPaths = aStarAlg.getPaths(sourceVertex.get());
         final var path = aPaths.getPath(targetVertex.get());
