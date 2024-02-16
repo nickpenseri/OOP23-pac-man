@@ -19,7 +19,7 @@ import it.unibo.input.api.Command;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
-import it.unibo.model.api.Model;
+import it.unibo.model.api.GameModel;
 import it.unibo.model.api.SceneBuilder;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
@@ -44,7 +44,7 @@ import it.unibo.model.ui.impl.GameObjectLife;
 import it.unibo.model.ui.impl.GameObjectTextImpl;
 
 /** Basic Implementation of a model of a scene. */
-public class GameScene implements Model {
+public class GameScene implements GameModel {
 
     private static final int GHOST_DEATH_POINTS = 200;
     private static final int DELAY = 3_000;
@@ -292,7 +292,7 @@ public class GameScene implements Model {
      * {@inheritDoc}
      */
     @Override
-    public List<SoundEvent> getEvents() {
+    public List<SoundEvent> getSoundEvents() {
         final List<SoundEvent> copy = new ArrayList<>(this.soundEvent);
         this.soundEvent.clear();
         return copy;

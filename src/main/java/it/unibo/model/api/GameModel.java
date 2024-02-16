@@ -5,8 +5,8 @@ import java.util.List;
 import it.unibo.core.api.SoundEvent;
 import it.unibo.input.api.Command;
 
-/** Is the container and executor of the GameObjects. */
-public interface Model {
+/** Is the executor of the game scene. */
+public interface GameModel {
 
     /**
      * Get the list of objects in the model.
@@ -16,7 +16,7 @@ public interface Model {
     List<GameObject> getObjects();
 
     /**
-     * Get the list of command input passed and do it.
+     * Get the list of command input passed and execute them.
      * 
      * @param commands the command we need do
      */
@@ -30,7 +30,7 @@ public interface Model {
     void updateState(long elapsed);
 
     /**
-     * Check if the game is over.
+     * Check if the scene is over.
      * 
      * @return true if the scene is over
      */
@@ -39,9 +39,9 @@ public interface Model {
     /**
      * adds all the events that generate sounds.
      * 
-     * @return a list of a sounds-events
+     * @return a list of sounds-events
      */
-    List<SoundEvent> getEvents();
+    List<SoundEvent> getSoundEvents();
 
     /**
      * Get the score of the game.

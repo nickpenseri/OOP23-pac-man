@@ -6,12 +6,12 @@ import java.util.Optional;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.controller.api.Controller;
-import it.unibo.controller.impl.ControllerImpl;
-import it.unibo.controller.impl.ControllerMenu;
+import it.unibo.controller.impl.GameController;
+import it.unibo.controller.impl.MenuController;
 import it.unibo.core.api.SceneManager;
 import it.unibo.core.api.SceneMediator;
 import it.unibo.core.api.Window;
-import it.unibo.model.api.Model;
+import it.unibo.model.api.GameModel;
 import it.unibo.model.impl.GameScene;
 import it.unibo.view.api.GameView;
 import it.unibo.view.api.MenuView;
@@ -76,27 +76,27 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
 
     private Controller selectScene() {
         final GameView gameView;
-        final Model gameScene;
+        final GameModel gameScene;
         final Dimension gamedim;
         switch (actualSceneIndex) {
 
             case 0:
                 this.actualSceneIndex = 1;
                 final MenuView menuView = new MenuViewImpl();
-                window.setPanelScene(menuView);
-                return new ControllerMenu(this, menuView);
+                window.setScenePanel(menuView);
+                return new MenuController(this, menuView);
             case 1:
                 this.actualSceneIndex = 2;
                 gameView = new GamePanel();
-                window.setPanelScene(gameView);
-                gamedim = this.window.getGamePanelDimension();
+                window.setScenePanel(gameView);
+                gamedim = this.window.getActualPanelDimension();
                 gameScene = new GameScene((int) gamedim.getWidth(), (int) gamedim.getHeight());
-                return new ControllerImpl(this, gameScene, gameView);
+                return new GameController(this, gameScene, gameView);
             case 2:
                 this.actualSceneIndex = 1;
                 final MenuView endGaMenuView = new EndGameViewImpl(this.score);
-                window.setPanelScene(endGaMenuView);
-                return new ControllerMenu(this, endGaMenuView);
+                window.setScenePanel(endGaMenuView);
+                return new MenuController(this, endGaMenuView);
             default:
                 return null;
         }

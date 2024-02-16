@@ -49,7 +49,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.Pacman")
+    mainClass.set("it.unibo.Pacman2")
 }
 
 tasks.test {

@@ -74,7 +74,7 @@ public class WindowImpl implements Window {
      * {@inheritDoc}
      */
     @Override
-    public void setPanelScene(final View scenePanel) {
+    public void setScenePanel(final View scenePanel) {
 
         if (!Objects.isNull(scenePanel)) {
             frame.getContentPane().removeAll();
@@ -97,7 +97,7 @@ public class WindowImpl implements Window {
      * {@inheritDoc}
      */
     @Override
-    public Dimension getGamePanelDimension() {
+    public Dimension getActualPanelDimension() {
         final int width = (int) this.actualPanel.getDimension().getWidth();
         final int height = (int) this.actualPanel.getDimension().getHeight();
         return new Dimension(width, height);

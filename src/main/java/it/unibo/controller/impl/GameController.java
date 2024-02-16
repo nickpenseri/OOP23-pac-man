@@ -5,13 +5,13 @@ import java.util.Optional;
 
 import it.unibo.controller.api.Controller;
 import it.unibo.core.api.SceneMediator;
-import it.unibo.model.api.Model;
+import it.unibo.model.api.GameModel;
 import it.unibo.view.api.GameView;
 
 /** The class is the implementation of the Controller Interface. */
-public class ControllerImpl implements Controller {
+public class GameController implements Controller {
 
-    private final Model model;
+    private final GameModel model;
     private final GameView view;
     private final SceneMediator sceneMediator;
 
@@ -21,7 +21,7 @@ public class ControllerImpl implements Controller {
      * @param model the model of the gameScene
      * @param view  the view of the gameScene
      */
-    public ControllerImpl(final SceneMediator sceneMediator, final Model model, final GameView view) {
+    public GameController(final SceneMediator sceneMediator, final GameModel model, final GameView view) {
         this.sceneMediator = Objects.requireNonNull(sceneMediator);
         this.model = Objects.requireNonNull(model);
         this.view = Objects.requireNonNull(view);
@@ -52,7 +52,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void updateView() {
         view.updateView(model.getObjects());
-        view.playSounds(model.getEvents());
+        view.playSounds(model.getSoundEvents());
     }
 
 }
