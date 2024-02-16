@@ -6,7 +6,7 @@ import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostState;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
+import it.unibo.model.physics.objectsmover.api.CharacterMover;
 import it.unibo.model.physics.objectsmover.api.PositionApproximator;
 import it.unibo.model.physics.objectsmover.impl.PositionApproximatorImpl;
 import it.unibo.model.physics.timer.api.Timer;
@@ -19,7 +19,7 @@ import it.unibo.model.physics.timer.impl.TimerImpl;
 public class AggressiveGhost extends FollowingGhostImpl {
 
     private final GameObject deadTargetSelected;
-    private final DirectionSelector directionSelector;
+    private final CharacterMover directionSelector;
     private final PositionApproximator approximator = new PositionApproximatorImpl();
     private final Timer scaredTimer = new TimerImpl(9999);
     private final Timer randomTimer = new ClockTimer(9999);
@@ -30,7 +30,7 @@ public class AggressiveGhost extends FollowingGhostImpl {
      */
     public AggressiveGhost(final Ghost ghost, final GhostCoordinates mapCoordinates) {
         super(ghost, mapCoordinates);
-        this.directionSelector = Objects.requireNonNull(mapCoordinates.getDirectionSelector().get());
+        this.directionSelector = Objects.requireNonNull(mapCoordinates.getCharacterMover().get());
         deadTargetSelected = super.getBehaviour().getDeadTarget();
     }
 
@@ -40,7 +40,7 @@ public class AggressiveGhost extends FollowingGhostImpl {
     @Override
     protected void scaredBehaviour(final long elapsed) {
         randomTimer.reset();
-        this.directionSelector.setDirection(super.getGhost(), super.getBehaviour().getDeadTarget(), elapsed);
+        this.directionSelector.moveCharacter(super.getGhost(), super.getBehaviour().getDeadTarget(), elapsed);
         if (scaredTimer.update(elapsed)) {
             scaredTimer.reset();
             super.setState(GhostState.NORMAL);
@@ -55,7 +55,7 @@ public class AggressiveGhost extends FollowingGhostImpl {
     protected void deadBehaviour(final long elapsed) {
         scaredTimer.reset();
         randomTimer.reset();
-        this.directionSelector.setDirection(super.getGhost(), deadTargetSelected, elapsed);
+        this.directionSelector.moveCharacter(super.getGhost(), deadTargetSelected, elapsed);
         if (approximator.isPositionCloseEnough(this, deadTargetSelected, 4.0)) {
             super.setState(GhostState.NORMAL);
         }
@@ -67,7 +67,7 @@ public class AggressiveGhost extends FollowingGhostImpl {
     @Override
     protected void normalBehaviour(final long elapsed) {
         scaredTimer.reset();
-        this.directionSelector.setDirection(super.getGhost(), super.getBehaviour().getNormalTarget(), elapsed);
+        this.directionSelector.moveCharacter(super.getGhost(), super.getBehaviour().getNormalTarget(), elapsed);
     }
 
     /**

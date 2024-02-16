@@ -3,7 +3,7 @@ package it.unibo.model.ghost.api.ghostbehaviour;
 
 import java.util.Optional;
 import it.unibo.model.api.GameObject;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
+import it.unibo.model.physics.objectsmover.api.CharacterMover;
 
 
 /**
@@ -12,9 +12,9 @@ import it.unibo.model.physics.objectsmover.api.DirectionSelector;
 public interface GhostCoordinates {
 
     /**
-     * @return the direction selector of the ghost
+     * @return the CharacterMover of the ghost
      */
-    Optional<DirectionSelector> getDirectionSelector();
+    Optional<CharacterMover> getCharacterMover();
 
     /**
      * @return the normal target of the ghost

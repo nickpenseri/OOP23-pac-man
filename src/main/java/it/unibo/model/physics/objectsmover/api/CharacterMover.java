@@ -13,7 +13,7 @@ public interface CharacterMover {
      * @param target the object to reach
      * @param elapsedTime the time elapsed since the last update
      */
-    void setDirection(Character toMove, GameObject target, long elapsedTime);
+    void moveCharacter(Character toMove, GameObject target, long elapsedTime);
 
     /**
      * Resets the direction selector.

@@ -11,15 +11,15 @@ import org.jgrapht.graph.DefaultEdge;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
-import it.unibo.model.physics.objectsmover.impl.GraphDirectionSelector;
+import it.unibo.model.physics.objectsmover.api.CharacterMover;
+import it.unibo.model.physics.objectsmover.impl.CharacterMoverOnGraph;
 
 /**
  * This class models the coordinates of a ghost on a graph.
  */
 public class GhostCoordinatesOnGraph implements GhostCoordinates {
 
-    private final Optional<DirectionSelector> directionSelector;
+    private final Optional<CharacterMover> directionSelector;
     private final GameObject normalTarget;
     private final List<GameObject> deadTargets;
     private final List<GameObject> gameVertex;
@@ -37,7 +37,7 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
         if (graph.isEmpty()) {
             throw new IllegalArgumentException("The graph is empty");
         }
-        this.directionSelector = Optional.of(new GraphDirectionSelector(graph.get()));
+        this.directionSelector = Optional.of(new CharacterMoverOnGraph(graph.get()));
         this.normalTarget = Objects.requireNonNull(normalTarget);
         this.deadTargets = new ArrayList<>(Objects.requireNonNull(deadTargets));
         this.gameVertex = new ArrayList<>(Objects.requireNonNull(graph.get().vertexSet()));
@@ -47,7 +47,7 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
      * {@inheritDoc}
      */
     @Override
-    public Optional<DirectionSelector> getDirectionSelector() {
+    public Optional<CharacterMover> getCharacterMover() {
         return this.directionSelector;
     }
 

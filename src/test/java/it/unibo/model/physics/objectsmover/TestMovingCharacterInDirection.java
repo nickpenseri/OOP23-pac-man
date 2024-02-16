@@ -10,14 +10,14 @@ import it.unibo.model.api.GameObject;
 import it.unibo.model.ghost.api.GhostFactory;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
 import it.unibo.model.api.Character;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
-import it.unibo.model.physics.objectsmover.impl.EuclideanDirectionSelector;
+import it.unibo.model.physics.objectsmover.api.CharacterMover;
+import it.unibo.model.physics.objectsmover.impl.EuclideanCharacterMover;
 
 class TestMovingCharacterInDirection {
     private static final int GAME_OBJ_SIZE = 10;
     private static final int INIT_POSITION = 10;
     private static final long ELAPSED = 20;
-    private final DirectionSelector selector = new EuclideanDirectionSelector();
+    private final CharacterMover selector = new EuclideanCharacterMover();
     private final GhostFactory factory = new GhostFactoryImpl(GAME_OBJ_SIZE, GAME_OBJ_SIZE);
 
     @Test
@@ -25,7 +25,7 @@ class TestMovingCharacterInDirection {
         final Character ghost = factory.createBlueGhost(new Point(INIT_POSITION, INIT_POSITION), 1);
         final GameObject target =  factory.createBlueGhost(new Point(INIT_POSITION, INIT_POSITION + 1), 1);
         final int yDiff = ghost.getPosition().y - target.getPosition().y;
-        selector.setDirection(ghost, target, ELAPSED);
+        selector.moveCharacter(ghost, target, ELAPSED);
         ghost.updateState(1000);
         final int yDiffAfter = ghost.getPosition().y - target.getPosition().y;
         assertTrue(Math.abs(yDiffAfter) < Math.abs(yDiff));
@@ -36,7 +36,7 @@ class TestMovingCharacterInDirection {
         final Character ghost = factory.createBlueGhost(new Point(INIT_POSITION, INIT_POSITION), 1);
         final GameObject target =  factory.createBlueGhost(new Point(INIT_POSITION, INIT_POSITION - 1), 1);
         final int yDiff = ghost.getPosition().y - target.getPosition().y;
-        selector.setDirection(ghost, target, ELAPSED);
+        selector.moveCharacter(ghost, target, ELAPSED);
         ghost.updateState(1000);
         final int yDiffAfter = ghost.getPosition().y - target.getPosition().y;
         assertTrue(Math.abs(yDiffAfter) < Math.abs(yDiff));
@@ -47,7 +47,7 @@ class TestMovingCharacterInDirection {
         final Character ghost = factory.createBlueGhost(new Point(INIT_POSITION, INIT_POSITION), 1);
         final GameObject target =  factory.createBlueGhost(new Point(INIT_POSITION + 1, INIT_POSITION), 0);
         final int xDiff = ghost.getPosition().x - target.getPosition().x;
-        selector.setDirection(ghost, target, ELAPSED);
+        selector.moveCharacter(ghost, target, ELAPSED);
         ghost.updateState(1000);
         final int xDiffAfter = ghost.getPosition().x - target.getPosition().x;
         assertTrue(Math.abs(xDiffAfter)  < Math.abs(xDiff));
@@ -58,7 +58,7 @@ class TestMovingCharacterInDirection {
         final Character ghost = factory.createBlueGhost(new Point(INIT_POSITION, INIT_POSITION), 1);
         final GameObject target =  factory.createBlueGhost(new Point(INIT_POSITION - 1, INIT_POSITION), 0);
         final int xDiff = ghost.getPosition().x - target.getPosition().x;
-        selector.setDirection(ghost, target, ELAPSED);
+        selector.moveCharacter(ghost, target, ELAPSED);
         ghost.updateState(1000);
         final int xDiffAfter = ghost.getPosition().x - target.getPosition().x;
         assertTrue(Math.abs(xDiffAfter) < Math.abs(xDiff));
@@ -68,7 +68,7 @@ class TestMovingCharacterInDirection {
     void noMove() {
         final Character ghost = factory.createBlueGhost(new Point(INIT_POSITION, INIT_POSITION), 1);
         final GameObject target =  factory.createBlueGhost(new Point(INIT_POSITION, INIT_POSITION), 1);
-        selector.setDirection(ghost, target, ELAPSED);
+        selector.moveCharacter(ghost, target, ELAPSED);
         ghost.updateState(1000);
         assertEquals(target.getPosition(), ghost.getPosition());
     }

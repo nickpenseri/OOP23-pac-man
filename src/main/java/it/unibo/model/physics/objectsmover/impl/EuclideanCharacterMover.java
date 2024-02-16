@@ -17,7 +17,7 @@ import it.unibo.model.physics.objectsmover.api.PositionApproximator;
      * the longhest distance has always the priority.
      */
     @Override
-    public void setDirection(final Character toMove, final GameObject target, final long elapsedTime) {
+    public void moveCharacter(final Character toMove, final GameObject target, final long elapsedTime) {
         final int diffX = target.getPosition().x - toMove.getPosition().x;
         final int diffY = target.getPosition().y - toMove.getPosition().y;
 
