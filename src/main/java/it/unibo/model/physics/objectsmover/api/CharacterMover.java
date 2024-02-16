@@ -4,9 +4,9 @@ import it.unibo.model.api.GameObject;
 import it.unibo.model.api.Character;
 
 /**
- * This interface models an object that sets the direction of a character to reach a target.
+ * This interface models an object that moves a character to reach a target.
  */
-public interface DirectionSelector {
+public interface CharacterMover {
     /**
      * Sets the direction of a character to move to reach a target.
      * @param toMove the object to move

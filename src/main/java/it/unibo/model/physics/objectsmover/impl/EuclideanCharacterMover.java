@@ -3,13 +3,13 @@ package it.unibo.model.physics.objectsmover.impl;
 import it.unibo.model.api.Character;
 import it.unibo.model.api.Direction;
 import it.unibo.model.api.GameObject;
-import it.unibo.model.physics.objectsmover.api.DirectionSelector;
+import it.unibo.model.physics.objectsmover.api.CharacterMover;
 import it.unibo.model.physics.objectsmover.api.PositionApproximator;
  
  /**
-  * Implementation of the interface DirectionSelector, sets the direction of a character to move to reach a target.
+  * Implementation of the interface CharacterMover, move a character to reach a target.
   */
-  public class EuclideanDirectionSelector implements DirectionSelector {
+  public class EuclideanCharacterMover implements CharacterMover {
 
     private final PositionApproximator approximator = new PositionApproximatorImpl();
     /**
