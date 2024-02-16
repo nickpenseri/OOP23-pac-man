@@ -206,16 +206,18 @@ public class GameScene implements GameModel {
         final Optional<Graph<GameObject, DefaultEdge>> graph = Optional.of(new MapGraphImpl(objectsMap).getGraph());
 
         final List<GhostColor> colors = List.of(GhostColor.RED, GhostColor.BLUE, GhostColor.PINK, GhostColor.ORANGE);
-        final List<GhostBehaviours> behaviours = List.of(GhostBehaviours.AGGRESSIVE, GhostBehaviours.NORMAL, GhostBehaviours.NORMAL, GhostBehaviours.NORMAL);
+        final List<GhostBehaviours> behaviours = List.of(GhostBehaviours.AGGRESSIVE, GhostBehaviours.NORMAL,
+                GhostBehaviours.NORMAL, GhostBehaviours.NORMAL);
 
-        final Random random = new Random();
         ghosts = IntStream.range(0, 4)
-            .mapToObj(i -> {
-                final GhostCoordinates ghostCoord = new GhostCoordinatesOnGraph(graph, pacman, mapBuilder.getSpawnGhost());
-                final int randomSpawnIndex = random.nextInt(mapBuilder.getSpawnGhost().size());
-                return gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(randomSpawnIndex).getPosition(), colors.get(i), ghostCoord, behaviours.get(i));
-            })
-            .collect(Collectors.toList());
+                .mapToObj(i -> {
+                    final GhostCoordinates ghostCoord = new GhostCoordinatesOnGraph(graph, pacman,
+                            mapBuilder.getSpawnGhost());
+                    final int randomSpawnIndex = random.nextInt(mapBuilder.getSpawnGhost().size());
+                    return gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(randomSpawnIndex).getPosition(),
+                            colors.get(i), ghostCoord, behaviours.get(i));
+                })
+                .collect(Collectors.toList());
 
         this.gameObjects.add(new ArrayList<>(ghosts));
         this.gameObjects.add(uiInfo());
