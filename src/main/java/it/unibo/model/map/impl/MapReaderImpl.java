@@ -42,21 +42,21 @@ public class MapReaderImpl implements MapReader {
                             this.map[row][column] = Integer.parseInt(values[column]);
                         }
                     } else {
-                        log.error("il file termina inaspettatamente");
+                        log.error("the file ends unexpectedly");
                         break;
                     }
                 }
             } else {
-                log.error("il file è vuoto");
+                log.error("the file is empty");
             }
 
         } catch (IOException e) {
-            log.error("errore durante la lettura del file" + e.getMessage());
+            log.error("error reading the file" + e.getMessage());
         }
     }
 
     /**
-     * returns the last map read through a protective copy.
+     * {@inheritDoc}
      */
     @Override
     public int[][] getMap() {
