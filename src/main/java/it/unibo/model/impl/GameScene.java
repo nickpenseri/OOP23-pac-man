@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
@@ -21,9 +23,9 @@ import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
 import it.unibo.model.api.GameModel;
 import it.unibo.model.api.SceneBuilder;
+import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostState;
-import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.ghost.impl.ghostbehaviour.GhostCoordinatesOnGraph;
@@ -53,10 +55,7 @@ public class GameScene implements GameModel {
     private final GamePacMan pacman;
     private PickableGenerator pickableGenerator;
     private final CollisionChecker<GameObject> checker;
-    private FollowingGhost ghost;
-    private FollowingGhost ghost2;
-    private FollowingGhost ghost3;
-    private FollowingGhost ghost4;
+    private List<Ghost> ghosts;
     private Optional<String> effectText;
     private MapBuilder mapBuilder;
     private final MapSelector mapChooser;
@@ -108,7 +107,7 @@ public class GameScene implements GameModel {
         gameObjects.get(2).clear();
         gameObjects.get(2).addAll(new ArrayList<>(List.of(pacman)));
         gameObjects.get(3).clear();
-        gameObjects.get(3).addAll(new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4)));
+        gameObjects.get(3).addAll(new ArrayList<>(ghosts));
         gameObjects.get(4).clear();
         gameObjects.get(4).addAll(uiInfo());
         final List<GameObject> gameObjectsFlat = new ArrayList<>();
@@ -174,10 +173,7 @@ public class GameScene implements GameModel {
     @Override
     public void updateState(final long elapsed) {
         pacman.updateState(elapsed);
-        ghost4.updateState(elapsed);
-        ghost3.updateState(elapsed);
-        ghost.updateState(elapsed);
-        ghost2.updateState(elapsed);
+        ghosts.forEach(g -> g.updateState(elapsed));
         pickUp();
         ghostCollision();
         finishedLevel();
@@ -209,20 +205,19 @@ public class GameScene implements GameModel {
 
         final Optional<Graph<GameObject, DefaultEdge>> graph = Optional.of(new MapGraphImpl(objectsMap).getGraph());
 
-        final GhostCoordinates ghostCoord = new GhostCoordinatesOnGraph(graph, pacman, mapBuilder.getSpawnGhost());
-        final GhostCoordinates ghostCoord2 = new GhostCoordinatesOnGraph(graph, pacman, mapBuilder.getSpawnGhost());
-        final GhostCoordinates ghostCoord3 = new GhostCoordinatesOnGraph(graph, pacman, mapBuilder.getSpawnGhost());
-        final GhostCoordinates ghostCoord4 = new GhostCoordinatesOnGraph(graph, pacman, mapBuilder.getSpawnGhost());
+        final List<GhostColor> colors = List.of(GhostColor.RED, GhostColor.BLUE, GhostColor.PINK, GhostColor.ORANGE);
+        final List<GhostBehaviours> behaviours = List.of(GhostBehaviours.AGGRESSIVE, GhostBehaviours.NORMAL, GhostBehaviours.NORMAL, GhostBehaviours.NORMAL);
 
-        ghost = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(0).getPosition(), GhostColor.RED,
-                ghostCoord, GhostBehaviours.AGGRESSIVE);
-        ghost2 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.BLUE,
-                ghostCoord2, GhostBehaviours.NORMAL);
-        ghost3 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(2).getPosition(), GhostColor.PINK,
-                ghostCoord3, GhostBehaviours.NORMAL);
-        ghost4 = gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(1).getPosition(), GhostColor.ORANGE,
-                ghostCoord4, GhostBehaviours.NORMAL);
-        this.gameObjects.add(new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4)));
+        final Random random = new Random();
+        ghosts = IntStream.range(0, 4)
+            .mapToObj(i -> {
+                final GhostCoordinates ghostCoord = new GhostCoordinatesOnGraph(graph, pacman, mapBuilder.getSpawnGhost());
+                final int randomSpawnIndex = random.nextInt(mapBuilder.getSpawnGhost().size());
+                return gameObjectFactory.createGhost(mapBuilder.getSpawnGhost().get(randomSpawnIndex).getPosition(), colors.get(i), ghostCoord, behaviours.get(i));
+            })
+            .collect(Collectors.toList());
+
+        this.gameObjects.add(new ArrayList<>(ghosts));
         this.gameObjects.add(uiInfo());
 
     }
@@ -231,13 +226,11 @@ public class GameScene implements GameModel {
         pickableGenerator.getPickableList().forEach(pickable -> {
             if (checker.areColliding(pickable, pacman)) {
                 if (pickable instanceof EffectPickable) {
-                    effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman,
-                            List.of(ghost, ghost2, ghost3, ghost4));
+                    effectText = pickableGenerator.takePickable(pickable.getPosition(), pacman, ghosts);
                     this.soundEvent.add(SoundEvent.BONUS);
                     resetText();
                 } else {
-                    pickableGenerator.takePickable(pickable.getPosition(), pacman,
-                            List.of(ghost, ghost2, ghost3, ghost4));
+                    pickableGenerator.takePickable(pickable.getPosition(), pacman, ghosts);
                 }
             }
         });
@@ -258,7 +251,6 @@ public class GameScene implements GameModel {
     }
 
     private void ghostCollision() {
-        final List<FollowingGhost> ghosts = new ArrayList<>(List.of(ghost, ghost2, ghost3, ghost4));
         ghosts.forEach(ghost -> {
             if (checker.areColliding(ghost, pacman)) {
                 if (ghost.getState().equals(GhostState.NORMAL)) {

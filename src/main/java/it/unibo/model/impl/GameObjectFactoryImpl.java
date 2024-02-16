@@ -11,7 +11,6 @@ import it.unibo.model.api.SceneBuilder;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
-import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.ghost.impl.GhostFactoryImpl;
@@ -100,7 +99,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createGhost(final Point position, final GhostColor color,
+    public Ghost createGhost(final Point position, final GhostColor color,
             final GhostCoordinates mapCoordinates,
             final GhostBehaviours behaviour) {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;

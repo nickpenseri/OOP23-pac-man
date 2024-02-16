@@ -10,13 +10,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.model.api.Direction;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostState;
-import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 
 /**
  * This class models a ghost that follows a specific behaviour.
  */
-public abstract class FollowingGhostImpl implements FollowingGhost {
+public abstract class FollowingGhostImpl implements Ghost {
 
     private final GhostCoordinates behaviour;
     private final Ghost ghost;

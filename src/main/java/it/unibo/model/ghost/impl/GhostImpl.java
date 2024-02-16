@@ -110,6 +110,14 @@ public class GhostImpl extends CharacterImpl implements Ghost {
         return this.state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetBehaviour() {
+        this.state = GhostState.NORMAL;
+    }
+
     private void computeSpeed() {
         if (super.getDirection().isEmpty()) {
             super.setSpeed(0);

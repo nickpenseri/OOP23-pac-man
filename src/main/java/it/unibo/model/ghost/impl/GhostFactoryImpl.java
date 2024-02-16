@@ -6,7 +6,6 @@ import java.awt.Point;
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
 import it.unibo.model.ghost.api.GhostFactory;
-import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.ghost.impl.ghostbehaviour.AggressiveGhost;
@@ -43,7 +42,7 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createRedGhost(final Point pos, final double initialSpeed,
+    public Ghost createRedGhost(final Point pos, final double initialSpeed,
             final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createRedGhost(pos, initialSpeed);
         return createBehaviourGhost(ghost, mapCoordinates, behaviour);
@@ -62,7 +61,7 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createBlueGhost(final Point pos, final double initialSpeed,
+    public Ghost createBlueGhost(final Point pos, final double initialSpeed,
             final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createBlueGhost(pos, initialSpeed);
         return createBehaviourGhost(ghost, mapCoordinates, behaviour);
@@ -80,7 +79,7 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createPinkGhost(final Point pos, final double initialSpeed,
+    public Ghost createPinkGhost(final Point pos, final double initialSpeed,
             final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createPinkGhost(pos, initialSpeed);
         return createBehaviourGhost(ghost, mapCoordinates, behaviour);
@@ -98,13 +97,13 @@ public class GhostFactoryImpl implements GhostFactory {
      * {@inheritDoc}
      */
     @Override
-    public FollowingGhost createOrangeGhost(final Point pos, final double initialSpeed,
+    public Ghost createOrangeGhost(final Point pos, final double initialSpeed,
             final GhostCoordinates mapCoordinates, final GhostBehaviours behaviour) {
         final Ghost ghost = createOrangeGhost(pos, initialSpeed);
         return createBehaviourGhost(ghost, mapCoordinates, behaviour);
     }
 
-    private FollowingGhost createBehaviourGhost(final Ghost ghost, final GhostCoordinates mapCoordinates,
+    private Ghost createBehaviourGhost(final Ghost ghost, final GhostCoordinates mapCoordinates,
             final GhostBehaviours behaviour) {
         return switch (behaviour) {
             case AGGRESSIVE -> new AggressiveGhost(ghost, mapCoordinates);

@@ -16,7 +16,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 
-
 /**
  * Implementation of the interface DirectionSelector, sets the direction of a
  * character to move to reach a target

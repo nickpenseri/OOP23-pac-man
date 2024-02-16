@@ -1,8 +1,6 @@
 package it.unibo.model.ghost.api;
 
 import java.awt.Point;
-
-import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 /**
@@ -26,7 +24,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createRedGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
+    Ghost createRedGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
 
     /**
      * Create a new blue ghost.
@@ -44,7 +42,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createBlueGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
+    Ghost createBlueGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
 
     /**
      * Create a new pink ghost.
@@ -62,7 +60,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createPinkGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
+    Ghost createPinkGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
 
     /**
      * Create a new orange ghost.
@@ -80,7 +78,7 @@ public interface GhostFactory {
      * @param behaviour the behaviour of the ghost
      * @return the new ghost
      */
-    FollowingGhost createOrangeGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
+    Ghost createOrangeGhost(Point pos, double initialSpeed, GhostCoordinates mapCoordinates, GhostBehaviours behaviour);
 }
 
 

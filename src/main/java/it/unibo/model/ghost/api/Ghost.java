@@ -17,4 +17,9 @@ public interface Ghost extends Character {
      * @return the state of the ghost
      */
     GhostState getState();
+
+    /**
+     * Reset the behaviour of the ghost, it will search for the target again.
+     */
+    void resetBehaviour();
 }

@@ -6,7 +6,6 @@ import java.awt.Point;
 
 import it.unibo.model.ghost.api.Ghost;
 import it.unibo.model.ghost.api.GhostColor;
-import it.unibo.model.ghost.api.ghostbehaviour.FollowingGhost;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostBehaviours;
 import it.unibo.model.ghost.api.ghostbehaviour.GhostCoordinates;
 import it.unibo.model.impl.GameObjectImpl;
@@ -46,7 +45,7 @@ public interface GameObjectFactory {
      * @param behaviour the behaviour of the ghost
      * @return the created ghost
      */
-    FollowingGhost createGhost(Point position,  GhostColor color,  GhostCoordinates coordinates, GhostBehaviours behaviour);
+    Ghost createGhost(Point position,  GhostColor color,  GhostCoordinates coordinates, GhostBehaviours behaviour);
 
 
     /**
