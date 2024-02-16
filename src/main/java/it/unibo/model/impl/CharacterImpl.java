@@ -27,7 +27,8 @@ public abstract class CharacterImpl implements Character {
      * Creates a character, only for subclasses.
      * @param initialPos the initial position of the character
      * @param dimension the dimension of the character
-     * @param initialSpeed teh initial speed of the character
+     * @param initialSpeed the initial speed of the character
+     * @throws NullPointerException if null parameters are passed
      */
     protected CharacterImpl(final Point initialPos, final Dimension dimension, final double initialSpeed) {
         this.position = new Point(Objects.requireNonNull(initialPos));
@@ -51,8 +52,7 @@ public abstract class CharacterImpl implements Character {
     }
 
     /**
-     * Getter for the direction.
-     * @return the actual direction
+     * {@inheritDoc}
      */
     @Override
     public Optional<Direction> getDirection() {

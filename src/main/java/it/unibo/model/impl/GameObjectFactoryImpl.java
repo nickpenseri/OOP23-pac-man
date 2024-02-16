@@ -3,7 +3,6 @@ package it.unibo.model.impl;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import it.unibo.model.api.GameObject;
 import it.unibo.model.api.GameObjectFactory;
@@ -72,7 +71,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
      */
     @Override
     public GameObjectImpl createGameObject(final Point position, final Type type) {
-        return new GameObjectImpl(traslatePosition(position), this.mapImage.getObjectUrl(type), dimension, type);
+        return new GameObjectImpl(position, this.mapImage.getObjectUrl(type), dimension, type);
     }
 
     /**
@@ -83,15 +82,15 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed);
+                return ghostFactory.createRedGhost(position, ghostSpeed);
             case PINK:
-                return ghostFactory.createPinkGhost(traslatePosition(position), ghostSpeed);
+                return ghostFactory.createPinkGhost(position, ghostSpeed);
             case BLUE:
-                return ghostFactory.createBlueGhost(traslatePosition(position), ghostSpeed);
+                return ghostFactory.createBlueGhost(position, ghostSpeed);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(traslatePosition(position), ghostSpeed);
+                return ghostFactory.createOrangeGhost(position, ghostSpeed);
             default:
-                return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed);
+                return ghostFactory.createRedGhost(position, ghostSpeed);
         }
     }
 
@@ -105,16 +104,16 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
         final double ghostSpeed = this.baseSpeed * GHOST_SPEED_MULTIPLIER;
         switch (color) {
             case RED:
-                return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createRedGhost(position, ghostSpeed, mapCoordinates, behaviour);
             case PINK:
-                return ghostFactory.createPinkGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createPinkGhost(position, ghostSpeed, mapCoordinates, behaviour);
             case BLUE:
-                return ghostFactory.createBlueGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createBlueGhost(position, ghostSpeed, mapCoordinates, behaviour);
             case ORANGE:
-                return ghostFactory.createOrangeGhost(traslatePosition(position), ghostSpeed, mapCoordinates,
+                return ghostFactory.createOrangeGhost(position, ghostSpeed, mapCoordinates,
                         behaviour);
             default:
-                return ghostFactory.createRedGhost(traslatePosition(position), ghostSpeed, mapCoordinates, behaviour);
+                return ghostFactory.createRedGhost(position, ghostSpeed, mapCoordinates, behaviour);
         }
     }
 
@@ -128,7 +127,7 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
                 (int) (this.dimension.getHeight() * PACMAN_SIZE_MULTIPLIER));
         return new PacManWalls(
                 new PacManBordered(
-                        new PacManImpl(startingLives, dimension, this.baseSpeed, traslatePosition(position)),
+                        new PacManImpl(startingLives, dimension, this.baseSpeed, position),
                         (int) mapDimension.getHeight(), (int) (mapDimension.getWidth() + offsetX), 0, (int) offsetX),
                 walls);
     }
@@ -147,13 +146,8 @@ public class GameObjectFactoryImpl implements GameObjectFactory {
     @Override
     public PickableGenerator createPickableGenerator(final List<Point> positions) {
         final PickableGenerator pickableGenerator = new PickableGeneratorImpl();
-        final var translatedList = positions.stream().map(this::traslatePosition).collect(Collectors.toList());
-        pickableGenerator.generateMap(translatedList, dimension);
+        pickableGenerator.generateMap(positions, dimension);
         return pickableGenerator;
-    }
-
-    private Point traslatePosition(final Point position) {
-        return new Point((int) (position.getX()), (int) (position.getY()));
     }
 
 }

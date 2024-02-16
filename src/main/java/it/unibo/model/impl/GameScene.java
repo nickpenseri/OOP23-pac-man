@@ -13,8 +13,6 @@ import java.util.stream.IntStream;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import it.unibo.core.api.SoundEvent;
 import it.unibo.input.api.Command;
@@ -50,7 +48,6 @@ public class GameScene implements GameModel {
 
     private static final int GHOST_DEATH_POINTS = 200;
     private static final int DELAY = 3_000;
-    private final Logger log = LoggerFactory.getLogger(GameScene.class);
     private final List<List<GameObject>> gameObjects;
     private final GamePacMan pacman;
     private PickableGenerator pickableGenerator;
@@ -145,7 +142,6 @@ public class GameScene implements GameModel {
     @Override
     public void processInput(final List<Command> commands) {
         if (!commands.isEmpty()) {
-            log.info(commands.toString());
             commands.forEach(c -> {
                 switch (c) {
                     case SET_DIR_UP:

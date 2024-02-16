@@ -38,7 +38,7 @@ public interface Character extends GameObject {
 
     /**
      * Getter for the speed level.
-     * @return the actual speed level of pacman
+     * @return the actual speed level of the character
      */
     int getSpeedLevel();
 
