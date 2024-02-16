@@ -18,7 +18,7 @@ import it.unibo.view.api.SoundsEffect;
 /** class that handles continuous sounds in the game. */
 public class PacManSound implements SoundsEffect {
     private Clip clip;
-    private final Logger logger = LoggerFactory.getLogger(SoundsEffectImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(PacManSound.class);
     private boolean checker;
 
     /**
