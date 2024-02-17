@@ -65,7 +65,7 @@ public class SceneManagerImpl implements SceneManager, SceneMediator {
      * @{inheritDoc}
      */
     @Override
-    public boolean sceneIsChanged() {
+    public boolean isSceneChanged() {
         if (this.sceneChanged) {
             this.sceneChanged = false;
             return true;

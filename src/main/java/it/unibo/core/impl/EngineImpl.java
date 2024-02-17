@@ -67,7 +67,7 @@ public class EngineImpl implements Engine {
 
     private void updateGame(final int elapsed) {
         controller.updateState(elapsed);
-        if (sceneManager.sceneIsChanged()) {
+        if (sceneManager.isSceneChanged()) {
             this.controller = sceneManager.getController();
         }
     }

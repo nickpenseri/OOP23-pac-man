@@ -18,6 +18,6 @@ public interface SceneManager {
      * Check if the scene is changed.
      * @return true if the scene is changed, false otherwise
      */
-    boolean sceneIsChanged();
+    boolean isSceneChanged();
 }
 
