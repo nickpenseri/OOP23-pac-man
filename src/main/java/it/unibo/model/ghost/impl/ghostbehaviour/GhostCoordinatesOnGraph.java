@@ -20,7 +20,7 @@ import it.unibo.model.physics.objectsmover.impl.EuclideanCharacterMover;
  */
 public class GhostCoordinatesOnGraph implements GhostCoordinates {
 
-    private final Optional<CharacterMover> directionSelector;
+    private final CharacterMover directionSelector;
     private final GameObject normalTarget;
     private final List<GameObject> deadTargets;
     private final List<GameObject> gameVertex;
@@ -38,7 +38,7 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
         if (graph.isEmpty()) {
             throw new IllegalArgumentException("The graph is empty");
         }
-        this.directionSelector = Optional.of(new CharacterMoverOnGraph(graph.get(), new EuclideanCharacterMover()));
+        this.directionSelector = new CharacterMoverOnGraph(graph.get(), new EuclideanCharacterMover());
         this.normalTarget = Objects.requireNonNull(normalTarget);
         this.deadTargets = new ArrayList<>(Objects.requireNonNull(deadTargets));
         this.gameVertex = new ArrayList<>(Objects.requireNonNull(graph.get().vertexSet()));
@@ -49,7 +49,7 @@ public class GhostCoordinatesOnGraph implements GhostCoordinates {
      */
     @Override
     public Optional<CharacterMover> getCharacterMover() {
-        return this.directionSelector;
+        return Optional.of(this.directionSelector);
     }
 
     /**
