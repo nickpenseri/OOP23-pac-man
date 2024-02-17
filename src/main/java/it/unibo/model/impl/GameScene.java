@@ -46,6 +46,7 @@ import it.unibo.model.ui.impl.GameObjectTextImpl;
 /** Basic Implementation of a model of a scene. */
 public class GameScene implements GameModel {
 
+    private static final int STARTING_LIVES = 3;
     private static final int GHOST_DEATH_POINTS = 200;
     private static final int DELAY = 3_000;
     private final List<List<GameObject>> gameObjects;
@@ -83,7 +84,7 @@ public class GameScene implements GameModel {
         gameObjectFactory = new GameObjectFactoryImpl(sceneBuilder);
         mapBuilder = new MapBuilderImpl(map.getMap(), gameObjectFactory, sceneBuilder.offsetX());
         this.pacman = gameObjectFactory.createPacMan(mapBuilder.getPacManSpawn(),
-                3,
+                STARTING_LIVES,
                 mapBuilder.getWallsPath());
         this.gameObjects.add(new ArrayList<>(List.of(pacman)));
 
